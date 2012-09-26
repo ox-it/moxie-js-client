@@ -1,6 +1,6 @@
 define(["handlebars", "time_domain"], function(Handlebars, TimeDomain) {
     Handlebars.registerHelper('openingHours', function(string) {
-        if(string === "") {
+        if(!string) {
             return "";
         }
         try {
