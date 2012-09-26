@@ -1,11 +1,12 @@
-define(["jquery","backbone","places/models/POIModel", "places/views/SearchView", "places/collections/POICollection"], function($, Backbone, POI, SearchView, POIs){
+define(["jquery","backbone","places/models/POIModel", "places/views/SearchView", "places/views/DetailView", "places/collections/POICollection"], function($, Backbone, POI, SearchView, DetailView, POIs){
 
     var PlacesRouter = Backbone.Router.extend({
 
         // All of your Backbone Routes (add more)
         routes: {
 
-            "places/search": "search"
+            "places/search": "search",
+            "places/:id": "detail"
 
         },
 
@@ -21,6 +22,14 @@ define(["jquery","backbone","places/models/POIModel", "places/views/SearchView",
 
             // Renders all of the User Model's to the page
             searchView.render();
+        },
+
+        detail: function(id, params) {
+            detailView = new DetailView({
+                model: POI,
+                params: params,
+                poid: id
+            });
         }
 
     });
