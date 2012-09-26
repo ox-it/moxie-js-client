@@ -10,6 +10,7 @@ require.config({
         "backbone": "libs/backbone",
         "handlebars": "libs/handlebars",
         "leaflet": "libs/leaflet",
+        "time_domain": "libs/time_domain",
         "backbone.queryparams": "plugins/backbone.queryparams",
     },
 
@@ -31,6 +32,9 @@ require.config({
         "leaflet": {
             "exports": "L",
         },
+        "time_domain": {
+            "exports": "TimeDomain",
+        },
         "moxie.places.templates": {
             "deps": ["handlebars"],
         },
@@ -39,7 +43,11 @@ require.config({
 
 require(['modernizr','jquery','backbone','places/router','backbone.queryparams', 'moxie.places.templates', 'plugins/moxie.handlebars.helpers'], function(Modernizr, $, Backbone, Router) {
 
-    this.router = new Router();
-    Backbone.history.start()
+    router = new Router();
+    // Extend the View class to include a navigation method goTo
+    Backbone.View.prototype.goTo = function (loc, options) {
+        router.navigate(loc, options);
+    };
+    Backbone.history.start();
 
 });
