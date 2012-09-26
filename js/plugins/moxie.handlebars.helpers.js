@@ -1,9 +1,14 @@
-define(["handlebars"], function(Handlebars) {
+define(["handlebars", "time_domain"], function(Handlebars, TimeDomain) {
     Handlebars.registerHelper('openingHours', function(string) {
         if(string === "") {
-            return ""
+            return "";
         }
-        result = TimeDomain.evaluateInTime(string);
+        try {
+            result = TimeDomain.evaluateInTime(string);
+        } catch (err) {
+            console.log(err);
+            return "";
+        }
         if(result.value === true) {
             return " (open)";
         } else {
