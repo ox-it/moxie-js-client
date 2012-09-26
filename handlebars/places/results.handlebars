@@ -1,6 +1,6 @@
 {{#results}}
 <li data-lon={{ attributes.lon }} data-lat={{ attributes.lat }}>
-<h5>{{ attributes.name }}{{openingHours attributes.opening_hours }}</h5>
+<h5><a href="#/places/{{ attributes.id }}">{{ attributes.name }}</a>{{openingHours attributes.opening_hours }}</h5>
 <p class="metadata">{{ attributes.address }}</p>
 <p class="metadata">{{ attributes.phone }}</p>
 <p class="metadata">{{ attributes.website }}</p>
