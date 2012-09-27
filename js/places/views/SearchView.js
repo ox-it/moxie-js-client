@@ -1,4 +1,4 @@
-define(['jquery', 'backbone', 'underscore', 'handlebars', 'leaflet', 'moxie.conf'], function($, Backbone, _, Handlebars, L, MoxieConf){
+define(['jquery', 'backbone', 'underscore', 'handlebars', 'leaflet', 'moxie.conf', 'places/views/DetailView'], function($, Backbone, _, Handlebars, L, MoxieConf, DetailView){
 
     var SearchView = Backbone.View.extend({
 
@@ -17,7 +17,18 @@ define(['jquery', 'backbone', 'underscore', 'handlebars', 'leaflet', 'moxie.conf
 
         // Event Handlers
         events: {
-            'keypress :input': "searchEvent"
+            'keypress :input': "searchEvent",
+            'click a': "renderPOIDetail"
+        },
+
+        renderPOIDetail: function(ev) {
+            ev.preventDefault();
+            var route = ev.target.hash.substring(1);
+            this.goTo(route);
+            var poid = ev.target.parentNode.parentNode.dataset.poid;
+            var poi = this.collection.get(poid);
+            detailView = new DetailView({poid: poid, poi: poi});
+            return false;
         },
 
         update_map_markers: function(){
@@ -48,7 +59,7 @@ define(['jquery', 'backbone', 'underscore', 'handlebars', 'leaflet', 'moxie.conf
         },
 
         searchEvent: function(ev) {
-            if (ev.which == 13) {
+            if (ev.which) {
                 this.query = ev.target.value;
                 this.search();
             }
