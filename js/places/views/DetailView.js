@@ -3,7 +3,7 @@ define(['jquery', 'backbone', 'underscore', 'handlebars', 'leaflet', 'moxie.conf
 
         initialize: function() {
             _.bindAll(this);
-            console.log(this);
+            this.render();
             var headers;
             if (this.user_position) {
                 headers = {'Geo-Position': this.user_position.join(';')};
@@ -21,13 +21,11 @@ define(['jquery', 'backbone', 'underscore', 'handlebars', 'leaflet', 'moxie.conf
 
         getDetail: function(data) {
             this.poi = new this.model(data);
-            this.render();
+            this.renderPOI();
         },
 
         render: function() {
-            var context = {'poi': this.poi};
-            console.log(context);
-            $("#content").html(Handlebars.templates.detail(context));
+            $("#content").html(Handlebars.templates.base());
             this.map = L.map('map').setView([51.75310, -1.2600], 15);
             L.tileLayer('http://{s}.tile.cloudmade.com/b0a15b443b524d1a9739e92fe9dd8459/997/256/{z}/{x}/{y}.png', {
                 maxZoom: 18,
@@ -35,6 +33,11 @@ define(['jquery', 'backbone', 'underscore', 'handlebars', 'leaflet', 'moxie.conf
                 detectRetina: true
             }).addTo(this.map);
             this.map.attributionControl.setPrefix('');
+        },
+
+        renderPOI: function() {
+            var context = {'poi': this.poi};
+            $("#list-bar").html(Handlebars.templates.detail(context));
             var latlng = new L.LatLng(this.poi.get('lat'), this.poi.get('lon'));
             var marker = new L.marker(latlng, {'title': this.poi.get('name')});
             marker.addTo(this.map);
