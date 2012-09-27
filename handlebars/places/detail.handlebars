@@ -1,15 +1,17 @@
 <div id="map"></div>
 <div id="list-bar">
     <h5>{{ poi.attributes.name }}</h5>
-    <ul>
-        <li>
-            {{ poi.attributes.phone }}
-        </li>
-        <li>
-            {{ poi.attributes.website }}
-        </li>
-        <li>
-            {{ poi.attributes.address }}
-        </li>
-    </ul>
+    <strong>{{ poi.attributes.type }}</strong>
+    {{#if poi.attributes.address }}
+    <p>{{ poi.attributes.address }}</p>
+    {{/if}}
+    {{#if poi.attributes.phone }}
+    <p><a href="tel:{{ poi.attributes.phone }}">{{ poi.attributes.phone }}</a></p>
+    {{/if}}
+    {{#if poi.attributes.website }}
+    <p><a href="{{ poi.attributes.website }}">{{ poi.attributes.website}}</a></p>
+    {{/if}}
+    {{#if poi.attributes.opening_hours }}
+    <p>{{ poi.attributes.opening_hours }}{{openingHours poi.attributes.opening_hours }}</p>
+    {{/if}}
 </div>
