@@ -4,19 +4,22 @@ define(['jquery', 'backbone', 'underscore', 'handlebars', 'leaflet', 'moxie.conf
         initialize: function() {
             _.bindAll(this);
             this.render();
-            var headers;
-            if (this.user_position) {
-                headers = {'Geo-Position': this.user_position.join(';')};
-            }
-            var url = MoxieConf.endpoint+"/places/"+this.options.poid;
-            $.ajax({
-                url: url,
-                dataType: 'json',
-                headers: headers
-            }).success(this.getDetail);
-            this.user_position = null;
-            this.poi = null;
             var wpid = navigator.geolocation.watchPosition(this.handle_geolocation_query, this.geo_error, {maximumAge:60000, timeout:20000});
+            if (this.options.poi) {
+                this.poi = this.options.poi;
+                this.renderPOI();
+            } else {
+                var headers;
+                if (this.user_position) {
+                    headers = {'Geo-Position': this.user_position.join(';')};
+                }
+                var url = MoxieConf.endpoint+"/places/"+this.options.poid;
+                $.ajax({
+                    url: url,
+                    dataType: 'json',
+                    headers: headers
+                }).success(this.getDetail);
+            }
         },
 
         getDetail: function(data) {
@@ -41,6 +44,17 @@ define(['jquery', 'backbone', 'underscore', 'handlebars', 'leaflet', 'moxie.conf
             var latlng = new L.LatLng(this.poi.get('lat'), this.poi.get('lon'));
             var marker = new L.marker(latlng, {'title': this.poi.get('name')});
             marker.addTo(this.map);
+            if (this.poi.has('hasRti')) {
+                var url = MoxieConf.endpoint + this.poi.get('hasRti');
+                $.ajax({
+                    url: url,
+                    dataType: 'json'
+                }).success(this.renderRTI);
+            }
+        },
+
+        renderRTI: function(data) {
+            $('#poi-rti').html(Handlebars.templates.busrti(data));
         },
 
         geo_error: function(error) {
