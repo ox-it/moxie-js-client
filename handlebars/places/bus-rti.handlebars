@@ -1,0 +1,22 @@
+<table>
+{{#messages}}
+<tr>{{ this }}</tr>
+{{/messages}}
+</table>
+
+<table>
+{{#services}}
+<tr>
+    <td rowspan="2" class="service-id">{{ service }}</td>
+    <td>{{ destination }}</td>
+    <td>{{ next }}</td>
+</tr>
+<tr class="notopborder">
+    <td colspan="2"><small>Next:
+    {{#following}}
+    {{ this }}, 
+    {{/following}}
+    </small></td>
+</tr>
+{{/services}}
+</table>
