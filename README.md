@@ -1,19 +1,19 @@
 Moxie JS Client
 ===============
 
-The new version of Mobile Oxford in development.
+Client for a new (in development) version of [Mobile Oxford](http://m.ox.ac.uk).
 
 The Code
 --------
 
-There is a lot of JavaScript in this project. To manage this we're using jrburke/requirejs this allows us to write modular JavaScript following the API defined by AMD.
+There is a lot of JavaScript in this project. To manage this we're using [requre.js](http://requirejs.org/) this allows us to write modular JavaScript following the API defined by AMD.
 
 The Build
 ---------
 
 **CSS:** This project uses SASS. In order to compile to CSS you will need to have installed [zurb-foundation](http://foundation.zurb.com/) and [compass](http://compass-style.org/install/). These can both me installed through `bundle install` provided you have [bundler](http://gembundler.com/) installed. Now you're ready to compile our CSS, just type `compass compile` in the root of the project.
 
-**Templates:** Our JS templates are written using wycats/handlebars.js and need to be precompiled before running Moxie. Install Handlebars `npm install -g handlebars` and compile with the following command:
+**Templates:** Our JS templates are written using [handlebars](http://handlebarsjs.com/) and need to be precompiled before running Moxie. Install Handlebars `npm install -g handlebars` and compile with the following command:
 
     handlebars handlebars/places/ -f js/moxie.places.templates.js
 
