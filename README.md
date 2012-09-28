@@ -6,7 +6,7 @@ Client for a new (in development) version of [Mobile Oxford](http://m.ox.ac.uk).
 The Code
 --------
 
-There is a lot of JavaScript in this project. To manage this we're using [requre.js](http://requirejs.org/) this allows us to write modular JavaScript following the API defined by AMD.
+There is a lot of JavaScript in this project. To manage this we're using [require.js](http://requirejs.org/) this allows us to write modular JavaScript following the API defined by AMD.
 
 The Build
 ---------
