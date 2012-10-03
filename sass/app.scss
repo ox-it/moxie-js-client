@@ -58,20 +58,30 @@ $grayBorder: 1px solid #ccc;
 html, body {height: 100%;}
 body { background: #fafafa;}
 
-ul#navbar {
-	margin: 0;
+// Applicable to both navbar and main content div
+#navbar, #content {
+	overflow: hidden;
+	position: absolute;	
+	left: 0; right: 0;
+	@include outerRow();
+	@include respondTo(smallScreen) {
+		width: auto; min-width: 0; margin-left: 0; margin-right: 0;
+		border: 0;
+	}
+}
+
+#navbar {
+	margin: 0 auto;
 	height: $navbarHeight;
 	line-height: $navbarHeight;
 	color: $white;
 	list-style: none;
-
 	@include background(
 		// Highlighting radial gradient. 
 		// Light top, dark bottom
 		radial-gradient(center, ellipse cover, rgba(0,0,0,0), rgba(0,0,0,0.1)),
 		linear-gradient(top, $navbarDark, $navbarLight)
 	);
-	
 
 	li {
 		// Most of the elements are on the right, so default to floating them right
@@ -90,7 +100,6 @@ ul#navbar {
 			&:active, &:hover {@include box-shadow(0 0 $navbarItemWidth/2 $black inset);}
 			// If the button has been pressed, distinguish between press and hover
 			&:active {background: rgba(0,0,0,0.4);}
-
 		}
 
 		&#home { 
@@ -116,20 +125,13 @@ ul#navbar {
 	}
 }
 
-
 #content {
-	height: 100%;
+	top: $navbarHeight;
+	bottom: 0;
 	background: $white;
 	border-left: $grayBorder;
 	border-right: $grayBorder;
-
-	@include outerRow();
-	@include respondTo(smallScreen) {
-		width: auto; min-width: 0; margin-left: 0; margin-right: 0;
-		border: 0;
-	}
 	
-
 	#list-bar {
 		@include column(4);
 		@include pull(8);
@@ -137,6 +139,7 @@ ul#navbar {
 			right: auto;
 			width: auto !important; float: none;
 		}
+		
 		margin: 0;
 		position: relative;
 		input {
@@ -159,6 +162,7 @@ ul#navbar {
 	}
 
 	#map {
+
 		@include column(8);
 		@include push(4);
 		height: 100%;
