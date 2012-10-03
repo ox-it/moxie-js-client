@@ -132,18 +132,20 @@ body { background: #fafafa;}
 	border-left: $grayBorder;
 	border-right: $grayBorder;
 
-	#list-bar {
+	&> div {
 		height: 100%;
+		@include respondTo(smallScreen) {
+			width: auto !important; float: none;
+		}
+	}
+	#list {
 		position: absolute;
 		overflow: auto;
 		@include column(4);
 		@include pull(8);
 		@include respondTo(smallScreen) {
 			right: auto;
-			width: auto !important; float: none;
 		}
-		
-		margin: 0;
 		
 		input {
 			margin: 6px 0;
@@ -164,23 +166,23 @@ body { background: #fafafa;}
 		}
 	}
 
-	#map {
+	.content-detail {
 		@include column(8);
 		@include push(4);
-		height: 100%;
 		border-top: $grayBorder;
 		border-bottom: $grayBorder;
 		border-left: $grayBorder;
 		@include respondTo(smallScreen) {
 			left: auto;
-			width: auto !important; float: none;
-			height: 140px;
 		}
-        .leaflet-control-zoom {
-            @include respondTo(smallScreen) {
-                display: none;
-            }
-        }
+	}
+	#map {
+		@include respondTo(smallScreen) {
+			height: 140px;
+			.leaflet-control-zoom {
+				display: none;
+			}
+		}
 	}
 }
 
