@@ -17,7 +17,8 @@ The Build
 
 **Templates:** Our JS templates are written using [handlebars](http://handlebarsjs.com/) and need to be precompiled before running Moxie. Install Handlebars `npm install -g handlebars` and compile with the following command:
 
-    handlebars handlebars/places/ -f js/moxie.places.templates.js
+    handlebars handlebars/places/ handlebars -f js/moxie.places.templates.js
+    
 
 **JavaScript:** Minification is handled by UglifyJS by way of r.js. This correctly walks our dependency graph and will only minify files which are used. So install r.js `npm install -g requirejs` and optimise:
 
