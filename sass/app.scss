@@ -131,8 +131,11 @@ body { background: #fafafa;}
 	background: $white;
 	border-left: $grayBorder;
 	border-right: $grayBorder;
-	
+
 	#list-bar {
+		height: 100%;
+		position: absolute;
+		overflow: auto;
 		@include column(4);
 		@include pull(8);
 		@include respondTo(smallScreen) {
@@ -141,7 +144,7 @@ body { background: #fafafa;}
 		}
 		
 		margin: 0;
-		position: relative;
+		
 		input {
 			margin: 6px 0;
 			padding-right: 25px;
@@ -162,7 +165,6 @@ body { background: #fafafa;}
 	}
 
 	#map {
-
 		@include column(8);
 		@include push(4);
 		height: 100%;
