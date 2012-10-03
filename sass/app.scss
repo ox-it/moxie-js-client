@@ -1,6 +1,10 @@
 // You custom settings file to override Foundation defaults
 @import "settings";
 
+$rowWidth: 1024px;
+//$bodyFontFamily: 'PT Sans', sans-serif;
+//$headerFontFamily: 'PT Sans', sans-serif;
+
 // Comment out this import if you are customizing you imports below
 @import "foundation";
 
@@ -195,6 +199,7 @@ h2 { font-size: ms(2);}
 
 .results-list {
 	list-style: none;
+
 	li {
 		background: #fafafa;
 		@include background(
@@ -210,7 +215,8 @@ h2 { font-size: ms(2);}
 
 
 		h3 {
-			font-size: ms(2);
+			
+			font-size: ms(1);
 			font-weight: normal;
 			padding: 0;
 			margin: 0;
