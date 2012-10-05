@@ -49,5 +49,10 @@ require(['modernizr','jquery','backbone','places/router','backbone.queryparams',
         router.navigate(loc, options);
     };
     Backbone.history.start();
+    $('#home a').click(function(ev) {
+        ev.preventDefault();
+        window.history.back();
+        return false;
+    });
 
 });
