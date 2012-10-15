@@ -1,6 +1,10 @@
 // You custom settings file to override Foundation defaults
 @import "settings";
 
+$rowWidth: 1024px;
+//$bodyFontFamily: 'PT Sans', sans-serif;
+//$headerFontFamily: 'PT Sans', sans-serif;
+
 // Comment out this import if you are customizing you imports below
 @import "foundation";
 
@@ -126,24 +130,31 @@ body { background: #fafafa;}
 }
 
 #content {
+	/* Content is a container for two child divs:
+	 - #list which typically contains a scrolling list container
+	 - .content-detail which holds a detail view or a map (#map)
+	*/
+
 	top: $navbarHeight;
 	bottom: 0;
 	background: $white;
 	border-left: $grayBorder;
 	border-right: $grayBorder;
 
-	#list-bar {
+	&> div {
 		height: 100%;
-		position: absolute;
+		@include respondTo(smallScreen) {
+			width: auto !important; float: none;
+		}
+	}
+	#list {
+		
 		overflow: auto;
 		@include column(4);
 		@include pull(8);
 		@include respondTo(smallScreen) {
 			right: auto;
-			width: auto !important; float: none;
 		}
-		
-		margin: 0;
 		
 		input {
 			margin: 6px 0;
@@ -164,31 +175,32 @@ body { background: #fafafa;}
 		}
 	}
 
-	#map {
+	.content-detail {
 		@include column(8);
 		@include push(4);
-		height: 100%;
 		border-top: $grayBorder;
 		border-bottom: $grayBorder;
 		border-left: $grayBorder;
 		@include respondTo(smallScreen) {
 			left: auto;
-			width: auto !important; float: none;
-			height: 140px;
 		}
-        .leaflet-control-zoom {
-            @include respondTo(smallScreen) {
-                display: none;
-            }
-        }
+	}
+	#map {
+		@include respondTo(smallScreen) {
+			height: 140px;
+			width: 100% !important;
+			.leaflet-control-zoom {
+				display: none;
+			}
+		}
 	}
 }
-
 
 h2 { font-size: ms(2);}
 
 .results-list {
 	list-style: none;
+
 	li {
 		background: #fafafa;
 		@include background(
@@ -204,7 +216,8 @@ h2 { font-size: ms(2);}
 
 
 		h3 {
-			font-size: ms(2);
+			
+			font-size: ms(1);
 			font-weight: normal;
 			padding: 0;
 			margin: 0;

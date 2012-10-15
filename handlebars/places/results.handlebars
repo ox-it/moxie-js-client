@@ -1,7 +1,9 @@
 {{#results}}
-<li data-lon="{{ attributes.lon }}" data-lat="{{ attributes.lat }}" data-poid="{{ attributes.id }}">
-<h5><a href="#/places/{{ attributes.id }}">{{ attributes.name }}</a>{{openingHours attributes.opening_hours }}</h5>
-<p class="metadata">{{ attributes.address }}</p>
-<p class="metadata">{{humaniseDistance attributes.distance }} away</p>
-</li>
+	<li data-lon="{{ attributes.lon }}" data-lat="{{ attributes.lat }}" data-poid="{{ attributes.id }}">
+	<h3><a href="#/places/{{ attributes.id }}">{{ attributes.name }}</a>{{openingHours attributes.opening_hours }}</h3>
+	{{#if attributes.address }}
+		<p class="metadata">{{ attributes.address }}</p>
+	{{/if}}
+	<p class="metadata">{{humaniseDistance attributes.distance }} away</p>
+	</li>
 {{/results}}

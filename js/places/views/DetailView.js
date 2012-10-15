@@ -40,10 +40,11 @@ define(['jquery', 'backbone', 'underscore', 'handlebars', 'leaflet', 'moxie.conf
 
         renderPOI: function() {
             var context = {'poi': this.poi};
-            $("#list-bar").html(Handlebars.templates.detail(context));
+            $("#list").html(Handlebars.templates.detail(context));
             var latlng = new L.LatLng(this.poi.get('lat'), this.poi.get('lon'));
             var marker = new L.marker(latlng, {'title': this.poi.get('name')});
             marker.addTo(this.map);
+            console.log(this.poi);
             if (this.poi.has('hasRti')) {
                 var url = MoxieConf.endpoint + this.poi.get('hasRti');
                 $.ajax({
