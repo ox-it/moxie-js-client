@@ -59,6 +59,8 @@ $navbarBorderLight: 1px solid rgba(lighten($navbarDark, 5%),0.7);
 
 $grayBorder: 1px solid #ccc;
 
+$mapHeight: 140px;
+
 html, body {height: 100%;}
 body { background: #fafafa;}
 
@@ -150,10 +152,13 @@ body { background: #fafafa;}
 	#list {
 		
 		overflow: auto;
+		-webkit-overflow-scrolling: touch;
 		@include column(4);
 		@include pull(8);
 		@include respondTo(smallScreen) {
 			right: auto;
+			width: auto !important; float: none;
+			padding-bottom: $mapHeight;
 		}
 		
 		input {
@@ -187,7 +192,7 @@ body { background: #fafafa;}
 	}
 	#map {
 		@include respondTo(smallScreen) {
-			height: 140px;
+			height: $mapHeight;
 			width: 100% !important;
 			.leaflet-control-zoom {
 				display: none;
