@@ -82,6 +82,7 @@ body { background: #fafafa;}
 	line-height: $navbarHeight;
 	color: $white;
 	list-style: none;
+	background: $navbarLight; // Basic background for old devices
 	@include background(
 		// Highlighting radial gradient. 
 		// Light top, dark bottom
