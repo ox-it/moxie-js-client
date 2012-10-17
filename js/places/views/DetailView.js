@@ -13,7 +13,7 @@ define(['jquery', 'backbone', 'underscore', 'handlebars', 'leaflet', 'moxie.conf
                 if (this.user_position) {
                     headers = {'Geo-Position': this.user_position.join(';')};
                 }
-                var url = MoxieConf.endpoint+"/places/"+this.options.poid;
+                var url = MoxieConf.urlFor('places_id') + this.options.poid;
                 $.ajax({
                     url: url,
                     dataType: 'json',
