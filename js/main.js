@@ -38,15 +38,20 @@ require.config({
         "moxie.places.templates": {
             "deps": ["handlebars"],
         },
+		"moxie.today.templates": {
+			"deps": ["handlebars"],
+		}
     }
 });
 
-require(['modernizr','jquery','backbone','places/router','backbone.queryparams', 'moxie.places.templates', 'plugins/moxie.handlebars.helpers'], function(Modernizr, $, Backbone, Router) {
+require(['modernizr','jquery','backbone','places/router', 'today/router', 'backbone.queryparams', 'moxie.places.templates', 'moxie.today.templates', 'plugins/moxie.handlebars.helpers'], function(Modernizr, $, Backbone, PlacesRouter, TodayRouter) {
 
-    router = new Router();
+    placesRouter = new PlacesRouter();
+	todayRouter = new TodayRouter();
+	
     // Extend the View class to include a navigation method goTo
     Backbone.View.prototype.goTo = function (loc, options) {
-        router.navigate(loc, options);
+        placesRouter.navigate(loc, options);	// this should be on Backbone.Router.routes I guess??
     };
     Backbone.history.start();
     $('#home a').click(function(ev) {
