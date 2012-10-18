@@ -9,18 +9,17 @@ define(['jquery', 'backbone', 'underscore', 'handlebars', 'leaflet', 'moxie.conf
                 url: MoxieConf.urlFor('dates'),
                 dataType: 'json'
             }).success(this.renderTodayDate);
-		},
-		
-		render: function() {
-			// render basic view
-            $("#content").html(Handlebars.templates.base());
-			
-		},
-		
-		renderTodayDate: function(data) {
-			$('#list').html(Handlebars.templates.index(data));
-		},
+        },
 
-	});
-	return IndexView;
+        render: function() {
+            // render basic view
+            $("#content").html(Handlebars.templates.base());
+
+        },
+
+        renderTodayDate: function(data) {
+            $('#list').html(Handlebars.templates.index(data));
+        }
+    });
+    return IndexView;
 });

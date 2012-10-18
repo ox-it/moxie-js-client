@@ -6,10 +6,10 @@ define(["jquery","backbone", "today/views/IndexView",], function($, Backbone, In
             "": "index",
         },
 
-		index: function(params) {
-			indexView = new IndexView({params: params});
-			indexView.render();
-		},
+        index: function(params) {
+            indexView = new IndexView({params: params});
+            indexView.render();
+        },
     });
 
     return TodayRouter;
