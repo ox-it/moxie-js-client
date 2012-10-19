@@ -10,4 +10,4 @@ webfonts/*
 js/main-built.js
 
 # Compiled templates
-js/moxie.places.templates.js
+js/moxie.templates.js

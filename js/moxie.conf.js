@@ -1,6 +1,6 @@
 define([], function() {
     var MoxieConf = {
-        endpoint: 'http://api.m.ox.ac.uk',
+        endpoint: 'http://localhost:5000',
         paths: {
             places_search: '/places/search',
             places_id: '/places/',

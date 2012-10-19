@@ -35,16 +35,13 @@ require.config({
         "time_domain": {
             "exports": "TimeDomain",
         },
-        "moxie.places.templates": {
+        "moxie.templates": {
             "deps": ["handlebars"],
         },
-        "moxie.today.templates": {
-            "deps": ["handlebars"],
-        }
     }
 });
 
-require(['modernizr','jquery','backbone','places/router', 'today/router', 'backbone.queryparams', 'moxie.places.templates', 'moxie.today.templates', 'plugins/moxie.handlebars.helpers'], function(Modernizr, $, Backbone, PlacesRouter, TodayRouter) {
+require(['modernizr','jquery','backbone','places/router', 'today/router', 'backbone.queryparams', 'moxie.templates', 'plugins/moxie.handlebars.helpers'], function(Modernizr, $, Backbone, PlacesRouter, TodayRouter) {
 
     placesRouter = new PlacesRouter();
     todayRouter = new TodayRouter();
