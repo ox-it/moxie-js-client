@@ -41,10 +41,11 @@ require.config({
     }
 });
 
-require(['modernizr','jquery','backbone','places/router', 'today/router', 'backbone.queryparams', 'moxie.templates', 'plugins/moxie.handlebars.helpers'], function(Modernizr, $, Backbone, PlacesRouter, TodayRouter) {
+require(['modernizr','jquery','backbone','places/router', 'today/router', 'courses/router', 'backbone.queryparams', 'moxie.templates', 'plugins/moxie.handlebars.helpers'], function(Modernizr, $, Backbone, PlacesRouter, TodayRouter, CoursesRouter) {
 
     placesRouter = new PlacesRouter();
     todayRouter = new TodayRouter();
+    coursesRouter = new CoursesRouter();
 
     // Extend the View class to include a navigation method goTo
     Backbone.View.prototype.goTo = function (loc, options) {
