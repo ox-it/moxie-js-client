@@ -66,167 +66,181 @@ body { background: #fafafa;}
 
 // Applicable to both navbar and main content div
 #navbar, #content {
-	overflow: hidden;
-	position: absolute;	
-	left: 0; right: 0;
-	@include outerRow();
-	@include respondTo(smallScreen) {
-		width: auto; min-width: 0; margin-left: 0; margin-right: 0;
-		border: 0;
-	}
+    overflow: hidden;
+    position: absolute; 
+    left: 0; right: 0;
+    @include outerRow();
+    @include respondTo(smallScreen) {
+        width: auto; min-width: 0; margin-left: 0; margin-right: 0;
+        border: 0;
+    }
 }
 
 #navbar {
-	margin: 0 auto;
-	height: $navbarHeight;
-	line-height: $navbarHeight;
-	color: $white;
-	list-style: none;
-	background: $navbarLight; // Basic background for old devices
-	@include background(
-		// Highlighting radial gradient. 
-		// Light top, dark bottom
-		radial-gradient(center, ellipse cover, rgba(0,0,0,0), rgba(0,0,0,0.1)),
-		linear-gradient(top, $navbarDark, $navbarLight)
-	);
+    margin: 0 auto;
+    height: $navbarHeight;
+    line-height: $navbarHeight;
+    color: $white;
+    list-style: none;
+    background: $navbarLight; // Basic background for old devices
+    @include background(
+        // Highlighting radial gradient. 
+        // Light top, dark bottom
+        radial-gradient(center, ellipse cover, rgba(0,0,0,0), rgba(0,0,0,0.1)),
+        linear-gradient(top, $navbarDark, $navbarLight)
+    );
 
-	li {
-		// Most of the elements are on the right, so default to floating them right
-		float: right;
-		// Set width of each button and center align it 
-		width: $navbarItemWidth;
-		text-align: center;
+    li {
+        // Most of the elements are on the right, so default to floating them right
+        float: right;
+        // Set width of each button and center align it 
+        width: $navbarItemWidth;
+        text-align: center;
 
-		// 3d effect by having a dark and light border on each item
-		border-left: $navbarBorderDark;
-		a {	
-			border-left: $navbarBorderLight;
-			display: block;
-			color: $white;
-			// Feedback for hover/clicked
-			&:active, &:hover {@include box-shadow(0 0 $navbarItemWidth/2 $black inset);}
-			// If the button has been pressed, distinguish between press and hover
-			&:active {background: rgba(0,0,0,0.4);}
-		}
+        // 3d effect by having a dark and light border on each item
+        border-left: $navbarBorderDark;
+        a { 
+            border-left: $navbarBorderLight;
+            display: block;
+            color: $white;
+            // Feedback for hover/clicked
+            &:active, &:hover {@include box-shadow(0 0 $navbarItemWidth/2 $black inset);}
+            // If the button has been pressed, distinguish between press and hover
+            &:active {background: rgba(0,0,0,0.4);}
+        }
 
-		&#home { 
-			float: left;
-			border: 0;
-			border-right: $navbarBorderLight;
-			a { border-right: $navbarBorderDark; }
-		}
-		&#title {
-			float: left;
-			width: auto;
-			border: 0;
-			h1 {
-				// Set line-height to navbarHeight to give vertical alignment
-				line-height: $navbarHeight;
-				font-size: ms(0);
-				// Left spacing equivalent to font-size. 
-				margin: auto 0 auto ms(0);
-				// Pull the text up slightly to align with buttons
-				margin-top: -2px;
-			}
-		}
-	}
+        &#home { 
+            float: left;
+            border: 0;
+            border-right: $navbarBorderLight;
+            a { border-right: $navbarBorderDark; }
+        }
+        &#title {
+            float: left;
+            width: auto;
+            border: 0;
+            h1 {
+                // Set line-height to navbarHeight to give vertical alignment
+                line-height: $navbarHeight;
+                font-size: ms(0);
+                // Left spacing equivalent to font-size. 
+                margin: auto 0 auto ms(0);
+                // Pull the text up slightly to align with buttons
+                margin-top: -2px;
+            }
+        }
+    }
 }
 
 #content {
-	/* Content is a container for two child divs:
-	 - #list which typically contains a scrolling list container
-	 - .content-detail which holds a detail view or a map (#map)
-	*/
+    /* Content is a container for two child divs:
+     - #list which typically contains a scrolling list container
+     - .content-detail which holds a detail view or a map (#map)
+    */
 
-	top: $navbarHeight;
-	bottom: 0;
-	background: $white;
-	border-left: $grayBorder;
-	border-right: $grayBorder;
+    top: $navbarHeight;
+    bottom: 0;
+    background: $white;
+    border-left: $grayBorder;
+    border-right: $grayBorder;
 
-	&> div {
-		height: 100%;
-		@include respondTo(smallScreen) {
-			width: auto !important; float: none;
-		}
-	}
-	#list {
-		
-		overflow: auto;
-		-webkit-overflow-scrolling: touch;
-		@include column(4);
-		@include pull(8);
-		@include respondTo(smallScreen) {
-			right: auto;
-			width: auto !important; float: none;
-			padding-bottom: $mapHeight;
-		}
-		
-		input {
-			margin: 6px 0;
-			padding-right: 25px;
-		}
-		span.deleteicon {
-			display: block;
-			line-height: 9px;
-			position: absolute;
-			right: 20px;
-			top: 15px;
-			padding: 4px 4px 2px 4px;
-			border-radius: 30px;
-			font-size: 9px;
-			color: $white;
-			background: #ccc;
-			cursor: pointer;
-		}
-	}
+    &> div {
+        height: 100%;
+        @include respondTo(smallScreen) {
+            width: auto !important; float: none;
+        }
+    }
+    #list {
+        
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+        @include column(4);
+        @include pull(8);
+        @include respondTo(smallScreen) {
+            right: auto;
+            width: auto !important; float: none;
+            padding-bottom: $mapHeight;
+        }
+        
+        input {
+            margin: 6px 0;
+            padding-right: 25px;
+        }
+        span.deleteicon {
+            display: block;
+            line-height: 9px;
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            padding: 4px 4px 2px 4px;
+            border-radius: 30px;
+            font-size: 9px;
+            color: $white;
+            background: #ccc;
+            cursor: pointer;
+        }
+    }
 
-	.content-detail {
-		@include column(8);
-		@include push(4);
-		border-top: $grayBorder;
-		border-bottom: $grayBorder;
-		border-left: $grayBorder;
-		@include respondTo(smallScreen) {
-			left: auto;
-		}
-	}
-	#map {
-		@include respondTo(smallScreen) {
-			height: $mapHeight;
-			width: 100% !important;
-			.leaflet-control-zoom {
-				display: none;
-			}
-		}
-	}
+    .content-detail {
+        @include column(8);
+        @include push(4);
+        border-top: $grayBorder;
+        border-bottom: $grayBorder;
+        border-left: $grayBorder;
+        @include respondTo(smallScreen) {
+            left: auto;
+        }
+    }
+    #map {
+        @include respondTo(smallScreen) {
+            height: $mapHeight;
+            width: 100% !important;
+            .leaflet-control-zoom {
+                display: none;
+            }
+        }
+    }
 }
 
 h2 { font-size: ms(2);}
 
 .results-list {
-	list-style: none;
+    list-style: none;
 
-	li {
-		background: #fafafa;
-		@include background(
-			// Light top, dark bottom
-			linear-gradient(top, #efefef, #f4f4f4)
-		);
-		@include box-shadow(inset 0 10px 5px rgba(255,255,255,0.4) );
-		// Correct for column margin
-		margin: 0 -15px;
-		padding: 5px;
-		border-top: 2px solid #bbb;
-		border-bottom: 1px solid $white;
+    li {
+        & * {
+            font-family: Helvetica, Verdana, sans-serif;
+            font-size: ms(2)/1.5;
+        }
 
+        
+        $dark: rgba(200,200,200, 0.2);
+        $light: rgba(255,255,255, 0.1);
+        $border-color: rgba(200,200,200, 0.5);
+        &:first-child {
+            border-top: 2px solid $border-color;
+        }
+        border-bottom: 2px solid $border-color;
+        padding: 10px 5px;
+        @include box-shadow(inset 0 0 2px #fff);
+        color: rgba(40, 40, 40, 0.7);
+        text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9);
 
-		h3 {
-			
-			font-size: ms(1);
-			font-weight: normal;
-			padding: 0;
-			margin: 0;
-		}
-	}
+        @include background(
+            url("images/backgrounds/cream_dust.png"),
+            linear-gradient(top, $light, $dark)  
+        );
+        
+        // Correct for column margin
+        margin: 0 -15px;
+        padding: 5px;
+
+        h3 {
+            
+            font-size: ms(1);
+            font-weight: normal;
+            padding: 0;
+            margin: 0;
+        }
+    }
 }
