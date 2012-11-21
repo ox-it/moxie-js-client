@@ -12,6 +12,7 @@ require.config({
         "leaflet": "libs/leaflet",
         "time_domain": "libs/time_domain",
         "backbone.queryparams": "plugins/backbone.queryparams",
+		"backbone.hal": "plugins/backbone.hal",
     },
 
     // Sets the configuration for your third party scripts that are not AMD compatible
