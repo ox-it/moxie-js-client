@@ -11,6 +11,21 @@ define(['jquery', 'backbone', 'underscore', 'handlebars', 'leaflet', 'moxie.conf
             }).success(this.renderSubjectsList);
         },
 
+        // Event Handlers
+        events: {
+            'keypress :input': "searchEvent",
+        },
+		
+		searchEvent: function(ev) {
+            if (ev.which) {
+                this.search(ev.target.value);
+            }
+		},
+		
+		search: function(query) {
+			this.goTo('/courses/' + query);
+		},
+
         render: function() {
             // render basic view
             $("#content").html(Handlebars.templates.base());
