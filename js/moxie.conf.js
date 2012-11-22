@@ -7,6 +7,7 @@ define([], function() {
             dates: '/dates/',
 			courses_search: '/courses/search',
 			courses_subjects: '/courses/subjects',
+			course_id: '/courses/course/',
         },
         urlFor: function(api_method) {
             return this.endpoint + this.paths[api_method];

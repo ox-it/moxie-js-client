@@ -1,0 +1,15 @@
+<strong>{{ subjects }}</strong>
+<h3>{{ title }}</h3>
+<strong>{{ provider }}</strong>
+<p>{{ description }} </p>
+
+<ul>
+{{#presentations}}
+<li>
+	{{#if start }}
+	Starts: {{ start }}
+	{{/if}}
+	<a>Book</a>
+</li>
+{{/presentations}}
+</ul>
