@@ -8,11 +8,15 @@ require.config({
         "jquery": "libs/jquery",
         "underscore": "libs/underscore",
         "backbone": "libs/backbone",
-        "handlebars": "libs/handlebars",
+		"Handlebars": "libs/Handlebars",
+		"handlebars": "libs/Handlebars",
+		"hbs": "libs/hbs",
+		"json2": "libs/json2",
+		"i18nprecompile": "libs/i18nprecompile",
         "leaflet": "libs/leaflet",
         "time_domain": "libs/time_domain",
-        "backbone.queryparams": "plugins/backbone.queryparams",
-		"backbone.hal": "plugins/backbone.hal",
+        "backbone.queryparams": "libs/backbone.queryparams",
+		"backbone.hal": "libs/backbone.hal",
     },
 
     // Sets the configuration for your third party scripts that are not AMD compatible
@@ -27,22 +31,28 @@ require.config({
         "backbone.queryparams": {
             "deps": ["backbone"],
         },
-        "handlebars": {
-            "exports": "Handlebars",
-        },
         "leaflet": {
             "exports": "L",
         },
         "time_domain": {
             "exports": "TimeDomain",
         },
-        "moxie.templates": {
-            "deps": ["handlebars"],
-        },
-    }
+		"handlebars": {
+			"exports": "Handlebars",
+		},
+		"json2": {
+			"exports": "JSON",
+		}
+    },
+	
+	hbs: {
+		templateExtension: 'handlebars',
+		disableI18n: true,
+		partialPath: '/handlebars/'
+	},
 });
 
-require(['modernizr','jquery','backbone','places/router', 'today/router', 'courses/router', 'backbone.queryparams', 'moxie.templates', 'plugins/moxie.handlebars.helpers'],
+require(['modernizr','jquery','backbone','places/router', 'today/router', 'courses/router'],
 	function(Modernizr, $, Backbone, PlacesRouter, TodayRouter, CoursesRouter) {
 
     placesRouter = new PlacesRouter();

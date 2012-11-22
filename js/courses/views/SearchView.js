@@ -1,4 +1,4 @@
-define(['jquery', 'backbone', 'underscore', 'handlebars', 'leaflet', 'moxie.conf'], function($, Backbone, _, Handlebars, L, MoxieConf){
+define(['jquery', 'backbone', 'underscore', 'hbs!handlebars/courses/index', 'leaflet', 'moxie.conf'], function($, Backbone, _, indexTemplate, L, MoxieConf){
     var SearchView = Backbone.View.extend({
 
         initialize: function() {
@@ -28,11 +28,11 @@ define(['jquery', 'backbone', 'underscore', 'handlebars', 'leaflet', 'moxie.conf
 
         render: function() {
             // render basic view
-            $("#content").html(Handlebars.templates.base());
+            //$("#content").html(Handlebars.templates.base());
         },
 
         renderSubjectsList: function(data) {
-            $('#list').html(Handlebars.templates.courses_index(data));
+            $('#list').html(indexTemplate(data));
         }
     });
     return SearchView;
