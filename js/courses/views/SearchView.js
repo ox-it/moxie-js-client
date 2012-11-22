@@ -17,8 +17,6 @@ define(['jquery', 'backbone', 'underscore', 'handlebars', 'leaflet', 'moxie.conf
         },
 
         renderSubjectsList: function(data) {
-			console.log(data['subjects']);
-			console.log(Handlebars.templates.courses_index(data));
             $('#list').html(Handlebars.templates.courses_index(data));
         }
     });
