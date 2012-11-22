@@ -1,4 +1,4 @@
-define(['jquery', 'backbone', 'underscore', 'handlebars', 'leaflet', 'moxie.conf'], function($, Backbone, _, Handlebars, L, MoxieConf){
+define(['jquery', 'backbone', 'underscore', 'hbs!/handlebars/base', 'hbs!/handlebars/today/index', 'leaflet', 'moxie.conf'], function($, Backbone, _, baseTemplate, indexTemplate, L, MoxieConf){
     var IndexView = Backbone.View.extend({
 
         initialize: function() {
@@ -13,12 +13,12 @@ define(['jquery', 'backbone', 'underscore', 'handlebars', 'leaflet', 'moxie.conf
 
         render: function() {
             // render basic view
-            $("#content").html(Handlebars.templates.base());
+            $("#content").html(baseTemplate());
 
         },
 
         renderTodayDate: function(data) {
-            $('#list').html(Handlebars.templates.index(data));
+            $('#list').html(indexTemplate(data));
         }
     });
     return IndexView;

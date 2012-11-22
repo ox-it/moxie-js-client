@@ -1,4 +1,5 @@
-define(['jquery', 'backbone', 'underscore', 'handlebars', 'leaflet', 'moxie.conf', 'places/views/DetailView'], function($, Backbone, _, Handlebars, L, MoxieConf, DetailView){
+define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'places/views/DetailView', 'hbs!/handlebars/places/search', 'hbs!/handlebars/places/results', 'places/helpers'],
+    function($, Backbone, _, L, MoxieConf, DetailView, searchTemplate, resultsTemplate){
 
     var SearchView = Backbone.View.extend({
 
@@ -87,12 +88,12 @@ define(['jquery', 'backbone', 'underscore', 'handlebars', 'leaflet', 'moxie.conf
 
         render_results: function() {
             var context = {'results': this.collection.toArray()};
-            $(".results-list").html(Handlebars.templates.results(context));
+            $(".results-list").html(resultsTemplate(context));
             this.update_map_markers();
         },
 
         render: function() {
-            $("#content").html(Handlebars.templates.search());
+            $("#content").html(searchTemplate());
             this.map = L.map('map').setView([51.75310, -1.2600], 15);
             L.tileLayer('http://{s}.tile.cloudmade.com/b0a15b443b524d1a9739e92fe9dd8459/997/256/{z}/{x}/{y}.png', {
                 maxZoom: 18,

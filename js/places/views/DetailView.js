@@ -1,4 +1,5 @@
-define(['jquery', 'backbone', 'underscore', 'handlebars', 'leaflet', 'moxie.conf'], function($, Backbone, _, Handlebars, L, MoxieConf){
+define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'hbs!/handlebars/base', 'hbs!/handlebars/places/detail', 'hbs!/handlebars/places/busrti', 'places/helpers'],
+    function($, Backbone, _, L, MoxieConf, baseTemplate, detailTemplate, busRTITemplate){
     var DetailView = Backbone.View.extend({
 
         initialize: function() {
@@ -28,7 +29,7 @@ define(['jquery', 'backbone', 'underscore', 'handlebars', 'leaflet', 'moxie.conf
         },
 
         render: function() {
-            $("#content").html(Handlebars.templates.base());
+            $("#content").html(baseTemplate());
             this.map = L.map('map').setView([51.75310, -1.2600], 15);
             L.tileLayer('http://{s}.tile.cloudmade.com/b0a15b443b524d1a9739e92fe9dd8459/997/256/{z}/{x}/{y}.png', {
                 maxZoom: 18,
@@ -40,7 +41,7 @@ define(['jquery', 'backbone', 'underscore', 'handlebars', 'leaflet', 'moxie.conf
 
         renderPOI: function() {
             var context = {'poi': this.poi};
-            $("#list").html(Handlebars.templates.detail(context));
+            $("#list").html(detailTemplate(context));
             var latlng = new L.LatLng(this.poi.get('lat'), this.poi.get('lon'));
             var marker = new L.marker(latlng, {'title': this.poi.get('name')});
             marker.addTo(this.map);
@@ -55,7 +56,7 @@ define(['jquery', 'backbone', 'underscore', 'handlebars', 'leaflet', 'moxie.conf
         },
 
         renderRTI: function(data) {
-            $('#poi-rti').html(Handlebars.templates.busrti(data));
+            $('#poi-rti').html(busRTITemplate(data));
         },
 
         geo_error: function(error) {
