@@ -18,7 +18,6 @@ define(["jquery","backbone","courses/models/CourseModel", "courses/views/SearchV
         },
 		
 		courses: function(query, params) {
-			console.log(query);
 			coursesView = new CoursesView({
 				params: params,
 				query: query,

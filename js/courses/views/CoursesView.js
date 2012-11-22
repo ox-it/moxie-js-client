@@ -4,7 +4,6 @@ define(['jquery', 'backbone', 'underscore', 'handlebars', 'leaflet', 'moxie.conf
 
         initialize: function() {
             _.bindAll(this);
-			console.log(this.options);
             $.ajax({
                 url: MoxieConf.urlFor('courses_search') + "?q=" + this.options.query,
                 dataType: 'json'
