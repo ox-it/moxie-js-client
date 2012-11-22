@@ -1,5 +1,5 @@
-define(["handlebars", "time_domain"], function(Handlebars, TimeDomain) {
-    Handlebars.registerHelper('openingHours', function(string) {
+define('template/helpers/openingHours', ["handlebars"], function(Handlebars) {
+    function openingHours(string) {
         if(!string) {
             return "";
         }
@@ -14,14 +14,20 @@ define(["handlebars", "time_domain"], function(Handlebars, TimeDomain) {
         } else {
             return " (closed)";
         }
-    });
+    }
+    Handlebars.registerHelper('openingHours', openingHours);
+    return openingHours;
+});
 
-    Handlebars.registerHelper('humaniseDistance', function(distance) {
+define('template/helpers/humaniseDistance', ["handlebars", "time_domain"], function(Handlebars, TimeDomain) {
+    function humaniseDistance(distance) {
         distance = parseFloat(distance);
         if(distance >= 1.0) {
             return Math.round(distance*10)/10 + " km";
         } else {
             return Math.round(distance*1000) + " m";
         }
-    });
+    }
+    Handlebars.registerHelper('humaniseDistance', humaniseDistance);
+    return humaniseDistance;
 });
