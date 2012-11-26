@@ -15,10 +15,7 @@ The Build
 
 **Webfonts:** Whilst not a requirement, this project uses [Symbolset's](https://symbolset.com/) 'standard' vector icons which provide smooth scaling and semantic markup. If you wish to use these, please buy a copy and place the `webfonts` folder in the root of the repository. If not, the site will still display, but you will have text displayed instead of icons. 
 
-**Templates:** Our JS templates are written using [handlebars](http://handlebarsjs.com/) and need to be precompiled before running Moxie. Install Handlebars `npm install -g handlebars` and compile with the following command:
-
-    handlebars handlebars/today/ handlebars/places/ handlebars/ -f js/moxie.templates.js
-
+**Templates:** Our JS templates are written using [handlebars](http://handlebarsjs.com/). You have to install Handlebars `npm install -g handlebars` before running the application.
 
 **JavaScript:** Minification is handled by UglifyJS by way of r.js. This correctly walks our dependency graph and will only minify files which are used. So install r.js `npm install -g requirejs` and optimise:
 
