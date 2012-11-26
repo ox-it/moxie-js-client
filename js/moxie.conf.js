@@ -1,10 +1,10 @@
 define([], function() {
     var MoxieConf = {
-        endpoint: 'http://127.0.0.1:5000',
+        endpoint: 'http://api.m.ox.ac.uk',
         paths: {
             places_search: '/places/search',
             places_id: '/places/',
-            dates: '/dates/',
+            dates: '/oxford_dates/',
 			courses_search: '/courses/search',
 			courses_subjects: '/courses/subjects',
 			course_id: '/courses/course/',
