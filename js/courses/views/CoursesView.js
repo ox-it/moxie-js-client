@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'underscore', 'handlebars', 'leaflet', 'moxie.conf'], 
-	function($, Backbone, _, Handlebars, L, MoxieConf){
+define(['jquery', 'backbone', 'underscore', 'hbs!/handlebars/courses/courses', 'leaflet', 'moxie.conf'], 
+	function($, Backbone, _, coursesTemplate, L, MoxieConf){
     var CoursesView = Backbone.View.extend({
 
         initialize: function() {
@@ -12,11 +12,11 @@ define(['jquery', 'backbone', 'underscore', 'handlebars', 'leaflet', 'moxie.conf
 
         render: function() {
             // render basic view
-            $("#content").html(Handlebars.templates.base());
+            //$("#content").html(Handlebars.templates.base());
         },
 
         renderCoursesList: function(data) {
-            $('#list').html(Handlebars.templates.courses_courses(data));
+            $('#list').html(coursesTemplate(data));
         }
     });
     return CoursesView;
