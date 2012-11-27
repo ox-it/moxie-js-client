@@ -4,7 +4,6 @@ define(['jquery', 'backbone', 'underscore', 'hbs!/handlebars/courses/index', 'le
         initialize: function() {
             _.bindAll(this);
             //this.render();
-
             $.ajax({
                 url: MoxieConf.urlFor('courses_subjects'),
                 dataType: 'json'
@@ -32,6 +31,7 @@ define(['jquery', 'backbone', 'underscore', 'hbs!/handlebars/courses/index', 'le
         },
 
         renderSubjectsList: function(data) {
+			console.log(data);
             $('#list').html(indexTemplate(data));
         }
     });

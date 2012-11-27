@@ -19,3 +19,15 @@ The Build
 
     r.js -o js/moxie.build.js
 
+
+Development
+-----------
+
+Avoid Nginx expires / HTTP 304:
+
+	location / {
+    	expires epoch;
+    	add_header Cache-Control no-cache;
+    	if_modified_since off;
+	}
+
