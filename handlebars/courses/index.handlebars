@@ -1,6 +1,8 @@
 <input type="text" placeholder="Courses search" name="q">
 <span class="deleteicon ss-icon">delete</span>
 
+<ul class="results-list">
 {{#subjects}}
 	<li><a href='#/courses/course_subject:"{{ name }}"'>{{ name }}</a></li>
 {{/subjects}}
+</ul>
