@@ -4,6 +4,7 @@ define(["jquery","backbone","courses/models/CourseModel", "courses/views/SearchV
     var CoursesRouter = Backbone.Router.extend({
 
         routes: {
+			"courses": "search",
             "courses/search": "search",
 			"courses/:query": "courses",
 			"course/:id": "course",
