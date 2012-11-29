@@ -12,7 +12,6 @@ define(["backbone", "courses/views/SearchView", "courses/views/CoursesView", "co
             searchView = new SearchView({
 				collection: results,
                 params: params,
-				router: this,
             });
             searchView.render();
         },

@@ -25,7 +25,7 @@ define(['jquery', 'backbone', 'underscore', 'hbs!/handlebars/base', 'hbs!/handle
 		},
 		
 		search: function(query) {
-			this.options.router.navigate('/courses/' + query, true);
+			Backbone.history.navigate('/courses/' + query, true);
 		},
 
         render: function() {
