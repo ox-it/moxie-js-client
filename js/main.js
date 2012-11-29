@@ -57,7 +57,7 @@ require(['modernizr','jquery','backbone', 'router', 'backbone.subroute', 'backbo
     Backbone.history.start();
     $('#home a').click(function(ev) {
         ev.preventDefault();
-        window.history.back();
+        $('body').toggleClass('active');
         return false;
     });
     return moxieRouter;
