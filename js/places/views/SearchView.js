@@ -60,7 +60,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'places/vie
         },
 
         searchEvent: function(ev) {
-            if (ev.which) {
+            if (ev.which === 13) {
                 this.query = ev.target.value;
                 this.search();
             }
