@@ -15,7 +15,11 @@ define(['jquery', 'backbone', 'underscore', 'hbs!/handlebars/base', 'hbs!/handle
         },
 
         renderCoursesList: function(data) {
-            $('#list').html(coursesTemplate(data));
+            if(data.results.length > 0) {
+                $('#list').html(coursesTemplate(data));
+            } else {
+                $('#list').html("<h3>No results</h3>");
+            }
         }
     });
     return CoursesView;
