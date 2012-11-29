@@ -8,6 +8,9 @@ define([], function() {
 			courses_search: '/courses/search',
 			courses_subjects: '/courses/subjects',
 			course_id: '/courses/course/',
+			courses_auth_verify: '/courses/oauth/verify',
+			courses_auth_authorized: '/courses/oauth/authorized',
+			courses_auth_authorize: '/courses/oauth/authorize',
         },
         urlFor: function(api_method) {
             return this.endpoint + this.paths[api_method];
