@@ -14,19 +14,13 @@ define(["backbone", "places/router", "today/views/IndexView", "courses/router"],
         },
 
         placesModule: function(subroute) {
-            console.log("Calling subrouter");
             if (!this.subrouters.Places) {
-                console.log("creating subrouter");
                 this.subrouters.Places = new PlacesRouter('places', {createTrailingSlashRoutes: true});
-                console.log(this.subrouters);
             }
         },
         coursesModule: function(subroute) {
-            console.log("Calling subrouter");
             if (!this.subrouters.Courses) {
-                console.log("creating subrouter");
                 this.subrouters.Courses = new CoursesRouter('courses', {createTrailingSlashRoutes: true});
-                console.log(this.subrouters);
             }
         }
     });
