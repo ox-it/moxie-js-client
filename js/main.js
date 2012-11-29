@@ -15,7 +15,8 @@ require.config({
         "leaflet": "libs/leaflet",
         "time_domain": "libs/time_domain",
         "backbone.queryparams": "libs/backbone.queryparams",
-        "backbone.hal": "libs/backbone.hal",
+        "backbone.subroute": "libs/backbone.subroute",
+        "backbone.hal": "libs/backbone.hal"
     },
 
     // Sets the configuration for your third party scripts that are not AMD compatible
@@ -25,42 +26,40 @@ require.config({
             "exports": "Backbone"  //attaches "Backbone" to the window object
         },
         "underscore": {
-            "exports": "_",
+            "exports": "_"
         },
         "backbone.queryparams": {
-            "deps": ["backbone"],
+            "deps": ["backbone"]
         },
         "leaflet": {
-            "exports": "L",
+            "exports": "L"
         },
         "time_domain": {
-            "exports": "TimeDomain",
+            "exports": "TimeDomain"
         },
         "handlebars": {
-            "exports": "Handlebars",
+            "exports": "Handlebars"
         },
         "json2": {
-            "exports": "JSON",
+            "exports": "JSON"
         }
     },
 
     hbs: {
         templateExtension: 'handlebars',
         disableI18n: true,
-        partialPath: '/handlebars/',
-    },
+        partialPath: '/handlebars/'
+    }
 });
 
-require(['modernizr','jquery','backbone','places/router', 'today/router', 'courses/router'],
-    function(Modernizr, $, Backbone, PlacesRouter, TodayRouter, CoursesRouter) {
+require(['modernizr','jquery','backbone','router', 'backbone.subroute'],
+    function(Modernizr, $, Backbone, MoxieRouter) {
 
-        placesRouter = new PlacesRouter();
-        todayRouter = new TodayRouter();
-        coursesRouter = new CoursesRouter();
+        moxieRouter = new MoxieRouter();
 
-        // Extend the View class to include a navigation method goTo
+        // extend the view class to include a navigation method goto
         Backbone.View.prototype.goTo = function (loc, options) {
-            placesRouter.navigate(loc, options);	// this should be on Backbone.Router.routes I guess??
+            moxieRouter.navigate(loc, options);	// this should be on Backbone.Router.routes I guess??
         };
         Backbone.history.start();
         $('#home a').click(function(ev) {
