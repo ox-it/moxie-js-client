@@ -5,16 +5,16 @@ define(["jquery","backbone","courses/models/CourseModel", "courses/views/SearchV
 
         routes: {
 			"courses": "search",
-            "courses/search": "search",
 			"courses/:query": "courses",
-			"course/:id": "course",
+			"courses/detail/:id": "course",
         },
 
         search: function(params) {
             results = new Courses();
             searchView = new SearchView({
 				collection: results,
-                params: params
+                params: params,
+				router: this,
             });
             searchView.render();
         },
