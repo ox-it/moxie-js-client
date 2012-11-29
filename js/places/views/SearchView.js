@@ -25,7 +25,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'places/vie
         renderPOIDetail: function(ev) {
             ev.preventDefault();
             var route = ev.target.hash.substring(1);
-            this.goTo(route);
+            Backbone.history.navigate(route);
             var poid = ev.target.parentNode.parentNode.dataset.poid;
             var poi = this.collection.get(poid);
             detailView = new DetailView({poid: poid, poi: poi});
@@ -70,7 +70,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'places/vie
             var qstring = this.query ? "?"+$.param({'q': this.query}) : '';
             var path = MoxieConf.pathFor('places_search') + qstring;
             var url = MoxieConf.endpoint + path;
-            this.goTo(path);
+            Backbone.history.navigate(path);
             var headers;
             if (this.user_position) {
                 headers = {'Geo-Position': this.user_position.join(';')};
