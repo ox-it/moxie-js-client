@@ -52,20 +52,13 @@ require.config({
     }
 });
 
-require(['modernizr','jquery','backbone','router', 'backbone.subroute'],
-    function(Modernizr, $, Backbone, MoxieRouter) {
-
-        moxieRouter = new MoxieRouter();
-
-        // extend the view class to include a navigation method goto
-        Backbone.View.prototype.goTo = function (loc, options) {
-            moxieRouter.navigate(loc, options);	// this should be on Backbone.Router.routes I guess??
-        };
-        Backbone.history.start();
-        $('#home a').click(function(ev) {
-            ev.preventDefault();
-            window.history.back();
-            return false;
-        });
-
+require(['modernizr','jquery','backbone', 'router', 'backbone.subroute'], function(Modernizr, $, Backbone, MoxieRouter) {
+    moxieRouter = new MoxieRouter();
+    Backbone.history.start();
+    $('#home a').click(function(ev) {
+        ev.preventDefault();
+        window.history.back();
+        return false;
     });
+    return moxieRouter;
+});
