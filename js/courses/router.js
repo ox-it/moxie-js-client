@@ -8,7 +8,6 @@ define(["backbone", "courses/views/SearchView", "courses/views/CoursesView", "co
         },
 
         search: function(params) {
-            console.log("Search called");
             results = new Courses();
             searchView = new SearchView({
 				collection: results,
@@ -19,7 +18,6 @@ define(["backbone", "courses/views/SearchView", "courses/views/CoursesView", "co
         },
 
         courses: function(query, params) {
-            console.log("Courses called");
             coursesView = new CoursesView({
                 params: params,
                 query: query
@@ -28,7 +26,6 @@ define(["backbone", "courses/views/SearchView", "courses/views/CoursesView", "co
         },
 
         course: function(id, params) {
-            console.log("Course called");
             courseView = new CourseView({
                 params: params,
                 id: id
