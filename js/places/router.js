@@ -1,12 +1,12 @@
 define(["jquery","backbone","places/models/POIModel", "places/views/SearchView", "places/views/DetailView", "places/collections/POICollection"], function($, Backbone, POI, SearchView, DetailView, POIs){
 
-    var PlacesRouter = Backbone.Router.extend({
+    var PlacesRouter = Backbone.SubRoute.extend({
 
         // All of your Backbone Routes (add more)
         routes: {
 
-            "places/search": "search",
-            "places/:id": "detail"
+            "search": "search",
+            ":id": "detail"
 
         },
 
