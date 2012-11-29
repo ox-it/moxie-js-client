@@ -52,7 +52,7 @@ require.config({
     }
 });
 
-require(['modernizr','jquery','backbone', 'router', 'backbone.subroute'], function(Modernizr, $, Backbone, MoxieRouter) {
+require(['modernizr','jquery','backbone', 'router', 'backbone.subroute', 'backbone.queryparams'], function(Modernizr, $, Backbone, MoxieRouter) {
     moxieRouter = new MoxieRouter();
     Backbone.history.start();
     $('#home a').click(function(ev) {
