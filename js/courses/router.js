@@ -1,8 +1,10 @@
-define(["backbone", "courses/views/SearchView", "courses/views/CoursesView", "courses/views/CourseView", "courses/collections/CourseCollection"], function(Backbone, SearchView, CoursesView, CourseView, Courses){
+define(["backbone", "courses/views/SearchView", "courses/views/BookingsView", "courses/views/CoursesView", "courses/views/CourseView", "courses/collections/CourseCollection"], 
+ function(Backbone, SearchView, BookingsView, CoursesView, CourseView, Courses){
     var CoursesRouter = Backbone.SubRoute.extend({
 
         routes: {
             "": "search",
+            "bookings": "bookings",
             "detail/:id": "course",
             ":query": "courses"
         },
@@ -14,6 +16,13 @@ define(["backbone", "courses/views/SearchView", "courses/views/CoursesView", "co
                 params: params,
             });
             searchView.render();
+        },
+
+        bookings: function(params) {
+            bookingsView = new BookingsView({
+                params: params,
+            });
+            bookingsView.render();
         },
 
         courses: function(query, params) {

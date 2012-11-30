@@ -7,6 +7,7 @@ define([], function() {
             dates: '/oxford_dates/',
 			courses_search: '/courses/search',
 			courses_subjects: '/courses/subjects',
+            courses_bookings: '/courses/bookings',
 			course_id: '/courses/course/',
             presentation_id: '/courses/presentation/',
 			courses_auth_verify: '/courses/oauth/verify',
