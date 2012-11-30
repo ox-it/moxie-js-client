@@ -13,7 +13,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'places/vie
             this.user_position = null;
             this.latlngs = [];
             this.markers = [];
-            var wpid = navigator.geolocation.watchPosition(this.handle_geolocation_query, this.geo_error, {maximumAge:60000, timeout:20000});
+            var wpid = navigator.geolocation.watchPosition(this.handle_geolocation_query, this.geo_error, {maximumAge:300000, timeout:2000});
         },
 
         // Event Handlers
@@ -110,12 +110,21 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'places/vie
             }
             this.search();
         },
+        initial_call: true,
+        user_marker: null,
         handle_geolocation_query: function(position) {
             this.user_position = [position.coords.latitude, position.coords.longitude];
             var you = new L.LatLng(position.coords.latitude, position.coords.longitude);
-            L.circle(you, 10, {color: 'red', fillColor: 'red', fillOpacity: 1.0}).addTo(this.map);
+            if (this.user_marker) {
+                this.map.removeLayer(this.user_marker);
+            }
+            this.user_marker = L.circle(you, 10, {color: 'red', fillColor: 'red', fillOpacity: 1.0});
+            this.map.addLayer(this.user_marker);
             this.map.panTo(you);
-            this.search();
+            if (this.initial_call) {
+                this.initial_call = false;
+                this.search();
+            }
         }
     });
 
