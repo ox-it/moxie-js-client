@@ -8,6 +8,7 @@ define([], function() {
 			courses_search: '/courses/search',
 			courses_subjects: '/courses/subjects',
 			course_id: '/courses/course/',
+            presentation_id: '/courses/presentation/',
 			courses_auth_verify: '/courses/oauth/verify',
 			courses_auth_authorized: '/courses/oauth/authorized',
 			courses_auth_authorize: '/courses/oauth/authorize',

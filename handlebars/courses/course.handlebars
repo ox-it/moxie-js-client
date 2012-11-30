@@ -3,13 +3,17 @@
 <strong>{{ provider }}</strong>
 <p>{{ description }} </p>
 
+<div id="authStatus"></div>
+
 <ul>
 {{#presentations}}
 <li>
 	{{#if start }}
 	Starts: {{ start }}
 	{{/if}}
-	<a>Book</a>
+    {{#if booking_endpoint }}
+	<a class="bookLink" data-id="{{ id }}">Book</a>
+    {{/if}}
 </li>
 {{/presentations}}
 </ul>
