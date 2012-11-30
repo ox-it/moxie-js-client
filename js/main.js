@@ -14,6 +14,7 @@ require.config({
         "i18nprecompile": "libs/i18nprecompile",
         "leaflet": "libs/leaflet",
         "time_domain": "libs/time_domain",
+        "fastclick": "libs/fastclick",
         "backbone.queryparams": "libs/backbone.queryparams",
         "backbone.subroute": "libs/backbone.subroute",
         "backbone.hal": "libs/backbone.hal"
@@ -52,7 +53,7 @@ require.config({
     }
 });
 
-require(['modernizr','jquery','backbone', 'router', 'backbone.subroute', 'backbone.queryparams'], function(Modernizr, $, Backbone, MoxieRouter) {
+require(['modernizr','jquery','backbone', 'router', 'fastclick', 'backbone.subroute', 'backbone.queryparams'], function(Modernizr, $, Backbone, MoxieRouter, FastClick) {
     moxieRouter = new MoxieRouter();
     Backbone.history.start();
     $('#home a').click(function(ev) {
@@ -60,5 +61,13 @@ require(['modernizr','jquery','backbone', 'router', 'backbone.subroute', 'backbo
         $('body').toggleClass('active');
         return false;
     });
-    return moxieRouter;
+    $('.overlay').click(function(ev) {
+        $('body').toggleClass('active');
+    });
+    $('#sidebar a').click(function(ev) {
+        $('body').toggleClass('active');
+    });
+    window.addEventListener('load', function() {
+        new FastClick(document.body);
+    }, false);
 });
