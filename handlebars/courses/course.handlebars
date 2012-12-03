@@ -9,7 +9,7 @@
 {{#presentations}}
 <li>
 	{{#if start }}
-	Starts: {{ start }}
+	Starts: {{ dateFormat start }}
 	{{/if}}
     {{#if booking_endpoint }}
 	<a class="bookLink" data-id="{{ id }}">Book</a>
