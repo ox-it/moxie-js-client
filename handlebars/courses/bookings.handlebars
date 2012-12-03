@@ -1,0 +1,9 @@
+<h3>My bookings</h3>
+
+<ul class="results-list">
+{{#courses}}
+	<li><a href='#/courses/detail/{{ id }}'>{{ title }}</a>
+    <p>{{#presentations}} {{ dateFormat start }} {{/presentations}}</p>
+    </li>
+{{/courses}}
+</ul>

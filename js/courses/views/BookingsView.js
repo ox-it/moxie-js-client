@@ -1,12 +1,15 @@
-define(['jquery', 'backbone', 'underscore', 'hbs!/handlebars/base', 'hbs!/handlebars/courses/', 'leaflet', 'moxie.conf'], 
-	function($, Backbone, _, baseTemplate, coursesTemplate, L, MoxieConf){
+define(['jquery', 'backbone', 'underscore', 'hbs!/handlebars/base', 'hbs!/handlebars/courses/bookings', 'leaflet', 'moxie.conf', 'courses/helpers'], 
+	function($, Backbone, _, baseTemplate, bookingsTemplate, L, MoxieConf){
     var BookingsView = Backbone.View.extend({
 
         initialize: function() {
             _.bindAll(this);
             $.ajax({
                 url: MoxieConf.urlFor('courses_bookings'),
-                dataType: 'json'
+                dataType: 'json',
+                xhrFields: {
+                    withCredentials: true
+                },
             }).success(this.renderCoursesList);
         },
 
@@ -15,10 +18,10 @@ define(['jquery', 'backbone', 'underscore', 'hbs!/handlebars/base', 'hbs!/handle
         },
 
         renderCoursesList: function(data) {
-            if(data.results.length > 0) {
-                $('#list').html(coursesTemplate(data));
+            if(data.courses.length > 0) {
+                $('#list').html(bookingsTemplate(data));
             } else {
-                $('#list').html("<h3>No results</h3>");
+                $('#list').html("<h3>No bookings</h3>");
             }
         }
     });
