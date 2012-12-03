@@ -18,7 +18,6 @@ define(['jquery', 'backbone', 'underscore', 'hbs!/handlebars/base', 'hbs!/handle
         },
 
         renderCoursesList: function(data) {
-            console.log(data);
             if(data.courses.length > 0) {
                 $('#list').html(bookingsTemplate(data));
             } else {
