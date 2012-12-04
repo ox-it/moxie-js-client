@@ -11,25 +11,18 @@ define(["jquery","backbone","places/models/POIModel", "places/views/SearchView",
         },
 
         search: function(params) {
-            // Instantiating the mainView instance
-            results = new POIs();
-            searchView = new SearchView({
-
-                // Declares the View's collection instance property
-                collection: results,
+            $('#content').html(new SearchView({
+                collection: new POIs(),
                 params: params
-            });
-
-            // Renders all of the User Model's to the page
-            searchView.render();
+            }).render().el );
         },
 
         detail: function(id, params) {
-            detailView = new DetailView({
+            $('#content').html(new DetailView({
                 model: POI,
                 params: params,
                 poid: id
-            });
+            }).render().el);
         }
 
     });
