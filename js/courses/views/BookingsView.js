@@ -14,14 +14,16 @@ define(['jquery', 'backbone', 'underscore', 'hbs!/handlebars/base', 'hbs!/handle
         },
 
         render: function() {
-            $("#content").html(baseTemplate());
+            this.$el.html(baseTemplate());
+            return this;
         },
 
         renderCoursesList: function(data) {
+            var list = this.$el.find('#list');
             if(data.courses.length > 0) {
-                $('#list').html(bookingsTemplate(data));
+                list.html(bookingsTemplate(data));
             } else {
-                $('#list').html("<h3>No bookings</h3>");
+                list.html("<h3>No bookings</h3>");
             }
         }
     });
