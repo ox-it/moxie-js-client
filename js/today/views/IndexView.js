@@ -13,12 +13,12 @@ define(['jquery', 'backbone', 'underscore', 'hbs!/handlebars/base', 'hbs!/handle
 
         render: function() {
             // render basic view
-            $("#content").html(baseTemplate());
-
+            this.$el.html(baseTemplate());
+            return this;
         },
 
         renderTodayDate: function(data) {
-            $('#list').html(indexTemplate(data));
+            this.$el.find('#list').html(indexTemplate(data));
         }
     });
     return IndexView;
