@@ -17,10 +17,18 @@
 	Starts: {{ dateFormat start }}
 	{{/if}}
     <span class="bookable">
-    {{#if booking_endpoint }}
+    {{#if _links.book }}
 	<a class="bookLink" data-id="{{ id }}">Book</a>
     {{else}}
-    (Cannot be booked at the moment.)
+        {{#if apply_from}}
+            {{#if apply_until}}
+                Bookable between {{ dateFormat apply_from}} and {{ dateFormat apply_until }}.
+            {{else}}
+                Bookable from {{ dateFormat apply_from }}
+            {{/if}}
+        {{ else }}
+        (Cannot be booked at the moment.)
+        {{/if}}
     {{/if}}
     </span>
 </li>
