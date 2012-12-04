@@ -5,7 +5,7 @@ define('template/helpers/dateFormat', ["handlebars"], function(Handlebars) {
         }
         try {
             date = new Date(string);
-            return date.getDay() +  "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+            return date.getDate() +  "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
         } catch (err) {
             console.log(err);
             return "";

@@ -33,8 +33,8 @@ define(['jquery', 'backbone', 'underscore', 'hbs!/handlebars/base', 'hbs!/handle
         },
     
         checkAuthorization: function(data) {
-			// Check if user is logged in or not
 			this.authorization_url = MoxieConf.urlFor('courses_auth_authorize')+ '?callback_uri=' + window.escape(window.location.href);
+            // Check if the user has to be verified (back from oauth auth)
             if (this.options.params && this.options.params.oauth_verifier) {
                 $.ajax({
                     url: MoxieConf.urlFor('courses_auth_verify'),
@@ -43,9 +43,16 @@ define(['jquery', 'backbone', 'underscore', 'hbs!/handlebars/base', 'hbs!/handle
                     xhrFields: {
                         withCredentials: true
                     },
-                }).success(this.verifyAuth)
-                    .error(this.handleError);
+                }).success(this.verifyAuth).error(this.handleError);
 			} else {
+                // Check if the user is authorized
+                $.ajax({
+                    url: MoxieConf.urlFor('courses_auth_authorized'),
+                    dataType: 'json',
+                    xhrFields: {
+                        withCredentials: true,
+                    }
+                    }).success(this.verifyAuth).error(this.handleError);
                 this.renderAuthRequired();
             }
         },
@@ -73,17 +80,17 @@ define(['jquery', 'backbone', 'underscore', 'hbs!/handlebars/base', 'hbs!/handle
 		},
         
         callbackBookCourse: function(data) {
-            console.log(data);
+            alert("Course booked!")
         },
 		
 		verifyAuth: function(data) {
             authorized = data['authorized'];
 			data['authorization_url'] = this.authorization_url;
             this.$el.find('#authStatus').html(authTemplate(data));
-            if(authorized === "false") {
-                $('.bookLink').hide();
+            if(authorized === false) {
+                $('.bookable').hide();
             } else {
-                $('.bookLink').show();
+                $('.bookable').show();
             }
             console.log('User authorized? ' + authorized);
 		},
