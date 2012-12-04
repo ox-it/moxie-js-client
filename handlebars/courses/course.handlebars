@@ -1,4 +1,9 @@
-<strong>{{ subjects }}</strong>
+<strong>
+{{#each subjects}}
+{{this}}, 
+{{/each}}
+</strong>
+
 <h3>{{ title }}</h3>
 <strong>{{ provider }}</strong>
 <p>{{ description }} </p>
@@ -11,9 +16,13 @@
 	{{#if start }}
 	Starts: {{ dateFormat start }}
 	{{/if}}
+    <span class="bookable">
     {{#if booking_endpoint }}
 	<a class="bookLink" data-id="{{ id }}">Book</a>
+    {{else}}
+    (Cannot be booked at the moment.)
     {{/if}}
+    </span>
 </li>
 {{/presentations}}
 </ul>
