@@ -18,18 +18,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'places/vie
 
         // Event Handlers
         events: {
-            'keypress :input': "searchEvent",
-            'click a': "renderPOIDetail"
-        },
-
-        renderPOIDetail: function(ev) {
-            ev.preventDefault();
-            var route = ev.target.hash.substring(1);
-            Backbone.history.navigate(route);
-            var poid = ev.target.parentNode.parentNode.dataset.poid;
-            var poi = this.collection.get(poid);
-            detailView = new DetailView({poid: poid, poi: poi});
-            return false;
+            'keypress :input': "searchEvent"
         },
 
         update_map_markers: function(){
