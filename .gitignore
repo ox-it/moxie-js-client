@@ -11,3 +11,6 @@ js/main-built.js
 
 # Compiled templates
 js/moxie.templates.js
+
+# IDEA (PyCharm)
+.idea/
