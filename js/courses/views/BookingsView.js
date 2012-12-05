@@ -9,7 +9,7 @@ define(['jquery', 'backbone', 'underscore', 'hbs!/handlebars/base', 'hbs!/handle
                 dataType: 'json',
                 xhrFields: {
                     withCredentials: true
-                },
+                }
             }).success(this.renderCoursesList);
         },
 
