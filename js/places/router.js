@@ -11,18 +11,24 @@ define(["jquery","backbone","places/models/POIModel", "places/views/SearchView",
         },
 
         search: function(params) {
-            $('#content').html(new SearchView({
+            searchView = new SearchView({
                 collection: new POIs(),
                 params: params
-            }).render().el );
+            });
+            searchView.render();
+            $('#content').html(searchView.el);
+            searchView.invalidateMapSize();
         },
 
         detail: function(id, params) {
-            $('#content').html(new DetailView({
+            detailView = new DetailView({
                 model: POI,
                 params: params,
                 poid: id
-            }).render().el);
+            });
+            detailView.render();
+            $('#content').html(detailView.el);
+            detailView.invalidateMapSize();
         }
 
     });
