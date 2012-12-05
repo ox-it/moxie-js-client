@@ -13,7 +13,7 @@ define(['jquery', 'backbone', 'underscore', 'hbs!/handlebars/base', 'hbs!/handle
         },
 		
         events: {
-            'click .bookLink': "bookCourse",
+            'click .bookLink': "bookCourse"
         },
 
         render: function() {
@@ -27,9 +27,9 @@ define(['jquery', 'backbone', 'underscore', 'hbs!/handlebars/base', 'hbs!/handle
         },
 		
         renderAuthRequired: function() {
-            data = {};
-            data['authorized'] = false;
-			data['authorization_url'] = this.authorization_url;
+            var data = {};
+            data.authorized = false;
+			data.authorization_url = this.authorization_url;
             $('#authStatus').html(authTemplate(data));
         },
     
@@ -43,7 +43,7 @@ define(['jquery', 'backbone', 'underscore', 'hbs!/handlebars/base', 'hbs!/handle
                     dataType: 'json',
                     xhrFields: {
                         withCredentials: true
-                    },
+                    }
                 }).success(this.verifyAuth).error(this.handleError);
 			} else {
                 // Check if the user is authorized
@@ -51,7 +51,7 @@ define(['jquery', 'backbone', 'underscore', 'hbs!/handlebars/base', 'hbs!/handle
                     url: MoxieConf.urlFor('courses_auth_authorized'),
                     dataType: 'json',
                     xhrFields: {
-                        withCredentials: true,
+                        withCredentials: true
                     }
                     }).success(this.verifyAuth).error(this.handleError);
                 this.renderAuthRequired();
@@ -59,11 +59,11 @@ define(['jquery', 'backbone', 'underscore', 'hbs!/handlebars/base', 'hbs!/handle
         },
         
 		bookCourse: function(ev) {
-			id = $(ev.currentTarget).attr("data-id");
+			var id = $(ev.currentTarget).attr("data-id");
             
-            url = MoxieConf.urlFor('presentation_id') + id + "/book";
+            var url = MoxieConf.urlFor('presentation_id') + id + "/book";
             
-            data = {'jsj': 'ksjdjf', 'sjsj': 'ksjsj' };
+            var data = {'jsj': 'ksjdjf', 'sjsj': 'ksjsj' };
             
             $.ajax({
                 url: url,
@@ -74,26 +74,26 @@ define(['jquery', 'backbone', 'underscore', 'hbs!/handlebars/base', 'hbs!/handle
                 type: 'POST',
                 xhrFields: {
                     withCredentials: true
-                },
+                }
             }).success(this.callbackBookCourse)
                 .error(this.handleError);
 			
 		},
         
         callbackBookCourse: function(data) {
-            alert("Course booked!")
+            alert("Course booked!");
         },
 		
 		verifyAuth: function(data) {
-            authorized = data['authorized'];
-			data['authorization_url'] = this.authorization_url;
+            var authorized = data.authorized;
+			data.authorization_url = this.authorization_url;
             $('#authStatus').html(authTemplate(data));
             if(authorized === false) {
                 $('.bookable').hide();
             } else {
                 $('.bookable').show();
             }
-            console.log('User authorized? ' + authorized)
+            console.log('User authorized? ' + authorized);
 		},
         
         handleError: function(data) {
