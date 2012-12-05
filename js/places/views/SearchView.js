@@ -3,8 +3,6 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'places/vie
 
     var SearchView = Backbone.View.extend({
 
-        id: 'content',
-
         // View constructor
         initialize: function() {
             _.bindAll(this);
@@ -49,6 +47,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'places/vie
         },
 
         searchEvent: function(ev) {
+            console.log("search view");
             if (ev.which === 13) {
                 this.query = ev.target.value;
                 this.search();
@@ -82,16 +81,8 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'places/vie
         },
 
         render: function() {
-            $("#content").html(searchTemplate());
-            this.map = L.map('map').setView([51.75310, -1.2600], 15);
-            L.tileLayer('http://{s}.tile.cloudmade.com/b0a15b443b524d1a9739e92fe9dd8459/997/256/{z}/{x}/{y}.png', {
-                maxZoom: 18,
-                // Detect retina - if true 4* map tiles are downloaded
-                detectRetina: true
-            }).addTo(this.map);
-            this.map.attributionControl.setPrefix('');
-            this.setElement($('#content'));
-            this.delegateEvents(this.events);
+            this.$el.html(searchTemplate());
+            return this;
         },
         geo_error: function(error) {
             if (!this.user_position) {
@@ -102,6 +93,13 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'places/vie
         initial_call: true,
         user_marker: null,
         handle_geolocation_query: function(position) {
+            this.map = L.map(this.$el.find('#map')[0]).setView([51.75310, -1.2600], 15);
+            L.tileLayer('http://{s}.tile.cloudmade.com/b0a15b443b524d1a9739e92fe9dd8459/997/256/{z}/{x}/{y}.png', {
+                maxZoom: 18,
+                // Detect retina - if true 4* map tiles are downloaded
+                detectRetina: true
+            }).addTo(this.map);
+            this.map.attributionControl.setPrefix('');
             this.user_position = [position.coords.latitude, position.coords.longitude];
             var you = new L.LatLng(position.coords.latitude, position.coords.longitude);
             if (this.user_marker) {

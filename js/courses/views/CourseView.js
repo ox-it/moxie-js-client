@@ -17,20 +17,19 @@ define(['jquery', 'backbone', 'underscore', 'hbs!/handlebars/base', 'hbs!/handle
         },
 
         render: function() {
-            $("#content").html(baseTemplate());
-            this.setElement($('#content'));
-			this.delegateEvents(this.events);
+            this.$el.html(baseTemplate());
+            return this;
         },
 
         renderCourse: function(data) {
-            $('#list').html(courseTemplate(data));
+            this.$el.find('#list').html(courseTemplate(data));
         },
 		
         renderAuthRequired: function() {
             var data = {};
             data.authorized = false;
 			data.authorization_url = this.authorization_url;
-            $('#authStatus').html(authTemplate(data));
+            this.$el.find('#authStatus').html(authTemplate(data));
         },
     
         checkAuthorization: function(data) {
@@ -59,7 +58,7 @@ define(['jquery', 'backbone', 'underscore', 'hbs!/handlebars/base', 'hbs!/handle
         },
         
 		bookCourse: function(ev) {
-			var id = $(ev.currentTarget).attr("data-id");
+			var id = this.$el.find(ev.currentTarget).attr("data-id");
             
             var url = MoxieConf.urlFor('presentation_id') + id + "/book";
             
@@ -87,7 +86,7 @@ define(['jquery', 'backbone', 'underscore', 'hbs!/handlebars/base', 'hbs!/handle
 		verifyAuth: function(data) {
             var authorized = data.authorized;
 			data.authorization_url = this.authorization_url;
-            $('#authStatus').html(authTemplate(data));
+            this.$el.find('#authStatus').html(authTemplate(data));
             if(authorized === false) {
                 $('.bookable').hide();
             } else {

@@ -29,13 +29,12 @@ define(['jquery', 'backbone', 'underscore', 'hbs!/handlebars/base', 'hbs!/handle
 		},
 
         render: function() {
-            $("#content").html(baseTemplate());
-            this.setElement($('#content'));
-			this.delegateEvents(this.events);
+            this.$el.html(baseTemplate());
+            return this;
         },
 
         renderSubjectsList: function(data) {
-            $('#list').html(searchTemplate(data));
+            this.$el.find('#list').html(searchTemplate(data));
         }
     });
     return SearchView;
