@@ -23,7 +23,7 @@ define(["backbone", "courses/views/SearchView", "courses/views/BookingsView", "c
         },
 
         courses: function(query, params) {
-            $('#content').html(new CourseView({
+            $('#content').html(new CoursesView({
                 params: params,
                 query: query
             }).render().el );
