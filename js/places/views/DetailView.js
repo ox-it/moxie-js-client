@@ -30,6 +30,18 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'hbs!/handl
 
         render: function() {
             this.$el.html(baseTemplate());
+            this.map = L.map(this.$el.find('#map')[0]).setView([51.75310, -1.2600], 15);
+            L.tileLayer('http://{s}.tile.cloudmade.com/b0a15b443b524d1a9739e92fe9dd8459/997/256/{z}/{x}/{y}.png', {
+                maxZoom: 18,
+                // Detect retina - if true 4* map tiles are downloaded
+                detectRetina: true
+            }).addTo(this.map);
+            this.map.attributionControl.setPrefix('');
+            return this;
+        },
+
+        invalidateMapSize: function() {
+            this.map.invalidateSize();
             return this;
         },
 
@@ -39,6 +51,14 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'hbs!/handl
             var latlng = new L.LatLng(this.poi.get('lat'), this.poi.get('lon'));
             var marker = new L.marker(latlng, {'title': this.poi.get('name')});
             marker.addTo(this.map);
+            if (this.user_position) {
+                this.map.fitBounds([
+                    this.user_position,
+                    latlng
+                ]);
+            } else {
+                this.map.panTo(latlng);
+            }
             if (this.poi.has('hasRti')) {
                 var url = MoxieConf.endpoint + this.poi.get('hasRti');
                 $.ajax({
@@ -59,17 +79,9 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'hbs!/handl
         },
 
         handle_geolocation_query: function(position) {
-            this.map = L.map(this.$el.find('#map')[0]).setView([51.75310, -1.2600], 15);
-            L.tileLayer('http://{s}.tile.cloudmade.com/b0a15b443b524d1a9739e92fe9dd8459/997/256/{z}/{x}/{y}.png', {
-                maxZoom: 18,
-                // Detect retina - if true 4* map tiles are downloaded
-                detectRetina: true
-            }).addTo(this.map);
-            this.map.attributionControl.setPrefix('');
             this.user_position = [position.coords.latitude, position.coords.longitude];
             var you = new L.LatLng(position.coords.latitude, position.coords.longitude);
             L.circle(you, 10, {color: 'red', fillColor: 'red', fillOpacity: 1.0}).addTo(this.map);
-            this.map.panTo(you);
         }
 
     });
