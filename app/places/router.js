@@ -1,4 +1,4 @@
-define(["jquery","backbone","places/models/POIModel", "places/views/SearchView", "places/views/DetailView", "places/collections/POICollection"], function($, Backbone, POI, SearchView, DetailView, POIs){
+define(["jquery", "backbone", "places/models/POIModel", "places/views/SearchView", "places/views/DetailView", "places/collections/POICollection", "backbone.subroute"], function($, Backbone, POI, SearchView, DetailView, POIs){
 
     var PlacesRouter = Backbone.SubRoute.extend({
 

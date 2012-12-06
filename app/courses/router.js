@@ -1,4 +1,4 @@
-define(["backbone", "courses/views/SearchView", "courses/views/BookingsView", "courses/views/CoursesView", "courses/views/CourseView", "courses/collections/CourseCollection"], 
+define(["backbone", "courses/views/SearchView", "courses/views/BookingsView", "courses/views/CoursesView", "courses/views/CourseView", "courses/collections/CourseCollection", "backbone.subroute"], 
  function(Backbone, SearchView, BookingsView, CoursesView, CourseView, Courses){
     var CoursesRouter = Backbone.SubRoute.extend({
 
