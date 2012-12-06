@@ -1,4 +1,4 @@
-define(['jquery', 'backbone', 'underscore', 'hbs!/handlebars/base', 'hbs!/handlebars/today/index', 'leaflet', 'moxie.conf'], function($, Backbone, _, baseTemplate, indexTemplate, L, MoxieConf){
+define(['jquery', 'backbone', 'underscore', 'hbs!templates/base', 'hbs!today/templates/index', 'leaflet', 'moxie.conf'], function($, Backbone, _, baseTemplate, indexTemplate, L, MoxieConf){
     var IndexView = Backbone.View.extend({
 
         initialize: function() {
