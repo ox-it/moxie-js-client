@@ -11,3 +11,6 @@ app/main-built.js
 
 # IDEA (PyCharm)
 .idea/
+
+# Index file
+index.html
