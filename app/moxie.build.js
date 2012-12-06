@@ -1,5 +1,6 @@
 ({
     mainConfigFile: 'main.js',
-    name: "main",
-    out: "main-built.js",
+    include: ['main'],
+    name: 'libs/almond',
+    out: 'main-built.js'
 })
