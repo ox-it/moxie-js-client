@@ -49,11 +49,11 @@ require.config({
     hbs: {
         templateExtension: 'handlebars',
         disableI18n: true,
-        partialPath: '/handlebars/'
+        helperPathCallback: function(name) {return 'templates/helpers/' + name;}
     }
 });
 
-require(['modernizr','jquery','backbone', 'router', 'fastclick', 'backbone.subroute', 'backbone.queryparams'], function(Modernizr, $, Backbone, MoxieRouter, FastClick) {
+require(['modernizr','jquery','backbone', 'router', 'fastclick', 'backbone.queryparams'], function(Modernizr, $, Backbone, MoxieRouter, FastClick) {
     moxieRouter = new MoxieRouter();
     Backbone.history.start();
     $('#home a').click(function(ev) {
