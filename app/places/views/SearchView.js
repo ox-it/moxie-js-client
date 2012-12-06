@@ -1,4 +1,4 @@
-define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'places/views/DetailView', 'hbs!places/templates/search', 'hbs!places/templates/results', 'places/helpers'],
+define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'places/views/DetailView', 'hbs!places/templates/search', 'hbs!places/templates/results'],
     function($, Backbone, _, L, MoxieConf, DetailView, searchTemplate, resultsTemplate){
 
     var SearchView = Backbone.View.extend({

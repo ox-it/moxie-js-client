@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'underscore', 'hbs!templates/base', 'hbs!courses/templates/bookings', 'leaflet', 'moxie.conf', 'courses/helpers'], 
-	function($, Backbone, _, baseTemplate, bookingsTemplate, L, MoxieConf){
+define(['jquery', 'backbone', 'underscore', 'hbs!templates/base', 'hbs!courses/templates/bookings', 'leaflet', 'moxie.conf'], 
+    function($, Backbone, _, baseTemplate, bookingsTemplate, L, MoxieConf){
     var BookingsView = Backbone.View.extend({
 
         initialize: function() {

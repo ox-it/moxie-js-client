@@ -1,4 +1,4 @@
-define('template/helpers/dateFormat', ["handlebars"], function(Handlebars) {
+define(["handlebars"], function(Handlebars) {
     function dateFormat(string) {
         if(!string) {
             return "";
