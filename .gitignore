@@ -7,7 +7,4 @@ css/*
 webfonts/*
 
 # Minified JS
-js/main-built.js
-
-# Compiled templates
-js/moxie.templates.js
+app/main-built.js
