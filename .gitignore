@@ -8,3 +8,6 @@ webfonts/*
 
 # Minified JS
 app/main-built.js
+
+# IDEA (PyCharm)
+.idea/
