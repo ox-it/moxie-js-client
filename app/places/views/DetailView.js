@@ -4,7 +4,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'hbs!templa
 
         initialize: function() {
             _.bindAll(this);
-            this.render();
+            L.Icon.Default.imagePath = '/images/maps';
             var wpid = navigator.geolocation.watchPosition(this.handle_geolocation_query, this.geo_error, {maximumAge:60000, timeout:20000});
             if (this.options.poi) {
                 this.poi = this.options.poi;
@@ -48,16 +48,16 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'hbs!templa
         renderPOI: function() {
             var context = {'poi': this.poi};
             $("#list").html(detailTemplate(context));
-            var latlng = new L.LatLng(this.poi.get('lat'), this.poi.get('lon'));
-            var marker = new L.marker(latlng, {'title': this.poi.get('name')});
+            this.latlng = new L.LatLng(this.poi.get('lat'), this.poi.get('lon'));
+            var marker = new L.marker(this.latlng, {'title': this.poi.get('name')});
             marker.addTo(this.map);
             if (this.user_position) {
                 this.map.fitBounds([
                     this.user_position,
-                    latlng
+                    this.latlng
                 ]);
             } else {
-                this.map.panTo(latlng);
+                this.map.panTo(this.latlng);
             }
             if (this.poi.has('hasRti')) {
                 var url = MoxieConf.endpoint + this.poi.get('hasRti');
@@ -82,6 +82,10 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'hbs!templa
             this.user_position = [position.coords.latitude, position.coords.longitude];
             var you = new L.LatLng(position.coords.latitude, position.coords.longitude);
             L.circle(you, 10, {color: 'red', fillColor: 'red', fillOpacity: 1.0}).addTo(this.map);
+            this.map.fitBounds([
+                this.user_position,
+                this.latlng
+            ]);
         }
 
     });

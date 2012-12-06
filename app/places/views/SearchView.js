@@ -6,6 +6,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'places/vie
         // View constructor
         initialize: function() {
             _.bindAll(this);
+            L.Icon.Default.imagePath = '/images/maps';
             this.collection.on("add remove reset", this.render_results, this);
             this.query = (this.options.params && this.options.params.q) ? this.options.params.q : '';
             this.user_position = null;
