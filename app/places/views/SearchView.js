@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'places/views/DetailView', 'hbs!places/templates/search', 'hbs!places/templates/results'],
-    function($, Backbone, _, L, MoxieConf, DetailView, searchTemplate, resultsTemplate){
+define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.position', 'places/views/DetailView', 'hbs!places/templates/search', 'hbs!places/templates/results', 'moxie.backbone'],
+    function($, Backbone, _, L, MoxieConf, userPosition, DetailView, searchTemplate, resultsTemplate){
 
     var SearchView = Backbone.View.extend({
 
@@ -89,7 +89,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'places/vie
                 detectRetina: true
             }).addTo(this.map);
             this.map.attributionControl.setPrefix('');
-            this.wpid = navigator.geolocation.watchPosition(this.handle_geolocation_query, this.geo_error, {maximumAge:300000, timeout:2000});
+            userPosition.follow(this.handle_geolocation_query);
             return this;
         },
 
@@ -108,6 +108,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'places/vie
         initial_call: true,
         user_marker: null,
         handle_geolocation_query: function(position) {
+            console.log("Updated location - Search");
             this.user_position = [position.coords.latitude, position.coords.longitude];
             var you = new L.LatLng(position.coords.latitude, position.coords.longitude);
             if (this.user_marker) {
@@ -120,6 +121,10 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'places/vie
                 this.initial_call = false;
                 this.search();
             }
+        },
+
+        onClose: function() {
+            userPosition.unfollow(this.handle_geolocation_query);
         }
     });
 
