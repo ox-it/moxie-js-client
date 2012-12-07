@@ -16,7 +16,7 @@ define(["jquery", "backbone", "places/models/POIModel", "places/views/SearchView
                 params: params
             });
             searchView.render();
-            $('#content').html(searchView.el);
+            $('#content').empty().html(searchView.el);
             searchView.invalidateMapSize();
         },
 
@@ -27,7 +27,7 @@ define(["jquery", "backbone", "places/models/POIModel", "places/views/SearchView
                 poid: id
             });
             detailView.render();
-            $('#content').html(detailView.el);
+            $('#content').empty().html(detailView.el);
             detailView.invalidateMapSize();
         }
 

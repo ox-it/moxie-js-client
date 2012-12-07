@@ -9,7 +9,7 @@ define(["backbone", "places/router", "today/views/IndexView", "courses/router"],
         },
 
         index: function(params) {
-            $('#content').html(new IndexView({params: params}).render().el);
+            $('#content').empty().html(new IndexView({params: params}).render().el);
         },
 
         placesModule: function(subroute) {

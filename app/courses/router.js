@@ -10,27 +10,27 @@ define(["backbone", "courses/views/SearchView", "courses/views/BookingsView", "c
         },
 
         search: function(params) {
-            $('#content').html(new SearchView({
+            $('#content').empty().html(new SearchView({
                 collection: new Courses(),
                 params: params
             }).render().el );
         },
 
         bookings: function(params) {
-            $('#content').html(new BookingsView({
+            $('#content').empty().html(new BookingsView({
                 params: params
             }).render().el );
         },
 
         courses: function(query, params) {
-            $('#content').html(new CoursesView({
+            $('#content').empty().html(new CoursesView({
                 params: params,
                 query: query
             }).render().el );
         },
 
         course: function(id, params) {
-            $('#content').html(new CourseView({
+            $('#content').empty().html(new CourseView({
                 params: params,
                 id: id
             }).render().el );
