@@ -1,51 +1,23 @@
 // You custom settings file to override Foundation defaults
 @import "settings";
 
-//$bodyFontFamily: 'PT Sans', sans-serif;
-//$headerFontFamily: 'PT Sans', sans-serif;
-
-// Comment out this import if you are customizing you imports below
-@import "foundation";
-
-// ----------------------------------------
-// Import specific parts of Foundation by commenting the import "foundation"
-// and uncommenting what you want below. You must uncomment the following if customizing
-
-// @import "compass/css3";
-// @import "foundation/settings";
-// @import "foundation/functions/all";
-// @import "foundation/common/globals";
-// @import "foundation/mixins/clearfix";
-// @import "modular-scale";
-
+@import "compass/css3";
+@import "foundation/settings";
+@import "foundation/functions/all";
+@import "foundation/common/globals";
+@import "foundation/mixins/clearfix";
+@import "modular-scale";
 // Control which mixins you have access too
-
-// @import "foundation/mixins/css-triangle";
-// @import "foundation/mixins/font-size";
-
+@import "foundation/mixins/css-triangle";
+@import "foundation/mixins/font-size";
 // Must include next two for semantic grid to work
-
-// @import "foundation/mixins/respond-to";
-// @import "foundation/mixins/semantic-grid";
-
+@import "foundation/mixins/respond-to";
+@import "foundation/mixins/semantic-grid";
 // Must include the grid for any responsiveness
-
-// @import "foundation/components/grid";
-
+@import "foundation/components/grid";
 // Control which common styles get compiled
-
-// @import "foundation/common/typography";
-// @import "foundation/common/forms";
-
-// Control which components you get if customizing
-
-// @import "foundation/components/modules/buttons";
-// @import "foundation/components/modules/tabs";
-// @import "foundation/components/modules/ui";
-// @import "foundation/components/modules/navbar";
-// @import "foundation/components/modules/orbit";
-// @import "foundation/components/modules/reveal";
-// @import "foundation/components/modules/offcanvas";
+@import "foundation/common/typography";
+@import "foundation/common/forms";
 
 
 $navbarDark: #1B4474;
@@ -66,7 +38,7 @@ body.off-canvas { padding: 0; margin: 0; }
 
 .container, .row, .overlay { width: 100%; height: 100%; overflow: hidden; }
 .overlay {position: absolute}
-
+.row { @include outerRow(); }
 
 [role="main"]:before { content: " "; position: absolute; z-index: -1; top: 0; left: -100%; width: 100%; height: 100%; }
 
@@ -79,13 +51,12 @@ body.off-canvas { padding: 0; margin: 0; }
 .active .overlay { width: 25%; margin-left: 75%; background-color: #333; opacity:0.7; z-index: 2; }
 
 
+h2 { font-size: ms(2);}
+
 // Applicable to both navbar and main content div
 #navbar, #content {
-    // overflow: hidden;
-    // position: absolute; 
     height: 100%;
     left: 0; right: 0;
-    // @include outerRow();
     @include respondTo(smallScreen) {
         width: auto; min-width: 0; margin-left: 0; margin-right: 0;
         border: 0;
@@ -164,12 +135,6 @@ body.off-canvas { padding: 0; margin: 0; }
     border-left: $grayBorder;
     border-right: $grayBorder;
 
-    &> div {
-        height: 100%;
-        @include respondTo(smallScreen) {
-            // width: auto !important; float: none;
-        }
-    }
     #list {
         padding: 0px 0px;
         overflow: auto;
@@ -178,10 +143,8 @@ body.off-canvas { padding: 0; margin: 0; }
         @include pull(9);
         @include respondTo(smallScreen) {
             right: auto;
-            // width: auto !important; float: none;
             padding-bottom: $mapHeight;
         }
-        
         input {
             margin: 6px 0;
             padding-right: 25px;
@@ -222,7 +185,6 @@ body.off-canvas { padding: 0; margin: 0; }
     }
 }
 
-h2 { font-size: ms(2);}
 
 #sidebar, .results-list {
     list-style: none;
@@ -232,8 +194,6 @@ h2 { font-size: ms(2);}
             font-family: Helvetica, Verdana, sans-serif;
             font-size: ms(2)/1.5;
         }
-
-        
         $dark: rgba(200,200,200, 0.2);
         $light: rgba(255,255,255, 0.1);
         $border-color: rgba(200,200,200, 0.5);
@@ -250,13 +210,7 @@ h2 { font-size: ms(2);}
             url("images/backgrounds/cream_dust.png"),
             linear-gradient(top, $light, $dark)  
         );
-        
-        // Correct for column margin
-        // margin: 0 -15px;
-        // padding: 5px;
-
         h3 {
-            
             font-size: ms(1);
             font-weight: normal;
             padding: 0;
