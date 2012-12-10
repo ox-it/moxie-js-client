@@ -1,4 +1,4 @@
-define(["backbone", "places/router", "today/views/IndexView", "courses/router"], function(Backbone, PlacesRouter, IndexView, CoursesRouter){
+define(["app", "backbone", "places/router", "today/views/IndexView", "courses/router"], function(app, Backbone, PlacesRouter, IndexView, CoursesRouter){
     var MoxieRouter = Backbone.Router.extend({
         subrouters: {},
         routes: {
@@ -9,7 +9,7 @@ define(["backbone", "places/router", "today/views/IndexView", "courses/router"],
         },
 
         index: function(params) {
-            $('#content').empty().html(new IndexView({params: params}).render().el);
+            app.showView(new IndexView({params: params}));
         },
 
         placesModule: function(subroute) {

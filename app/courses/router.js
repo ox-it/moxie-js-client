@@ -1,5 +1,5 @@
-define(["backbone", "courses/views/SearchView", "courses/views/BookingsView", "courses/views/CoursesView", "courses/views/CourseView", "courses/collections/CourseCollection", "backbone.subroute"], 
- function(Backbone, SearchView, BookingsView, CoursesView, CourseView, Courses){
+define(["app", "backbone", "courses/views/SearchView", "courses/views/BookingsView", "courses/views/CoursesView", "courses/views/CourseView", "courses/collections/CourseCollection", "backbone.subroute"], 
+ function(app, Backbone, SearchView, BookingsView, CoursesView, CourseView, Courses){
     var CoursesRouter = Backbone.SubRoute.extend({
 
         routes: {
@@ -10,30 +10,30 @@ define(["backbone", "courses/views/SearchView", "courses/views/BookingsView", "c
         },
 
         search: function(params) {
-            $('#content').empty().html(new SearchView({
+            app.showView(new SearchView({
                 collection: new Courses(),
                 params: params
-            }).render().el );
+            }));
         },
 
         bookings: function(params) {
-            $('#content').empty().html(new BookingsView({
+            app.showView(new BookingsView({
                 params: params
-            }).render().el );
+            }));
         },
 
         courses: function(query, params) {
-            $('#content').empty().html(new CoursesView({
+            app.showView(new CoursesView({
                 params: params,
                 query: query
-            }).render().el );
+            }));
         },
 
         course: function(id, params) {
-            $('#content').empty().html(new CourseView({
+            app.showView(new CourseView({
                 params: params,
                 id: id
-            }).render().el );
+            }));
         }
 
     });

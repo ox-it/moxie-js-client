@@ -1,4 +1,4 @@
-define(["jquery", "backbone", "places/models/POIModel", "places/views/SearchView", "places/views/DetailView", "places/collections/POICollection", "backbone.subroute"], function($, Backbone, POI, SearchView, DetailView, POIs){
+define(["app", "backbone", "places/models/POIModel", "places/views/SearchView", "places/views/DetailView", "places/collections/POICollection", "backbone.subroute"], function(app, Backbone, POI, SearchView, DetailView, POIs){
 
     var PlacesRouter = Backbone.SubRoute.extend({
 
@@ -11,23 +11,21 @@ define(["jquery", "backbone", "places/models/POIModel", "places/views/SearchView
         },
 
         search: function(params) {
-            console.log("Places Search");
             searchView = new SearchView({
                 collection: new POIs(),
                 params: params
             });
-            this.showView(searchView);
+            app.showView(searchView);
             searchView.invalidateMapSize();
         },
 
         detail: function(id, params) {
-            console.log("Places Detail");
             detailView = new DetailView({
                 model: POI,
                 params: params,
                 poid: id
             });
-            this.showView(detailView);
+            app.showView(detailView);
             detailView.invalidateMapSize();
         }
 
