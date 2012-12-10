@@ -14,6 +14,10 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             this.markers = [];
         },
 
+        attributes: {
+            'class': 'list-map'
+        },
+
         // Event Handlers
         events: {
             'keypress :input': "searchEvent"

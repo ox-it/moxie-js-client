@@ -7,6 +7,10 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             L.Icon.Default.imagePath = '/images/maps';
         },
 
+        attributes: {
+            'class': 'detail-map'
+        },
+
         render: function() {
             this.$el.html(baseTemplate());
             this.map = L.map(this.$el.find('#map')[0]).setView([51.75310, -1.2600], 15);
