@@ -1,4 +1,4 @@
-define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.position', 'hbs!templates/base', 'hbs!places/templates/detail', 'hbs!places/templates/busrti', 'moxie.backbone'],
+define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.position', 'hbs!templates/base', 'hbs!places/templates/detail', 'hbs!places/templates/busrti'],
     function($, Backbone, _, L, MoxieConf, userPosition, baseTemplate, detailTemplate, busRTITemplate){
     var DetailView = Backbone.View.extend({
 
@@ -8,7 +8,6 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
         },
 
         render: function() {
-            console.log("rendering");
             this.$el.html(baseTemplate());
             this.map = L.map(this.$el.find('#map')[0]).setView([51.75310, -1.2600], 15);
             L.tileLayer('http://{s}.tile.cloudmade.com/b0a15b443b524d1a9739e92fe9dd8459/997/256/{z}/{x}/{y}.png', {
@@ -80,7 +79,6 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
         },
 
         handle_geolocation_query: function(position) {
-            console.log("Updated location - Detail");
             this.user_position = [position.coords.latitude, position.coords.longitude];
             var you = new L.LatLng(position.coords.latitude, position.coords.longitude);
             L.circle(you, 10, {color: 'red', fillColor: 'red', fillOpacity: 1.0}).addTo(this.map);

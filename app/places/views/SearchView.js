@@ -1,4 +1,4 @@
-define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.position', 'places/views/DetailView', 'hbs!places/templates/search', 'hbs!places/templates/results', 'moxie.backbone'],
+define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.position', 'places/views/DetailView', 'hbs!places/templates/search', 'hbs!places/templates/results'],
     function($, Backbone, _, L, MoxieConf, userPosition, DetailView, searchTemplate, resultsTemplate){
 
     var SearchView = Backbone.View.extend({
@@ -47,7 +47,6 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
         },
 
         searchEvent: function(ev) {
-            console.log("search view");
             if (ev.which === 13) {
                 this.query = ev.target.value;
                 this.search();
@@ -108,7 +107,6 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
         initial_call: true,
         user_marker: null,
         handle_geolocation_query: function(position) {
-            console.log("Updated location - Search");
             this.user_position = [position.coords.latitude, position.coords.longitude];
             var you = new L.LatLng(position.coords.latitude, position.coords.longitude);
             if (this.user_marker) {
