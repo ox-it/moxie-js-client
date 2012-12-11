@@ -247,6 +247,8 @@ h3 {
         color: #666;
         font-weight: 400;
         font-size: ms(2);
+        background: url($cream_dust);
+        @include hidpi {background: url($cream-dust-hidpi);}
     }
 }
 .results-list {
