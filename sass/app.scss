@@ -19,7 +19,6 @@
 @import "foundation/common/typography";
 @import "foundation/common/forms";
 
-
 $navbarDark: #1B4474;
 $navbarLight: #002856;
 $navbarHeight: 40px;
@@ -40,42 +39,30 @@ body { background: $body-background;}
 body.off-canvas { padding: 0; margin: 0; }
 
 .container, .overlay { width: 100%; height: 100%; overflow: hidden; }
-.overlay {position: absolute}
-.row { @include outerRow(); height: 100%;}
 
-
-
+/* Cleaned up Dave */
 #main, #sidebar {
-    padding: 0 0px;
-    display: block;   
     position: relative;
     @include transition($sidebar-animation-time all ease-out);
-    &:before {
-        content: " ";
-        position: absolute; 
-        z-index: -1; 
-        top: 0; 
-        left: -100%; 
-        width: 100%; 
-        height: 100%;
-    }
 }
 
 #main { 
     width: 100%;
+    height: 100%;
     margin-left: 0;
     float: right;
     z-index: 1;
 }
 
 #sidebar { 
-    margin-left: -100%;
     width: 75%;
+    margin-left: -100%;
     float: left; 
     z-index: 3;
 }
 
 .overlay {
+    position: absolute;
     opacity: 0;
     background-color: $black; 
     z-index: 0; 
@@ -93,13 +80,13 @@ body.off-canvas { padding: 0; margin: 0; }
         @include transition($sidebar-animation-time all ease-out);
     }
 }
+/* End of clean Dave */
 
 h2 { 
     font-size: ms(2);
     margin-left: ms(-1);
 }
 
-// Applicable to both navbar and main content div
 #navbar, #content {
     height: 100%;
     left: 0; right: 0;
