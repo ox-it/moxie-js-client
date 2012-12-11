@@ -34,9 +34,8 @@ $mapHeight: 140px;
 $body-background: #fafafa;
 $sidebar-animation-time: 0.33s;
 
-html, body {height: 100%;}
-body { background: $body-background;}
-body.off-canvas { padding: 0; margin: 0; }
+html, body { height: 100%; }
+body { background: $body-background; }
 
 .container, .overlay { width: 100%; height: 100%; overflow: hidden; }
 
