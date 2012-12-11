@@ -43,27 +43,53 @@ body.off-canvas { padding: 0; margin: 0; }
 .overlay {position: absolute}
 .row { @include outerRow(); height: 100%;}
 
-#main:before { content: " "; position: absolute; z-index: -1; top: 0; left: -100%; width: 100%; height: 100%; }
 
-#sidebar,
-#main { width: 100%; padding: 0 0px; display: block;	position: relative; z-index: 1; @include transition($sidebar-animation-time all ease-out); }
-#sidebar { margin-left: -100%; width: 75%; float: left; z-index: 3; }
-#main { margin-left: 0; float: right; z-index: 1; position: relative; }
+
+#main, #sidebar {
+    padding: 0 0px;
+    display: block;   
+    position: relative;
+    @include transition($sidebar-animation-time all ease-out);
+    &:before {
+        content: " ";
+        position: absolute; 
+        z-index: -1; 
+        top: 0; 
+        left: -100%; 
+        width: 100%; 
+        height: 100%;
+    }
+}
+
+#main { 
+    width: 100%;
+    margin-left: 0;
+    float: right;
+    z-index: 1;
+}
+
+#sidebar { 
+    margin-left: -100%;
+    width: 75%;
+    float: left; 
+    z-index: 3;
+}
 
 .overlay {
     opacity: 0;
     background-color: $black; 
-    z-index: 2; 
+    z-index: 0; 
 }
+
 // Used when the sidebar is made active
 .active {
     #sidebar { margin-left: 0; }
     #main { margin-right: -75%; }
     .overlay { 
+        z-index: 2;
         width: 25%; 
         margin-left: 75%; 
         opacity: 0.5; 
-        
         @include transition($sidebar-animation-time all ease-out);
     }
 }
