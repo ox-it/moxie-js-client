@@ -207,9 +207,15 @@ h2 { font-size: ms(2);}
         text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9);
 
         @include background(
-            url("images/backgrounds/cream_dust.png"),
-            linear-gradient(top, $light, $dark)  
+            linear-gradient(top, $light, $dark),
+            url("/images/backgrounds/cream_dust.png")
         );
+
+        p.metadata {
+            font-size: ms(0);
+            margin-bottom: 4px;
+        }
+
         h3 {
             font-size: ms(1);
             font-weight: normal;
