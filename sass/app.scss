@@ -32,26 +32,46 @@ $grayBorder: 1px solid #ccc;
 
 $mapHeight: 140px;
 
+$body-background: #fafafa;
+$sidebar-animation-time: 0.33s;
+
 html, body {height: 100%;}
-body { background: #fafafa;}
+body { background: $body-background;}
 body.off-canvas { padding: 0; margin: 0; }
 
-.container, .row, .overlay { width: 100%; height: 100%; overflow: hidden; }
+.container, .overlay { width: 100%; height: 100%; overflow: hidden; }
 .overlay {position: absolute}
-.row { @include outerRow(); }
+.row { @include outerRow(); height: 100%;}
 
-[role="main"]:before { content: " "; position: absolute; z-index: -1; top: 0; left: -100%; width: 100%; height: 100%; }
+#main:before { content: " "; position: absolute; z-index: -1; top: 0; left: -100%; width: 100%; height: 100%; }
 
-[role="complementary"],
-[role="main"] { width: 100%; padding: 0 0px; display: block;	position: relative; z-index: 1; @include transition(.33s all ease-out); }
-[role="complementary"] { margin-left: -100%; width: 75%; float: left; z-index: 3; }
-[role="main"] { margin-left: 0; float: right; z-index: 1; position: relative; }
-.active [role="complementary"] { margin-left: 0; }
-.active [role="main"] { margin-right: -75%; }
-.active .overlay { width: 25%; margin-left: 75%; background-color: #333; opacity:0.7; z-index: 2; }
+#sidebar,
+#main { width: 100%; padding: 0 0px; display: block;	position: relative; z-index: 1; @include transition($sidebar-animation-time all ease-out); }
+#sidebar { margin-left: -100%; width: 75%; float: left; z-index: 3; }
+#main { margin-left: 0; float: right; z-index: 1; position: relative; }
 
+.overlay {
+    opacity: 0;
+    background-color: $black; 
+    z-index: 2; 
+}
+// Used when the sidebar is made active
+.active {
+    #sidebar { margin-left: 0; }
+    #main { margin-right: -75%; }
+    .overlay { 
+        width: 25%; 
+        margin-left: 75%; 
+        opacity: 0.5; 
+        
+        @include transition($sidebar-animation-time all ease-out);
+    }
+}
 
-h2 { font-size: ms(2);}
+h2 { 
+    font-size: ms(2);
+    margin-left: ms(-1);
+}
 
 // Applicable to both navbar and main content div
 #navbar, #content {
@@ -207,9 +227,15 @@ h2 { font-size: ms(2);}
         text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9);
 
         @include background(
-            url("images/backgrounds/cream_dust.png"),
-            linear-gradient(top, $light, $dark)  
+            linear-gradient(top, $light, $dark),
+            url("/images/backgrounds/cream_dust.png")
         );
+
+        p.metadata {
+            font-size: ms(0);
+            margin-bottom: 4px;
+        }
+
         h3 {
             font-size: ms(1);
             font-weight: normal;
