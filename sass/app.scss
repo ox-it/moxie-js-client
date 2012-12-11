@@ -99,7 +99,7 @@ body { background: $body-background; }
 h2 { 
     font-size: ms(2);
     font-weight: 300;
-    margin-left: ms(-1);
+    margin-left: 5px;
 }
 
 h3 {
@@ -150,9 +150,8 @@ h3 {
             &:active {background: rgba(0,0,0,0.4);}
         }
 
-        &:first-child a {
-            border-left: 0;
-        }
+        // Left hand button should not have the brighter border
+        &:first-child a { border-left: 0;}
 
         &#home { 
             float: left;
