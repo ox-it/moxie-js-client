@@ -139,6 +139,7 @@ h3 {
 
         // 3d effect by having a dark and light border on each item
         border-left: $navbarBorderDark;
+
         a { 
             border-left: $navbarBorderLight;
             display: block;
@@ -147,6 +148,10 @@ h3 {
             &:active, &:hover {@include box-shadow(0 0 $navbarItemWidth/2 $black inset);}
             // If the button has been pressed, distinguish between press and hover
             &:active {background: rgba(0,0,0,0.4);}
+        }
+
+        &:first-child a {
+            border-left: 0;
         }
 
         &#home { 
