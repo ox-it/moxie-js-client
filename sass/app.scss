@@ -104,7 +104,6 @@ h2 {
 
 h3 {
     font-weight: 200;
-    padding-left: 10px;
 }
 
 #navbar, #content {
@@ -297,4 +296,9 @@ h3 {
             color: #666;
         }
     }
+}
+
+// A box to contain free text items inside a root level div
+.free-text {
+    padding: 5px;
 }
