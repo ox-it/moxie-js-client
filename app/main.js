@@ -55,7 +55,7 @@ require.config({
 
 require(['modernizr','jquery','backbone', 'router', 'fastclick', 'backbone.queryparams'], function(Modernizr, $, Backbone, MoxieRouter, FastClick) {
     moxieRouter = new MoxieRouter();
-    Backbone.history.start({pushState: true});
+    Backbone.history.start();
     $('#home a').click(function(ev) {
         ev.preventDefault();
         $('body').toggleClass('active');
