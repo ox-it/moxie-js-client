@@ -1,15 +1,9 @@
-define(['jquery', 'backbone', 'underscore', 'hbs!templates/base', 'hbs!courses/templates/search', 'leaflet', 'moxie.conf'],
-    function($, Backbone, _, baseTemplate, searchTemplate, L, MoxieConf){
+define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/search', 'leaflet', 'moxie.conf'],
+    function($, Backbone, _, searchTemplate, L, MoxieConf){
         var SearchView = Backbone.View.extend({
-
-            id: 'courseSearch',
 
             initialize: function() {
                 _.bindAll(this);
-                $.ajax({
-                    url: MoxieConf.urlFor('courses_subjects'),
-                    dataType: 'json'
-                }).success(this.renderSubjectsList);
             },
 
             // Event Handlers
@@ -29,12 +23,15 @@ define(['jquery', 'backbone', 'underscore', 'hbs!templates/base', 'hbs!courses/t
             },
 
             render: function() {
-                this.$el.html(baseTemplate());
+                $.ajax({
+                    url: MoxieConf.urlFor('courses_subjects'),
+                    dataType: 'json'
+                }).success(this.renderSubjectsList);
                 return this;
             },
 
             renderSubjectsList: function(data) {
-                this.$el.find('#list').html(searchTemplate(data));
+                this.$el.html(searchTemplate(data));
             }
         });
         return SearchView;
