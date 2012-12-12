@@ -21,6 +21,8 @@
 // Used for displaying higher quality graphics to hi res displays
 @import 'hidpi';
 
+@import "globals/variables";
+
 $navbarDark: #1B4474;
 $navbarLight: #002856;
 $navbarHeight: 40px;
@@ -29,23 +31,16 @@ $navbarItemWidth: 50px;
 $navbarBorderDark: 1px solid rgba(darken($navbarDark, 10%),0.7);;
 $navbarBorderLight: 1px solid rgba(lighten($navbarDark, 5%),0.7);
 
-$grayBorder: 1px solid #ccc;
-
 $dark: rgba(200,200,200, 0.2);
 $light: rgba(255,255,255, 0.1);
 $border-color: rgba(200,200,200, 0.5);
 
 $mapHeight: 140px;
 
-$body-background: #fafafa;
 $sidebar-animation-time: 0.33s;
-
-$cream-dust: "/images/backgrounds/cream_dust.png";
-$cream-dust-hidpi: "/images/backgrounds/cream_dust_@2X.png";
 
 html, body { height: 100%; }
 body { background: $body-background; }
-
 
 
 /* Cleaned up Dave */
