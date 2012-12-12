@@ -1,24 +1,20 @@
-define(['jquery', 'backbone', 'underscore', 'hbs!templates/base', 'hbs!today/templates/index', 'leaflet', 'moxie.conf'], function($, Backbone, _, baseTemplate, indexTemplate, L, MoxieConf){
+define(['jquery', 'backbone', 'underscore', 'hbs!today/templates/index', 'leaflet', 'moxie.conf'], function($, Backbone, _, indexTemplate, L, MoxieConf){
     var IndexView = Backbone.View.extend({
 
         initialize: function() {
             _.bindAll(this);
-            //this.render();
+        },
 
+        render: function() {
             $.ajax({
                 url: MoxieConf.urlFor('dates'),
                 dataType: 'json'
             }).success(this.renderTodayDate);
-        },
-
-        render: function() {
-            // render basic view
-            this.$el.html(baseTemplate());
             return this;
         },
 
         renderTodayDate: function(data) {
-            this.$el.find('#list').html(indexTemplate(data));
+            this.$el.html(indexTemplate(data));
         }
     });
     return IndexView;
