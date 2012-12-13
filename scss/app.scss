@@ -309,8 +309,10 @@ ul.results-list {
             margin-bottom: 0;
         }
         p.type {
+            margin-top: ms(-4);
             text-transform: uppercase;
             font-weight: 600;
+            line-height: ms(0);
         }
 
         h3 {
