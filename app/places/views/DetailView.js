@@ -1,4 +1,4 @@
-define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.position', 'hbs!templates/base', 'hbs!places/templates/detail', 'hbs!places/templates/busrti'],
+define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.position', 'hbs!places/templates/base', 'hbs!places/templates/detail', 'hbs!places/templates/busrti'],
     function($, Backbone, _, L, MoxieConf, userPosition, baseTemplate, detailTemplate, busRTITemplate){
     var DetailView = Backbone.View.extend({
 

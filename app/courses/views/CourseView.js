@@ -1,15 +1,9 @@
-define(['jquery', 'backbone', 'underscore', 'hbs!templates/base', 'hbs!courses/templates/course', 'hbs!courses/templates/auth_status', 'leaflet', 'moxie.conf'], 
-    function($, Backbone, _, baseTemplate, courseTemplate, authTemplate, L, MoxieConf){
+define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/course', 'hbs!courses/templates/auth_status', 'leaflet', 'moxie.conf'], 
+    function($, Backbone, _, courseTemplate, authTemplate, L, MoxieConf){
         var CourseView = Backbone.View.extend({
 
             initialize: function() {
                 _.bindAll(this);
-                // Get course information
-                $.ajax({
-                    url: MoxieConf.urlFor('course_id') + this.options.id,
-                    dataType: 'json'
-                }).success([this.renderCourse, this.checkAuthorization])
-                .error(this.handleError);
             },
 
             events: {
@@ -17,19 +11,24 @@ define(['jquery', 'backbone', 'underscore', 'hbs!templates/base', 'hbs!courses/t
             },
 
             render: function() {
-                this.$el.html(baseTemplate());
+                // Get course information
+                $.ajax({
+                    url: MoxieConf.urlFor('course_id') + this.options.id,
+                    dataType: 'json'
+                }).success([this.renderCourse, this.checkAuthorization])
+                .error(this.handleError);
                 return this;
             },
 
             renderCourse: function(data) {
-                this.$el.find('#list').html(courseTemplate(data));
+                this.$el.html(courseTemplate(data));
             },
 
             renderAuthRequired: function() {
                 data = {};
                 data.authorized = false;
                 data.authorization_url = this.authorization_url;
-                this.$el.find('#authStatus').html(authTemplate(data));
+                this.$('#authStatus').html(authTemplate(data));
             },
 
             checkAuthorization: function(data) {
@@ -58,7 +57,7 @@ define(['jquery', 'backbone', 'underscore', 'hbs!templates/base', 'hbs!courses/t
             },
 
             bookCourse: function(ev) {
-                id = this.$el.find(ev.currentTarget).attr("data-id");
+                id = this.$(ev.currentTarget).attr("data-id");
 
                 url = MoxieConf.urlFor('presentation_id') + id + "/book";
 
@@ -85,7 +84,7 @@ define(['jquery', 'backbone', 'underscore', 'hbs!templates/base', 'hbs!courses/t
 
             verifyAuth: function(data) {
                 data.authorization_url = this.authorization_url;
-                this.$el.find('#authStatus').html(authTemplate(data));
+                this.$('#authStatus').html(authTemplate(data));
                 if(data.authorized === false) {
                     $('.bookable').hide();
                 } else {
