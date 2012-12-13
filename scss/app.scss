@@ -303,14 +303,13 @@ ul.results-list {
             font-size: ms(2)/1.5;
         }
         
-        p.metadata {
+        p.metadata, p.type {
             font-size: ms(0);
-            margin-bottom: 0;   
+            margin-bottom: 0;
         }
         p.type {
             text-transform: uppercase;
             font-weight: 600;
-            font-size: ms(0);
         }
 
         h3 {
