@@ -285,8 +285,12 @@ ul.results-list {
         
         p.metadata {
             font-size: ms(0);
-            margin-bottom: 0;
-            
+            margin-bottom: 0;   
+        }
+        p.type {
+            text-transform: uppercase;
+            font-weight: 600;
+            font-size: ms(0);
         }
 
         h3 {
