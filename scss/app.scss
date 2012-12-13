@@ -212,7 +212,7 @@ ul.sidebar-items {
         @include pull(8);
         @include respondTo(smallScreen) {
             right: auto;
-            padding-bottom: $mapHeight;
+            
         }
         input {
             margin: 6px 0;
