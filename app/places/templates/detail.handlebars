@@ -11,7 +11,7 @@
 	<p><a href="{{ poi.attributes.website }}">{{ poi.attributes.website}}</a></p>
 	{{/if}}
 	{{#if poi.attributes.opening_hours }}
-	<p>{{ poi.attributes.opening_hours }}{{openingHours poi.attributes.opening_hours }}</p>
+	<p>{{ poi.attributes.opening_hours }}{{{currentlyOpen poi.attributes.opening_hours }}}</p>
 	{{/if}}
 	{{#if poi.attributes.hasRti }}
 	<div id="poi-rti">
