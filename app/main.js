@@ -58,14 +58,14 @@ require(['modernizr','jquery','backbone', 'router', 'fastclick', 'backbone.query
     Backbone.history.start();
     $('#home a').click(function(ev) {
         ev.preventDefault();
-        $('body').toggleClass('active');
+        $('body').toggleClass('is-sidebar-active');
         return false;
     });
     $('.overlay').click(function(ev) {
-        $('body').toggleClass('active');
+        $('body').toggleClass('is-sidebar-active');
     });
     $('#sidebar a').click(function(ev) {
-        $('body').toggleClass('active');
+        $('body').toggleClass('is-sidebar-active');
     });
     window.addEventListener('load', function() {
         new FastClick(document.body);
