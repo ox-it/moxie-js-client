@@ -253,6 +253,14 @@ ul.sidebar-items {
             }
         }
     }
+
+    
+
+}
+.list-map, .detail-map, .generic {
+        height: 100%;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
 }
 
 ul.results-list {
@@ -301,10 +309,6 @@ ul.results-list {
             color: #444;
         }
     }
-}
-
-.list-map, .detail-map {
-    height: 100%;
 }
 
 

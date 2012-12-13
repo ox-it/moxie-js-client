@@ -11,6 +11,10 @@ define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/search', 'lea
                 'keypress #coursesSearch': "searchEventCourses"
             },
 
+            attributes: {
+                'class': 'generic'
+            },
+
             searchEventCourses: function(ev) {
                 // 13 is Enter
                 if (ev.which === 13) {
