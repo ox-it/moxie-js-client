@@ -97,9 +97,10 @@ $sidebar-margin: 100% - $sidebar-width;
     position: absolute;
     opacity: 0;
     background-color: $black; 
-    z-index: 2; 
+    z-index: 0; 
     @include transition($sidebar-animation-time all ease-out);
     body.is-sidebar-active & {
+        z-index: 2;
         width: $sidebar-margin;
         margin-left: $sidebar-width;
         opacity: 0.5; 
