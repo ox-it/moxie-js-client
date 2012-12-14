@@ -2,7 +2,7 @@
 	<a href="#/places/{{ attributes.id }}"><li data-lon="{{ attributes.lon }}" data-lat="{{ attributes.lat }}" data-poid="{{ attributes.id }}">
 	{{#if attributes.name }}
 		<h3>{{ attributes.name }}</h3>
-		<p class="type">{{ attributes.type }}
+		<p class="type">{{ attributes.type_name }}
 		{{# if attributes.opening_hours }}
 			{{{currentlyOpen attributes.opening_hours}}}
 		{{/if}}
