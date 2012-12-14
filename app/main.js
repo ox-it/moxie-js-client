@@ -55,6 +55,7 @@ require.config({
 
 require(['modernizr','jquery','backbone', 'router', 'fastclick', 'backbone.queryparams'], function(Modernizr, $, Backbone, MoxieRouter, FastClick) {
     moxieRouter = new MoxieRouter();
+    $.ajaxSetup({ headers: { 'Accept': 'application/hal+json;q=1.0, application/json;q=0.9, */*; q=0.01' } });
     Backbone.history.start();
     $('#home a').click(function(ev) {
         ev.preventDefault();
