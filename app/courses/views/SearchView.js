@@ -35,7 +35,8 @@ define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/search', 'lea
             },
 
             renderSubjectsList: function(data) {
-                this.$el.html(searchTemplate(data));
+                var context = {subjects: data._links['courses:subject']};
+                this.$el.html(searchTemplate(context));
             }
         });
         return SearchView;

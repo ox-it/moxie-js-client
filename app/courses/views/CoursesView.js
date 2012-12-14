@@ -14,8 +14,9 @@ function($, Backbone, _, coursesTemplate, L, MoxieConf){
         },
 
         renderCoursesList: function(data) {
-            if(data.results.length > 0) {
-                this.$el.html(coursesTemplate(data));
+            var context = {results: data._embedded.courses};
+            if(context.results.length > 0) {
+                this.$el.html(coursesTemplate(context));
             } else {
                 this.$el.html("<h3>No results</h3>");
             }
