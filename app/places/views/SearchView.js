@@ -74,12 +74,12 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
         },
 
         createPOIs: function(data) {
-            this.collection.reset(data.results);
+            this.collection.reset(data._embedded.results);
         },
 
         render_results: function() {
             var context = {'results': this.collection.toArray()};
-            $(".results-list").html(resultsTemplate(context));
+            this.$(".results-list").html(resultsTemplate(context));
             this.update_map_markers();
         },
 
