@@ -19,7 +19,8 @@ define([], function() {
         },
         pathFor: function(api_method) {
             return this.paths[api_method];
-        }
+        },
+        geolocationInterval: 25000
     };
     return MoxieConf;
 });
