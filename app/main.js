@@ -55,8 +55,17 @@ require.config({
 
 require(['modernizr','jquery','backbone', 'router', 'fastclick', 'backbone.queryparams'], function(Modernizr, $, Backbone, MoxieRouter, FastClick) {
     moxieRouter = new MoxieRouter();
+
+    // Default to requesting hal+json but fallback to json
     $.ajaxSetup({ headers: { 'Accept': 'application/hal+json;q=1.0, application/json;q=0.9, */*; q=0.01' } });
+
+    // Add an event listener for sending document title changes
+    Backbone.on('domchange:title', function(title) {$(document).attr('title', title);}, this);
+
+    // This kicks off the app -- discovering the hashchanges and calling routers
     Backbone.history.start();
+
+    // Some simple events called on the default index page -- mostly for the sidebar menu
     $('#home a').click(function(ev) {
         ev.preventDefault();
         $('body').toggleClass('is-sidebar-active');
@@ -65,6 +74,8 @@ require(['modernizr','jquery','backbone', 'router', 'fastclick', 'backbone.query
     $('.overlay, #sidebar a').click(function(ev) {
         $('body').toggleClass('is-sidebar-active');
     });
+
+    // Include FastClick, this removes a 300ms touch event delay
     window.addEventListener('load', function() {
         new FastClick(document.body);
     }, false);
