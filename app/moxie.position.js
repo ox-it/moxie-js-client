@@ -21,10 +21,15 @@ define(["underscore", "backbone", "moxie.conf"], function(_, Backbone, conf){
         },
         updateLocation: function() {
             that = this;
-            navigator.geolocation.getCurrentPosition(function(position) {
-                that.trigger('position:updated', position);
-                that.latest = position;
-            });
+            navigator.geolocation.getCurrentPosition(
+                function(position) { // Success
+                    that.trigger('position:updated', position);
+                    that.latest = position;
+                }, function(e) { // Error
+                    console.log("Error accessing location");
+                    console.log(e1.code);
+                },
+            {timeout:50000}); // This is useful for debugging problem with geolocation
         }
     };
     _.bindAll(userPosition);
