@@ -1,21 +1,33 @@
-define(["underscore", "backbone"], function(_, Backbone){
-    var userPosition = {};
-    _.extend(userPosition, Backbone.Events);
-    var wpid = navigator.geolocation.watchPosition(function(position){
-        userPosition.latest = position;
-        userPosition.trigger('position:updated', position);
-    },
-    function(e){
-        userPosition.trigger('position:error', e);
-    });
-    userPosition.follow = function(cb) {
-        userPosition.on('position:updated', cb);
-        if (userPosition.latest) {
-            userPosition.trigger('position:updated', userPosition.latest);
+define(["underscore", "backbone", "moxie.conf"], function(_, Backbone, conf){
+    var userPosition = {
+        count: 0,
+        follow: function(cb) {
+            if (this.count===0) {
+                this.updateLocation();
+                this.intervalID = window.setInterval(this.updateLocation, conf.geolocationInterval);
+            }
+            this.on('position:updated', cb);
+            if (this.latest) {
+                this.trigger('position:updated', this.latest);
+            }
+            this.count++;
+        },
+        unfollow: function(cb) {
+            this.off('position:updated', cb);
+            this.count--;
+            if (this.count===0 && this.intervalID) {
+                window.clearInterval(this.intervalID);
+            }
+        },
+        updateLocation: function() {
+            that = this;
+            navigator.geolocation.getCurrentPosition(function(position) {
+                that.trigger('position:updated', position);
+                that.latest = position;
+            });
         }
     };
-    userPosition.unfollow = function(cb) {
-        userPosition.off('position:updated', cb);
-    };
+    _.bindAll(userPosition);
+    _.extend(userPosition, Backbone.Events);
     return userPosition;
 });
