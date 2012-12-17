@@ -62,10 +62,7 @@ require(['modernizr','jquery','backbone', 'router', 'fastclick', 'backbone.query
         $('body').toggleClass('is-sidebar-active');
         return false;
     });
-    $('.overlay').click(function(ev) {
-        $('body').toggleClass('is-sidebar-active');
-    });
-    $('#sidebar a').click(function(ev) {
+    $('.overlay, #sidebar a').click(function(ev) {
         $('body').toggleClass('is-sidebar-active');
     });
     window.addEventListener('load', function() {
