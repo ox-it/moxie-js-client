@@ -60,7 +60,7 @@ require(['modernizr','jquery','backbone', 'router', 'fastclick', 'backbone.query
     $.ajaxSetup({ headers: { 'Accept': 'application/hal+json;q=1.0, application/json;q=0.9, */*; q=0.01' } });
 
     // Add an event listener for sending document title changes
-    Backbone.on('domchange:title', function(title) {$(document).attr('title', title);}, this);
+    Backbone.on('domchange:title', function(title) {$(document).attr('title', "Mobile Oxford - "+title);}, this);
 
     // This kicks off the app -- discovering the hashchanges and calling routers
     Backbone.history.start();

@@ -40,6 +40,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
 
         getDetail: function(data) {
             this.poi = new this.model(data);
+            Backbone.trigger('domchange:title', this.poi.attributes.name);
             this.renderPOI();
         },
 

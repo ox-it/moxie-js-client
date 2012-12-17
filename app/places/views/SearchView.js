@@ -93,6 +93,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             }).addTo(this.map);
             this.map.attributionControl.setPrefix('');
             userPosition.follow(this.handle_geolocation_query);
+            Backbone.trigger('domchange:title', "Search for Places of Interest");
             return this;
         },
 
