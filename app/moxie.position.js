@@ -27,7 +27,7 @@ define(["underscore", "backbone", "moxie.conf"], function(_, Backbone, conf){
                     that.latest = position;
                 }, function(e) { // Error
                     console.log("Error accessing location");
-                    console.log(e1.code);
+                    console.log(e.code);
                 },
             {timeout:50000}); // This is useful for debugging problem with geolocation
         }
