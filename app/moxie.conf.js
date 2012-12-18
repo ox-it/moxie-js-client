@@ -1,6 +1,6 @@
 define([], function() {
     var MoxieConf = {
-        endpoint: 'http://api.m.ox.ac.uk',
+        endpoint: 'http://localhost:5000',
         paths: {
             places_search: '/places/search',
             places_id: '/places/',
@@ -20,7 +20,8 @@ define([], function() {
         pathFor: function(api_method) {
             return this.paths[api_method];
         },
-        geolocationInterval: 25000
+        geolocationInterval: 25000,
+        defaultLocation: {coords: {latitude: 51.752018, longitude: -1.257723}}
     };
     return MoxieConf;
 });
