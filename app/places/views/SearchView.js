@@ -123,7 +123,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
 
         render: function() {
             this.$el.html(baseTemplate());
-            this.map = L.map(this.$el.find('#map')[0]).setView([51.75310, -1.2600], 15, true);
+            this.map = L.map(this.$('#map')[0]).setView([MoxieConf.defaultLocation.coords.latitude, MoxieConf.defaultLocation.coords.longitude], 15, true);
             L.tileLayer('http://{s}.tile.cloudmade.com/b0a15b443b524d1a9739e92fe9dd8459/997/256/{z}/{x}/{y}.png', {
                 maxZoom: 18,
                 // Detect retina - if true 4* map tiles are downloaded
