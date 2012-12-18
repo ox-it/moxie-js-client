@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.position', 'places/views/DetailView', 'hbs!places/templates/search', 'hbs!places/templates/results'],
-    function($, Backbone, _, L, MoxieConf, userPosition, DetailView, searchTemplate, resultsTemplate){
+define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.position', 'places/views/DetailView', 'hbs!places/templates/base', 'hbs!places/templates/search', 'hbs!places/templates/results'],
+    function($, Backbone, _, L, MoxieConf, userPosition, DetailView, baseTemplate, searchTemplate, resultsTemplate){
 
     var SearchView = Backbone.View.extend({
 
@@ -20,19 +20,45 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
 
         // Event Handlers
         events: {
-            'keypress :input': "searchEvent"
+            'keypress :input': "searchEvent",
+            'click .results-list>a': "browseDetails"
+        },
+
+        browseDetails: function(e) {
+            e.preventDefault();
+            // Find the POID from the click event
+            var poid = $(e.target).data('poid');
+            // We may have clicked on the actual LI element or a child... so search up parents
+            // TODO: Find a better way of doing this...
+            poid = (poid!==undefined) ? poid : $(e.target).parents('[data-poid]').data('poid');
+            var poi = this.collection.get(poid);
+            // Remove existing map markers
+            _.each(this.markers, function(marker) {
+                this.map.removeLayer(marker);
+            }, this);
+            // Create the detailView with the existing view element
+            var detailView = new DetailView({el: this.el});
+            detailView.map = this.map;
+            detailView.user_position = this.user_position;
+            detailView.poi = poi;
+            detailView.renderPOI(this.render_results);
+            // Cleanup and navigate
+            this.undelegateEvents();
+            this.onClose();
+            Backbone.history.navigate('/places/'+poid, {replace:false});
         },
 
         update_map_markers: function(){
-            var map = this.map;
             // Remove the existing map markers
-            $.each(this.markers, function(index) {
-                map.removeLayer(this);
-            });
+            _.each(this.markers, function(marker) {
+                this.map.removeLayer(marker);
+            }, this);
             // Create new list of markers from search results
             var markers = [];
             var latlngs = [];
-            $('.results-list li').each(function(index) {
+            var map = this.map;
+            this.$('.results-list li').each(function(index) {
+                console.log("Placing marker");
                 var latlng = new L.LatLng($(this).data('lat'), $(this).data('lon'));
                 var marker = new L.marker(latlng, {'title': $(this).find('h3').text()});
                 marker.addTo(map);
@@ -47,7 +73,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
                 bounds.extend(this.user_position);
             }
             bounds.pad(5);
-            map.fitBounds(bounds);
+            this.map.fitBounds(bounds);
         },
 
         searchEvent: function(ev) {
@@ -57,12 +83,16 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             }
         },
 
-        search: function() {
+        updatePath: function() {
             var qstring = this.query ? "?"+$.param({'q': this.query}) : '';
             var path = MoxieConf.pathFor('places_search') + qstring;
-            var url = MoxieConf.endpoint + path;
-            Backbone.history.navigate(path);
+            Backbone.history.navigate(path, {replace: false});
+            return MoxieConf.endpoint + path;
+        },
+
+        search: function() {
             var headers;
+            var url = this.updatePath();
             if (this.user_position) {
                 headers = {'Geo-Position': this.user_position.join(';')};
             }
@@ -78,13 +108,22 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
         },
 
         render_results: function() {
+            // Events may not have been delegated (using 'back' button)
+            this.delegateEvents(this.events);
+            Backbone.trigger('domchange:title', "Search for Places of Interest");
+            this.updatePath();
+            $('#home').show();
+            $('#back').hide();
+            // Create the results-list div and search query input
+            this.$('#list').html(searchTemplate({query: this.query}));
+            // Actually populate the results-list
             var context = {'results': this.collection.toArray()};
             this.$(".results-list").html(resultsTemplate(context));
             this.update_map_markers();
         },
 
         render: function() {
-            this.$el.html(searchTemplate());
+            this.$el.html(baseTemplate());
             this.map = L.map(this.$el.find('#map')[0]).setView([51.75310, -1.2600], 15, true);
             L.tileLayer('http://{s}.tile.cloudmade.com/b0a15b443b524d1a9739e92fe9dd8459/997/256/{z}/{x}/{y}.png', {
                 maxZoom: 18,
@@ -93,7 +132,6 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             }).addTo(this.map);
             this.map.attributionControl.setPrefix('');
             userPosition.follow(this.handle_geolocation_query);
-            Backbone.trigger('domchange:title', "Search for Places of Interest");
             return this;
         },
 
