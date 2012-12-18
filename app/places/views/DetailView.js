@@ -73,14 +73,15 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
                 $('#back').show().on('click', this.navigateBack);
             }
             Backbone.trigger('domchange:title', this.poi.attributes.name);
-            var context = {'poi': this.poi};
+            var rti = this.poi.attributes._links['hl:rti'];
+            var context = {'poi': this.poi, 'rti': rti};
             this.$("#list").html(detailTemplate(context));
             this.latlng = new L.LatLng(this.poi.get('lat'), this.poi.get('lon'));
             this.marker = new L.marker(this.latlng, {'title': this.poi.get('name')});
             this.marker.addTo(this.map);
             this.updateMap();
-            if (this.poi.has('hasRti')) {
-                var url = MoxieConf.endpoint + this.poi.get('hasRti');
+            if (rti) {
+                var url = MoxieConf.endpoint + rti.href;
                 $.ajax({
                     url: url,
                     dataType: 'json'
@@ -89,7 +90,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
         },
 
         renderRTI: function(data) {
-            this.$el.find('#poi-rti').html(busRTITemplate(data));
+            this.$('#poi-rti').html(busRTITemplate(data));
         },
 
         geo_error: function(error) {
@@ -101,7 +102,11 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
         handle_geolocation_query: function(position) {
             this.user_position = [position.coords.latitude, position.coords.longitude];
             var you = new L.LatLng(position.coords.latitude, position.coords.longitude);
-            L.circle(you, 10, {color: 'red', fillColor: 'red', fillOpacity: 1.0}).addTo(this.map);
+            if (this.user_marker) {
+                this.map.removeLayer(this.user_marker);
+            }
+            this.user_marker = L.circle(you, 10, {color: 'red', fillColor: 'red', fillOpacity: 1.0});
+            this.map.addLayer(this.user_marker);
             this.updateMap();
         },
 
