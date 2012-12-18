@@ -321,17 +321,6 @@ ul.results-list {
             font-family: Helvetica, Verdana, sans-serif;
             font-size: ms(2)/1.5;
         }
-        
-        p.metadata, p.type {
-            font-size: ms(0);
-            margin-bottom: 0;
-        }
-        p.type {
-            margin-top: ms(-4);
-            text-transform: uppercase;
-            font-weight: 600;
-            line-height: ms(0);
-        }
 
         h3 {
             font-size: ms(1);
@@ -350,3 +339,14 @@ ul.results-list {
     padding: 5px;
 }
 
+p.metadata, p.type {
+            font-size: ms(0);
+            margin-bottom: 0;
+        }
+
+p.type {
+    margin-top: ms(-4);
+    text-transform: uppercase;
+    font-weight: 600;
+    line-height: ms(0);
+}

@@ -57,7 +57,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             var markers = [];
             var latlngs = [];
             var map = this.map;
-            this.$('.results-list li').each(function(index) {
+            this.$('.results-list a li').each(function(index) {
                 var latlng = new L.LatLng($(this).data('lat'), $(this).data('lon'));
                 var marker = new L.marker(latlng, {'title': $(this).find('h3').text()});
                 marker.addTo(map);
