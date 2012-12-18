@@ -25,6 +25,13 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             return this;
         },
 
+        navigateBack: function(ev) {
+            ev.preventDefault();
+            this.map.removeLayer(this.marker);
+            this.cb();
+            this.onClose();
+        },
+
         invalidateMapSize: function() {
             this.map.invalidateSize();
             return this;
@@ -40,7 +47,6 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
 
         getDetail: function(data) {
             this.poi = new this.model(data);
-            Backbone.trigger('domchange:title', this.poi.attributes.name);
             this.renderPOI();
         },
 
@@ -57,12 +63,21 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             }
         },
 
-        renderPOI: function() {
+        renderPOI: function(cb) {
+            if (cb) {
+                this.delegateEvents(this.events);
+                this.cb = cb;
+                $('#home').hide();
+                // Event has to be bound here as the events hash only binds to items within this.el
+                // TODO: Common code for this stuff.
+                $('#back').show().on('click', this.navigateBack);
+            }
+            Backbone.trigger('domchange:title', this.poi.attributes.name);
             var context = {'poi': this.poi};
-            this.$el.find("#list").html(detailTemplate(context));
+            this.$("#list").html(detailTemplate(context));
             this.latlng = new L.LatLng(this.poi.get('lat'), this.poi.get('lon'));
-            var marker = new L.marker(this.latlng, {'title': this.poi.get('name')});
-            marker.addTo(this.map);
+            this.marker = new L.marker(this.latlng, {'title': this.poi.get('name')});
+            this.marker.addTo(this.map);
             this.updateMap();
             if (this.poi.has('hasRti')) {
                 var url = MoxieConf.endpoint + this.poi.get('hasRti');
