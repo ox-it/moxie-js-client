@@ -298,6 +298,23 @@ ul.results-list {
             );
         }
 
+        // Extra button to lead to detail directly or after the main button has been pressed
+        a.detail_disclosure {
+                content: "▻";
+                @include background(linear-gradient(lighten(#1B4474, 20%), #002856));
+                color: #fff;
+                border: 3px solid #fff;
+                box-shadow: 0 0 5px rgba(0,0,0,0.4);
+                height: 30px;
+                width: 30px;
+                padding-left: 5px;
+                border-radius: 15px;
+                line-height: 27px;
+                display: inline-block;
+                font-family: "SSStandard";
+                vertical-align: middle;
+        }
+
         @include gentle-inset-shadow-on-state();
 
         & * {
@@ -323,6 +340,7 @@ ul.results-list {
             margin: 0;
             color: #444;
         }
+
     }
 }
 
