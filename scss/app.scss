@@ -176,7 +176,7 @@ ul.sidebar-items {
         // Left hand button should not have the brighter border
         &:first-child a { border-left: 0;}
 
-        &#home { 
+        &#home, &#back { 
             float: left;
             border: 0;
             border-right: $navbarBorderLight;
