@@ -26,8 +26,10 @@ define(["underscore", "backbone", "moxie.conf"], function(_, Backbone, conf){
                     that.trigger('position:updated', position);
                     that.latest = position;
                 }, function(e) { // Error
-                    console.log("Error accessing location");
+                    console.log("Error accessing location - Falling back to default.");
                     console.log(e.code);
+                    that.trigger('position:updated', conf.defaultLocation);
+                    that.latest = conf.defaultLocation;
                 },
             {timeout:50000}); // This is useful for debugging problem with geolocation
         }

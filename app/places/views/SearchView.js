@@ -7,7 +7,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
         initialize: function() {
             _.bindAll(this);
             L.Icon.Default.imagePath = '/images/maps';
-            this.collection.on("add remove reset", this.render_results, this);
+            this.collection.on("add remove reset", this.collectionUpdated, this);
             this.query = (this.options.params && this.options.params.q) ? this.options.params.q : '';
             this.user_position = null;
             this.latlngs = [];
@@ -21,10 +21,10 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
         // Event Handlers
         events: {
             'keypress :input': "searchEvent",
-            'click .results-list>a': "browseDetails"
+            'click .results-list > a': "clickResult"
         },
 
-        browseDetails: function(e) {
+        clickResult: function(e) {
             e.preventDefault();
             // Find the POID from the click event
             var poid = $(e.target).data('poid');
@@ -32,6 +32,10 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             // TODO: Find a better way of doing this...
             poid = (poid!==undefined) ? poid : $(e.target).parents('[data-poid]').data('poid');
             var poi = this.collection.get(poid);
+            this.browseDetails(poi, _.bind(this.render_results, this, true));
+        },
+
+        browseDetails: function(poi, cb) {
             // Remove existing map markers
             _.each(this.markers, function(marker) {
                 this.map.removeLayer(marker);
@@ -41,11 +45,12 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             detailView.map = this.map;
             detailView.user_position = this.user_position;
             detailView.poi = poi;
-            detailView.renderPOI(this.render_results);
+            detailView.renderPOI(cb);
             // Cleanup and navigate
             this.undelegateEvents();
             this.onClose();
-            Backbone.history.navigate('/places/'+poid, {replace:false});
+            console.log(poi.id);
+            Backbone.history.navigate('/places/'+poi.id, {replace:false});
         },
 
         update_map_markers: function(){
@@ -106,7 +111,18 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             this.collection.reset(data._embedded.results);
         },
 
-        render_results: function() {
+        collectionUpdated: function() {
+            this.render_results(false);
+        },
+
+        render_results: function(back_button) {
+            if (this.collection.length===1 && (back_button===undefined || !back_button)) {
+                // We have only one result and the user hasn't navigated back
+                // Set a curried callback bound with back_button=true:
+                // This means if a user clicks back they get the results page with a single result
+                this.browseDetails(this.collection.at(0), _.bind(this.render_results, this, true));
+                return this;
+            }
             // Events may not have been delegated (using 'back' button)
             this.delegateEvents(this.events);
             Backbone.trigger('domchange:title', "Search for Places of Interest");
@@ -123,7 +139,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
 
         render: function() {
             this.$el.html(baseTemplate());
-            this.map = L.map(this.$el.find('#map')[0]).setView([51.75310, -1.2600], 15, true);
+            this.map = L.map(this.$('#map')[0]).setView([MoxieConf.defaultLocation.coords.latitude, MoxieConf.defaultLocation.coords.longitude], 15, true);
             L.tileLayer('http://{s}.tile.cloudmade.com/b0a15b443b524d1a9739e92fe9dd8459/997/256/{z}/{x}/{y}.png', {
                 maxZoom: 18,
                 // Detect retina - if true 4* map tiles are downloaded

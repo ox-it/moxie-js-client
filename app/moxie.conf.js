@@ -20,7 +20,8 @@ define([], function() {
         pathFor: function(api_method) {
             return this.paths[api_method];
         },
-        geolocationInterval: 25000
+        geolocationInterval: 25000,
+        defaultLocation: {coords: {latitude: 51.752018, longitude: -1.257723}}
     };
     return MoxieConf;
 });

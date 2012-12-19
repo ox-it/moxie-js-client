@@ -14,6 +14,7 @@
 		{{/if}}
 	{{/if}}
 
+
 	<p class="metadata">
 		{{#if poi.attributes.address }}{{ poi.attributes.address }}{{/if}}
 	</p>
@@ -22,7 +23,7 @@
 		{{#if poi.attributes.website }}<a class="meta-action-button" href="{{ poi.attributes.website }}">Website</a>{{/if}}
 	</p>
 
-	{{#if poi.attributes.hasRti }}
+	{{#if rti }}
 	<div id="poi-rti">
 	</div>
 	{{/if}}
