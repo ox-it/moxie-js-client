@@ -132,7 +132,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             // Create the results-list div and search query input
             this.$('#list').html(searchTemplate({query: this.query}));
             // Actually populate the results-list
-            var context = {'results': this.collection.toArray()};
+            var context = {results: this.collection.toArray(), query: this.query};
             this.$(".results-list").html(resultsTemplate(context));
             this.update_map_markers();
         },
