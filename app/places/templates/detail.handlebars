@@ -1,18 +1,27 @@
 <div class="free-text">
-	<h3>{{ poi.attributes.name }}</h3>
-	<strong>{{ poi.attributes.type_name }}</strong>
-	{{#if poi.attributes.address }}
-	<p>{{ poi.attributes.address }}</p>
+	{{#if poi.attributes.name }}
+		<h3>{{ poi.attributes.name }}</h3>
+		<p class="type">{{ poi.attributes.type_name }}
+		{{#if poi.attributes.opening_hours }}
+			{{{currentlyOpen poi.attributes.opening_hours}}}
+		{{/if}}
+		</p>
+	{{ else }}
+		<h3>{{ poi.attributes.type_name }}</h3>
+		{{! opening_hours should be a string if it exists}}
+		{{# if poi.attributes.opening_hours }}
+			<p class="type">{{{currentlyOpen poi.attributes.opening_hours}}}</p>
+		{{/if}}
 	{{/if}}
-	{{#if poi.attributes.phone }}
-	<p><a href="tel:{{ poi.attributes.phone }}">{{ poi.attributes.phone }}</a></p>
-	{{/if}}
-	{{#if poi.attributes.website }}
-	<p><a href="{{ poi.attributes.website }}">{{ poi.attributes.website}}</a></p>
-	{{/if}}
-	{{#if poi.attributes.opening_hours }}
-	<p>{{ poi.attributes.opening_hours }}{{{currentlyOpen poi.attributes.opening_hours }}}</p>
-	{{/if}}
+
+	<p class="metadata">
+		{{#if poi.attributes.address }}{{ poi.attributes.address }}{{/if}}
+	</p>
+	<p class="metadata">
+		{{#if poi.attributes.phone }}<a class="meta-action-button tel" href="tel:{{ poi.attributes.phone }}">{{ poi.attributes.phone }}</a><br/>{{/if}}
+		{{#if poi.attributes.website }}<a class="meta-action-button" href="{{ poi.attributes.website }}">Website</a>{{/if}}
+	</p>
+
 	{{#if poi.attributes.hasRti }}
 	<div id="poi-rti">
 	</div>

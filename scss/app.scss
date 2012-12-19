@@ -21,14 +21,15 @@
 // Used for displaying higher quality graphics to hi res displays
 @import 'hidpi';
 
-@import "components/labels";
 @import "globals/variables";
+@import "components/labels";
+@import "components/buttons";
 
-$navbarDark: #1B4474;
-$navbarLight: #002856;
+
+$navbarDark: $darkOxfordBlue;
+$navbarLight: $lightOxfordBlue;
 $navbarHeight: 40px;
 $navbarItemWidth: 50px;
-
 $navbarBorderDark: 1px solid rgba(darken($navbarDark, 10%),0.7);;
 $navbarBorderLight: 1px solid rgba(lighten($navbarDark, 5%),0.7);
 
@@ -236,7 +237,7 @@ ul.sidebar-items {
             right: 20px;
             top: 15px;
             padding: 4px 4px 2px 4px;
-            border-radius: 30px;
+            @include border-radius(30px);
             font-size: 9px;
             color: $white;
             background: #ccc;
@@ -308,7 +309,7 @@ ul.results-list {
                 height: 30px;
                 width: 30px;
                 padding-left: 5px;
-                border-radius: 15px;
+                @include border-radius(15px);
                 line-height: 27px;
                 display: inline-block;
                 font-family: "SSStandard";
