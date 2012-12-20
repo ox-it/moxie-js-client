@@ -31,7 +31,7 @@ define(["underscore", "backbone", "moxie.conf"], function(_, Backbone, conf){
                     that.trigger('position:updated', conf.defaultLocation);
                     that.latest = conf.defaultLocation;
                 },
-            {timeout:50000}); // This is useful for debugging problem with geolocation
+            {timeout:3000}); // This is useful for debugging problem with geolocation
         }
     };
     _.bindAll(userPosition);
