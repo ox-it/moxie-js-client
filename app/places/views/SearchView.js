@@ -172,7 +172,6 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             }
             this.user_marker = L.circle(you, 10, {color: 'red', fillColor: 'red', fillOpacity: 1.0});
             this.map.addLayer(this.user_marker);
-            this.map.panTo(you);
             if (this.initial_call) {
                 this.initial_call = false;
                 this.search();
