@@ -4,9 +4,9 @@
         {{#if types}}
             {{! If this category has any sub-categories, place a link to them }}
             {{#if ../../category_name}}
-                <a href="#places/categories/{{ ../../../category_name }}/{{ type }}"<li><h3>{{ type_name }}</h3></li></a>
+                <a href="#places/categories/{{ ../../../category_name }}/{{ type }}"><li><h3>{{ type_name }}</h3></li></a>
             {{else}}
-                <a href="#places/categories/{{ type }}"<li><h3>{{ type_name }}</h3></li></a>
+                <a href="#places/categories/{{ type }}"><li><h3>{{ type_name }}</h3></li></a>
             {{/if}}
         {{else}}
             <li><h3>{{ type_name }}</h3></li>
