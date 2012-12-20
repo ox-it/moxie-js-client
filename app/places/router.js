@@ -1,13 +1,21 @@
-define(["app", "backbone", "places/models/POIModel", "places/views/SearchView", "places/views/DetailView", "places/collections/POICollection", "backbone.subroute"], function(app, Backbone, POI, SearchView, DetailView, POIs){
+define(["app", "backbone", "places/models/POIModel", "places/views/CategoriesView", "places/views/SearchView", "places/views/DetailView", "places/collections/POICollection", "backbone.subroute"], function(app, Backbone, POI, CategoriesView, SearchView, DetailView, POIs){
 
     var PlacesRouter = Backbone.SubRoute.extend({
 
         // All of your Backbone Routes (add more)
         routes: {
 
+            "categories": "categories",
+            "categories/*category_name": "categories",
             "search": "search",
             ":id": "detail"
 
+        },
+
+        categories: function(category_name) {
+            // Navigate to the list of categories (root view of places)
+            categoriesView = new CategoriesView({category_name: category_name});
+            app.showView(categoriesView);
         },
 
         search: function(params) {
