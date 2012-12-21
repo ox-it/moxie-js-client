@@ -68,9 +68,10 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             var markers = [];
             var latlngs = [];
             var map = this.map;
-            this.$('.results-list a li').each(function(index) {
-                var latlng = new L.LatLng($(this).data('lat'), $(this).data('lon'));
-                var marker = new L.marker(latlng, {'title': $(this).find('h3').text()});
+            this.collection.each(function(poi) {
+                console.log(poi);
+                var latlng = new L.LatLng(poi.attributes.lat, poi.attributes.lon);
+                var marker = new L.marker(latlng, {'title': poi.attributes.name});
                 marker.addTo(map);
                 latlngs.push(latlng);
                 markers.push(marker);
