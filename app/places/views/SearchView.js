@@ -69,7 +69,6 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             var latlngs = [];
             var map = this.map;
             this.collection.each(function(poi) {
-                console.log(poi);
                 var latlng = new L.LatLng(poi.attributes.lat, poi.attributes.lon);
                 var marker = new L.marker(latlng, {'title': poi.attributes.name});
                 marker.addTo(map);
