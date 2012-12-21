@@ -9,7 +9,7 @@
                 <a href="#places/categories/{{ type }}"><li><h3>{{ type_name }}</h3></li></a>
             {{/if}}
         {{else}}
-            <li><h3>{{ type_name }}</h3></li>
+            <a href="#places/search?type=/{{ ../../category_name }}/{{ type }}"><li><h3>{{ type_name }}</h3></li></a>
         {{/if}}
     {{/types}}
 </ul>
