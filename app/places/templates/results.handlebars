@@ -1,24 +1,26 @@
-{{#results}}
-	<a href="#/places/{{ attributes.id }}"><li data-lon="{{ attributes.lon }}" data-lat="{{ attributes.lat }}" data-poid="{{ attributes.id }}">
-	{{#if attributes.name }}
-		<h3>{{ attributes.name }}</h3>
-		<p class="type">{{ attributes.type_name }}
-		{{# if attributes.opening_hours }}
-			{{{currentlyOpen attributes.opening_hours}}}
-		{{/if}}
-		</p>
-	{{ else }}
-		<h3>{{ attributes.type }}</h3>
-		{{! opening_hours should be a string if it exists}}
-		{{# if attributes.opening_hours }}
-			<p class="type">{{{currentlyOpen attributes.opening_hours}}}</p>
-		{{/if}}
-	{{/if}}
-	
-	{{#if attributes.address }}
-			<p class="metadata">{{ attributes.address }}</p>
-	{{/if}}
-	<p class="metadata">{{humaniseDistance attributes.distance }}</p>
-	
-	</li></a>
-{{/results}}
+{{#if results}}
+    {{#results}}
+        <a href="#/places/{{ attributes.id }}"><li data-lon="{{ attributes.lon }}" data-lat="{{ attributes.lat }}" data-poid="{{ attributes.id }}">
+        {{#if attributes.name }}
+            <h3>{{ attributes.name }}</h3>
+            <p class="type">{{ attributes.type_name }}
+            {{# if attributes.opening_hours }}
+                {{{currentlyOpen attributes.opening_hours}}}
+            {{/if}}
+            </p>
+        {{ else }}
+            <h3>{{ attributes.type }}</h3>
+            {{! opening_hours should be a string if it exists}}
+            {{# if attributes.opening_hours }}
+                <p class="type">{{{currentlyOpen attributes.opening_hours}}}</p>
+            {{/if}}
+        {{/if}}
+        {{#if attributes.address }}
+                <p class="metadata">{{ attributes.address }}</p>
+        {{/if}}
+        <p class="metadata">{{humaniseDistance attributes.distance }}</p>
+        </li></a>
+    {{/results}}
+{{else}}
+    <p>No results found for <strong>{{query}}</strong></p>
+{{/if}}

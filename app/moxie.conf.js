@@ -3,6 +3,7 @@ define([], function() {
         endpoint: 'http://api.m.ox.ac.uk',
         paths: {
             places_search: '/places/search',
+            places_categories: '/places/types',
             places_id: '/places/',
             dates: '/oxford_dates/',
             courses_search: '/courses/search',

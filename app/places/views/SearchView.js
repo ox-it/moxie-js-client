@@ -8,7 +8,13 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             _.bindAll(this);
             L.Icon.Default.imagePath = '/images/maps';
             this.collection.on("add remove reset", this.collectionUpdated, this);
-            this.query = (this.options.params && this.options.params.q) ? this.options.params.q : '';
+            this.query = {};
+            if (this.options.params && this.options.params.q) {
+                this.query.q = this.options.params.q;
+            }
+            if (this.options.params && this.options.params.type) {
+                this.query.type = this.options.params.type;
+            }
             this.user_position = null;
             this.latlngs = [];
             this.markers = [];
@@ -82,15 +88,22 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
 
         searchEvent: function(ev) {
             if (ev.which === 13) {
-                this.query = ev.target.value;
+                this.query.q = ev.target.value;
                 this.search();
             }
         },
 
+        initial_path_update: true,
         updatePath: function() {
-            var qstring = this.query ? "?"+$.param({'q': this.query}) : '';
-            var path = MoxieConf.pathFor('places_search') + qstring;
-            Backbone.history.navigate(path, {replace: false});
+            var qstring = $.param(this.query);
+            var path;
+            if (qstring) {
+                path = MoxieConf.pathFor('places_search') + '?' + qstring;
+            } else {
+                path = MoxieConf.pathFor('places_search');
+            }
+            Backbone.history.navigate(path, {trigger: false, replace: this.initial_path_update});
+            this.initial_path_update = false;
             return MoxieConf.endpoint + path;
         },
 
@@ -130,9 +143,9 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             $('#home').show();
             $('#back').hide();
             // Create the results-list div and search query input
-            this.$('#list').html(searchTemplate({query: this.query}));
+            this.$('#list').html(searchTemplate({query: this.query.q}));
             // Actually populate the results-list
-            var context = {'results': this.collection.toArray()};
+            var context = {results: this.collection.toArray(), query: this.query.q};
             this.$(".results-list").html(resultsTemplate(context));
             this.update_map_markers();
         },
@@ -172,7 +185,6 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             }
             this.user_marker = L.circle(you, 10, {color: 'red', fillColor: 'red', fillOpacity: 1.0});
             this.map.addLayer(this.user_marker);
-            this.map.panTo(you);
             if (this.initial_call) {
                 this.initial_call = false;
                 this.search();
