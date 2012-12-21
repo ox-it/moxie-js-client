@@ -25,6 +25,7 @@
 @import "components/labels";
 @import "components/buttons";
 
+$animations-enabled: false;
 
 $navbarDark: $darkOxfordBlue;
 $navbarLight: $lightOxfordBlue;
@@ -69,7 +70,9 @@ $sidebar-width: 75%;
 $sidebar-margin: 100% - $sidebar-width;
 #main, #sidebar {
     position: relative;
-    @include transition($sidebar-animation-time all ease-out);
+    @if $animations-enabled == true {
+       @include transition($sidebar-animation-time all ease-out);
+    }
 }
 
 #main { 
@@ -94,18 +97,25 @@ $sidebar-margin: 100% - $sidebar-width;
 }
 
 .overlay {
-    width: 100%; 
+    width: $sidebar-margin;
+    margin-left: $sidebar-width;
     height: 100%; 
     position: absolute;
-    opacity: 0;
+    opacity: 0.5;
     background-color: $black; 
     z-index: 0; 
-    @include transition($sidebar-animation-time all ease-out);
+    @if $animations-enabled == true {
+        opacity: 0;
+        width: 100%; 
+        @include transition($sidebar-animation-time all ease-out);
+    }
     body.is-sidebar-active & {
         z-index: 2;
-        width: $sidebar-margin;
-        margin-left: $sidebar-width;
-        opacity: 0.5; 
+        @if $animations-enabled == true {
+            width: $sidebar-margin;
+            margin-left: $sidebar-width;
+            opacity: 0.5; 
+        }
     }
 }
 
