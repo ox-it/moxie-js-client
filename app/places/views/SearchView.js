@@ -68,9 +68,9 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             var markers = [];
             var latlngs = [];
             var map = this.map;
-            this.$('.results-list a li').each(function(index) {
-                var latlng = new L.LatLng($(this).data('lat'), $(this).data('lon'));
-                var marker = new L.marker(latlng, {'title': $(this).find('h3').text()});
+            this.collection.each(function(poi) {
+                var latlng = new L.LatLng(poi.attributes.lat, poi.attributes.lon);
+                var marker = new L.marker(latlng, {'title': poi.attributes.name});
                 marker.addTo(map);
                 latlngs.push(latlng);
                 markers.push(marker);
@@ -128,6 +128,8 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             this.render_results(false);
         },
 
+        scrolled: false,
+
         render_results: function(back_button) {
             if (this.collection.length===1 && (back_button===undefined || !back_button)) {
                 // We have only one result and the user hasn't navigated back
@@ -148,6 +150,8 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             var context = {results: this.collection.toArray(), query: this.query.q};
             this.$(".results-list").html(resultsTemplate(context));
             this.update_map_markers();
+
+
         },
 
         render: function() {
@@ -160,7 +164,28 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             }).addTo(this.map);
             this.map.attributionControl.setPrefix('');
             userPosition.follow(this.handle_geolocation_query);
+
+            // Infinite scroll stuff
+            this.$('#list').scroll(
+                _.bind(function(){
+                    this.scrolled = true;
+                }, this)
+            );
+
+            this.scrolling_interval = window.setInterval(
+                _.bind(function(){
+                console.log(this.scrolled);
+                if (this.scrolled) {
+                    this.loadMorePOIs();
+                    this.scrolled = false;
+                }
+            }, this), 250); // limit to 250ms per Mr. Resig's suggestion
             return this;
+        },
+
+        loadMorePOIs: function() {
+            // Inspect the div to determine if more POI's should be loaded
+            var list = this.$('#list');
         },
 
         invalidateMapSize: function() {
@@ -192,6 +217,10 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
         },
 
         onClose: function() {
+            if (this.scrolling_interval) {
+                // Stop looking for #list's scroll event
+                window.clearInterval(this.scrolling_interval);
+            }
             userPosition.unfollow(this.handle_geolocation_query);
         }
     });
