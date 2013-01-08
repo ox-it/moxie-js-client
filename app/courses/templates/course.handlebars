@@ -14,7 +14,16 @@
 {{#presentations}}
 <li>
 	{{#if start }}
-	Starts: {{ dateFormat start }}
+	Starts: {{ dateFormat start }}<br />
+	{{/if}}
+	{{#if attendance_mode }}
+	Attendance mode: {{ attendance_mode }}<br />
+	{{/if}}
+	{{#if attendance_pattern }}
+	Attendance pattern: {{ attendance_pattern }}<br />
+	{{/if}}
+	{{#if study_mode }}
+	Study mode: {{ study_mode }}<br />
 	{{/if}}
     <span class="bookable">
     {{#if _links.book }}
@@ -29,8 +38,14 @@
         {{ else }}
         (Cannot be booked at the moment.)
         {{/if}}
+        {{#if apply_link}}
+        <span>
+            <a href="{{ apply_link }}" target="_blank">Book online</a>
+        </span>
+        {{/if}}
     {{/if}}
     </span>
+
 </li>
 {{/presentations}}
 </ul>
