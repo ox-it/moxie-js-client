@@ -121,7 +121,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
         },
 
         createPOIs: function(data) {
-            this.collection.reset(data._embedded.results);
+            this.collection.reset(data._embedded);
         },
 
         collectionUpdated: function() {
@@ -165,6 +165,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             this.map.attributionControl.setPrefix('');
             userPosition.follow(this.handle_geolocation_query);
 
+            /* DISABLED infinite scroll for now.
             // Infinite scroll stuff
             this.$('#list').scroll(
                 _.bind(function(){
@@ -181,6 +182,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
                 }
             }, this), 250); // limit to 250ms per Mr. Resig's suggestion
             return this;
+            */
         },
 
         loadMorePOIs: function() {
