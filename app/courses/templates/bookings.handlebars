@@ -1,9 +1,9 @@
 <h3>My bookings</h3>
 
 <ul class="results-list">
-{{#courses}}
+{{#_embedded}}
 	<li><a href='#/courses/detail/{{ id }}'>{{ title }}</a>
-    <p>{{#presentations}} {{ dateFormat start }} {{/presentations}}</p>
+    <ul>{{#_embedded}} <li> Status: {{ booking_status }} Starts: {{ dateFormat start }} </li> {{/_embedded}}</ul>
     </li>
-{{/courses}}
+{{/_embedded}}
 </ul>
