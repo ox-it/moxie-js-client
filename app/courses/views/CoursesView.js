@@ -6,6 +6,10 @@ function($, Backbone, _, coursesTemplate, L, MoxieConf){
             _.bindAll(this);
         },
 
+        attributes: {
+            'class': 'generic'
+        },
+
         render: function() {
             $.ajax({
                 url: MoxieConf.urlFor('courses_search') + "?q=" + this.options.query,
