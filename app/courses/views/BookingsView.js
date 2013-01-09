@@ -18,7 +18,7 @@ define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/bookings', 'l
         },
 
         renderCoursesList: function(data) {
-            if(data.courses.length > 0) {
+            if(data._embedded.length > 0) {
                 this.$el.html(bookingsTemplate(data));
             } else {
                 this.$el.html("<h3>No bookings</h3>");
