@@ -1,9 +1,15 @@
 <h3>My bookings</h3>
 
 <ul class="results-list">
-{{#_embedded}}
-	<li><a href='#/courses/detail/{{ id }}'>{{ title }}</a>
-    <ul>{{#_embedded}} <li> Status: {{ booking_status }} Starts: {{ dateFormat start }} </li> {{/_embedded}}</ul>
+    {{#_embedded}}
+    <li><a href='#/courses/detail/{{ id }}'>{{ title }}</a>
+    {{#_embedded}}
+    <ul data-id="{{ id }}">
+        <li>Status: {{ booking_status }} (<a href="#" class="updateStatus">update</a>)</li>
+        <li>Starts: {{ dateFormat start }} </li> 
+        <li style="display: none;"><a class="button withdrawBooking" href="#">Withdraw from this course</a></li>
+    </ul>
+    {{/_embedded}}
     </li>
-{{/_embedded}}
+    {{/_embedded}}
 </ul>
