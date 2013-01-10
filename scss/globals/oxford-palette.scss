@@ -1,0 +1,39 @@
+// Official Oxford Pantone palette
+$pantone282: rgb(0, 33, 71);
+$pantone279: rgb(72, 145, 220);
+$pantone291: rgb(159, 206, 235);
+$pantone5405: rgb(68, 104, 125);
+$pantone549: rgb(95, 155, 175);
+$pantone551: rgb(161, 196, 208);
+$pantone562: rgb(0, 119, 112);
+$pantone624: rgb(123, 162, 150);
+$pantone559: rgb(188, 210, 195);
+$pantone576: rgb(105, 145, 59);
+$pantone578: rgb(185, 207, 150);
+$pantone580: rgb(206, 219, 175);
+$pantone583: rgb(170, 179, 0);
+$pantone585: rgb(219, 222, 114);
+$pantone587: rgb(227, 229, 151);
+$pantone7412: rgb(207, 122, 48);
+$pantone129: rgb(245, 207, 71);
+$pantone127: rgb(243, 222, 116);
+$pantone202: rgb(135, 36, 52);
+$pantone200: rgb(190, 15, 52);
+$pantone196: rgb(167, 157, 150);
+$pantoneWarmGray6: rgb(167, 157, 150);
+$pantoneWarmGray3: rgb(199, 194, 188);
+$pantoneWarmGray1: rgb(224, 222, 217);
+
+// Near approximations (CMYK colours)
+$pantone872: #b2965b;
+$pantone877: #a7a8ac;
+
+// Palette list
+$appToday: $pantone583;
+$appPlaces: $pantone578;
+$appGraduateTraining: $pantone200;
+
+$appPalette: $appToday, $appPlaces, $appGraduateTraining;
+
+// Colours
+$oxfordBlue: $pantone282;
