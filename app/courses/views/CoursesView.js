@@ -6,6 +6,10 @@ function($, Backbone, _, coursesTemplate, L, MoxieConf){
             _.bindAll(this);
         },
 
+        attributes: {
+            'class': 'generic'
+        },
+
         render: function() {
             $.ajax({
                 url: MoxieConf.urlFor('courses_search') + "?q=" + this.options.query,
@@ -14,8 +18,8 @@ function($, Backbone, _, coursesTemplate, L, MoxieConf){
         },
 
         renderCoursesList: function(data) {
-            var context = {results: data._embedded.courses};
-            if(context.results.length > 0) {
+            var context = {courses: data._embedded};
+            if(context.courses.length > 0) {
                 this.$el.html(coursesTemplate(context));
             } else {
                 this.$el.html("<h3>No results</h3>");

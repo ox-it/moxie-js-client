@@ -1,21 +1,32 @@
-<strong>
-{{#each subjects}}
-{{this}}, 
-{{/each}}
-</strong>
-
 <h3>{{ title }}</h3>
-<strong>{{ provider }}</strong>
+<strong>{{ provider }}</strong><br />
+<strong>
+{{#subjects}}
+<a href='#/courses/course_subject:"{{this}}"'>{{this}}</a>, 
+{{/subjects}}
+</strong>
 <p>{{ description }} </p>
 
 <div id="authStatus"></div>
 
 <ul>
-{{#presentations}}
+{{#_embedded}}
 <li>
 	{{#if start }}
-	Starts: {{ dateFormat start }}
+	Starts: {{ dateFormat start }}<br />
 	{{/if}}
+	{{#if attendance_mode }}
+	Attendance mode: {{ attendance_mode }}<br />
+	{{/if}}
+	{{#if attendance_pattern }}
+	Attendance pattern: {{ attendance_pattern }}<br />
+	{{/if}}
+	{{#if study_mode }}
+	Study mode: {{ study_mode }}<br />
+	{{/if}}
+    {{#if location }}
+    Location: <a href="#/places/{{ location }}">map</a><br />
+    {{/if}}
     <span class="bookable">
     {{#if _links.book }}
 	<a class="bookLink" data-id="{{ id }}">Book</a>
@@ -29,8 +40,14 @@
         {{ else }}
         (Cannot be booked at the moment.)
         {{/if}}
+        {{#if apply_link}}
+        <span>
+            <a href="{{ apply_link }}" target="_blank">Book online</a>
+        </span>
+        {{/if}}
     {{/if}}
     </span>
+
 </li>
-{{/presentations}}
+{{/_embedded}}
 </ul>
