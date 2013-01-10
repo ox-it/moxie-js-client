@@ -57,10 +57,11 @@ define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/course', 'hbs
             },
 
             bookCourse: function(ev) {
-                id = this.$(ev.currentTarget).attr("data-id");
-
-                url = MoxieConf.urlFor('presentation_id') + id + "/book";
-
+                // TODO: This should really be using the _links
+                // However they're on the embedded elements in the response, could be tricky?
+                var id = this.$(ev.currentTarget).attr("data-id");
+                var url = MoxieConf.urlFor('presentation_id') + id + "/booking";
+                // TODO: We need to send supervisor credentials
                 data = {'jsj': 'ksjdjf', 'sjsj': 'ksjsj' };
 
                 $.ajax({
