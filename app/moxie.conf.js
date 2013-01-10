@@ -5,7 +5,7 @@ define([], function() {
             places_search: '/places/search',
             places_categories: '/places/types',
             places_id: '/places/',
-            dates: '/oxford_dates/',
+            dates: '/dates/today',
             courses_search: '/courses/search',
             courses_subjects: '/courses/subjects',
             courses_bookings: '/courses/bookings',

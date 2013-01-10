@@ -22,6 +22,7 @@
 @import 'hidpi';
 
 @import "globals/variables";
+@import "globals/oxford-palette";
 @import "components/labels";
 @import "components/buttons";
 
@@ -40,6 +41,11 @@ $border-color: rgba(200,200,200, 0.5);
 
 $mapHeight: 140px;
 
+
+// Colours for each application
+$todayColor: $pantone7412;
+
+
 @mixin gentle-inset-shadow-on-state{
     &:active, &:hover, &:active {
         @include box-shadow(0 0 2px rgba(0,0,0,0.6) inset);
@@ -47,12 +53,12 @@ $mapHeight: 140px;
 }
 
 html, body { height: 100%; }
-body { 
-    background: $body-background; 
+body {
+    background: $body-background;
     width: 100%;
 }
 
-h2 { 
+h2 {
     font-size: ms(2);
     font-weight: 300;
     margin-left: 5px;
@@ -63,7 +69,49 @@ h3 {
     margin-top: 8px;
 }
 
-// Sidebar 
+// Today
+// Items specific to the today page
+div.today {
+    display: inline-block;
+    margin: 10px 0 0 10px;
+    @include box-shadow(0 0 2px #ccc);
+    @include border-radius(3px);
+    border: 1px solid #ccc;
+
+    > div {
+        float: left;
+        padding: 10px;
+
+    }
+    div.day {
+        padding: 20px;
+        font-size: ms(5);
+        font-weight: 300;
+        font-variant: small-caps;
+        @include background(linear-gradient(top, #fafafa, #fbfbfb));
+        border-right: 1px solid #ccc;
+    }
+    div.date {
+        > div {
+            font-size: ms(2);
+
+            font-weight: 300;
+            text-align: center;
+        }
+        div.term-date {
+            padding-top: 5px;
+
+        }
+
+        div.standard-date {
+            border-bottom: 1px solid $border-color;
+            padding-bottom: 5px;
+            padding-top: 3px;
+        }
+    }
+}
+
+// Sidebar
 // This relates to how the sidebar operates
 $sidebar-animation-time: 0.33s;
 $sidebar-width: 75%;
@@ -75,7 +123,7 @@ $sidebar-margin: 100% - $sidebar-width;
     }
 }
 
-#main { 
+#main {
     width: 100%;
     height: 100%;
     margin-left: 0;
@@ -86,10 +134,10 @@ $sidebar-margin: 100% - $sidebar-width;
     }
 }
 
-#sidebar { 
+#sidebar {
     width: $sidebar-width;
     margin-left: -100%;
-    float: left; 
+    float: left;
     z-index: 3;
     body.is-sidebar-active & {
         margin-left: 0;
@@ -99,14 +147,14 @@ $sidebar-margin: 100% - $sidebar-width;
 .overlay {
     width: $sidebar-margin;
     margin-left: $sidebar-width;
-    height: 100%; 
+    height: 100%;
     position: absolute;
     opacity: 0.5;
-    background-color: $black; 
-    z-index: 0; 
+    background-color: $black;
+    z-index: 0;
     @if $animations-enabled == true {
         opacity: 0;
-        width: 100%; 
+        width: 100%;
         @include transition($sidebar-animation-time all ease-out);
     }
     body.is-sidebar-active & {
@@ -114,7 +162,7 @@ $sidebar-margin: 100% - $sidebar-width;
         @if $animations-enabled == true {
             width: $sidebar-margin;
             margin-left: $sidebar-width;
-            opacity: 0.5; 
+            opacity: 0.5;
         }
     }
 }
@@ -139,7 +187,7 @@ ul.sidebar-items {
 
 
 // Navbar
-// Make the navbar sexy. 
+// Make the navbar sexy.
 #navbar, #content {
     overflow: hidden;
     position: absolute;
@@ -158,7 +206,7 @@ ul.sidebar-items {
     list-style: none;
     background: $navbarLight; // Basic background for old devices
     @include background(
-        // Highlighting radial gradient. 
+        // Highlighting radial gradient.
         // Light top, dark bottom
         radial-gradient(center, ellipse cover, rgba(0,0,0,0), rgba(0,0,0,0.1)),
         linear-gradient(top, $navbarDark, $navbarLight)
@@ -167,14 +215,14 @@ ul.sidebar-items {
     > li {
         // Most of the elements are on the right, so default to floating them right
         float: right;
-        // Set width of each button and center align it 
+        // Set width of each button and center align it
         width: $navbarItemWidth;
         text-align: center;
 
         // 3d effect by having a dark and light border on each item
         border-left: $navbarBorderDark;
 
-        a { 
+        a {
             border-left: $navbarBorderLight;
             display: block;
             color: $white;
@@ -187,7 +235,7 @@ ul.sidebar-items {
         // Left hand button should not have the brighter border
         &:first-child a { border-left: 0;}
 
-        &#home, &#back { 
+        &#home, &#back {
             float: left;
             border: 0;
             border-right: $navbarBorderLight;
@@ -202,7 +250,7 @@ ul.sidebar-items {
                 // Set line-height to navbarHeight to give vertical alignment
                 line-height: $navbarHeight;
                 font-size: ms(0);
-                // Left spacing equivalent to font-size. 
+                // Left spacing equivalent to font-size.
                 margin: auto 0 auto ms(0);
                 // Pull the text up slightly to align with buttons
                 margin-top: -2px;
@@ -276,7 +324,7 @@ ul.sidebar-items {
         }
     }
 
-    
+
 
 }
 .list-map, .detail-map, .generic {
