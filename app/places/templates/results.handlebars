@@ -9,7 +9,7 @@
             {{/if}}
             </p>
         {{ else }}
-            <h3>{{ attributes.type }}</h3>
+            <p class="type">{{ attributes.type_name }}
             {{! opening_hours should be a string if it exists}}
             {{# if attributes.opening_hours }}
                 <p class="type">{{{currentlyOpen attributes.opening_hours}}}</p>
