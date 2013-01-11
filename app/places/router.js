@@ -5,6 +5,7 @@ define(["app", "backbone", "places/models/POIModel", "places/views/CategoriesVie
         // All of your Backbone Routes (add more)
         routes: {
 
+            "": "categories",
             "categories": "categories",
             "categories/*category_name": "categories",
             "search": "search",
