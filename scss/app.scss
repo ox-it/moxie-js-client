@@ -302,6 +302,10 @@ ul.sidebar-items {
             background: #ccc;
             cursor: pointer;
         }
+        @include respondTo(smallScreen) {
+            // Makes the map scroll with the list
+            overflow: visible;
+        }
     }
 
     .content-detail {
