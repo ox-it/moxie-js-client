@@ -62,11 +62,7 @@ h2 {
     font-size: ms(2);
     font-weight: 300;
     margin-left: 5px;
-    &.today {
-        font-size: ms(6);
-        margin-left: 10px;
-        font-weight: 100;
-    }
+
 }
 
 h3 {
@@ -76,6 +72,13 @@ h3 {
 
 // Today
 // Items specific to the today page
+
+h2.today {
+        font-size: ms(6);
+        margin-left: 10px;
+        font-weight: 100;
+}
+
 div.today {
     display: inline-block;
     margin: 0 0 0 10px;
