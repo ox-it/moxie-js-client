@@ -1,4 +1,4 @@
-define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.position', 'places/views/DetailView', 'hbs!places/templates/base', 'hbs!places/templates/search', 'hbs!places/templates/results'],
+define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.position', 'places/views/DetailView', 'hbs!places/templates/list-map-layout', 'hbs!places/templates/search', 'hbs!places/templates/results'],
     function($, Backbone, _, L, MoxieConf, userPosition, DetailView, baseTemplate, searchTemplate, resultsTemplate){
 
     var SearchView = Backbone.View.extend({
@@ -140,7 +140,6 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             }
             // Events may not have been delegated (using 'back' button)
             this.delegateEvents(this.events);
-            Backbone.trigger('domchange:title', "Search for Places of Interest");
             this.updatePath();
             $('#home').show();
             $('#back').hide();
@@ -155,6 +154,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
         },
 
         render: function() {
+            Backbone.trigger('domchange:title', "Search for Places of Interest");
             this.$el.html(baseTemplate());
             this.map = L.map(this.$('#map')[0]).setView([MoxieConf.defaultLocation.coords.latitude, MoxieConf.defaultLocation.coords.longitude], 15, true);
             L.tileLayer('http://{s}.tile.cloudmade.com/b0a15b443b524d1a9739e92fe9dd8459/997/256/{z}/{x}/{y}.png', {

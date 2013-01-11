@@ -1,4 +1,4 @@
-define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.position', 'hbs!places/templates/base', 'hbs!places/templates/detail', 'hbs!places/templates/busrti'],
+define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.position', 'hbs!places/templates/list-map-layout', 'hbs!places/templates/detail', 'hbs!places/templates/busrti'],
     function($, Backbone, _, L, MoxieConf, userPosition, baseTemplate, detailTemplate, busRTITemplate){
     var DetailView = Backbone.View.extend({
 
@@ -76,6 +76,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             var rti = this.poi.attributes._links['hl:rti'];
             var context = {'poi': this.poi, 'rti': rti};
             this.$("#list").html(detailTemplate(context));
+            this.$el.scrollTop(0);
             this.latlng = new L.LatLng(this.poi.get('lat'), this.poi.get('lon'));
             this.marker = new L.marker(this.latlng, {'title': this.poi.get('name')});
             this.marker.addTo(this.map);
