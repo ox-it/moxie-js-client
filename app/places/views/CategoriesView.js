@@ -1,4 +1,4 @@
-define(['underscore', 'backbone', 'moxie.conf', 'moxie.position', 'hbs!places/templates/base', 'hbs!places/templates/categories'], function(_, Backbone, conf, userPosition, baseTemplate, categoriesTemplate){
+define(['jquery', 'underscore', 'backbone', 'moxie.conf', 'moxie.position', 'hbs!places/templates/list-layout', 'hbs!places/templates/categories'], function($, _, Backbone, conf, userPosition, baseTemplate, categoriesTemplate){
 
     var CategoriesView = Backbone.View.extend({
 
@@ -6,15 +6,36 @@ define(['underscore', 'backbone', 'moxie.conf', 'moxie.position', 'hbs!places/te
         initialize: function() {
             _.bindAll(this);
             this.category_name = this.options.category_name;
+            // Used when navigating backwards
+            this.back_category = null;
+        },
+
+        events: {
+            'click .results-list > a[data-category]': "clickCategory"
         },
 
         render: function() {
             this.$el.html(baseTemplate());
-            userPosition.follow(this.handle_geolocation_query);
             $.ajax({
                 url: conf.endpoint + conf.pathFor('places_categories'),
                 dataType: 'json'
-            }).success(this.renderCategories);
+            }).success(this.setCategoryData);
+        },
+
+        clickCategory: function(e) {
+            e.preventDefault();
+            this.back_category = this.category_name;
+            this.category_name = $(e.target).parents('a').data('category');
+            this.renderCategories();
+            if (!this.category_name) {
+                this.category_name = '';
+                $('#home').show();
+                $('#back').hide();
+            } else {
+                $('#home').hide();
+                $('#back').show().on('click', this.clickCategory);
+            }
+            Backbone.history.navigate('/places/categories/'+this.category_name, {replace:false});
         },
 
         findCategories: function(data, category_name) {
@@ -22,21 +43,21 @@ define(['underscore', 'backbone', 'moxie.conf', 'moxie.position', 'hbs!places/te
             return _.find(categories, function(cat) { return (cat.type===category_name); }).types;
         },
 
-        renderCategories: function(data) {
+        setCategoryData: function(data) {
+            this.category_data = data;
+            this.renderCategories();
+        },
+
+        renderCategories: function() {
             var context;
             if (this.category_name) {
                 var cats = this.category_name.split('/');
-                context = _.reduce(cats, this.findCategories, data);
+                context = _.reduce(cats, this.findCategories, this.category_data);
             } else {
-                context = {types: data.types};
+                context = {types: this.category_data.types};
             }
             context.category_name = (this.category_name) ? this.category_name : "";
-            console.log(context);
             this.$('#list').html(categoriesTemplate(context));
-        },
-
-        handle_geolocation_query: function(position) {
-            this.user_position = [position.coords.latitude, position.coords.longitude];
         }
     });
     return CategoriesView;
