@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'backbone', 'moxie.conf', 'moxie.position', 'hbs!places/templates/list-layout', 'hbs!places/templates/categories'], function($, _, Backbone, conf, userPosition, baseTemplate, categoriesTemplate){
+define(['jquery', 'underscore', 'backbone', 'moxie.conf', 'moxie.position', 'hbs!places/templates/categories'], function($, _, Backbone, conf, userPosition, categoriesTemplate){
 
     var CategoriesView = Backbone.View.extend({
 
@@ -15,7 +15,6 @@ define(['jquery', 'underscore', 'backbone', 'moxie.conf', 'moxie.position', 'hbs
         },
 
         render: function() {
-            this.$el.html(baseTemplate());
             $.ajax({
                 url: conf.endpoint + conf.pathFor('places_categories'),
                 dataType: 'json'
@@ -57,7 +56,7 @@ define(['jquery', 'underscore', 'backbone', 'moxie.conf', 'moxie.position', 'hbs
                 context = {types: this.category_data.types};
             }
             context.category_name = (this.category_name) ? this.category_name : "";
-            this.$('#list').html(categoriesTemplate(context));
+            this.$el.html(categoriesTemplate(context));
         }
     });
     return CategoriesView;
