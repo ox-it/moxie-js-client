@@ -340,11 +340,12 @@ ul.sidebar-items {
 ul.results-list {
     list-style: none;
     a:first-child > li {
+        // Give the first item in an anchored list a border on top
         border-top: 2px solid $border-color;
     }
 
     // Only apply to first level of li, allowing us to nest lists without styling all of them
-    > li, a li {
+    > li, > a li {
         min-height: 46px;
         border-bottom: 2px solid $border-color;
         padding: 10px 5px;
