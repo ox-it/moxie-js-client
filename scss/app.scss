@@ -47,7 +47,7 @@ $todayColor: $pantone7412;
 
 
 @mixin gentle-inset-shadow-on-state{
-    &:active, &:hover, &:active {
+    &:active, &:hover {
         @include box-shadow(0 0 2px rgba(0,0,0,0.6) inset);
     }
 }
@@ -171,7 +171,6 @@ ul.sidebar-items {
     list-style: none;
     > a {
         li {
-
             padding: 10px 5px;
             border-bottom: 2px solid $border-color;
             border-left: 15px solid $border-color;
