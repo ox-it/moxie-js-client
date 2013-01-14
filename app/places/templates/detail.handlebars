@@ -19,6 +19,8 @@
 		{{#if poi.attributes.address }}{{ poi.attributes.address }}{{/if}}
 	</p>
 	<p class="metadata">
+		{{#if poi.attributes.opening_hours }}{{ poi.attributes.opening_hours }}<br />
+		{{/if}}
 		{{#if poi.attributes.phone }}<a class="meta-action-button tel" href="tel:{{ poi.attributes.phone }}">{{ poi.attributes.phone }}</a><br/>{{/if}}
 		{{#if poi.attributes.website }}<a class="meta-action-button" href="{{ poi.attributes.website }}">Website</a>{{/if}}
 	</p>
