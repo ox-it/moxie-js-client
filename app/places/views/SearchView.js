@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.position', 'places/views/DetailView', 'hbs!places/templates/list-map-layout', 'hbs!places/templates/search', 'hbs!places/templates/results'],
-    function($, Backbone, _, L, MoxieConf, userPosition, DetailView, baseTemplate, searchTemplate, resultsTemplate){
+define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.position', 'places/views/DetailView', 'hbs!places/templates/list-map-layout', 'hbs!places/templates/search', 'hbs!places/templates/results', 'hbs!places/templates/facets'],
+    function($, Backbone, _, L, MoxieConf, userPosition, DetailView, baseTemplate, searchTemplate, resultsTemplate, facetsTemplate){
 
     var SearchView = Backbone.View.extend({
 
@@ -27,7 +27,14 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
         // Event Handlers
         events: {
             'keypress :input': "searchEvent",
-            'click .results-list > a': "clickResult"
+            'click .results-list > a': "clickResult",
+            'click .facet-list > li[data-category]': "clickFacet"
+        },
+
+        clickFacet: function(e) {
+            e.preventDefault();
+            this.query.type = $(e.target).data('category');
+            this.search();
         },
 
         clickResult: function(e) {
@@ -55,7 +62,6 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             // Cleanup and navigate
             this.undelegateEvents();
             this.onClose();
-            console.log(poi.id);
             Backbone.history.navigate('/places/'+poi.id, {replace:false});
         },
 
@@ -121,6 +127,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
         },
 
         createPOIs: function(data) {
+            this.facets = data._links['hl:types'];
             this.collection.reset(data._embedded);
         },
 
@@ -146,8 +153,12 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             // Create the results-list div and search query input
             this.$('#list').html(searchTemplate({query: this.query.q}));
             // Actually populate the results-list
-            var context = {results: this.collection.toArray(), query: this.query.q};
+            var context = {
+                results: this.collection.toArray(),
+                query: this.query.q
+            };
             this.$(".results-list").html(resultsTemplate(context));
+            this.$(".facet-list").html(facetsTemplate({facets: this.facets}));
             this.update_map_markers();
 
 
