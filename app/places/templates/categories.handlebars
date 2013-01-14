@@ -1,14 +1,21 @@
 {{! NOTE: Take careful care with the namespacing in here, it's a bit of a mess. }}
-<input type="text" placeholder="Places search" name="q" value="{{query}}">
-<span class="deleteicon ss-icon">delete</span>
+{{#if type_name}}
+    <input type="text" placeholder="Search within {{ type_name_plural }}" name="q" value="{{query}}">
+    <span class="deleteicon ss-icon">delete</span>
+    <h3>{{ type_name_plural }}</h3>
+{{else}}
+    <input type="text" placeholder="Search places..." name="q" value="{{query}}">
+    <span class="deleteicon ss-icon">delete</span>
+    <h3>Places</h3>
+{{/if}}
 <ul class="results-list">
     {{#types}}
         {{#if types}}
             {{! If this category has any sub-categories, place a link to them }}
             {{#if ../../category_name}}
-            <a data-category="{{ ../../../category_name }}/{{ type }}" href="#places/categories/{{ ../../../category_name }}/{{ type }}"><li><h3>{{ type_name }}</h3></li></a>
+                <a href="#places/search?type=/{{ ../../../category_name }}/{{ type }}"><li><h3>{{ type_name }}</h3></li></a>
             {{else}}
-                <a data-category="{{ type }}" href="#places/categories/{{ type }}"><li><h3>{{ type_name }}</h3></li></a>
+                <a data-category="{{ type }}"href="#places/categories/{{ type }}"><li><h3>{{ type_name }}</h3></li></a>
             {{/if}}
         {{else}}
             <a href="#places/search?type=/{{ ../../category_name }}/{{ type }}"><li><h3>{{ type_name }}</h3></li></a>

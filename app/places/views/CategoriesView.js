@@ -11,6 +11,7 @@ define(['jquery', 'underscore', 'backbone', 'moxie.conf', 'moxie.position', 'hbs
         },
 
         events: {
+            'keypress :input': "searchEvent",
             'click .results-list > a[data-category]': "clickCategory"
         },
 
@@ -19,6 +20,15 @@ define(['jquery', 'underscore', 'backbone', 'moxie.conf', 'moxie.position', 'hbs
                 url: conf.endpoint + conf.pathFor('places_categories'),
                 dataType: 'json'
             }).success(this.setCategoryData);
+        },
+
+        searchEvent: function(ev) {
+            if (ev.which === 13) {
+                var query = ev.target.value;
+                var qstring = $.param({q: query});
+                var path = conf.pathFor('places_search') + '?' + qstring;
+                Backbone.history.navigate(path, {trigger: true, replace: false});
+            }
         },
 
         clickCategory: function(e) {
@@ -39,7 +49,7 @@ define(['jquery', 'underscore', 'backbone', 'moxie.conf', 'moxie.position', 'hbs
 
         findCategories: function(data, category_name) {
             var categories = data.types;
-            return _.find(categories, function(cat) { return (cat.type===category_name); }).types;
+            return _.find(categories, function(cat) { return (cat.type===category_name); });
         },
 
         setCategoryData: function(data) {
