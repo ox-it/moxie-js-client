@@ -62,7 +62,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             // Cleanup and navigate
             this.undelegateEvents();
             this.onClose();
-            Backbone.history.navigate('/places/'+poi.id, {replace:false});
+            Backbone.history.navigate('/places/'+poi.id, {trigger:false, replace:true});
         },
 
         update_map_markers: function(){
