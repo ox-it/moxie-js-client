@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'backbone', 'moxie.conf', 'moxie.position', 'hbs!places/templates/categories'], function($, _, Backbone, conf, userPosition, categoriesTemplate){
+define(['jquery', 'underscore', 'backbone', 'moxie.conf', 'moxie.position', 'places/utils', 'hbs!places/templates/categories'], function($, _, Backbone, conf, userPosition, utils, categoriesTemplate){
 
     var CategoriesView = Backbone.View.extend({
 
@@ -47,11 +47,6 @@ define(['jquery', 'underscore', 'backbone', 'moxie.conf', 'moxie.position', 'hbs
             Backbone.history.navigate('/places/categories/'+this.category_name, {replace:false});
         },
 
-        findCategories: function(data, category_name) {
-            var categories = data.types;
-            return _.find(categories, function(cat) { return (cat.type===category_name); });
-        },
-
         setCategoryData: function(data) {
             this.category_data = data;
             this.renderCategories();
@@ -60,8 +55,8 @@ define(['jquery', 'underscore', 'backbone', 'moxie.conf', 'moxie.position', 'hbs
         renderCategories: function() {
             var context;
             if (this.category_name) {
-                var cats = this.category_name.split('/');
-                context = _.reduce(cats, this.findCategories, this.category_data);
+                var category_hierarchy = this.category_name.split('/');
+                context = utils.getCategory(category_hierarchy, this.category_data);
             } else {
                 context = {types: this.category_data.types};
             }
