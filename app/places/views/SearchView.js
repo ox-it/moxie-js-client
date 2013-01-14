@@ -158,7 +158,9 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
                 query: this.query.q
             };
             this.$(".results-list").html(resultsTemplate(context));
-            this.$(".facet-list").html(facetsTemplate({facets: this.facets}));
+            if (this.query.type) {
+                this.$(".facet-list").html(facetsTemplate({facets: this.facets}));
+            }
             this.update_map_markers();
 
 
