@@ -7,7 +7,8 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
         initialize: function() {
             _.bindAll(this);
             L.Icon.Default.imagePath = '/images/maps';
-            this.collection.on("add remove reset", this.collectionUpdated, this);
+            this.collection.on("reset", this.render_results, this);
+            this.collection.on("add", this.addResult, this);
             this.query = {};
             if (this.options.params && this.options.params.q) {
                 this.query.q = this.options.params.q;
@@ -65,31 +66,33 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             Backbone.history.navigate('/places/'+poi.id, {trigger:false, replace:true});
         },
 
-        update_map_markers: function(){
-            // Remove the existing map markers
-            _.each(this.markers, function(marker) {
-                this.map.removeLayer(marker);
-            }, this);
-            // Create new list of markers from search results
-            var markers = [];
-            var latlngs = [];
-            var map = this.map;
-            this.collection.each(function(poi) {
-                var latlng = new L.LatLng(poi.attributes.lat, poi.attributes.lon);
-                var marker = new L.marker(latlng, {'title': poi.attributes.name});
-                marker.addTo(map);
-                latlngs.push(latlng);
-                markers.push(marker);
-            });
-            this.markers = markers;
-            this.latlngs = latlngs;
-            // Create map bounds based on our position and the results.
-            var bounds = new L.LatLngBounds(latlngs);
+        placePOI: function(poi) {
+            var latlng = new L.LatLng(poi.attributes.lat, poi.attributes.lon);
+            var marker = new L.marker(latlng, {'title': poi.attributes.name});
+            marker.addTo(this.map);
+            this.latlngs.push(latlng);
+            this.markers.push(marker);
+        },
+
+        setMapBounds: function() {
+            var bounds = new L.LatLngBounds(this.latlngs);
             if (this.user_position) {
                 bounds.extend(this.user_position);
             }
             bounds.pad(5);
             this.map.fitBounds(bounds);
+        },
+
+        resetMapContents: function(){
+            // Remove the existing map markers
+            _.each(this.markers, function(marker) {
+                this.map.removeLayer(marker);
+            }, this);
+            // Create new list of markers from search results
+            this.latlngs = [];
+            this.markers = [];
+            this.collection.each(this.placePOI);
+            this.setMapBounds();
         },
 
         searchEvent: function(ev) {
@@ -127,15 +130,22 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
         },
 
         createPOIs: function(data) {
+            // Called when we want to empty the existing collection
+            // For example when a search is issued and we clear the existing results.
+            this.next_results = data._links['hl:next'];
             this.facets = data._links['hl:types'];
             this.collection.reset(data._embedded);
         },
 
-        collectionUpdated: function() {
-            this.render_results(false);
+        addResult: function(poi) {
+            // Append an individual result to the existing results-list
+            var context = {
+                results: [poi],
+                query: this.query.q
+            };
+            this.$(".results-list").append(resultsTemplate(context));
+            this.placePOI(poi);
         },
-
-        scrolled: false,
 
         render_results: function(back_button) {
             if (this.collection.length===1 && (back_button===undefined || !back_button)) {
@@ -161,9 +171,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             if (this.query.type) {
                 this.$(".facet-list").html(facetsTemplate({facets: this.facets}));
             }
-            this.update_map_markers();
-
-
+            this.resetMapContents();
         },
 
         render: function() {
@@ -178,29 +186,62 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             this.map.attributionControl.setPrefix('');
             userPosition.follow(this.handle_geolocation_query);
 
-            /* DISABLED infinite scroll for now.
             // Infinite scroll stuff
-            this.$('#list').scroll(
-                _.bind(function(){
-                    this.scrolled = true;
-                }, this)
+            // We bind to scroll events for both the $el and #list
+            // $el scrolls in the mobile view
+            // #list scrolls in the tablet view
+            this.$el.scroll(
+                _.bind(function(){ this.el_scrolled = true; }, this)
             );
-
+            this.$('#list').scroll(
+                _.bind(function(){ this.list_scrolled = true; }, this)
+            );
             this.scrolling_interval = window.setInterval(
                 _.bind(function(){
-                console.log(this.scrolled);
-                if (this.scrolled) {
+                if ((this.next_results) && (this.el_scrolled || this.list_scrolled) && (!this.loadingResults)) {
                     this.loadMorePOIs();
-                    this.scrolled = false;
+                    this.el_scrolled = false;
+                    this.list_scrolled = false;
                 }
             }, this), 250); // limit to 250ms per Mr. Resig's suggestion
             return this;
-            */
         },
 
+        list_scrolled: false,
+        el_scrolled: false,
+        loadingResults: false,
         loadMorePOIs: function() {
             // Inspect the div to determine if more POI's should be loaded
-            var list = this.$('#list');
+            var scrolled_element;
+            if (this.list_scrolled) {
+                scrolled_element = this.$('#list');
+            } else if (this.el_scrolled) {
+                scrolled_element = this.$el;
+            }
+            // Check if we're 70% of the way down the page
+            var scroll_threshold = (((scrolled_element.prop('scrollTop')) / scrolled_element.prop('scrollHeight')) > 0.7);
+            if (scroll_threshold) {
+                this.loadingResults = true;
+                if (this.user_position) {
+                    headers = {'Geo-Position': this.user_position.join(';')};
+                }
+                $.ajax({
+                    url: MoxieConf.endpoint + this.next_results.href,
+                    dataType: 'json',
+                    headers: headers
+                }).success(this.extendPOIs);
+            }
+        },
+
+        extendPOIs: function(data) {
+            // Used when the collection is extended through infinite scrolling
+            this.list_scrolled = false;
+            this.el_scrolled = false;
+            this.loadingResults = false;
+            this.next_results = data._links['hl:next'];
+            this.facets = data._links['hl:types'];
+            this.collection.add(data._embedded);
+            this.setMapBounds();
         },
 
         invalidateMapSize: function() {
