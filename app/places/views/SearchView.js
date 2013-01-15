@@ -101,7 +101,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
 
         initial_path_update: true,
         updatePath: function() {
-            var qstring = $.param(this.query);
+            var qstring = $.param(this.query).replace(/\+/g, "%20");
             var path;
             if (qstring) {
                 path = MoxieConf.pathFor('places_search') + '?' + qstring;
