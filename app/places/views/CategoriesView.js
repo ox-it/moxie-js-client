@@ -29,7 +29,7 @@ define(['jquery', 'underscore', 'backbone', 'moxie.conf', 'moxie.position', 'pla
         searchEvent: function(ev) {
             if (ev.which === 13) {
                 var query = ev.target.value;
-                var qstring = $.param({q: query});
+                var qstring = $.param({q: query}).replace(/\+/g, "%20");
                 var path = conf.pathFor('places_search') + '?' + qstring;
                 Backbone.history.navigate(path, {trigger: true, replace: false});
             }
