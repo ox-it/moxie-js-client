@@ -1,17 +1,17 @@
 <div class="embedded-poi" id="poi-{{poi.attributes.id}}">
     <div class="map"></div>
     <div class="info">
-	    {{#if poi.attributes.name }}
-		    <h3>{{ poi.attributes.name }}</h3>
-		    <p class="type">{{ poi.attributes.type_name }}</p>
+	    {{#if name }}
+		    <h3>{{ name }}</h3>
+		    <p class="type">{{ type_name }}</p>
         {{ else }}
-	        <h3>{{ poi.attributes.type_name }}</h3>		
+	        <h3>{{ type_name }}</h3>
 	    {{/if}}
-	    {{#if poi.attributes.opening_hours }}
-		    <p>{{ poi.attributes.opening_hours }} {{{currentlyOpen poi.attributes.opening_hours}}}</p>
+	    {{#if opening_hours }}
+		    <p>{{ opening_hours }} {{{currentlyOpen opening_hours}}}</p>
 	    {{/if}}
-        {{#if poi.attributes.distance }}
-            <p class="metadata">{{humaniseDistance attributes.distance }}</p>
+        {{#if distance }}
+            <p class="metadata">{{humaniseDistance distance }}</p>
         {{/if}}
     </div>
 </div>
