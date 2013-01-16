@@ -15,6 +15,9 @@
                 <p class="type">{{{currentlyOpen attributes.opening_hours}}}</p>
             {{/if}}
         {{/if}}
+        {{# if attributes.collection_times }}
+            <p class="type">{{{collectionTimes attributes.collection_times}}}</p>
+        {{/if}}
         {{#if attributes.address }}
                 <p class="metadata">{{ attributes.address }}</p>
         {{/if}}
