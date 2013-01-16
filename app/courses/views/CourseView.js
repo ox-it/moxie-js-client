@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/course', 'hbs!courses/templates/auth_status', 'leaflet', 'moxie.conf'], 
-    function($, Backbone, _, courseTemplate, authTemplate, L, MoxieConf){
+define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/course', 'hbs!courses/templates/auth_status', 'leaflet', 'moxie.conf', 'places/views/EmbeddedPoiView', 'hbs!places/templates/embedded_poi'],
+    function($, Backbone, _, courseTemplate, authTemplate, L, MoxieConf, EmbeddedPoiView){
         var CourseView = Backbone.View.extend({
 
             initialize: function() {
@@ -22,6 +22,13 @@ define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/course', 'hbs
 
             renderCourse: function(data) {
                 this.$el.html(courseTemplate(data));
+                for (var i=0;i<data._embedded.length;i++) {
+                    if (data._embedded[i].location) {
+                        var poi = new EmbeddedPoiView({poid: data._embedded[i].location});
+                        var out = poi.render();
+                        this.$el.html.append(out);
+                    }
+                }
             },
 
             renderAuthRequired: function() {
