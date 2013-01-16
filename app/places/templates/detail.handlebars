@@ -14,6 +14,9 @@
 		{{/if}}
 	{{/if}}
 
+	{{#if poi.attributes.collection_times }}
+	    <p class="type">{{{collectionTimes poi.attributes.collection_times}}}</p>
+	{{/if}}
 
 	<p class="metadata">
 		{{#if poi.attributes.address }}{{ poi.attributes.address }}{{/if}}
