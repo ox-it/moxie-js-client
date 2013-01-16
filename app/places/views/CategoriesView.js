@@ -15,6 +15,10 @@ define(['jquery', 'underscore', 'backbone', 'moxie.conf', 'moxie.position', 'pla
             'click .results-list > a[data-category]': "clickCategory"
         },
 
+        attributes: {
+            'class': 'generic'
+        },
+
         render: function() {
             $.ajax({
                 url: conf.endpoint + conf.pathFor('places_categories'),
