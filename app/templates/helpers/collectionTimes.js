@@ -12,9 +12,9 @@ define(["handlebars"], function(Handlebars) {
             return "";
         }
         if(result.value === true) {
-            return "<span class='label-place-open'>collected</span>";
+            return "<span class='label-place-closed'>collected</span>";
         } else {
-            return "<span class='label-place-closed'>not yet collected</span>";
+            return "<span class='label-place-open'>not yet collected</span>";
         }
     }
     Handlebars.registerHelper('collectionTimes', collectionTimes);
