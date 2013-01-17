@@ -1,9 +1,9 @@
-@mixin label($color) {
+@mixin label($color, $font-size: ms(-1)) {
     color: #fff;
     display: inline-block;
     background-color:($color);
     @include border-radius(8px);
-    font-size: ms(-1) !important;
+    font-size: $font-size !important;
     padding: 2px 4px 1px 4px;
     font-weight: 600;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
@@ -19,4 +19,8 @@ $success-green: #468847;
 
 .label-place-closed {
     @include label($fail-red);
+}
+
+.label-facet {
+    @include label(rgb(43, 166, 203), ms(0));
 }
