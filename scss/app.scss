@@ -284,6 +284,7 @@ ul.sidebar-items {
         height: 100%;
         padding: 0px 0px;
         overflow: auto;
+        background: $body-background;
         -webkit-overflow-scrolling: touch;
         @include column(4);
         @include pull(8);
