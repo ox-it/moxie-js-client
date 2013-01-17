@@ -6,10 +6,6 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             _.bindAll(this);
         },
 
-        attributes: {
-            'class': 'embedded-poi'
-        },
-
         render: function() {
             this.requestPOI();
         },
@@ -19,16 +15,12 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             $.ajax({
                 url: url,
                 dataType: 'json'
-            }).success(this.getDetail);
+            }).success(this.renderPOI);
         },
 
-        getDetail: function(data) {
-            this.renderPOI(data);
-        },
-
-        renderPOI: function(cb) {
-            console.log(cb);
-            this.$el.html(embeddedTemplate(cb));
+        renderPOI: function(data) {
+            $("#"+this.options.render_element.replace(":", "\\:"))
+                .html(embeddedTemplate(data));
         }
     });
     return EmbeddedPoiView;

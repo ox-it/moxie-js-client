@@ -1,17 +1,16 @@
-<div class="embedded-poi" id="poi-{{poi.attributes.id}}">
-    <div class="map"></div>
-    <div class="info">
-	    {{#if name }}
-		    <h3>{{ name }}</h3>
-		    <p class="type">{{ type_name }}</p>
-        {{ else }}
-	        <h3>{{ type_name }}</h3>
-	    {{/if}}
-	    {{#if opening_hours }}
-		    <p>{{ opening_hours }} {{{currentlyOpen opening_hours}}}</p>
-	    {{/if}}
-        {{#if distance }}
-            <p class="metadata">{{humaniseDistance distance }}</p>
-        {{/if}}
-    </div>
+<div class="map"></div>
+<div class="info">
+{{#if name }}
+    <h3>{{ name }}</h3>
+    <p class="type">{{ type_name }}</p>
+{{ else }}
+    <h3>{{ type_name }}</h3>
+{{/if}}
+{{#if opening_hours }}
+    <p>{{ opening_hours }} {{{currentlyOpen opening_hours}}}</p>
+{{/if}}
+{{#if distance }}
+    <p class="metadata">{{humaniseDistance distance }}</p>
+{{/if}}
+<p><a href="#/places/{{ id }}">More information</a></p>
 </div>
