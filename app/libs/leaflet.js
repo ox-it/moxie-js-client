@@ -428,7 +428,6 @@ L.Mixin.Events.fire = L.Mixin.Events.fireEvent;
 	    gecko3d = 'MozPerspective' in doc.style,
 	    opera3d = 'OTransition' in doc.style,
 	    any3d = !window.L_DISABLE_3D && (ie3d || webkit3d || gecko3d || opera3d);
-        console.log(any3d);
 
 
 	var touch = !window.L_NO_TOUCH && (function () {
