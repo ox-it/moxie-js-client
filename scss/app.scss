@@ -54,6 +54,7 @@ $todayColor: $pantone7412;
 
 html, body { height: 100%; }
 body {
+    overflow-x: hidden;
     background: $body-background;
     width: 100%;
 }
