@@ -203,7 +203,6 @@ ul.sidebar-items {
 // Navbar
 // Make the navbar sexy.
 #navbar, #content {
-    overflow: hidden;
     position: absolute;
     left: 0; right: 0;
     @include respondTo(smallScreen) {
@@ -213,7 +212,11 @@ ul.sidebar-items {
 }
 
 #navbar {
+    position: fixed;
     margin: 0 auto;
+    top: 0px;
+    // TODO: Pick a good value for this
+    z-index: 51;
     height: $navbarHeight;
     line-height: $navbarHeight;
     color: $white;
@@ -348,7 +351,6 @@ ul.sidebar-items {
 }
 .list-map, .detail-map, .generic {
         height: 100%;
-        overflow: auto;
         -webkit-overflow-scrolling: touch;
 }
 
