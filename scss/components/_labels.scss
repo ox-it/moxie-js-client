@@ -1,3 +1,5 @@
+@import "globals/oxford-palette";
+
 @mixin label($color, $font-size: ms(-1)) {
     color: #fff;
     display: inline-block;
@@ -22,6 +24,6 @@ $success-green: #468847;
 }
 
 .label-facet {
-    @include label(rgb(43, 166, 203), ms(0));
+    @include label($pantone624, ms(0));
     margin-top: 5px;
 }
