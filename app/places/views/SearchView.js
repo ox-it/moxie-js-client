@@ -29,7 +29,12 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
         events: {
             'keypress :input': "searchEvent",
             'click .results-list > a': "clickResult",
+            'click .deleteicon': "clearSearch",
             'click .facet-list > li[data-category]': "clickFacet"
+        },
+
+        clearSearch: function(e) {
+            this.$('.search-places input').val('');
         },
 
         clickFacet: function(e) {

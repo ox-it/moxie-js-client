@@ -12,7 +12,12 @@ define(['jquery', 'underscore', 'backbone', 'moxie.conf', 'moxie.position', 'pla
 
         events: {
             'keypress :input': "searchEvent",
-            'click .results-list > a[data-category]': "clickCategory"
+            'click .results-list > a[data-category]': "clickCategory",
+            'click .deleteicon': "clearSearch"
+        },
+
+        clearSearch: function(e) {
+            this.$('.search-places input').val('');
         },
 
         attributes: {
