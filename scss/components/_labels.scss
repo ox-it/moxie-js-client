@@ -23,4 +23,5 @@ $success-green: #468847;
 
 .label-facet {
     @include label(rgb(43, 166, 203), ms(0));
+    margin-top: 5px;
 }
