@@ -11,10 +11,22 @@ define(["handlebars"], function(Handlebars) {
             console.log(err);
             return "";
         }
-        if(result.value === true) {
-            return "<span class='label-place-closed'>collected</span>";
+        if(result.times.length > 0) {
+            next = result.times[0].t;
+            // is the next collection time today?
+            next.setHours(0);
+            next.setMinutes(0);
+            next.setSeconds(0);
+            next.setMilliseconds(0);
+            var today = new Date(new Date().setHours(0, 0, 0, 0));
+            if(next.getTime() === today.getTime()) {
+                return "<span class='label-place-open'>not yet collected</span>";
+            } else {
+                return "<span class='label-place-closed'>collected</span>";
+            }
         } else {
-            return "<span class='label-place-open'>not yet collected</span>";
+            // no information on next collection time
+            return "";
         }
     }
     Handlebars.registerHelper('collectionTimes', collectionTimes);
