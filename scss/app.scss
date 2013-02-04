@@ -316,7 +316,7 @@ ul.sidebar-items {
         border-bottom: $grayBorder;
         border-left: $grayBorder;
         @include respondTo(smallScreen) {
-            padding-bottom: $mapHeight;
+            left: auto;
         }
     }
     #map {
