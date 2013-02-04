@@ -301,24 +301,7 @@ ul.sidebar-items {
         @include pull(8);
         @include respondTo(smallScreen) {
             right: auto;
-            padding-bottom: $mapHeight;
-        }
-        input {
-            margin: 6px 0;
-            padding-right: 25px;
-        }
-        span.deleteicon {
-            display: block;
-            line-height: 9px;
-            position: absolute;
-            right: 20px;
-            top: 15px;
-            padding: 4px 4px 2px 4px;
-            @include border-radius(30px);
-            font-size: 9px;
-            color: $white;
-            background: #ccc;
-            cursor: pointer;
+            height: auto;
         }
         @include respondTo(smallScreen) {
             // Makes the map scroll with the list
@@ -333,7 +316,7 @@ ul.sidebar-items {
         border-bottom: $grayBorder;
         border-left: $grayBorder;
         @include respondTo(smallScreen) {
-            left: auto;
+            padding-bottom: $mapHeight;
         }
     }
     #map {
@@ -346,10 +329,33 @@ ul.sidebar-items {
             }
         }
     }
+    .search-places {
+        padding-top: 10px;
+        margin-left: 5px;
+        margin-right: 5px;
 
-
-
+        span.deleteicon {
+            display: block;
+            line-height: 9px;
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            padding: 4px 4px 2px 4px;
+            @include border-radius(30px);
+            font-size: 9px;
+            color: $white;
+            background: #ccc;
+            cursor: pointer;
+        }
+    }
+    ul.facet-list {
+        padding-left: 5px;
+    }
+    h3 {
+        padding-left: 5px;
+    }
 }
+
 .list-map, .detail-map, .generic {
         height: 100%;
         -webkit-overflow-scrolling: touch;
