@@ -106,6 +106,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
         },
 
         onClose: function() {
+            $('#back').hide().off('click');
             userPosition.unfollow(this.handle_geolocation_query);
         }
 
