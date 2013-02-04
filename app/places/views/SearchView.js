@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.position', 'places/views/DetailView', 'hbs!places/templates/list-map-layout', 'hbs!places/templates/search', 'hbs!places/templates/results', 'hbs!places/templates/facets'],
-    function($, Backbone, _, L, MoxieConf, userPosition, DetailView, baseTemplate, searchTemplate, resultsTemplate, facetsTemplate){
+define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.position', 'places/views/DetailView', 'places/utils', 'hbs!places/templates/list-map-layout', 'hbs!places/templates/search', 'hbs!places/templates/results', 'hbs!places/templates/facets'],
+    function($, Backbone, _, L, MoxieConf, userPosition, DetailView, placesUtils, baseTemplate, searchTemplate, resultsTemplate, facetsTemplate){
 
     var SearchView = Backbone.View.extend({
 
@@ -7,7 +7,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
         initialize: function() {
             _.bindAll(this);
             L.Icon.Default.imagePath = '/images/maps';
-            this.collection.on("reset", this.render_results, this);
+            this.collection.on("reset", this.resetResults, this);
             this.collection.on("add", this.addResult, this);
             this.query = {};
             if (this.options.params && this.options.params.q) {
@@ -46,10 +46,12 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             // TODO: Find a better way of doing this...
             poid = (poid!==undefined) ? poid : $(e.target).parents('[data-poid]').data('poid');
             var poi = this.collection.get(poid);
-            this.browseDetails(poi, _.bind(this.render_results, this, true));
+            this.browseDetails(poi, _.bind(this.render_results, this, true), false);
         },
 
-        browseDetails: function(poi, cb) {
+        browseDetails: function(poi, cb, replace) {
+            // Browse to a given POI, passing in a callback to be called when the back button is pressed
+            // Use the 'replace' to silently change the URL without writing history -- used for displaying 1 result
             // Remove existing map markers
             _.each(this.markers, function(marker) {
                 this.map.removeLayer(marker);
@@ -63,7 +65,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             // Cleanup and navigate
             this.undelegateEvents();
             this.onClose();
-            Backbone.history.navigate('/places/'+poi.id, {trigger:false, replace:true});
+            Backbone.history.navigate('/places/'+poi.id, {trigger: false, replace: replace});
         },
 
         placePOI: function(poi) {
@@ -147,12 +149,16 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             this.placePOI(poi);
         },
 
+        resetResults: function(collection) {
+            this.render_results();
+        },
+
         render_results: function(back_button) {
             if (this.collection.length===1 && (back_button===undefined || !back_button)) {
                 // We have only one result and the user hasn't navigated back
                 // Set a curried callback bound with back_button=true:
                 // This means if a user clicks back they get the results page with a single result
-                this.browseDetails(this.collection.at(0), _.bind(this.render_results, this, true));
+                this.browseDetails(this.collection.at(0), _.bind(this.render_results, this, true), true);
                 return this;
             }
             // Events may not have been delegated (using 'back' button)
@@ -168,7 +174,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
                 query: this.query.q
             };
             this.$(".results-list").html(resultsTemplate(context));
-            if (this.query.type) {
+            if (this.query.type && this.facets.length > 1) {
                 this.$(".facet-list").html(facetsTemplate({facets: this.facets}));
             }
             this.resetMapContents();
@@ -177,13 +183,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
         render: function() {
             Backbone.trigger('domchange:title', "Search for Places of Interest");
             this.$el.html(baseTemplate());
-            this.map = L.map(this.$('#map')[0]).setView([MoxieConf.defaultLocation.coords.latitude, MoxieConf.defaultLocation.coords.longitude], 15, true);
-            L.tileLayer('http://{s}.tile.cloudmade.com/b0a15b443b524d1a9739e92fe9dd8459/997/256/{z}/{x}/{y}.png', {
-                maxZoom: 18,
-                // Detect retina - if true 4* map tiles are downloaded
-                detectRetina: true
-            }).addTo(this.map);
-            this.map.attributionControl.setPrefix('');
+            this.map = placesUtils.getMap(this.$('#map')[0]);
             userPosition.follow(this.handle_geolocation_query);
 
             // Infinite scroll stuff

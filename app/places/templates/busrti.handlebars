@@ -1,6 +1,6 @@
 <table>
 {{#messages}}
-<tr>{{ this }}</tr>
+<tr>{{ this }}</tr>
 {{/messages}}
 </table>
 
@@ -12,9 +12,12 @@
     <td>{{ next }}</td>
 </tr>
 <tr class="notopborder">
-    <td colspan="2"><small>Next:
+    <td colspan="2"><small>
+    {{#if following }}
+    Next:
+    {{/if}}
     {{#following}}
-    {{ this }}, 
+		{{ this }},
     {{/following}}
     </small></td>
 </tr>

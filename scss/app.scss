@@ -54,6 +54,7 @@ $todayColor: $pantone7412;
 
 html, body { height: 100%; }
 body {
+    overflow-x: hidden;
     background: $body-background;
     width: 100%;
 }
@@ -68,6 +69,13 @@ h2 {
 h3 {
     font-weight: 200;
     margin-top: 8px;
+}
+
+img.preloader {
+    display: block;
+    margin-top: 1em;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 // Today
@@ -196,7 +204,6 @@ ul.sidebar-items {
 // Navbar
 // Make the navbar sexy.
 #navbar, #content {
-    overflow: hidden;
     position: absolute;
     left: 0; right: 0;
     @include respondTo(smallScreen) {
@@ -206,7 +213,11 @@ ul.sidebar-items {
 }
 
 #navbar {
+    position: fixed;
     margin: 0 auto;
+    top: 0px;
+    // TODO: Pick a good value for this
+    z-index: 51;
     height: $navbarHeight;
     line-height: $navbarHeight;
     color: $white;
@@ -284,6 +295,7 @@ ul.sidebar-items {
         height: 100%;
         padding: 0px 0px;
         overflow: auto;
+        background: $body-background;
         -webkit-overflow-scrolling: touch;
         @include column(4);
         @include pull(8);
@@ -340,7 +352,6 @@ ul.sidebar-items {
 }
 .list-map, .detail-map, .generic {
         height: 100%;
-        overflow: auto;
         -webkit-overflow-scrolling: touch;
 }
 
