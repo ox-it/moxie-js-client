@@ -222,9 +222,9 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             var scroll_threshold;
             if (this.list_scrolled) {
                 var list = this.$('#list')[0];
-                scroll_threshold = ((list.scrollTop / list.scrollHeight) > infiniteScrollThreshold);
+                scroll_threshold = ((list.scrollTop / list.scrollHeight) > this.infiniteScrollThreshold);
             } else if (this.window_scrolled) {
-                scroll_threshold = (($(document).scrollTop() / $(document).height()) > infiniteScrollThreshold);
+                scroll_threshold = (($(document).scrollTop() / $(document).height()) > this.infiniteScrollThreshold);
             }
             if (scroll_threshold) {
                 this.loadingResults = true;
