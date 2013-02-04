@@ -26,4 +26,5 @@ $success-green: #468847;
 .label-facet {
     @include label($pantone624, ms(0));
     margin-top: 5px;
+    cursor: pointer;
 }
