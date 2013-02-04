@@ -190,17 +190,17 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             // We bind to scroll events for both the $el and #list
             // $el scrolls in the mobile view
             // #list scrolls in the tablet view
-            this.$el.scroll(
-                _.bind(function(){ this.el_scrolled = true; }, this)
+            $(window).scroll(
+                _.bind(function(){ this.window_scrolled = true; }, this)
             );
             this.$('#list').scroll(
                 _.bind(function(){ this.list_scrolled = true; }, this)
             );
             this.scrolling_interval = window.setInterval(
                 _.bind(function(){
-                if ((this.next_results) && (this.el_scrolled || this.list_scrolled) && (!this.loadingResults)) {
+                if ((this.next_results) && (this.window_scrolled || this.list_scrolled) && (!this.loadingResults)) {
                     this.loadMorePOIs();
-                    this.el_scrolled = false;
+                    this.window_scrolled = false;
                     this.list_scrolled = false;
                 }
             }, this), 250); // limit to 250ms per Mr. Resig's suggestion
@@ -208,18 +208,19 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
         },
 
         list_scrolled: false,
-        el_scrolled: false,
+        window_scrolled: false,
         loadingResults: false,
+        infiniteScrollThreshold: 0.7,
         loadMorePOIs: function() {
             // Inspect the div to determine if more POI's should be loaded
-            var scrolled_element;
-            if (this.list_scrolled) {
-                scrolled_element = this.$('#list');
-            } else if (this.el_scrolled) {
-                scrolled_element = this.$el;
-            }
             // Check if we're 70% of the way down the page
-            var scroll_threshold = (((scrolled_element.prop('scrollTop')) / scrolled_element.prop('scrollHeight')) > 0.7);
+            var scroll_threshold;
+            if (this.list_scrolled) {
+                var list = this.$('#list')[0];
+                scroll_threshold = ((list.scrollTop / list.scrollHeight) > infiniteScrollThreshold);
+            } else if (this.window_scrolled) {
+                scroll_threshold = (($(document).scrollTop() / $(document).height()) > infiniteScrollThreshold);
+            }
             if (scroll_threshold) {
                 this.loadingResults = true;
                 if (this.user_position) {
