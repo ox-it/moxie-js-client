@@ -14,15 +14,22 @@
 {{/if}}
 <ul class="results-list">
     {{#types}}
+    <li>
         {{#if types}}
             {{! If this category has any sub-categories, place a link to them }}
             {{#if ../../category_name}}
-                <a href="#places/search?type=/{{ ../../../category_name }}/{{ type }}"><li><h3>{{ type_name }}</h3></li></a>
+                <a href="#places/search?type=/{{ ../../../category_name }}/{{ type }}"><h3>{{ type_name }}</h3></a>
             {{else}}
-                <a data-category="{{ type }}"href="#places/categories/{{ type }}"><li><h3>{{ type_name }}</h3></li></a>
+                <a data-category="{{ type }}"href="#places/categories/{{ type }}"><h3>{{ type_name }}</h3></a>
             {{/if}}
+            <ul class="subcategories">
+                {{#slice types limit="3"}}
+                <li>{{type_name_plural}}</li>
+                {{/slice}}
+            </ul>
         {{else}}
-            <a href="#places/search?type=/{{ ../../category_name }}/{{ type }}"><li><h3>{{ type_name }}</h3></li></a>
+            <a href="#places/search?type=/{{ ../../category_name }}/{{ type }}"><h3>{{ type_name }}</h3></a>
         {{/if}}
+    </li>
     {{/types}}
 </ul>

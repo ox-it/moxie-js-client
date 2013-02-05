@@ -367,6 +367,11 @@ ul.results-list {
         // Give the first item in an anchored list a border on top
         border-top: 2px solid $border-color;
     }
+    ul {
+        li {
+            display: inline;
+        }
+    }
 
     // Only apply to first level of li, allowing us to nest lists without styling all of them
     > li, > a li {
