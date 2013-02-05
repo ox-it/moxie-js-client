@@ -59,6 +59,12 @@ body {
     width: 100%;
 }
 
+// No scrolling when the sidebar is active
+body.is-sidebar-active {
+    overflow: hidden;
+}
+
+
 h2 {
     font-size: ms(2);
     font-weight: 300;
@@ -158,6 +164,8 @@ $sidebar-margin: 100% - $sidebar-width;
 }
 
 #sidebar {
+    position: fixed;
+    top: 0px;
     width: $sidebar-width;
     margin-left: -100%;
     float: left;
@@ -168,19 +176,22 @@ $sidebar-margin: 100% - $sidebar-width;
 }
 
 .overlay {
-    width: $sidebar-margin;
-    margin-left: $sidebar-width;
-    height: 100%;
-    position: absolute;
-    opacity: 0.5;
-    background-color: $black;
-    z-index: 0;
+    display: none;
     @if $animations-enabled == true {
         opacity: 0;
         width: 100%;
         @include transition($sidebar-animation-time all ease-out);
     }
     body.is-sidebar-active & {
+        display: inline;
+        position: fixed;
+        top: 0px;
+        width: $sidebar-margin;
+        margin-left: $sidebar-width;
+        height: 100%;
+        opacity: 0.5;
+        background-color: $black;
+        z-index: 0;
         z-index: 2;
         @if $animations-enabled == true {
             width: $sidebar-margin;
@@ -237,6 +248,11 @@ ul.sidebar-items {
     radial-gradient(center, ellipse cover, rgba(0,0,0,0), rgba(0,0,0,0.1)),
     linear-gradient(top, $navbarDark, $navbarLight)
     );
+    body.is-sidebar-active & {
+        left: $sidebar-width;
+        right: auto;
+        width: 100%;
+    }
 
     > li {
         // Most of the elements are on the right, so default to floating them right
@@ -284,8 +300,6 @@ ul.sidebar-items {
         }
     }
 }
-
-
 
 #content {
     /* Content is a container for two child divs:
