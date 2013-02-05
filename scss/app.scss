@@ -82,9 +82,9 @@ img.preloader {
 // Items specific to the today page
 
 h2.today {
-        font-size: ms(6);
-        margin-left: 10px;
-        font-weight: 100;
+    font-size: ms(6);
+    margin-left: 10px;
+    font-weight: 100;
 }
 
 div.today {
@@ -134,7 +134,7 @@ $sidebar-margin: 100% - $sidebar-width;
 #main, #sidebar {
     position: relative;
     @if $animations-enabled == true {
-       @include transition($sidebar-animation-time all ease-out);
+        @include transition($sidebar-animation-time all ease-out);
     }
 }
 
@@ -224,10 +224,10 @@ ul.sidebar-items {
     list-style: none;
     background: $navbarLight; // Basic background for old devices
     @include background(
-        // Highlighting radial gradient.
-        // Light top, dark bottom
-        radial-gradient(center, ellipse cover, rgba(0,0,0,0), rgba(0,0,0,0.1)),
-        linear-gradient(top, $navbarDark, $navbarLight)
+    // Highlighting radial gradient.
+    // Light top, dark bottom
+    radial-gradient(center, ellipse cover, rgba(0,0,0,0), rgba(0,0,0,0.1)),
+    linear-gradient(top, $navbarDark, $navbarLight)
     );
 
     > li {
@@ -281,84 +281,84 @@ ul.sidebar-items {
 
 #content {
     /* Content is a container for two child divs:
-     - #list which typically contains a scrolling list container
-     - .content-detail which holds a detail view or a map (#map)
-    */
+    - #list which typically contains a scrolling list container
+    - .content-detail which holds a detail view or a map (#map)
+     */
 
-    top: $navbarHeight;
-    bottom: 0;
-    background: $white;
-    border-left: $grayBorder;
-    border-right: $grayBorder;
+top: $navbarHeight;
+bottom: 0;
+background: $white;
+border-left: $grayBorder;
+border-right: $grayBorder;
 
-    #list {
-        height: 100%;
-        padding: 0px 0px;
-        overflow: auto;
-        background: $body-background;
-        -webkit-overflow-scrolling: touch;
-        @include column(4);
-        @include pull(8);
-        @include respondTo(smallScreen) {
-            right: auto;
-            height: auto;
-        }
-        @include respondTo(smallScreen) {
-            // Makes the map scroll with the list
-            overflow: visible;
-        }
+#list {
+    height: 100%;
+    padding: 0px 0px;
+    overflow: auto;
+    background: $body-background;
+    -webkit-overflow-scrolling: touch;
+    @include column(4);
+    @include pull(8);
+    @include respondTo(smallScreen) {
+        right: auto;
+        height: auto;
     }
-
-    .content-detail {
-        @include column(8);
-        @include push(4);
-        border-top: $grayBorder;
-        border-bottom: $grayBorder;
-        border-left: $grayBorder;
-        @include respondTo(smallScreen) {
-            left: auto;
-        }
-    }
-    #map {
-        height: 100%;
-        @include respondTo(smallScreen) {
-            height: $mapHeight;
-            width: 100% !important;
-            .leaflet-control-zoom {
-                display: none;
-            }
-        }
-    }
-    .search-places {
-        padding-top: 10px;
-        margin-left: 5px;
-        margin-right: 5px;
-
-        span.deleteicon {
-            display: block;
-            line-height: 9px;
-            position: absolute;
-            right: 20px;
-            top: 20px;
-            padding: 4px 4px 2px 4px;
-            @include border-radius(30px);
-            font-size: 9px;
-            color: $white;
-            background: #ccc;
-            cursor: pointer;
-        }
+    @include respondTo(smallScreen) {
+        // Makes the map scroll with the list
+        overflow: visible;
     }
 }
 
+.content-detail {
+    @include column(8);
+    @include push(4);
+    border-top: $grayBorder;
+    border-bottom: $grayBorder;
+    border-left: $grayBorder;
+    @include respondTo(smallScreen) {
+        left: auto;
+    }
+}
+#map {
+    height: 100%;
+    @include respondTo(smallScreen) {
+        height: $mapHeight;
+        width: 100% !important;
+        .leaflet-control-zoom {
+            display: none;
+        }
+    }
+}
+.search-places {
+    padding-top: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+
+    span.deleteicon {
+        display: block;
+        line-height: 9px;
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        padding: 4px 4px 2px 4px;
+        @include border-radius(30px);
+        font-size: 9px;
+        color: $white;
+        background: #ccc;
+        cursor: pointer;
+    }
+}
+}
+
 .list-map, .detail-map, .generic {
-        height: 100%;
-        -webkit-overflow-scrolling: touch;
-        ul.facet-list {
-            padding-left: 5px;
-        }
-        > h3 {
-            padding-left: 5px;
-        }
+    height: 100%;
+    -webkit-overflow-scrolling: touch;
+    ul.facet-list {
+        padding-left: 5px;
+    }
+    > h3 {
+        padding-left: 5px;
+    }
 }
 
 ul.results-list {
@@ -377,31 +377,31 @@ ul.results-list {
         color: rgba(40, 40, 40, 0.8);
         text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9);
         @include background(
-            linear-gradient(top, $light, $dark),
-            url($cream-dust)
+        linear-gradient(top, $light, $dark),
+        url($cream-dust)
         );
         @include hidpi {
             @include background(
-                linear-gradient(top, $light, $dark),
-                url($cream-dust-hidpi)
+            linear-gradient(top, $light, $dark),
+            url($cream-dust-hidpi)
             );
         }
 
         // Extra button to lead to detail directly or after the main button has been pressed
         a.detail_disclosure {
-                content: "▻";
-                @include background(linear-gradient(lighten(#1B4474, 20%), #002856));
-                color: #fff;
-                border: 3px solid #fff;
-                box-shadow: 0 0 5px rgba(0,0,0,0.4);
-                height: 30px;
-                width: 30px;
-                padding-left: 5px;
-                @include border-radius(15px);
-                line-height: 27px;
-                display: inline-block;
-                font-family: "SSStandard";
-                vertical-align: middle;
+            content: "▻";
+            @include background(linear-gradient(lighten(#1B4474, 20%), #002856));
+            color: #fff;
+            border: 3px solid #fff;
+            box-shadow: 0 0 5px rgba(0,0,0,0.4);
+            height: 30px;
+            width: 30px;
+            padding-left: 5px;
+            @include border-radius(15px);
+            line-height: 27px;
+            display: inline-block;
+            font-family: "SSStandard";
+            vertical-align: middle;
         }
 
         @include gentle-inset-shadow-on-state();
@@ -429,9 +429,9 @@ ul.results-list {
 }
 
 p.metadata, p.type {
-            font-size: ms(0);
-            margin-bottom: 0;
-        }
+    font-size: ms(0);
+    margin-bottom: 0;
+}
 
 p.type {
     margin-top: ms(-4);
