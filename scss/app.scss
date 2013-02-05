@@ -348,17 +348,17 @@ ul.sidebar-items {
             cursor: pointer;
         }
     }
-    ul.facet-list {
-        padding-left: 5px;
-    }
-    h3 {
-        padding-left: 5px;
-    }
 }
 
 .list-map, .detail-map, .generic {
         height: 100%;
         -webkit-overflow-scrolling: touch;
+        ul.facet-list {
+            padding-left: 5px;
+        }
+        > h3 {
+            padding-left: 5px;
+        }
 }
 
 ul.results-list {
