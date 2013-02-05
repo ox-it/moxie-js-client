@@ -17,7 +17,7 @@ define(['jquery', 'underscore', 'backbone', 'moxie.conf', 'moxie.position', 'pla
         },
 
         clearSearch: function(e) {
-            this.$('.search-places input').val('');
+            this.$('.search-input input').val('').focus();
         },
 
         attributes: {

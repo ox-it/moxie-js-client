@@ -34,7 +34,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
         },
 
         clearSearch: function(e) {
-            this.$('.search-places input').val('');
+            this.$('.search-input input').val('').focus();
         },
 
         clickFacet: function(e) {

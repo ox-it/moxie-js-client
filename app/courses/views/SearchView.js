@@ -8,7 +8,12 @@ define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/search', 'lea
 
             // Event Handlers
             events: {
-                'keypress #coursesSearch': "searchEventCourses"
+                'keypress #coursesSearch': "searchEventCourses",
+                'click .deleteicon': "clearSearch"
+            },
+
+            clearSearch: function(e) {
+                this.$('.search-input input').val('').focus();
             },
 
             attributes: {
