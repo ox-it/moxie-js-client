@@ -25,7 +25,8 @@ define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/course', 'hbs
                 for (var i=0;i<data._embedded.length;i++) {
                     if (data._embedded[i].location) {
                         var poid = data._embedded[i].location;
-                        var poi = new EmbeddedPoiView({render_element: "poi-"+poid, poid: poid});
+                        var element = this.$("#poi-" + poid.replace(":", "\\:"));
+                        var poi = new EmbeddedPoiView({el: element, poid: poid});
                         poi.render();
                     }
                 }

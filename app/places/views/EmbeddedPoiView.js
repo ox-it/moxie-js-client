@@ -19,8 +19,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
         },
 
         renderPOI: function(data) {
-            $("#"+this.options.render_element.replace(":", "\\:"))
-                .html(embeddedTemplate(data));
+            this.$el.html(embeddedTemplate(data));
         }
     });
     return EmbeddedPoiView;
