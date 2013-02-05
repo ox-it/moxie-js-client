@@ -1,11 +1,12 @@
-define(["app", "backbone", "places/router", "today/views/IndexView", "courses/router"], function(app, Backbone, PlacesRouter, IndexView, CoursesRouter){
+define(["app", "backbone", "places/router", "today/views/IndexView", "courses/router", "library/router"], function(app, Backbone, PlacesRouter, IndexView, CoursesRouter, LibraryRouter){
     var MoxieRouter = Backbone.Router.extend({
         subrouters: {},
         routes: {
             "": "index",
 
             "places/*subroute": "placesModule",
-            "courses/*subroute": "coursesModule"
+            "courses/*subroute": "coursesModule",
+            "library/*subroute": "libraryModule"
         },
 
         index: function(params) {
@@ -20,6 +21,11 @@ define(["app", "backbone", "places/router", "today/views/IndexView", "courses/ro
         coursesModule: function(subroute) {
             if (!this.subrouters.Courses) {
                 this.subrouters.Courses = new CoursesRouter('courses', {createTrailingSlashRoutes: true});
+            }
+        },
+        libraryModule: function(subroute) {
+            if (!this.subrouters.Library) {
+                this.subrouters.Library = new LibraryRouter('library', {createTrailingSlashRoutes: true});
             }
         }
     });
