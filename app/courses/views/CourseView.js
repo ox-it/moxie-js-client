@@ -10,6 +10,10 @@ define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/course', 'hbs
                 'click .bookLink': "bookCourse"
             },
 
+            attributes: {
+                'class': 'generic free-text'
+            },
+
             render: function() {
                 // Get course information
                 $.ajax({

@@ -128,7 +128,10 @@ div.today {
 
 div.embedded_map {
     height: $mapHeight;
-    width: 40%;
+    width: auto;
+    .leaflet-control-zoom {
+        display: none;
+    }
 }
 
 // Sidebar
