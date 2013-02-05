@@ -26,15 +26,15 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
 
         renderMap: function(data) {
             this.map = new L.map(this.$('.embedded_map')[0])
-                .setView([data['lat'], data['lon']], 15, true);
+                .setView([data.lat, data.lon], 15, true);
             L.tileLayer('http://{s}.tile.cloudmade.com/b0a15b443b524d1a9739e92fe9dd8459/997/256/{z}/{x}/{y}.png', {
                 maxZoom: 18,
                 // Detect retina - if true 4* map tiles are downloaded
                 detectRetina: true
             }).addTo(this.map);
             this.map.attributionControl.setPrefix('');
-            this.latlng = new L.LatLng(data['lat'], data['lon']);
-            this.marker = new L.marker(this.latlng, {'title': data['name']});
+            this.latlng = new L.LatLng(data.lat, data.lon);
+            this.marker = new L.marker(this.latlng, {'title': data.name});
             this.marker.addTo(this.map);
         }
     });
