@@ -1,12 +1,12 @@
 {{! NOTE: Take careful care with the namespacing in here, it's a bit of a mess. }}
 {{#if type_name}}
-    <div class="search-places">
+    <div class="search-input">
         <input type="text" placeholder="Search within {{ type_name_plural }}" name="q" value="{{query}}">
         <span class="deleteicon ss-icon">delete</span>
     </div>
     <h3>{{ type_name_plural }}</h3>
 {{else}}
-    <div class="search-places">
+    <div class="search-input">
         <input type="text" placeholder="Search places..." name="q" value="{{query}}">
         <span class="deleteicon ss-icon">delete</span>
     </div>
