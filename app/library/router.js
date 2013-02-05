@@ -1,4 +1,4 @@
-define(["app", "backbone", "backbone.subroute"], function(app, Backbone){
+define(["app", "backbone", "library/views/SearchView", "backbone.subroute"], function(app, Backbone, SearchView){
 
     var LibraryRouter = Backbone.SubRoute.extend({
 
@@ -9,7 +9,9 @@ define(["app", "backbone", "backbone.subroute"], function(app, Backbone){
         },
 
         search: function(params) {
-
+            app.showView(new SearchView({
+                params: params
+            }));
         }
     });
 
