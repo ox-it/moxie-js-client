@@ -25,7 +25,7 @@
 	Study mode: {{ study_mode }}<br />
 	{{/if}}
     {{#if location }}
-    Location: <a href="#/places/{{ location }}">map</a><br />
+        <div id="poi-{{ location }}"></div>
     {{/if}}
     <span class="bookable">
     {{#if _links.book }}

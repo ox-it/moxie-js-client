@@ -126,6 +126,14 @@ div.today {
     }
 }
 
+div.embedded_map {
+    height: $mapHeight;
+    width: auto;
+    .leaflet-control-zoom {
+        display: none;
+    }
+}
+
 // Sidebar
 // This relates to how the sidebar operates
 $sidebar-animation-time: 0.33s;
