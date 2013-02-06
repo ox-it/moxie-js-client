@@ -2,8 +2,16 @@
     {{#results}}
         <li data-id="{{ attributes.id }}">
         {{#if attributes.title }}
-        <h3>{{ attributes.title }}</h3>
+            <h3>{{ attributes.title }}</h3>
         {{/if}}
+        <ul>
+        {{#if attributes.author }}
+            <li><strong>Author:</strong> {{ attributes.author }}</li>
+        {{/if}}
+        {{#if attributes.publisher }}
+            <li><strong>Publisher:</strong> {{ attributes.publisher }}</li>
+        {{/if}}
+        </ul>
         </li>
     {{/results}}
 {{else}}

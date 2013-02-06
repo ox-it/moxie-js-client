@@ -15,7 +15,7 @@ define(['jquery', 'backbone', 'underscore', 'hbs!library/templates/search', 'hbs
             },
 
             attributes: {
-                'class': 'generic'
+                'class': 'generic free-text'
             },
 
             searchEventFields: function(ev) {
