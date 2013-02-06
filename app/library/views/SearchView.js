@@ -33,18 +33,17 @@ define(['jquery', 'backbone', 'underscore', 'hbs!library/templates/search', 'hbs
                 var title = $("#input-title").val();
                 var author = $("#input-author").val();
                 var isbn = $("#input-isbn").val();
-
-                var query = "?";
+                var kv = new Array();
                 if(title != "") {
-                    query += "title=" + title;
+                    kv.push("title=" + title);
                 }
                 if(author != "") {
-                    query += "author=" + author;
+                    kv.push("author=" + author);
                 }
                 if(isbn != "") {
-                    query += "isbn=" + isbn;
+                    kv.push("isbn=" + isbn);
                 }
-                Backbone.history.navigate('/library/' + query, true);
+                Backbone.history.navigate('/library/?' + kv.join("&"), true);
             },
 
             render: function() {
