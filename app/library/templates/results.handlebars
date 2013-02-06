@@ -1,0 +1,11 @@
+{{#if results}}
+    {{#results}}
+        <li data-id="{{ attributes.id }}">
+        {{#if attributes.title }}
+        <h3>{{ attributes.title }}</h3>
+        {{/if}}
+        </li>
+    {{/results}}
+{{else}}
+    <p>No results found</p>
+{{/if}}

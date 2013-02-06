@@ -4,6 +4,8 @@ define(['jquery', 'backbone', 'underscore', 'hbs!library/templates/search', 'hbs
 
             initialize: function() {
                 _.bindAll(this);
+                this.collection.on("reset", this.resetResults, this);
+                this.collection.on("add", this.addResult, this);
             },
 
             // Event Handlers
@@ -64,16 +66,36 @@ define(['jquery', 'backbone', 'underscore', 'hbs!library/templates/search', 'hbs
 
             search: function(title, author, isbn) {
                 var query = "?title=" + title + "&author=" + author + "&isbn=" + isbn;
-                console.log("QUERY: " + query);
                 $.ajax({
                     url: MoxieConf.urlFor('library_search') + query,
                     dataType: 'json'
-                }).success(this.renderSearchResults);
+                }).success(this.createItems);
                 return this;
             },
 
-            renderSearchResults: function(data) {
-                console.log(data._embedded);
+            createItems: function(data) {
+                // Called when we want to empty the existing collection
+                // For example when a search is issued and we clear the existing results.
+                this.collection.reset(data._embedded.items);
+            },
+
+            addResult: function(item) {
+                // Append an individual result to the existing results-list
+                var context = {
+                    results: [item]
+                };
+                this.$(".results-list").append(resultsTemplate(context));
+            },
+
+            resetResults: function(collection) {
+                this.render_results();
+            },
+
+            render_results: function(back_button) {
+                var context = {
+                    results: this.collection.toArray()
+                };
+                this.$(".results-list").html(resultsTemplate(context));
             }
         });
         return SearchView;
