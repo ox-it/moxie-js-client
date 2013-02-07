@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'underscore', 'favourites/models/Favourite', 'favourites/collections/Favourites'],
-    function($, Backbone, _, Favourite, Favourites) {
+define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'favourites/collections/Favourites'],
+    function($, Backbone, _, conf, Favourites) {
         var FavouriteButtonView = Backbone.View.extend({
             initialize: function() {
                 _.bindAll(this);
@@ -8,6 +8,10 @@ define(['jquery', 'backbone', 'underscore', 'favourites/models/Favourite', 'favo
                 this.updateButton();
                 this.favourites.on("remove add", this.updateButton, this);
                 window.addEventListener("hashchange", this.updateButton, false);
+            },
+
+            attributes: {
+                'class': 'generic free-text'
             },
 
             events: {'click': 'toggleFavourite'},
@@ -24,7 +28,8 @@ define(['jquery', 'backbone', 'underscore', 'favourites/models/Favourite', 'favo
             },
             addFavourite: function() {
                 var fragment = Backbone.history.fragment;
-                this.favourites.create({fragment: fragment});
+                var title = document.title.split(conf.titlePrefix, 2)[1];
+                this.favourites.create({fragment: fragment, title: title});
             },
             removeFavourite: function(favourite) {
                 favourite.destroy();
