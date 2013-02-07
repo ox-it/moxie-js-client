@@ -6,6 +6,7 @@ define(['jquery', 'backbone', 'underscore', 'favourites/models/Favourite', 'favo
                 this.favourites = new Favourites();
                 this.favourites.fetch();
                 this.updateButton();
+                this.favourites.on("remove add", this.updateButton, this);
                 window.addEventListener("hashchange", this.updateButton, false);
             },
 
@@ -24,11 +25,9 @@ define(['jquery', 'backbone', 'underscore', 'favourites/models/Favourite', 'favo
             addFavourite: function() {
                 var fragment = Backbone.history.fragment;
                 this.favourites.create({fragment: fragment});
-                this.$el.addClass('favourited');
             },
             removeFavourite: function(favourite) {
                 favourite.destroy();
-                this.$el.removeClass('favourited');
             },
             updateButton: function(favourite) {
                 if (this.favourites.getCurrentPage()) {
