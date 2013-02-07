@@ -274,6 +274,9 @@ ul.sidebar-items {
             &:active, &:hover {@include box-shadow(0 0 $navbarItemWidth/2 $black inset);}
             // If the button has been pressed, distinguish between press and hover
             &:active {background: rgba(0,0,0,0.4);}
+            &.favourited {
+                color: $pantone129;
+            }
         }
 
         // Left hand button should not have the brighter border
