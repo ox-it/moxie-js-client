@@ -1,4 +1,9 @@
-require(['modernizr','jquery','backbone', 'router', 'fastclick', 'backbone.queryparams'], function(Modernizr, $, Backbone, MoxieRouter, FastClick) {
+require(['modernizr','jquery','backbone', 'router', 'fastclick', 'favourites/views/FavouriteButtonView', 'backbone.queryparams'], function(Modernizr, $, Backbone, MoxieRouter, FastClick, FavouriteButtonView) {
+    // Include FastClick, this removes a 300ms touch event delay
+    window.addEventListener('load', function() {
+        new FastClick(document.body);
+    }, false);
+
     moxieRouter = new MoxieRouter();
 
     // Default to requesting hal+json but fallback to json
@@ -19,9 +24,5 @@ require(['modernizr','jquery','backbone', 'router', 'fastclick', 'backbone.query
     $('.overlay, #sidebar a').click(function(ev) {
         $('body').toggleClass('is-sidebar-active');
     });
-
-    // Include FastClick, this removes a 300ms touch event delay
-    window.addEventListener('load', function() {
-        new FastClick(document.body);
-    }, false);
+    new FavouriteButtonView({el: $('#favourite a')});
 });
