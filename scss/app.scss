@@ -238,7 +238,7 @@ ul.sidebar-items {
     // TODO: Pick a good value for this
     z-index: 51;
     height: $navbarHeight;
-    line-height: $navbarHeight;
+    line-height: $navbarHeight - 1px;
     color: $white;
     list-style: none;
     background: $navbarLight; // Basic background for old devices
