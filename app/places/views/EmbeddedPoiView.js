@@ -4,7 +4,6 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
 
         initialize: function() {
             _.bindAll(this);
-            L.Icon.Default.imagePath = '/images/maps';
         },
 
         render: function() {

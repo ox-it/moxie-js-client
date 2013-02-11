@@ -1,4 +1,5 @@
 define(['underscore', 'moxie.conf', 'leaflet'], function(_, MoxieConf, L){
+    L.Icon.Default.imagePath = 'images/maps';
     var utils = {
         // This rather dense function takes the full set of categories
         getCategory: function(category_hierarchy, categories) {
