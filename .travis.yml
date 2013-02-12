@@ -1,0 +1,1 @@
+script: phantomjs run-jasmine.js SpecRunner.html

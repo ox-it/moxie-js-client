@@ -1,6 +1,9 @@
-define(function() {
+define(['jquery'], function($) {
     function App(){
-        this.showView = function(view) {
+        this.showView = function(view, el) {
+            // el is an optional argument, if not supplied we default to
+            // the main #content div
+            var content = el ? el : $("#content");
             if (this.currentView){
                 this.currentView.remove();
                 this.currentView.unbind();
@@ -10,7 +13,7 @@ define(function() {
             }
             this.currentView = view;
             this.currentView.render();
-            $("#content").html(this.currentView.el);
+            content.html(this.currentView.el);
         };
     }
     // This needs to be a global singleton
