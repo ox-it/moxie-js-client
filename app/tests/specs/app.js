@@ -31,7 +31,7 @@ define(["jquery", "backbone", "jasmine", "app"], function($, Backbone, jasmine, 
             expect(dummyView.onClose).toHaveBeenCalled();
         });
 
-        it("Should default to content if no el supplied", function() {
+        it("Should default to #content if no el supplied", function() {
             var jqHtml = spyOn($.fn, "html");
             var dummyView = jasmine.createSpyObj('view', ['render']);
             app.showView(dummyView);
