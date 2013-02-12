@@ -14,3 +14,6 @@ app/main-built.js
 
 # Index file
 index.html
+
+#Documentation
+docs/build/
