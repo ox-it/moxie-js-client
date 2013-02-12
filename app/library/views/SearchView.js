@@ -60,6 +60,9 @@ define(['jquery', 'backbone', 'underscore', 'hbs!library/templates/search', 'hbs
                 this.$el.html(searchTemplate({title: title, author: author, isbn: isbn}));
                 if(title != "" || author != "" || isbn != "") {
                     this.search(title, author, isbn);
+                    Backbone.trigger("domchange:title", "Library search " + title + " " + author + " " + isbn);
+                } else {
+                    Backbone.trigger("domchange:title", "Library search");
                 }
             },
 
