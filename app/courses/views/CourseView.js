@@ -34,6 +34,7 @@ define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/course', 'hbs
                         poi.render();
                     }
                 }
+                Backbone.trigger('domchange:title', data.title);
             },
 
             renderAuthRequired: function() {

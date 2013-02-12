@@ -19,6 +19,7 @@ define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/bookings', 'l
                     withCredentials: true
                 }
             }).success(this.renderCoursesList);
+            Backbone.trigger('domchange:title', "My bookings");
             return this;
         },
 
