@@ -8,7 +8,12 @@ define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/search', 'lea
 
             // Event Handlers
             events: {
-                'keypress #coursesSearch': "searchEventCourses"
+                'keypress #coursesSearch': "searchEventCourses",
+                'click .deleteicon': "clearSearch"
+            },
+
+            clearSearch: function(e) {
+                this.$('.search-input input').val('').focus();
             },
 
             attributes: {
@@ -31,6 +36,7 @@ define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/search', 'lea
                     url: MoxieConf.urlFor('courses_subjects'),
                     dataType: 'json'
                 }).success(this.renderSubjectsList);
+                Backbone.trigger('domchange:title', "Courses");
                 return this;
             },
 

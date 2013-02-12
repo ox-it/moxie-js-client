@@ -1,14 +1,16 @@
-<input type="text" placeholder="Courses search" name="q" id="coursesSearch">
-<span class="deleteicon ss-icon">delete</span>
+<div class="search-input">
+    <input type="text" placeholder="Courses search" name="q" id="coursesSearch">
+    <span class="deleteicon ss-delete"></span>
+</div>
 
 <!-- TODO: what is the behaviour when user is not logged in? -->
 <ul class="results-list">
-	<a href='#/courses/bookings'><li>View my bookings</li></a>
+    <a href='#/courses/bookings'><li>View my bookings</li></a>
 </ul>
 
 
 <ul class="results-list">
-{{#subjects}}
-	<a href='#/courses/course_subject:"{{ title }}"'><li>{{ title }}</li></a>
-{{/subjects}}
+    {{#subjects}}
+        <a href='#/courses/course_subject:"{{ title }}"'><li>{{ title }}</li></a>
+    {{/subjects}}
 </ul>

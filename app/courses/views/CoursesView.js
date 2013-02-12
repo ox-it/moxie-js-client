@@ -15,6 +15,7 @@ function($, Backbone, _, coursesTemplate, L, MoxieConf){
                 url: MoxieConf.urlFor('courses_search') + "?q=" + this.options.query,
                 dataType: 'json'
             }).success(this.renderCoursesList);
+            Backbone.trigger('domchange:title', this.options.query);
         },
 
         renderCoursesList: function(data) {

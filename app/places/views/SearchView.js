@@ -6,7 +6,6 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
         // View constructor
         initialize: function() {
             _.bindAll(this);
-            L.Icon.Default.imagePath = '/images/maps';
             this.collection.on("reset", this.resetResults, this);
             this.collection.on("add", this.addResult, this);
             this.query = {};
@@ -34,7 +33,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
         },
 
         clearSearch: function(e) {
-            this.$('.search-places input').val('');
+            this.$('.search-input input').val('').focus();
         },
 
         clickFacet: function(e) {

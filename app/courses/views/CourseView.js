@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/course', 'hbs!courses/templates/auth_status', 'leaflet', 'moxie.conf'], 
-    function($, Backbone, _, courseTemplate, authTemplate, L, MoxieConf){
+define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/course', 'hbs!courses/templates/auth_status', 'leaflet', 'moxie.conf', 'places/views/EmbeddedPoiView', 'hbs!places/templates/embedded_poi'],
+    function($, Backbone, _, courseTemplate, authTemplate, L, MoxieConf, EmbeddedPoiView){
         var CourseView = Backbone.View.extend({
 
             initialize: function() {
@@ -8,6 +8,10 @@ define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/course', 'hbs
 
             events: {
                 'click .bookLink': "bookCourse"
+            },
+
+            attributes: {
+                'class': 'generic free-text'
             },
 
             render: function() {
@@ -22,6 +26,15 @@ define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/course', 'hbs
 
             renderCourse: function(data) {
                 this.$el.html(courseTemplate(data));
+                for (var i=0;i<data._embedded.length;i++) {
+                    if (data._embedded[i].location) {
+                        var poid = data._embedded[i].location;
+                        var element = this.$("#poi-" + poid.replace(":", "\\:"));
+                        var poi = new EmbeddedPoiView({el: element, poid: poid});
+                        poi.render();
+                    }
+                }
+                Backbone.trigger('domchange:title', data.title);
             },
 
             renderAuthRequired: function() {
