@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="uk.ac.ox.it.mobileoxford" versionCode="1" version="0.0.1">
+    <name>Mobile Oxford</name>
+    <description>Your university and city on the move</description>
+    <author href="https://m.ox.ac.uk" email="mobileoxford@oucs.ox.ac.uk">Mobile Oxford team, IT Services, University of Oxford</author>
+
+    <feature name="http://api.phonegap.com/1.0/geolocation"/>
+    <feature name="http://api.phonegap.com/1.0/network"/>
+
+    <access origin="http://api.m.ox.ac.uk" />
+</widget>
