@@ -15,3 +15,7 @@ The easiest way to run the tests is to open your browser to the ``SpecRunner.htm
 The test runner, ``run-jasmine.js`` will handle setting the correct exit code and output the details of any failing specs.
 
 .. _phantomjs: http://phantomjs.org
+
+Adding specs
+------------
+When adding new spec files to be run as part of the test suite it's important to add the path of the spec file in ``app/tests/main.js``.
