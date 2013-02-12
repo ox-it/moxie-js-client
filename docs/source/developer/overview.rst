@@ -13,6 +13,6 @@ When creating a new view
 
 Each view should have a correct title describing the page. This is particularly important for views that will be put in favorites.
 
-.. code:: javascript
+.. code-block:: javascript
 
     Backbone.trigger('domchange:title', "My title");
