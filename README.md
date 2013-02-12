@@ -3,6 +3,8 @@ Moxie JS Client
 
 Client for a new (in development) version of [Mobile Oxford](http://m.ox.ac.uk).
 
+[Online documentation](https://moxie-js-client.readthedocs.org)
+
 The Code
 --------
 
