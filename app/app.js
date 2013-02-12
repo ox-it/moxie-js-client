@@ -1,4 +1,4 @@
-define(function() {
+define(['jquery'], function($) {
     function App(){
         this.showView = function(view, el) {
             if (this.currentView){
