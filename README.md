@@ -13,7 +13,7 @@ There is a lot of JavaScript in this project. To manage this we're using [requir
 Tests
 -----
 
-The easiest way to run Moxie's Jasmine test suite is simply opening `SpecRunner.html` in yor browser. However if you have phantomjs installed (`npm install phantomjs -g`) you can run the tests with the following command:
+The easiest way to run Moxie's Jasmine test suite is simply opening `SpecRunner.html` in your browser. However if you have phantomjs installed (`npm install phantomjs -g`) you can run the tests with the following command:
 
     phantomjs run-jasmine.js SpecRunner.html
 
