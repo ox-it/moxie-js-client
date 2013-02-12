@@ -1,6 +1,6 @@
 define(function() {
     function App(){
-        this.showView = function(view) {
+        this.showView = function(view, el) {
             if (this.currentView){
                 this.currentView.remove();
                 this.currentView.unbind();
@@ -10,7 +10,11 @@ define(function() {
             }
             this.currentView = view;
             this.currentView.render();
-            $("#content").html(this.currentView.el);
+            if (el) {
+                el.html(this.currentView.el);
+            } else {
+                $("#content").html(this.currentView.el);
+            }
         };
     }
     // This needs to be a global singleton
