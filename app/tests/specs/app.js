@@ -32,10 +32,13 @@ define(["jquery", "backbone", "jasmine", "app"], function($, Backbone, jasmine, 
         });
 
         it("Should default to #content if no el supplied", function() {
+            // This is a useful way to mock the html function out of the jquery prototype
             var jqHtml = spyOn($.fn, "html");
             var dummyView = jasmine.createSpyObj('view', ['render']);
             app.showView(dummyView);
             expect(dummyView.render).toHaveBeenCalled();
+            // Here we inspect the object our Spy was called upon to
+            // query the content of the jquery selector
             expect(jqHtml.mostRecentCall.object.selector).toEqual('#content');
         });
 
