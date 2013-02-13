@@ -1,5 +1,6 @@
 {{#if results}}
     {{#results}}
+        <a href="#/library/item/{{ attributes.id }}">
         <li data-id="{{ attributes.id }}">
         {{#if attributes.title }}
             <h3>{{ attributes.title }}</h3>
@@ -13,6 +14,7 @@
         {{/if}}
         </ul>
         </li>
+        </a>
     {{/results}}
 {{else}}
     <p>No results found</p>
