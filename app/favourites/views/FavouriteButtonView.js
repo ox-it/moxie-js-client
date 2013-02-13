@@ -24,7 +24,6 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'favourites/collection
                 } else {
                     this.addFavourite();
                 }
-                console.log(this.favourites.toJSON());
             },
             addFavourite: function() {
                 var fragment = Backbone.history.fragment;
