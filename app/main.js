@@ -1,11 +1,16 @@
-require(['modernizr','jquery','backbone', 'router', 'fastclick', 'backbone.queryparams'], function(Modernizr, $, Backbone, MoxieRouter, FastClick) {
+require(['modernizr','jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'favourites/views/FavouriteButtonView', 'backbone.queryparams'], function(Modernizr, $, Backbone, MoxieRouter, FastClick, conf, FavouriteButtonView) {
+    // Include FastClick, this removes a 300ms touch event delay
+    window.addEventListener('load', function() {
+        new FastClick(document.body);
+    }, false);
+
     moxieRouter = new MoxieRouter();
 
     // Default to requesting hal+json but fallback to json
     $.ajaxSetup({ headers: { 'Accept': 'application/hal+json;q=1.0, application/json;q=0.9, */*; q=0.01' } });
 
     // Add an event listener for sending document title changes
-    Backbone.on('domchange:title', function(title) {$(document).attr('title', "Mobile Oxford - "+title);}, this);
+    Backbone.on('domchange:title', function(title) {$(document).attr('title', conf.titlePrefix+title);}, this);
 
     // This kicks off the app -- discovering the hashchanges and calling routers
     Backbone.history.start();
@@ -19,9 +24,5 @@ require(['modernizr','jquery','backbone', 'router', 'fastclick', 'backbone.query
     $('.overlay, #sidebar a').click(function(ev) {
         $('body').toggleClass('is-sidebar-active');
     });
-
-    // Include FastClick, this removes a 300ms touch event delay
-    window.addEventListener('load', function() {
-        new FastClick(document.body);
-    }, false);
+    new FavouriteButtonView({el: $('#favourite a')});
 });
