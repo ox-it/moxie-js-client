@@ -26,12 +26,14 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'favourites/collection
                 }
             },
             addFavourite: function() {
-                var fragment = Backbone.history.fragment;
+                var fragment = Backbone.history.getFragment(undefined, undefined, true);
+                var params = Backbone.history.getQueryParameters();
                 var title = document.title.split(conf.titlePrefix, 2)[1];
-                this.favourites.create({fragment: fragment, title: title});
+                var path = Backbone.history.getFragment();
+                this.favourites.create({path: path, fragment: fragment, params: params, title: title});
             },
             removeFavourite: function(favourite) {
-                favourite.destroy();
+                this.favourites.remove(favourite);
             },
             updateButton: function(favourite) {
                 if (this.favourites.getCurrentPage()) {
