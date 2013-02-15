@@ -61,6 +61,8 @@ define(['jquery', 'backbone', 'underscore', 'hbs!library/templates/search', 'hbs
                 }
                 this.$el.html(searchTemplate({title: title, author: author, isbn: isbn}));
 
+                this.$("#loading").hide();
+
                 // if at least one field is not empty, do a search
                 if(title !== "" || author !== "" || isbn !== "") {
                     this.search(title, author, isbn);
@@ -72,10 +74,12 @@ define(['jquery', 'backbone', 'underscore', 'hbs!library/templates/search', 'hbs
 
             search: function(title, author, isbn) {
                 var query = "?title=" + title + "&author=" + author + "&isbn=" + isbn;
+                this.$("#loading").show();
                 $.ajax({
                     url: MoxieConf.urlFor('library_search') + query,
                     dataType: 'json'
-                }).success(this.createItems).error(this.onError);
+                }).success(this.createItems)
+                    .error(this.onError);
                 return this;
             },
 
@@ -83,6 +87,7 @@ define(['jquery', 'backbone', 'underscore', 'hbs!library/templates/search', 'hbs
                 // Called when we want to empty the existing collection
                 // For example when a search is issued and we clear the existing results.
                 this.collection.reset(data._embedded.items);
+                this.$("#loading").hide();
             },
 
             addResult: function(item) {
