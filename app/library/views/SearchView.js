@@ -58,6 +58,8 @@ define(['jquery', 'backbone', 'underscore', 'hbs!library/templates/search', 'hbs
                     isbn = this.options.params.isbn;
                 }
                 this.$el.html(searchTemplate({title: title, author: author, isbn: isbn}));
+
+                // if at least one field is not empty, do a search
                 if(title != "" || author != "" || isbn != "") {
                     this.search(title, author, isbn);
                     Backbone.trigger("domchange:title", "Library search " + title + " " + author + " " + isbn);
@@ -71,7 +73,7 @@ define(['jquery', 'backbone', 'underscore', 'hbs!library/templates/search', 'hbs
                 $.ajax({
                     url: MoxieConf.urlFor('library_search') + query,
                     dataType: 'json'
-                }).success(this.createItems);
+                }).success(this.createItems).error(this.onError);
                 return this;
             },
 
@@ -98,6 +100,10 @@ define(['jquery', 'backbone', 'underscore', 'hbs!library/templates/search', 'hbs
                     results: this.collection.toArray()
                 };
                 this.$(".results-list").html(resultsTemplate(context));
+            },
+
+            onError: function(jqXHR, textStatus, errorThrown) {
+                console.log(textStatus);
             }
         });
         return SearchView;
