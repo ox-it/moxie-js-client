@@ -1,17 +1,18 @@
 define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.position', 'hbs!library/templates/item'],
     function($, Backbone, _, L, MoxieConf, userPosition, itemTemplate){
-        var ItemView = Backbone.View.extend({
+        var ItemView;
+        ItemView = Backbone.View.extend({
 
-            initialize: function() {
+            initialize: function () {
                 _.bindAll(this);
             },
 
-            render: function() {
+            render: function () {
                 this.requestItem();
                 return this;
             },
 
-            requestItem: function() {
+            requestItem: function () {
                 var url = MoxieConf.urlFor('library_item') + this.options.item_id + "/";
                 $.ajax({
                     url: url,
@@ -19,18 +20,29 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
                 }).success(this.getDetail).error(this.onError);
             },
 
-            getDetail: function(data) {
+            getDetail: function (data) {
                 this.item = new this.model(data);
                 this.renderItem();
             },
 
-            renderItem: function(cb) {
+            renderItem: function (cb) {
                 Backbone.trigger('domchange:title', this.item.attributes.title);
-                var html = itemTemplate(this.item);
+                var context = {item: this.item, holdings: this.getHoldings(this.item)};
+                var html = itemTemplate(context);
                 this.$el.html(html);
             },
 
-            onError: function(obj, textStatus, errorThrown) {
+            getHoldings: function (item) {
+                // merge _embedded location info with holdings
+                var holdings = [];
+                var attr = item.attributes;
+                for(var holding in attr.holdings) {
+                    holdings.push({holdings: attr.holdings[holding][0], location: attr._embedded[holding]});
+                }
+                return holdings;
+            },
+
+            onError: function (obj, textStatus, errorThrown) {
                 console.log(obj);
                 console.log(textStatus);
                 console.log(errorThrown);

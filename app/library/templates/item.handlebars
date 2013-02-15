@@ -1,26 +1,37 @@
-{{#if attributes.title }}
-    <h3>{{ attributes.title }}</h3>
+{{#if item.attributes.title }}
+    <h3>{{ item.attributes.title }}</h3>
 {{/if}}
 <ul>
-    {{#if attributes.author }}
-        <li><strong>Author:</strong> {{ attributes.author }}</li>
+    {{#if item.attributes.author }}
+        <li><strong>Author:</strong> {{ item.attributes.author }}</li>
     {{/if}}
-    {{#if attributes.publisher }}
-        <li><strong>Publisher:</strong> {{ attributes.publisher }}</li>
+    {{#if item.attributes.publisher }}
+        <li><strong>Publisher:</strong> {{ item.attributes.publisher }}</li>
     {{/if}}
-    {{#if attributes.description }}
-        <li><strong>Description:</strong> {{ attributes.description }}</li>
+    {{#if item.attributes.description }}
+        <li><strong>Description:</strong> {{ item.attributes.description }}</li>
     {{/if}}
-    {{#if attributes.isbns}}
+    {{#if item.attributes.isbns}}
         <li><strong>ISBN:</strong>
-        {{#attributes.isbns}}
+        {{#item.attributes.isbns}}
             {{ this }}
-        {{/attributes.isbns}}</li>
+        {{/item.attributes.isbns}}</li>
     {{/if}}
-    {{#if attributes.issns}}
+    {{#if item.attributes.issns}}
         <li><strong>ISBN:</strong>
-        {{#attributes.issns}}
+        {{#item.attributes.issns}}
             {{ this }}
-        {{/attributes.issns}}</li>
+        {{/item.attributes.issns}}</li>
     {{/if}}
 </ul>
+
+{{#if holdings}}
+<h4>Holdings</h4>
+<ul>
+    {{#holdings}}
+        <li>{{ location.name }}: {{holdings.shelfmark}} ({{holdings.availability}} available, {{holdings.availability_display}})</li>
+    {{/holdings}}
+</ul>
+{{/if}}
+
+<div class="holdings" id="map"></div>
