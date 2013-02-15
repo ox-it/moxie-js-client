@@ -33,21 +33,23 @@ define(['jquery', 'backbone', 'underscore', 'hbs!library/templates/search', 'hbs
                 var title = $("#input-title").val();
                 var author = $("#input-author").val();
                 var isbn = $("#input-isbn").val();
-                var kv = new Array();
-                if(title != "") {
+                var kv = [];
+                if(title !== "") {
                     kv.push("title=" + title);
                 }
-                if(author != "") {
+                if(author !== "") {
                     kv.push("author=" + author);
                 }
-                if(isbn != "") {
+                if(isbn !== "") {
                     kv.push("isbn=" + isbn);
                 }
                 Backbone.history.navigate('/library/?' + kv.join("&"), true);
             },
 
             render: function() {
-                var title = author = isbn = "";
+                var title = "";
+                var author = "";
+                var isbn = "";
                 if(this.options.params && this.options.params.title) {
                     title = this.options.params.title;
                 }
@@ -60,7 +62,7 @@ define(['jquery', 'backbone', 'underscore', 'hbs!library/templates/search', 'hbs
                 this.$el.html(searchTemplate({title: title, author: author, isbn: isbn}));
 
                 // if at least one field is not empty, do a search
-                if(title != "" || author != "" || isbn != "") {
+                if(title !== "" || author !== "" || isbn !== "") {
                     this.search(title, author, isbn);
                     Backbone.trigger("domchange:title", "Library search " + title + " " + author + " " + isbn);
                 } else {
