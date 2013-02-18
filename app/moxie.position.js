@@ -16,7 +16,7 @@ define(["underscore", "backbone", "moxie.conf"], function(_, Backbone, conf){
             this.off('position:updated', cb);
             this.count--;
         },
-        locaitonSuccess: function(position) {
+        locationSuccess: function(position) {
             this.trigger('position:updated', position);
             this.latest = position;
         },
@@ -29,8 +29,8 @@ define(["underscore", "backbone", "moxie.conf"], function(_, Backbone, conf){
         },
         startWatching: function() {
             // Ask for immediate position then watch with a big timeout / max age
-            navigator.geolocation.getCurrentPosition(this.locaitonSuccess, this.locationError);
-            this.watchID = navigator.geolocation.watchPosition(this.locaitonSuccess, this.locationError,
+            navigator.geolocation.getCurrentPosition(this.locationSuccess, this.locationError);
+            this.watchID = navigator.geolocation.watchPosition(this.locationSuccess, this.locationError,
             {maximumAge: 120000, timeout:25000}); // This is useful for debugging problem with geolocation
         }
     };
