@@ -1,37 +1,39 @@
-{{#if item.attributes.title }}
-    <h3>{{ item.attributes.title }}</h3>
-{{/if}}
-<ul>
-    {{#if item.attributes.author }}
-        <li><strong>Author:</strong> {{ item.attributes.author }}</li>
-    {{/if}}
-    {{#if item.attributes.publisher }}
-        <li><strong>Publisher:</strong> {{ item.attributes.publisher }}</li>
-    {{/if}}
-    {{#if item.attributes.description }}
-        <li><strong>Description:</strong> {{ item.attributes.description }}</li>
-    {{/if}}
-    {{#if item.attributes.isbns}}
-        <li><strong>ISBN:</strong>
-        {{#item.attributes.isbns}}
-            {{ this }}
-        {{/item.attributes.isbns}}</li>
-    {{/if}}
-    {{#if item.attributes.issns}}
-        <li><strong>ISBN:</strong>
-        {{#item.attributes.issns}}
-            {{ this }}
-        {{/item.attributes.issns}}</li>
-    {{/if}}
-</ul>
-
-{{#if holdings}}
-<h4>Holdings</h4>
-<ul>
-    {{#holdings}}
-        <li>{{ location.name }}: {{holdings.shelfmark}} ({{holdings.availability}} available, {{holdings.availability_display}})</li>
-    {{/holdings}}
-</ul>
-{{/if}}
-
 <div class="content-detail" id="map"></div>
+
+<div id="list" class="free-text">
+    {{#if item.attributes.title }}
+        <h3>{{ item.attributes.title }}</h3>
+    {{/if}}
+    <ul>
+        {{#if item.attributes.author }}
+            <li><strong>Author:</strong> {{ item.attributes.author }}</li>
+        {{/if}}
+        {{#if item.attributes.publisher }}
+            <li><strong>Publisher:</strong> {{ item.attributes.publisher }}</li>
+        {{/if}}
+        {{#if item.attributes.description }}
+            <li><strong>Description:</strong> {{ item.attributes.description }}</li>
+        {{/if}}
+        {{#if item.attributes.isbns}}
+            <li><strong>ISBN:</strong>
+            {{#item.attributes.isbns}}
+                {{ this }}
+            {{/item.attributes.isbns}}</li>
+        {{/if}}
+        {{#if item.attributes.issns}}
+            <li><strong>ISBN:</strong>
+            {{#item.attributes.issns}}
+                {{ this }}
+            {{/item.attributes.issns}}</li>
+        {{/if}}
+    </ul>
+
+    {{#if holdings}}
+    <h4>Holdings</h4>
+    <ul>
+        {{#holdings}}
+            <li>{{ location.name }}: {{holdings.shelfmark}} ({{holdings.availability}} available, {{holdings.availability_display}})</li>
+        {{/holdings}}
+    </ul>
+    {{/if}}
+</div>
