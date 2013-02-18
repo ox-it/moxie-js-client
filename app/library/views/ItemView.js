@@ -1,7 +1,6 @@
-define(['jquery', 'backbone', 'underscore', 'leaflet', 'places/utils', 'moxie.conf', 'moxie.position', 'hbs!library/templates/item'],
-    function($, Backbone, _, L, placesUtils, MoxieConf, userPosition, itemTemplate){
-        var ItemView;
-        ItemView = Backbone.View.extend({
+define(['jquery', 'backbone', 'underscore', 'leaflet', 'places/utils', 'moxie.conf', 'moxie.position', 'hbs!library/templates/item-map-layout', 'hbs!library/templates/item'],
+    function($, Backbone, _, L, placesUtils, MoxieConf, userPosition, baseTemplate, itemTemplate){
+        var ItemView = Backbone.View.extend({
 
             initialize: function () {
                 _.bindAll(this);
@@ -15,8 +14,10 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'places/utils', 'moxie.co
             },
 
             render: function () {
-                this.requestItem();
+                this.$el.html(baseTemplate());
+                this.map = placesUtils.getMap(this.$('#map')[0]);
                 userPosition.follow(this.handle_geolocation_query);
+                this.requestItem();
                 return this;
             },
 
@@ -37,9 +38,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'places/utils', 'moxie.co
                 Backbone.trigger('domchange:title', this.item.attributes.title);
                 var holdings = this.getHoldings(this.item);
                 var context = {item: this.item, holdings: holdings};
-                var html = itemTemplate(context);
-                this.$el.html(html);
-                this.map = placesUtils.getMap(this.$('#map')[0]);
+                this.$("#item").html(itemTemplate(context));
                 this.prepareMap(holdings);
                 this.setMapBounds();
             },
