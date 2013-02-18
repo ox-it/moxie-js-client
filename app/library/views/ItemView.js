@@ -1,10 +1,17 @@
-define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.position', 'hbs!library/templates/item'],
-    function($, Backbone, _, L, MoxieConf, userPosition, itemTemplate){
+define(['jquery', 'backbone', 'underscore', 'leaflet', 'places/utils', 'moxie.conf', 'moxie.position', 'hbs!library/templates/item'],
+    function($, Backbone, _, L, placesUtils, MoxieConf, userPosition, itemTemplate){
         var ItemView;
         ItemView = Backbone.View.extend({
 
             initialize: function () {
                 _.bindAll(this);
+                this.user_position = null;
+                this.latlngs = [];
+                this.markers = [];
+            },
+
+            attributes: {
+                'class': 'detail-map'
             },
 
             render: function () {
@@ -27,9 +34,13 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
 
             renderItem: function (cb) {
                 Backbone.trigger('domchange:title', this.item.attributes.title);
-                var context = {item: this.item, holdings: this.getHoldings(this.item)};
+                var holdings = this.getHoldings(this.item);
+                var context = {item: this.item, holdings: holdings};
                 var html = itemTemplate(context);
                 this.$el.html(html);
+                this.map = placesUtils.getMap(this.$('#map')[0]);
+                this.prepareMap(holdings);
+                this.setMapBounds();
             },
 
             getHoldings: function (item) {
@@ -46,6 +57,34 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
                 console.log(obj);
                 console.log(textStatus);
                 console.log(errorThrown);
+            },
+
+            prepareMap: function(holdings) {
+                for(var holding in holdings) {
+                    this.placeHolding(holdings[holding].location);
+                }
+            },
+
+            placeHolding: function(poi) {
+                var latlng = new L.LatLng(poi.lat, poi.lon);
+                var marker = new L.marker(latlng, {'title': poi.name});
+                marker.addTo(this.map);
+                this.latlngs.push(latlng);
+                this.markers.push(marker);
+            },
+
+            setMapBounds: function() {
+                var bounds = new L.LatLngBounds(this.latlngs);
+                if (this.user_position) {
+                    bounds.extend(this.user_position);
+                }
+                bounds.pad(5);
+                this.map.fitBounds(bounds);
+            },
+
+            invalidateMapSize: function() {
+                //this.map.invalidateSize();
+                return this;
             }
         });
         return ItemView;
