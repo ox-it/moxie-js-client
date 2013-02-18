@@ -16,6 +16,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'places/utils', 'moxie.co
 
             render: function () {
                 this.requestItem();
+                userPosition.follow(this.handle_geolocation_query);
                 return this;
             },
 
@@ -63,6 +64,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'places/utils', 'moxie.co
                 for(var holding in holdings) {
                     this.placeHolding(holdings[holding].location);
                 }
+                this.updateMap();
             },
 
             placeHolding: function(poi) {
@@ -83,8 +85,36 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'places/utils', 'moxie.co
             },
 
             invalidateMapSize: function() {
-                //this.map.invalidateSize();
+                this.map.invalidateSize();
                 return this;
+            },
+
+            updateMap: function() {
+                if (this.user_position && this.latlng) {
+                    this.map.fitBounds([
+                        this.user_position,
+                        this.latlng
+                    ]);
+                } else if (this.user_position) {
+                    this.map.panTo(this.user_position);
+                } else if (this.latlng) {
+                    this.map.panTo(this.latlng);
+                }
+            },
+
+            handle_geolocation_query: function(position) {
+                this.user_position = [position.coords.latitude, position.coords.longitude];
+                var you = new L.LatLng(position.coords.latitude, position.coords.longitude);
+                if (this.user_marker) {
+                    this.map.removeLayer(this.user_marker);
+                }
+                this.user_marker = L.circle(you, 10, {color: 'red', fillColor: 'red', fillOpacity: 1.0});
+                this.map.addLayer(this.user_marker);
+                this.updateMap();
+            },
+
+            onClose: function() {
+                userPosition.unfollow(this.handle_geolocation_query);
             }
         });
         return ItemView;
