@@ -14,3 +14,7 @@ app/main-built.js
 
 #Documentation
 docs/build/
+
+#PhoneGap build
+phonegap_build.zip
+phonegap_build/
