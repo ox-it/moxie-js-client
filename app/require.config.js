@@ -19,6 +19,7 @@ var require = {
         "backbone.queryparams": "libs/backbone.queryparams",
         "backbone.subroute": "libs/backbone.subroute",
         "backbone.hal": "libs/backbone.hal",
+        "localstorage": "libs/backbone.localStorage",
 
         // Testing libs
         "jasmine": "tests/libs/jasmine-1.3.1/jasmine",
