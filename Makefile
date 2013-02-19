@@ -13,6 +13,7 @@ package:
 	@echo "=> Copying files"
 	@cp index-phonegap.html $(TARGET_FOLDER)/index.html
 	@cp config.xml $(TARGET_FOLDER)/config.xml
+	@cp images/mobile-oxford-logo.png $(TARGET_FOLDER)/mobile-oxford-logo.png   # has to be at the root of the package
 	@cp -R images $(TARGET_FOLDER)
 	@cp -R webfonts $(TARGET_FOLDER)
 	@echo "=> JS build"

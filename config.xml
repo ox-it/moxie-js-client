@@ -7,6 +7,11 @@
     <feature name="http://api.phonegap.com/1.0/geolocation"/>
     <feature name="http://api.phonegap.com/1.0/network"/>
 
+    <icon src="mobile-oxford-logo.png" />
+    <preference name="prerendered-icon" value="true" />
+
+    <preference name="show-splash-screen-spinner" value="false" />
+
     <access origin="http://api.m.ox.ac.uk" />
     <access origin="http://tile.cloudmade.com" subdomains="true" />
 </widget>
