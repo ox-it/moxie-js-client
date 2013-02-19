@@ -8,4 +8,5 @@
     <feature name="http://api.phonegap.com/1.0/network"/>
 
     <access origin="http://api.m.ox.ac.uk" />
+    <access origin="http://tile.cloudmade.com/" subdomains="true" />
 </widget>
