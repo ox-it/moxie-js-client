@@ -5,7 +5,7 @@
 
 TARGET_FOLDER = phonegap_build
 
-build:
+package:
 	@echo "=> Cleaning..."
 	@rm -rf $(TARGET_FOLDER)
 	@rm $(TARGET_FOLDER).zip
@@ -24,4 +24,4 @@ build:
 	@echo "=> ZIPping..."
 	@zip -r $(TARGET_FOLDER) $(TARGET_FOLDER)
 
-all: build
+all: package
