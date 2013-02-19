@@ -18,11 +18,13 @@ define(["app", "backbone", "library/models/ItemModel", "library/collections/Item
         },
 
         detail: function(id, params) {
-            app.showView(new ItemView({
+            var itemView =  new ItemView({
                 model: Item,
                 params: params,
                 item_id: id
-            }));
+            });
+            app.showView(itemView);
+            itemView.invalidateMapSize();
         }
     });
 
