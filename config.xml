@@ -7,5 +7,19 @@
     <feature name="http://api.phonegap.com/1.0/geolocation"/>
     <feature name="http://api.phonegap.com/1.0/network"/>
 
+    <icon src="mobile-oxford-logo.png" />
+    <preference name="prerendered-icon" value="true" />
+
+    <preference name="show-splash-screen-spinner" value="false" />
+
+    <gap:splash src="mobile-oxford-splash.png" />
+
+    <gap:splash src="images/ios/mobile-oxford-splash-screen-320_480.png" width="320" height="480" />
+    <gap:splash src="images/ios/mobile-oxford-splash-screen-640_960.png" width="640" height="960" />
+    <gap:splash src="images/ios/mobile-oxford-splash-screen-640_1136.png" width="640" height="1136" />
+    <gap:splash src="images/ios/mobile-oxford-splash-screen-1024_768.png" width="1024" height="768" />
+    <gap:splash src="images/ios/mobile-oxford-splash-screen-768_1024.png" width="768" height="1024" />
+
     <access origin="http://api.m.ox.ac.uk" />
+    <access origin="http://tile.cloudmade.com" subdomains="true" />
 </widget>
