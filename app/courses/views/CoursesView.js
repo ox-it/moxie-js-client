@@ -23,7 +23,7 @@ function($, Backbone, _, coursesTemplate, L, MoxieConf){
             if(context.courses.length > 0) {
                 this.$el.html(coursesTemplate(context));
             } else {
-                this.$el.html("<h3>No results</h3>");
+                this.$el.html("<h2>No results</h2>");
             }
         }
     });

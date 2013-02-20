@@ -90,8 +90,10 @@ body.is-sidebar-active {
 h2 {
     font-size: ms(3);
     font-weight: 300;
-    margin-left: 5px;
-
+    margin-top: 8px;
+    &.free-heading {
+        margin-left: 5px;
+    }
 }
 
 h3 {
