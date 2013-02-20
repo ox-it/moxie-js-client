@@ -1,4 +1,5 @@
 <h2>Favourites</h2>
+{{#if favourites}}
 <ul class="results-list">
     {{#favourites}}
     <a href="#{{path}}">
@@ -8,3 +9,6 @@
     </a>
     {{/favourites}}
 </ul>
+{{else}}
+    <p>You do not have any favourites just yet.</p>
+{{/if}}
