@@ -7,3 +7,14 @@ $cream-dust-hidpi: "images/backgrounds/cream_dust_@2X.png";
 
 $darkOxfordBlue: #1B4474;
 $lightOxfordBlue: #002856;
+
+$navbarDark: $darkOxfordBlue;
+$navbarLight: $lightOxfordBlue;
+$navbarHeight: 40px;
+$navbarItemWidth: 50px;
+$navbarBorderDark: 1px solid rgba(darken($navbarDark, 10%),0.7);
+$navbarBorderLight: 1px solid rgba(lighten($navbarDark, 5%),0.7);
+
+$sidebar-animation-time: 0.33s;
+$sidebar-width: 75%;
+$sidebar-margin: 100% - $sidebar-width;
