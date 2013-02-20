@@ -1,5 +1,13 @@
-<ul class="results-list">
-{{#courses}}
-	<a href='#/courses/detail/{{ id }}'><li>{{ title }}</li></a>
-{{/courses}}
-</ul>
+{{#if query}}
+    <h2>{{ query }}</h2>
+{{/if}}
+
+{{#if courses}}
+    <ul class="results-list">
+    {{#courses}}
+        <a href='#/courses/detail/{{ id }}'><li>{{ title }}</li></a>
+    {{/courses}}
+    </ul>
+{{else}}
+    <p>Sorry, no results for your query.</p>
+{{/if}}
