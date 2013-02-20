@@ -91,9 +91,6 @@ img.preloader {
     margin-right: auto;
 }
 
-
-
-
 // A box to contain free text items inside a root level div
 .free-text {
     padding: 5px;
@@ -356,6 +353,13 @@ ul.results-list {
             linear-gradient(top, $light, $dark),
             url($cream-dust-hidpi)
             );
+        }
+
+        // Used on list items to show the count in the proceeding category/group
+        span.count {
+            display: block;
+            font-size: ms(-1);
+            font-weight: bold;
         }
 
         // Extra button to lead to detail directly or after the main button has been pressed

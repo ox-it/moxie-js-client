@@ -10,6 +10,6 @@
 <h2 class="free-heading">Courses by skill</h2>
 <ul class="results-list">
     {{#subjects}}
-        <a href='#/courses/course_subject:"{{ title }}"'><li>{{ title }} ({{ count }})</li></a>
+        <a href='#/courses/course_subject:"{{ title }}"'><li>{{ title }} <span class="count">{{ count }} course(s)</span></li></a>
     {{/subjects}}
 </ul>
