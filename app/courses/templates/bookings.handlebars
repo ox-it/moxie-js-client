@@ -1,4 +1,4 @@
-<h3>My bookings</h3>
+<h2 class="free-heading">My bookings</h2>
 
 <ul class="results-list">
     {{#_embedded}}
@@ -6,7 +6,7 @@
     {{#_embedded}}
     <ul data-id="{{ id }}">
         <li>Status: {{ booking_status }} (<a href="#" class="updateStatus">update</a>)</li>
-        <li>Starts: {{ dateFormat start }} </li> 
+        <li>Starts: {{ dateFormat start }} </li>
         <li style="display: none;"><a class="button withdrawBooking" href="#">Withdraw from this course</a></li>
     </ul>
     {{/_embedded}}

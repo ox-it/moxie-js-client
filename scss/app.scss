@@ -23,28 +23,16 @@
 
 @import "globals/variables";
 @import "globals/oxford-palette";
+@import "globals/mixins";
 @import "components/labels";
 @import "components/buttons";
-
-$animations-enabled: false;
-
-$navbarDark: $darkOxfordBlue;
-$navbarLight: $lightOxfordBlue;
-$navbarHeight: 40px;
-$navbarItemWidth: 50px;
-$navbarBorderDark: 1px solid rgba(darken($navbarDark, 10%),0.7);;
-$navbarBorderLight: 1px solid rgba(lighten($navbarDark, 5%),0.7);
-
-$dark: rgba(210,210,210, 0.2);
-$light: rgba(255,255,255, 0.1);
-$border-color: rgba(200,200,200, 0.5);
-
-$mapHeight: 140px;
-
+@import "components/navbar";
 
 // Colours for each application
 $todayColor: $pantone7412;
 
+
+// Bus RTI styling
 table#bus-rti {
     margin: 0 auto;
     tr > td {
@@ -68,12 +56,6 @@ table#bus-rti {
     }
 }
 
-@mixin gentle-inset-shadow-on-state{
-    &:active {
-        @include box-shadow(0 0 2px rgba(0,0,0,0.6) inset);
-    }
-}
-
 html, body { height: 100%; }
 body {
     overflow-x: hidden;
@@ -90,8 +72,10 @@ body.is-sidebar-active {
 h2 {
     font-size: ms(3);
     font-weight: 300;
-    margin-left: 5px;
-
+    margin-top: 8px;
+    &.free-heading {
+        margin-left: 5px;
+    }
 }
 
 h3 {
@@ -165,9 +149,6 @@ div.embedded_map {
 
 // Sidebar
 // This relates to how the sidebar operates
-$sidebar-animation-time: 0.33s;
-$sidebar-width: 75%;
-$sidebar-margin: 100% - $sidebar-width;
 #main, #sidebar {
     position: relative;
     @if $animations-enabled == true {
@@ -241,91 +222,6 @@ ul.sidebar-items {
             @include gentle-inset-shadow-on-state();
         }
 
-    }
-}
-
-
-// Navbar
-// Make the navbar sexy.
-#navbar, #content {
-    position: absolute;
-    left: 0; right: 0;
-    @include respondTo(smallScreen) {
-        width: auto; min-width: 0; margin-left: 0; margin-right: 0;
-        border: 0;
-    }
-}
-
-#navbar {
-    position: fixed;
-    margin: 0 auto;
-    top: 0px;
-    // TODO: Pick a good value for this
-    z-index: 51;
-    height: $navbarHeight;
-    line-height: $navbarHeight - 1px;
-    color: $white;
-    list-style: none;
-    background: $navbarLight; // Basic background for old devices
-    @include background(
-    // Highlighting radial gradient.
-    // Light top, dark bottom
-    radial-gradient(center, ellipse cover, rgba(0,0,0,0), rgba(0,0,0,0.1)),
-    linear-gradient(top, $navbarDark, $navbarLight)
-    );
-    body.is-sidebar-active & {
-        left: $sidebar-width;
-        right: auto;
-        width: 100%;
-    }
-
-    > li {
-        // Most of the elements are on the right, so default to floating them right
-        float: right;
-        // Set width of each button and center align it
-        width: $navbarItemWidth;
-        text-align: center;
-
-        // 3d effect by having a dark and light border on each item
-        border-left: $navbarBorderDark;
-
-        a {
-            border-left: $navbarBorderLight;
-            display: block;
-            color: $white;
-            // Feedback for hover/clicked
-            &:active, &:hover {@include box-shadow(0 0 $navbarItemWidth/2 $black inset);}
-            // If the button has been pressed, distinguish between press and hover
-            &:active {background: rgba(0,0,0,0.4);}
-            &.favourited {
-                color: $pantone129;
-            }
-        }
-
-        // Left hand button should not have the brighter border
-        &:first-child a { border-left: 0;}
-
-        &#home, &#back {
-            float: left;
-            border: 0;
-            border-right: $navbarBorderLight;
-            a { border-right: $navbarBorderDark; }
-        }
-        &#title {
-            float: left;
-            width: auto;
-            border: 0;
-            h1 {
-                color: $white;
-                // Set line-height to navbarHeight to give vertical alignment
-                line-height: $navbarHeight;
-                font-size: ms(0);
-                // Left spacing equivalent to font-size.
-                margin: auto 0 auto ms(0);
-                // Pull the text up slightly to align with buttons
-                margin-top: -2px;
-            }
-        }
     }
 }
 

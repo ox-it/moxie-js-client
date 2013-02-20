@@ -1,10 +1,10 @@
 <div class="embedded_map"></div>
 <div class="info">
 {{#if name }}
-    <h3>{{ name }}</h3>
+    <h2>{{ name }}</h2>
     <p class="type">{{ type_name }}</p>
 {{ else }}
-    <h3>{{ type_name }}</h3>
+    <h2>{{ type_name }}</h2>
 {{/if}}
 {{#if opening_hours }}
     <p>{{ opening_hours }} {{{currentlyOpen opening_hours}}}</p>

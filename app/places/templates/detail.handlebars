@@ -1,13 +1,13 @@
 <div class="free-text">
 	{{#if poi.attributes.name }}
-		<h3>{{ poi.attributes.name }}</h3>
+		<h2>{{ poi.attributes.name }}</h2>
 		<p class="type">{{ poi.attributes.type_name }}
 		{{#if poi.attributes.opening_hours }}
 			{{{currentlyOpen poi.attributes.opening_hours}}}
 		{{/if}}
 		</p>
 	{{ else }}
-		<h3>{{ poi.attributes.type_name }}</h3>
+		<h2>{{ poi.attributes.type_name }}</h2>
 		{{! opening_hours should be a string if it exists}}
 		{{# if poi.attributes.opening_hours }}
 			<p class="type">{{{currentlyOpen poi.attributes.opening_hours}}}</p>
