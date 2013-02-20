@@ -23,6 +23,7 @@
 
 @import "globals/variables";
 @import "globals/oxford-palette";
+@import "globals/mixins";
 @import "components/labels";
 @import "components/buttons";
 
@@ -45,6 +46,8 @@ $mapHeight: 140px;
 // Colours for each application
 $todayColor: $pantone7412;
 
+
+// Bus RTI styling
 table#bus-rti {
     margin: 0 auto;
     tr > td {
@@ -65,12 +68,6 @@ table#bus-rti {
 
     .service-destination {
 
-    }
-}
-
-@mixin gentle-inset-shadow-on-state{
-    &:active {
-        @include box-shadow(0 0 2px rgba(0,0,0,0.6) inset);
     }
 }
 
