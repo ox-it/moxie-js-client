@@ -45,9 +45,31 @@ $mapHeight: 140px;
 // Colours for each application
 $todayColor: $pantone7412;
 
+table#bus-rti {
+    margin: 0 auto;
+    tr > td {
+        padding: 5px;
+    }
+    .service-id {
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        color: #111;
+        text-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+        font-weight: 500;
+        @include border-radius(50%);
+        border: 3px solid rgba(255,255,255, 0.3);
+        //background: $darkOxfordBlue;
+        //@include background(radial-gradient($darkOxfordBlue, $lightOxfordBlue));
+    }
+
+    .service-destination {
+
+    }
+}
 
 @mixin gentle-inset-shadow-on-state{
-    &:active, &:hover {
+    &:active {
         @include box-shadow(0 0 2px rgba(0,0,0,0.6) inset);
     }
 }
