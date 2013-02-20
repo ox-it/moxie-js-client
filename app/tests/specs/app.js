@@ -9,15 +9,15 @@ define(["jquery", "backbone", "jasmine", "app"], function($, Backbone, jasmine, 
 
         it("Should call render on any new view", function() {
             var dummyView = jasmine.createSpyObj('view', ['render']);
-            app.showView(dummyView, el);
+            app.showView(dummyView, {el: el});
             expect(dummyView.render).toHaveBeenCalled();
         });
 
         it("Should fully remove a view", function() {
             var dummyView = jasmine.createSpyObj('view', ['render', 'remove', 'unbind']);
             var dummyView2 = jasmine.createSpyObj('view2', ['render']);
-            app.showView(dummyView, el);
-            app.showView(dummyView2, el);
+            app.showView(dummyView, {el: el});
+            app.showView(dummyView2, {el: el});
             expect(dummyView.remove).toHaveBeenCalled();
             expect(dummyView.unbind).toHaveBeenCalled();
             expect(dummyView2.render).toHaveBeenCalled();
@@ -26,8 +26,8 @@ define(["jquery", "backbone", "jasmine", "app"], function($, Backbone, jasmine, 
         it("Should call onClose if defined", function() {
             var dummyView = jasmine.createSpyObj('view', ['render', 'remove', 'unbind', 'onClose']);
             var dummyView2 = jasmine.createSpyObj('view2', ['render']);
-            app.showView(dummyView, el);
-            app.showView(dummyView2, el);
+            app.showView(dummyView, {el: el});
+            app.showView(dummyView2, {el: el});
             expect(dummyView.onClose).toHaveBeenCalled();
         });
 
@@ -45,7 +45,7 @@ define(["jquery", "backbone", "jasmine", "app"], function($, Backbone, jasmine, 
         it("Should not select content when overriding el", function() {
             var jqHtml = spyOn($.fn, "html");
             var dummyView = jasmine.createSpyObj('view', ['render']);
-            app.showView(dummyView, el);
+            app.showView(dummyView, {el: el});
             expect(dummyView.render).toHaveBeenCalled();
             expect(jqHtml.mostRecentCall.object.selector).toNotEqual('#content');
         });
@@ -54,7 +54,7 @@ define(["jquery", "backbone", "jasmine", "app"], function($, Backbone, jasmine, 
         it("Should call html function on jquery object", function() {
             var jqHtml = spyOn($.fn, "html");
             var dummyView = jasmine.createSpyObj('view', ['render']);
-            app.showView(dummyView);
+            app.showView(dummyView, {el: el});
             expect(dummyView.render).toHaveBeenCalled();
             expect(jqHtml).toHaveBeenCalled();
         });
