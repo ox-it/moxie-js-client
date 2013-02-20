@@ -20,6 +20,9 @@
     <gap:splash src="images/ios/mobile-oxford-splash-screen-1024_768.png" width="1024" height="768" />
     <gap:splash src="images/ios/mobile-oxford-splash-screen-768_1024.png" width="768" height="1024" />
 
+    <gap:plugin name="ChildBrowser" />
+
     <access origin="http://api.m.ox.ac.uk" />
     <access origin="http://tile.cloudmade.com" subdomains="true" />
+    <access origin="*" browserOnly="true" />
 </widget>
