@@ -8,7 +8,7 @@ TARGET_FOLDER = phonegap_build
 package:
 	@echo "=> Cleaning..."
 	@rm -rf $(TARGET_FOLDER)
-	@rm $(TARGET_FOLDER).zip
+	@rm -f $(TARGET_FOLDER).zip
 	@mkdir $(TARGET_FOLDER)
 	@echo "=> Copying files"
 	@cp index-phonegap.html $(TARGET_FOLDER)/index.html
