@@ -91,6 +91,31 @@ img.preloader {
     margin-right: auto;
 }
 
+
+
+
+// A box to contain free text items inside a root level div
+.free-text {
+    padding: 5px;
+}
+
+p.free-text {
+    line-height: 1.3;
+    font-weight: 300;
+}
+
+p.metadata, p.type {
+    font-size: ms(0);
+    margin-bottom: 0;
+}
+
+p.type {
+    margin-top: ms(-4);
+    text-transform: uppercase;
+    font-weight: 600;
+    line-height: ms(0);
+}
+
 // Today
 // Items specific to the today page
 
@@ -366,22 +391,4 @@ ul.results-list {
         }
 
     }
-}
-
-
-// A box to contain free text items inside a root level div
-.free-text {
-    padding: 5px;
-}
-
-p.metadata, p.type {
-    font-size: ms(0);
-    margin-bottom: 0;
-}
-
-p.type {
-    margin-top: ms(-4);
-    text-transform: uppercase;
-    font-weight: 600;
-    line-height: ms(0);
 }
