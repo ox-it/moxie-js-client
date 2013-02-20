@@ -1,5 +1,6 @@
 define(['jquery', 'backbone', 'underscore'], function($, Backbone, _){
     var InfiniteScrollView = Backbone.View.extend({
+        // Generic InfiniteScrollView implementation
         scrollCallbacks: [function(){ console.log("Scrolled!"); }],
         infiniteScrollEnabled: true,
 
@@ -8,6 +9,7 @@ define(['jquery', 'backbone', 'underscore'], function($, Backbone, _){
         windowScrolled: false,
 
         handleScroll: function() {
+            // Are we enabled? Has anything been scrolled?
             if ((this.infiniteScrollEnabled) && (this.windowScrolled || this.elScrolled)) {
                 this.infiniteScrollEnabled = false; // Infinite scroll disabled for duration of handling 1 event
                 var thresholdSurpassed = false;
@@ -18,6 +20,7 @@ define(['jquery', 'backbone', 'underscore'], function($, Backbone, _){
                         thresholdSurpassed = (($(document).scrollTop() / $(document).height()) > this.scrollThreshold);
                     }
                 }
+                // Call our callbacks with the correct `this` context
                 if ((this.scrollThreshold && thresholdSurpassed) || !this.scrollThreshold) {
                     _.each(this.scrollCallbacks, _.bind(function(cb) { cb.apply(this); }, this));
                 }
@@ -27,7 +30,10 @@ define(['jquery', 'backbone', 'underscore'], function($, Backbone, _){
             }
         },
 
-        initScroll: function(scrollElement, windowScroll) {
+        initScroll: function(windowScroll, scrollElement) {
+            // Initialises the scroll event handlers and sets an interval to observe them
+            // `windowScroll` should be a boolean saying if we want to listen to window.scroll events
+            // `scrollElement` is an optional DOM element we want to listen to scroll events for
             if (windowScroll) {
                 $(window).scroll(
                     _.bind(function(){ this.windowScrolled = true; }, this)

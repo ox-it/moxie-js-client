@@ -8,7 +8,7 @@ define(["jquery", "backbone", "jasmine", "core/views/InfiniteScrollView"], funct
             scrollCallbacks: [function(){ scrollCallbackCalled = true; }],
             render: function() {
                 this.$el.html('<h1 style="line-height: 500px">Hello overflow world</h1>');
-                InfiniteScrollView.prototype.initScroll.apply(this, [this.el]);
+                InfiniteScrollView.prototype.initScroll.apply(this, [false, this.el]);
             }
         });
         var scroll;

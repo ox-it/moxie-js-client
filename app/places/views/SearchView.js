@@ -192,7 +192,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             userPosition.follow(this.handle_geolocation_query);
 
             var scrollElement = this.$('#list')[0];
-            InfiniteScrollView.prototype.initScroll.apply(this, [scrollElement, true]);
+            InfiniteScrollView.prototype.initScroll.apply(this, [true, scrollElement]);
             return this;
         },
 
