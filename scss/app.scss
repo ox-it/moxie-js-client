@@ -356,9 +356,9 @@ ul.results-list {
         }
 
         // Used on list items to show the count in the proceeding category/group
-        span.count {
+        span.subtext {
             display: block;
-            font-size: ms(-1);
+            font-size: ms(0)/1.3;
             font-weight: bold;
         }
 
