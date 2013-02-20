@@ -19,8 +19,18 @@ function($, Backbone, _, coursesTemplate, L, MoxieConf){
         },
 
         renderCoursesList: function(data) {
-            var context = {courses: data._embedded};
+            var context = {courses: data._embedded, query: this.getQueryTitle(this.options.query)};
             this.$el.html(coursesTemplate(context));
+        },
+
+        getQueryTitle: function(query) {
+            // this code hides the Solr query syntax to replace it by a user-friendly definition
+            var COURSE_SUBJECT_FIELD = 'course_subject';
+            if (query.substring(0, COURSE_SUBJECT_FIELD.length) === COURSE_SUBJECT_FIELD) {
+                return "Skill: " + query.substring(COURSE_SUBJECT_FIELD.length+1, query.length);
+            } else {
+                return "Search: " + query;
+            }
         }
     });
     return CoursesView;
