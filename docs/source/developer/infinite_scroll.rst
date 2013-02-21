@@ -2,17 +2,20 @@
 Infinite Scrolling
 ==================
 
-To add infinite scrolling to your views simply extend ``core/views/InfiniteScrollView``, a simple example of this can be found in ``core/views/specs/infinite``::
+To add infinite scrolling to your views simply extend ``core/views/InfiniteScrollView``, a simple example of this can be found in ``core/views/specs/infinite``.
 
-        var TestInfiniteScroll = InfiniteScrollView.extend({
-            attributes: {style: "height: 100px; overflow-y: scroll"},
-            scrollThreshold: 0.5,
-            scrollCallbacks: [function(){ scrollCallbackCalled = true; }],
-            render: function() {
-                this.$el.html('<h1 style="line-height: 500px">Hello overflow world</h1>');
-                var windowScroll = false;
-                InfiniteScrollView.prototype.initScroll.apply(this, [windowScroll, this.el]);
-            }
-        });
+InfiniteScrollView
+------------------
 
-The key call here is to ``initScroll`` where we pass in  a ``Boolean`` for if we want our ``scrollCallbacks`` to be called after ``window.scroll`` events. Optionally you can also pass an element (scrolling with overflow-y) and listen to this elements ``scroll`` events.
+.. js:function:: InfiniteScrollView.initScroll([options])
+
+   :param object options: The following optional arguments can be passed in the options argument
+
+     * ``windowScroll``: default ``false`` - should be a boolean saying if we want to listen to window.scroll events
+     * ``scrollElement``: default ``undefined`` - DOM element we want to listen to scroll events for
+     * ``intervalPeriod``: default 250ms - time in ms which we should check if the user has scrolled
+     * ``scrollThreshold``: default ``undefined`` a floating point integer between 0 and 1 - The ratio representating how far down a page scroll should the ``scrollCallbacks`` be called.
+
+.. js:attribute:: InfiniteScrollView.scrollCallbacks
+
+    Array like object of functions to be called when the user scrolls down the page.
