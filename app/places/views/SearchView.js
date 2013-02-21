@@ -15,7 +15,6 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             if (this.options.params && this.options.params.type) {
                 this.query.type = this.options.params.type;
             }
-            this.scrollThreshold = 0.7; // % of way down page
             this.user_position = null;
             this.latlngs = [];
             this.markers = [];
@@ -191,8 +190,8 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             this.map = placesUtils.getMap(this.$('#map')[0]);
             userPosition.follow(this.handle_geolocation_query);
 
-            var scrollElement = this.$('#list')[0];
-            InfiniteScrollView.prototype.initScroll.apply(this, [true, scrollElement]);
+            var options = {windowScroll: true, scrollElement: this.$('#list')[0], scrollThreshold: 0.7};
+            InfiniteScrollView.prototype.initScroll.apply(this, [options]);
             return this;
         },
 
