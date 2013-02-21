@@ -30,23 +30,29 @@ define(['jquery', 'backbone', 'underscore'], function($, Backbone, _){
             }
         },
 
-        initScroll: function(windowScroll, scrollElement) {
+        initScroll: function(options) {
             // Initialises the scroll event handlers and sets an interval to observe them
-            // `windowScroll` should be a boolean saying if we want to listen to window.scroll events
-            // `scrollElement` is an optional DOM element we want to listen to scroll events for
-            if (windowScroll) {
+            // The options object can contain any or none of the following:
+            //  * `windowScroll` should be a boolean saying if we want to listen to window.scroll events
+            //  * `scrollElement` is an optional DOM element we want to listen to scroll events for
+            //  * `intervalPeriod` time in ms which we should check if the user has scrolled
+            //  * `scrollThreshold` a floating point integer between 0 and 1 - The ratio representating
+            //                      how far down a page scroll should the `scrollCallbacks` be called.
+            this.scrollThreshold = options.scrollThreshold ? options.scrollThreshold : null;
+            if (options.windowScroll) {
                 $(window).scroll(
                     _.bind(function(){ this.windowScrolled = true; }, this)
                 );
             }
-            if (scrollElement) {
-                this.scrollElement = scrollElement;
-                $(scrollElement).scroll(
+            if (options.scrollElement) {
+                this.scrollElement = options.scrollElement;
+                $(options.scrollElement).scroll(
                     _.bind(function(){ this.elScrolled = true; }, this)
                 );
             }
-            if (windowScroll || scrollElement) {
-                this.scrollInterval = window.setInterval(_.bind(this.handleScroll, this), 250); // limit to 250ms per Mr. Resig's suggestion
+            var intervalPeriod = options.intervalPeriod ? options.intervalPeriod : 250; // default of 250ms per Mr. Resig's suggestion
+            if (options.windowScroll || options.scrollElement) {
+                this.scrollInterval = window.setInterval(_.bind(this.handleScroll, this), intervalPeriod);
             }
         },
 
