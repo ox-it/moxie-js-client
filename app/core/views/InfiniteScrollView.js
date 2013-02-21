@@ -15,7 +15,7 @@ define(['jquery', 'backbone', 'underscore'], function($, Backbone, _){
                 var thresholdSurpassed = false;
                 if (this.scrollThreshold) {
                     if (this.elScrolled) {
-                        thresholdSurpassed = ((this.scrollElement.scrollTop / this.scrollElement.scrollHeight) > this.scrollThreshold);
+                        thresholdSurpassed = (((this.scrollElement.scrollTop + this.scrollElement.clientHeight) / this.scrollElement.scrollHeight) > this.scrollThreshold);
                     } else {
                         thresholdSurpassed = (($(document).scrollTop() / $(document).height()) > this.scrollThreshold);
                     }
