@@ -3,12 +3,11 @@ define(["jquery", "backbone", "jasmine", "core/views/InfiniteScrollView"], funct
         var scrollCallbackCalled;
         var TestInfiniteScroll = InfiniteScrollView.extend({
             attributes: {style: "height: 100px; overflow-y: scroll"},
-            windowScroll: false,
-            scrollThreshold: 0.5,
             scrollCallbacks: [function(){ scrollCallbackCalled = true; }],
             render: function() {
                 this.$el.html('<h1 style="line-height: 500px">Hello overflow world</h1>');
-                InfiniteScrollView.prototype.initScroll.apply(this, [false, this.el]);
+                var options = {windowScroll: false, scrollElement: this.el, scrollThreshold: 0.5};
+                InfiniteScrollView.prototype.initScroll.apply(this, [options]);
             }
         });
         var scroll;
