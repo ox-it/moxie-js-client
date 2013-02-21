@@ -1,4 +1,4 @@
-require(["jquery", "backbone", "jasmine-html"],
+require(["jquery", "backbone", "jasmine-html", "jasmine-jquery"],
 
   function($, Backbone, jasmine) {
     // NOTE: This is *the* place to add specs to the test suite
