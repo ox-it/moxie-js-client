@@ -36,6 +36,12 @@
     <link rel="stylesheet" href="css/leaflet.ie.css?{{build}}" />
     <![endif]-->
 
+    <!-- Exceptions logging -->
+    <script src="//app/libs/raven.min.js"></script>
+    <script type="text/javascript">
+        Raven.config('http://66a882c1aee249399adab8a635d9cfda@sentry.oucs.ox.ac.uk/14');
+    </script>
+
     <script src="app/main-built.js?{{build}}"></script>
 
     <!-- IE Fix for HTML5 Tags -->
