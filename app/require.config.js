@@ -23,7 +23,8 @@ var require = {
 
         // Testing libs
         "jasmine": "tests/libs/jasmine-1.3.1/jasmine",
-        "jasmine-html": "tests/libs/jasmine-1.3.1/jasmine-html"
+        "jasmine-html": "tests/libs/jasmine-1.3.1/jasmine-html",
+        "jasmine-jquery": "tests/libs/jasmine-jquery"
     },
 
     // Sets the configuration for your third party scripts that are not AMD compatible
@@ -55,10 +56,12 @@ var require = {
         "jasmine": {
             "exports": "jasmine"
         },
-
         "jasmine-html": {
             "deps": ["jasmine"],
             "exports": "jasmine"
+        },
+        "jasmine-jquery": {
+            "deps": ["jasmine"]
         }
     },
 
