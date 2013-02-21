@@ -1,6 +1,6 @@
-define(['jquery'], function($) {
+define(['jquery', 'underscore'], function($, _) {
     function App(){
-        var pageStack = 0;
+        this.pageStack = 0;
         this.showView = function(view, options) {
             // Options should be a js object with optional arguments
             // options.el -- is the element to render the view within (defaults to #content)
@@ -17,7 +17,7 @@ define(['jquery'], function($) {
             this.currentView = view;
             this.currentView.render();
             content.html(this.currentView.el);
-            if (options.back && (pageStack > 0)) {
+            if (options.back && (this.pageStack > 0)) {
                 // there are a couple of edge cases here
                 // the core problem is registering the back click event multiple times to prevent this:
                 //  * Remove any existing click handlers before adding one
@@ -33,19 +33,19 @@ define(['jquery'], function($) {
                 back_button.show();
                 var back_button_a = back_button.find('a');
                 back_button_a.unbind('click');
-                back_button_a.click(function(ev) {
-                    pageStack = pageStack - 2;
+                back_button_a.click(_.bind(function(ev) {
+                    this.pageStack -= 2;
                     ev.preventDefault();
                     window.history.back();
                     back_button_a.unbind('click');
                     return false;
-                });
+                }, this));
                 $('#home').hide();
             } else {
                 $('#back').hide();
                 $('#home').show();
             }
-            pageStack++;
+            this.pageStack++;
         };
     }
     // This needs to be a global singleton
