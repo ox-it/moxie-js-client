@@ -23,7 +23,7 @@ define(["jquery", "backbone", "jasmine", "core/views/InfiniteScrollView"], funct
             scroll.remove();
         });
         it("Should fire the callback once over the scrollThreshold", function() {
-            scroll.$el.scrollTop((scroll.el.scrollHeight*scroll.scrollThreshold)+1);
+            scroll.el.scrollTop = ((scroll.el.scrollHeight*scroll.scrollThreshold) - scroll.el.clientHeight) + 1;
 
             // Manually trigger the scroll event, since we're not really scrolling
             scroll.$el.scroll();
@@ -33,7 +33,7 @@ define(["jquery", "backbone", "jasmine", "core/views/InfiniteScrollView"], funct
             expect(scrollCallbackCalled).toBe(true);
         });
         it("Shouldn't fire the callback just below scrollThreshold", function() {
-            scroll.$el.scrollTop((scroll.el.scrollHeight*scroll.scrollThreshold));
+            scroll.el.scrollTop = ((scroll.el.scrollHeight*scroll.scrollThreshold) - scroll.el.clientHeight);
             scroll.$el.scroll();
             scroll.handleScroll();
             expect(scrollCallbackCalled).toBe(false);
