@@ -1,10 +1,11 @@
 define(["jquery", "backbone", "jasmine", "app"], function($, Backbone, jasmine, app) {
+    jasmine.getFixtures().fixturesPath = 'app/tests/fixtures';
 
     describe("Moxie app changing views", function() {
         var el = $('<div></div>');
-
-        afterEach(function() {
+        beforeEach(function() {
             app.currentView = undefined;
+            app.pageStack = 0;
         });
 
         it("Should call render on any new view", function() {
@@ -50,13 +51,93 @@ define(["jquery", "backbone", "jasmine", "app"], function($, Backbone, jasmine, 
             expect(jqHtml.mostRecentCall.object.selector).toNotEqual('#content');
         });
 
-
         it("Should call html function on jquery object", function() {
             var jqHtml = spyOn($.fn, "html");
             var dummyView = jasmine.createSpyObj('view', ['render']);
             app.showView(dummyView, {el: el});
             expect(dummyView.render).toHaveBeenCalled();
             expect(jqHtml).toHaveBeenCalled();
+        });
+
+        it("Should set the current view", function() {
+            var dummyView = jasmine.createSpyObj('view', ['render']);
+            app.showView(dummyView, {el: el});
+            expect(app.currentView).toBe(dummyView);
+        });
+    });
+
+    describe("Back/home button behaviour on typical navigation", function() {
+        beforeEach(function() {
+            app.currentView = undefined;
+            app.pageStack = 5; // not 0 as it's not the initial page load
+        });
+
+        it("Should hide the back button by default", function() {
+            loadFixtures('base.html');
+            var testView = new Backbone.View();
+            app.showView(testView);
+            expect($("#back")).toBeHidden();
+        });
+
+        it("Should show the home button by default", function() {
+            loadFixtures('base.html');
+            var testView = new Backbone.View();
+            app.showView(testView);
+            expect($("#home")).not.toBeHidden();
+        });
+
+        it("Should show the back button when requested", function() {
+            loadFixtures('base.html');
+            var testView = new Backbone.View();
+            app.showView(testView, {back: true});
+            expect($("#back")).not.toBeHidden();
+        });
+
+        it("Should hide the home button when showing a back button", function() {
+            loadFixtures('base.html');
+            var testView = new Backbone.View();
+            app.showView(testView, {back: true});
+            expect($("#home")).toBeHidden();
+        });
+    });
+
+    describe("Back/home button behaviour initial page load", function() {
+        beforeEach(function() {
+            app.currentView = undefined;
+            app.pageStack = 0;
+            spyOn(window.history, 'back');
+        });
+
+        it("Should increse the pageStack count by 1 each view shown", function() {
+            loadFixtures('base.html');
+            var testView = new Backbone.View();
+            app.showView(testView);
+            expect(app.pageStack).toBe(1);
+            var testView2 = new Backbone.View();
+            app.showView(testView);
+            expect(app.pageStack).toBe(2);
+        });
+
+        it("Should reduce the pageStack count by 2 each time the user clicks back", function() {
+            loadFixtures('base.html');
+            var testView = new Backbone.View();
+            app.showView(testView);
+            expect(app.pageStack).toBe(1);
+            var testView2 = new Backbone.View();
+            app.showView(testView, {back: true});
+            expect(app.pageStack).toBe(2);
+            $('#back a').click();
+            expect(app.pageStack).toBe(0);
+        });
+
+        it("Should call history.back when the user clicks back", function() {
+            loadFixtures('base.html');
+            var testView = new Backbone.View();
+            app.showView(testView);
+            var testView2 = new Backbone.View();
+            app.showView(testView, {back: true});
+            $('#back a').click();
+            expect(window.history.back).toHaveBeenCalled();
         });
     });
 
