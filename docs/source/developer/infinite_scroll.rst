@@ -15,6 +15,7 @@ InfiniteScrollView
      * ``scrollElement``: default ``undefined`` - DOM element we want to listen to scroll events for
      * ``intervalPeriod``: default 250ms - time in ms which we should check if the user has scrolled
      * ``scrollThreshold``: default ``undefined`` a floating point integer between 0 and 1 - The ratio representating how far down a page scroll should the ``scrollCallbacks`` be called.
+       If left undefined ``scrollCallbacks`` are called whenever the scroll event fires.
 
 .. js:attribute:: InfiniteScrollView.scrollCallbacks
 
