@@ -1,6 +1,39 @@
-define(['jquery', 'underscore'], function($, _) {
+define(['jquery', 'backbone', 'underscore'], function($, Backbone, _) {
     function App(){
         this.pageStack = 0;
+        this.startingPage = function() {
+            return this.pageStack == 1;
+        };
+        this.navigate = function(fragment, options) {
+            options = options ? options : {};
+            if (options.replace !== true) {
+                this.pageStack++;
+            }
+            return Backbone.history.navigate(fragment, options);
+        };
+        var defaultBack = function(ev) {
+            this.pageStack -= 2;
+            ev.preventDefault();
+            window.history.back();
+            return false;
+        };
+        this.showBack = function(cb) {
+            $('#home').hide();
+            var back = $('#back');
+            back.show();
+            var backA = back.find('a');
+            backA.off('click');
+            if (cb) {
+                backA.one('click', cb);
+                backA.one('click', _.bind(function() { this.pageStack -= 2; }, this));
+            } else {
+                backA.one('click', _.bind(defaultBack, this));
+            }
+        };
+        this.showHome = function() {
+            $('#back').hide();
+            $('#home').show();
+        };
         this.showView = function(view, options) {
             // Options should be a js object with optional arguments
             // options.el -- is the element to render the view within (defaults to #content)
@@ -14,9 +47,6 @@ define(['jquery', 'underscore'], function($, _) {
                     this.currentView.onClose();
                 }
             }
-            this.currentView = view;
-            this.currentView.render();
-            content.html(this.currentView.el);
             if (options.back && (this.pageStack > 0)) {
                 // there are a couple of edge cases here
                 // the core problem is registering the back click event multiple times to prevent this:
@@ -29,22 +59,13 @@ define(['jquery', 'underscore'], function($, _) {
                 //  Effectively resetting the pageStack (you have to remove 2 because when you go back you
                 //  will be calling showView once to render the view you're returning to [we have no idea
                 //  that the user clicked the back button due to history stuff])
-                var back_button = $('#back');
-                back_button.show();
-                var back_button_a = back_button.find('a');
-                back_button_a.unbind('click');
-                back_button_a.click(_.bind(function(ev) {
-                    this.pageStack -= 2;
-                    ev.preventDefault();
-                    window.history.back();
-                    back_button_a.unbind('click');
-                    return false;
-                }, this));
-                $('#home').hide();
+                this.showBack();
             } else {
-                $('#back').hide();
-                $('#home').show();
+                this.showHome();
             }
+            this.currentView = view;
+            this.currentView.render();
+            content.html(this.currentView.el);
             this.pageStack++;
         };
     }
