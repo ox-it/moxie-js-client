@@ -46,6 +46,7 @@ define(['jquery', 'underscore', 'backbone', 'moxie.conf', 'moxie.position', 'pla
             e.preventDefault();
             this.back_category = this.category_name;
             this.category_name = $(e.target).parents('a').data('category');
+            this.category_name = this.category_name ? this.category_name : '';
             app.navigate('/places/categories/'+this.category_name, {replace:false});
             this.renderCategories();
         },
