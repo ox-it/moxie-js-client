@@ -8,6 +8,8 @@ require(["jquery", "backbone", "jasmine-html", "jasmine-jquery"],
     specs.push('tests/specs/app');
     //Favourites
     specs.push('favourites/specs/button');
+    //Core
+    specs.push('core/specs/infinite');
     $(function() {
       require(specs, function() {
         jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
