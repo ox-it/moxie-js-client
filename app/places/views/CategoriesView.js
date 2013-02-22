@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'backbone', 'moxie.conf', 'moxie.position', 'places/utils', 'hbs!places/templates/categories'], function($, _, Backbone, conf, userPosition, utils, categoriesTemplate){
+define(['jquery', 'underscore', 'backbone', 'app', 'moxie.conf', 'moxie.position', 'places/utils', 'hbs!places/templates/categories'], function($, _, Backbone, app, conf, userPosition, utils, categoriesTemplate){
 
     var CategoriesView = Backbone.View.extend({
 
@@ -36,7 +36,7 @@ define(['jquery', 'underscore', 'backbone', 'moxie.conf', 'moxie.position', 'pla
                 var query = ev.target.value;
                 var qstring = $.param({q: query}).replace(/\+/g, "%20");
                 var path = conf.pathFor('places_search') + '?' + qstring;
-                Backbone.history.navigate(path, {trigger: true, replace: false});
+                app.navigate(path, {trigger: true, replace: false});
             }
         },
 
@@ -44,16 +44,8 @@ define(['jquery', 'underscore', 'backbone', 'moxie.conf', 'moxie.position', 'pla
             e.preventDefault();
             this.back_category = this.category_name;
             this.category_name = $(e.target).parents('a').data('category');
+            app.navigate('/places/categories/'+this.category_name, {replace:false});
             this.renderCategories();
-            if (!this.category_name) {
-                this.category_name = '';
-                $('#home').show();
-                $('#back').hide();
-            } else {
-                $('#home').hide();
-                $('#back').show().on('click', this.clickCategory);
-            }
-            Backbone.history.navigate('/places/categories/'+this.category_name, {replace:false});
         },
 
         setCategoryData: function(data) {
@@ -62,6 +54,12 @@ define(['jquery', 'underscore', 'backbone', 'moxie.conf', 'moxie.position', 'pla
         },
 
         renderCategories: function() {
+            this.category_name = this.category_name ? this.category_name : '';
+            if (this.category_name === '' || app.startingPage()) {
+                app.showHome();
+            } else {
+                app.showBack(this.clickCategory);
+            }
             var context;
             if (this.category_name) {
                 var category_hierarchy = this.category_name.split('/');
