@@ -20,7 +20,9 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
 
         navigateBack: function(ev) {
             ev.preventDefault();
-            this.map.removeLayer(this.marker);
+            if(this.marker) {
+                this.map.removeLayer(this.marker);
+            }
             this.cb();
             this.onClose();
         },
