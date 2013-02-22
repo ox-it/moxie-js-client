@@ -70,9 +70,11 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             var context = {'poi': this.poi, 'rti': rti};
             this.$("#list").html(detailTemplate(context));
             this.$el.scrollTop(0);
-            this.latlng = new L.LatLng(this.poi.get('lat'), this.poi.get('lon'));
-            this.marker = new L.marker(this.latlng, {'title': this.poi.get('name')});
-            this.marker.addTo(this.map);
+            if(this.poi.lat && this.poi.lon) {
+                this.latlng = new L.LatLng(this.poi.get('lat'), this.poi.get('lon'));
+                this.marker = new L.marker(this.latlng, {'title': this.poi.get('name')});
+                this.marker.addTo(this.map);
+            }
             this.updateMap();
             if (rti) {
                 var url = MoxieConf.endpoint + rti.href;

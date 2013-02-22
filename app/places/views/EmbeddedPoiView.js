@@ -20,7 +20,10 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
 
         renderPOI: function(data) {
             this.$el.html(embeddedTemplate(data));
-            this.renderMap(data);
+            // only renders the map if we've lat/lon
+            if(data.lat && data.lon) {
+                this.renderMap(data);
+            }
         },
 
         renderMap: function(data) {
