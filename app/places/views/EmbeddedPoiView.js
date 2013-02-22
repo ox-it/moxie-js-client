@@ -26,7 +26,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
         renderMap: function(data) {
             this.map = new L.map(this.$('.embedded_map')[0], {dragging: false, scrollWheelZoom: false, touchZoom: false, doubleClickZoom: false, boxZoom: false})
                 .setView([data.lat, data.lon], 15, true);
-            L.tileLayer('http://{s}.tile.cloudmade.com/b0a15b443b524d1a9739e92fe9dd8459/997/256/{z}/{x}/{y}.png', {
+            L.tileLayer('http://{s}.tile.cloudmade.com/'+MoxieConf.cloudmade.key+'/997/256/{z}/{x}/{y}.png', {
                 maxZoom: 18,
                 // Detect retina - if true 4* map tiles are downloaded
                 detectRetina: true
