@@ -73,6 +73,7 @@ h2 {
     font-size: ms(3);
     font-weight: 300;
     margin-top: 8px;
+    margin-bottom: 3px;
     &.free-heading {
         margin-left: 5px;
     }
@@ -106,6 +107,13 @@ p.metadata, p.type {
     margin-bottom: 0;
 }
 
+p.type {
+    margin-top: 4px;
+    text-transform: uppercase;
+    font-weight: 600;
+    line-height: ms(0);
+}
+
 // A div to centre align any buttons associated with metadata on a page
 // Typically used in places detail
 div.metadata-buttons {
@@ -115,12 +123,7 @@ div.metadata-buttons {
     border-top: 1px solid #ddd;
 }
 
-p.type {
-    margin-top: ms(-4);
-    text-transform: uppercase;
-    font-weight: 600;
-    line-height: ms(0);
-}
+
 
 // Definition lists
 // definitions should be slightly right of the term
