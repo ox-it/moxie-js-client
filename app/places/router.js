@@ -24,7 +24,7 @@ define(["app", "backbone", "places/models/POIModel", "places/views/CategoriesVie
                 collection: new POIs(),
                 params: params
             });
-            app.showView(searchView);
+            app.showView(searchView, {back: true});
             searchView.invalidateMapSize();
         },
 
