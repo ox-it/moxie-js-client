@@ -89,12 +89,13 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
 
         renderRTI: function(data) {
             this.$('#poi-rti').html(busRTITemplate(data));
+            this.$("#rti-load").hide();
         },
 
         refreshRTI: function() {
-            var url = MoxieConf.endpoint + this.rti.href;
+            this.$("#rti-load").show();
             $.ajax({
-                url: url,
+                url: MoxieConf.endpoint + this.rti.href,
                 dataType: 'json'
             }).success(this.renderRTI);
         },
