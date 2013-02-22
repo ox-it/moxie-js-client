@@ -113,9 +113,26 @@ p.type {
     line-height: ms(0);
 }
 
+// Definition lists
+// definitions should be slightly right of the term
+dl {
+    margin-top: 10px;
+    > dt {
+        font-weight: 400;
+        font-variant: small-caps;
+    }
+    > dd {
+        margin: 7px 5px;
+
+        a {
+            padding: 8px 5px;
+
+        }
+    }
+}
+
 // Today
 // Items specific to the today page
-
 h2.today {
     font-size: ms(6);
     margin-left: 10px;

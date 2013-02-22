@@ -37,16 +37,18 @@
 	{{/if}}
 
 	{{! Links to parents and children }}
+	<dl>
 	{{#if poi.attributes._links.parent}}
-		Parent: <a href="#{{ poi.attributes._links.parent.href }}">{{ poi.attributes._links.parent.title }} {{#if poi.attributes._links.parent.type_name}}({{ poi.attributes._links.parent.type_name }}){{/if}}</a>
+		<dt>Parent</dt>
+		<dd>
+			<a href="#{{ poi.attributes._links.parent.href }}">{{ poi.attributes._links.parent.title }} {{#if poi.attributes._links.parent.type_name}}({{ poi.attributes._links.parent.type_name }}){{/if}}</a>
+		</dd>
 	{{/if}}
 	{{#if poi.attributes._links.child}}
-		<dl>
-			<dt>Children</dt>
+		<dt>Children</dt>
 		{{#poi.attributes._links.child}}
-			<dd><a href="#{{ href }}" title="{{ title }}">{{ title }}</a></dd>
+		<dd><a href="#{{ href }}" title="{{ title }}">{{ title }}</a></dd>
 		{{/poi.attributes._links.child}}
-		</dl>
 	{{/if}}
-
+	</dl>
 </div>
