@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.position', 'places/views/DetailView', 'places/utils', 'hbs!places/templates/list-map-layout', 'hbs!places/templates/search', 'hbs!places/templates/results', 'hbs!places/templates/facets', 'core/views/InfiniteScrollView'],
-    function($, Backbone, _, L, MoxieConf, userPosition, DetailView, placesUtils, baseTemplate, searchTemplate, resultsTemplate, facetsTemplate, InfiniteScrollView){
+define(['jquery', 'backbone', 'underscore', 'leaflet', 'app', 'moxie.conf', 'moxie.position', 'places/views/DetailView', 'places/utils', 'hbs!places/templates/list-map-layout', 'hbs!places/templates/search', 'hbs!places/templates/results', 'hbs!places/templates/facets', 'core/views/InfiniteScrollView'],
+    function($, Backbone, _, L, app, MoxieConf, userPosition, DetailView, placesUtils, baseTemplate, searchTemplate, resultsTemplate, facetsTemplate, InfiniteScrollView){
 
     var SearchView = InfiniteScrollView.extend({
 
@@ -49,7 +49,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             // TODO: Find a better way of doing this...
             poid = (poid!==undefined) ? poid : $(e.target).parents('[data-poid]').data('poid');
             var poi = this.collection.get(poid);
-            this.browseDetails(poi, _.bind(this.render_results, this, true), false);
+            this.browseDetails(poi, _.bind(this.render_results, this, true), true);
         },
 
         highlightResult: function(poi) {
@@ -76,7 +76,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             // Cleanup and navigate
             this.undelegateEvents();
             this.onClose();
-            Backbone.history.navigate('/places/'+poi.id, {trigger: false, replace: replace});
+            app.navigate('/places/'+poi.id, {replace: replace});
         },
 
         placePOI: function(poi) {
@@ -132,23 +132,19 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             }
         },
 
-        initial_path_update: true,
-        updatePath: function() {
-            var qstring = $.param(this.query).replace(/\+/g, "%20");
-            var path;
+        getPath: function() {
+            var qstring = $.param(this.query);
+            var searchPath = MoxieConf.pathFor('places_search');
             if (qstring) {
-                path = MoxieConf.pathFor('places_search') + '?' + qstring;
-            } else {
-                path = MoxieConf.pathFor('places_search');
+                searchPath += ('?' + qstring);
             }
-            Backbone.history.navigate(path, {trigger: false, replace: this.initial_path_update});
-            this.initial_path_update = false;
-            return MoxieConf.endpoint + path;
+            return searchPath;
         },
 
         search: function() {
             var headers;
-            var url = this.updatePath();
+            var path = this.getPath().replace(/\+/g, "%20");
+            var url = MoxieConf.endpoint + path;
             if (this.user_position) {
                 headers = {'Geo-Position': this.user_position.join(';')};
             }
@@ -188,12 +184,16 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
                 // This means if a user clicks back they get the results page with a single result
                 this.browseDetails(this.collection.at(0), _.bind(this.render_results, this, true), true);
                 return this;
+            } else if (back_button) {
+                app.navigate(this.getPath(), {replace: true});
+                if (app.startingPage()) {
+                    app.showHome();
+                } else {
+                    app.showBack();
+                }
             }
             // Events may not have been delegated (using 'back' button)
             this.delegateEvents(this.events);
-            this.updatePath();
-            $('#home').show();
-            $('#back').hide();
             // Create the results-list div and search query input
             this.$('#list').html(searchTemplate({query: this.query.q}));
             // Actually populate the results-list
