@@ -73,11 +73,13 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
         },
 
         placePOI: function(poi) {
-            var latlng = new L.LatLng(poi.attributes.lat, poi.attributes.lon);
-            var marker = new L.marker(latlng, {'title': poi.attributes.name});
-            marker.addTo(this.map);
-            this.latlngs.push(latlng);
-            this.markers.push(marker);
+            if(poi.attributes.lat && poi.attributes.lon) {
+                var latlng = new L.LatLng(poi.attributes.lat, poi.attributes.lon);
+                var marker = new L.marker(latlng, {'title': poi.attributes.name});
+                marker.addTo(this.map);
+                this.latlngs.push(latlng);
+                this.markers.push(marker);
+            }
         },
 
         setMapBounds: function() {
