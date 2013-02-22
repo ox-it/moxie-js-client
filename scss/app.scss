@@ -106,6 +106,13 @@ p.metadata, p.type {
     margin-bottom: 0;
 }
 
+// A div to centre align any buttons associated with metadata on a page
+// Typically used in places detail
+div.metadata-buttons {
+    margin: 0 auto;
+    text-align: center;
+}
+
 p.type {
     margin-top: ms(-4);
     text-transform: uppercase;
@@ -130,6 +137,8 @@ dl {
         }
     }
 }
+
+
 
 // Today
 // Items specific to the today page
