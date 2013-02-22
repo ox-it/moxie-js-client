@@ -72,7 +72,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             var context = {'poi': this.poi, 'rti': rti};
             this.$("#list").html(detailTemplate(context));
             this.$el.scrollTop(0);
-            if(this.poi.lat && this.poi.lon) {
+            if(this.poi.get('lat') && this.poi.get('lon')) {
                 this.latlng = new L.LatLng(this.poi.get('lat'), this.poi.get('lon'));
                 this.marker = new L.marker(this.latlng, {'title': this.poi.get('name')});
                 this.marker.addTo(this.map);
