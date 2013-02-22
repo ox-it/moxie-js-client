@@ -107,6 +107,7 @@ p.metadata, p.type {
     margin-bottom: 0;
 }
 
+// Used to describe a place type in lists and below page titles
 p.type {
     margin-top: 4px;
     text-transform: uppercase;
@@ -122,8 +123,6 @@ div.metadata-buttons {
     text-align: center;
     border-top: 1px solid #ddd;
 }
-
-
 
 // Definition lists
 // definitions should be slightly right of the term
