@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.position', 'places/utils', 'hbs!places/templates/list-map-layout', 'hbs!places/templates/detail', 'hbs!places/templates/busrti'],
-    function($, Backbone, _, L, MoxieConf, userPosition, placesUtils, baseTemplate, detailTemplate, busRTITemplate){
+define(['jquery', 'backbone', 'underscore', 'leaflet', 'app', 'moxie.conf', 'moxie.position', 'places/utils', 'hbs!places/templates/list-map-layout', 'hbs!places/templates/detail', 'hbs!places/templates/busrti'],
+    function($, Backbone, _, L, app, MoxieConf, userPosition, placesUtils, baseTemplate, detailTemplate, busRTITemplate){
 
     var RTI_REFRESH = 15000;    // 15 seconds
 
@@ -65,10 +65,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             if (cb) {
                 this.delegateEvents(this.events);
                 this.cb = cb;
-                $('#home').hide();
-                // Event has to be bound here as the events hash only binds to items within this.el
-                // TODO: Common code for this stuff.
-                $('#back').show().on('click', this.navigateBack);
+                app.showBack(this.navigateBack);
             }
             Backbone.trigger('domchange:title', this.poi.attributes.name);
             this.rti = this.poi.attributes._links['hl:rti'];
@@ -118,7 +115,6 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
         },
 
         onClose: function() {
-            $('#back').hide().off('click');
             userPosition.unfollow(this.handle_geolocation_query);
             clearInterval(this.refreshID);
         }
