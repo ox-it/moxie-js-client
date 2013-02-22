@@ -44,6 +44,7 @@ define(['jquery', 'underscore', 'backbone', 'app', 'moxie.conf', 'moxie.position
             e.preventDefault();
             this.back_category = this.category_name;
             this.category_name = $(e.target).parents('a').data('category');
+            this.category_name = this.category_name ? this.category_name : '';
             app.navigate('/places/categories/'+this.category_name, {replace:false});
             this.renderCategories();
         },
@@ -54,7 +55,6 @@ define(['jquery', 'underscore', 'backbone', 'app', 'moxie.conf', 'moxie.position
         },
 
         renderCategories: function() {
-            this.category_name = this.category_name ? this.category_name : '';
             if (this.category_name === '' || app.startingPage()) {
                 app.showHome();
             } else {
