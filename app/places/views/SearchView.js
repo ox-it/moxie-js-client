@@ -1,7 +1,7 @@
-define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.position', 'places/views/DetailView', 'places/utils', 'hbs!places/templates/list-map-layout', 'hbs!places/templates/search', 'hbs!places/templates/results', 'hbs!places/templates/facets'],
-    function($, Backbone, _, L, MoxieConf, userPosition, DetailView, placesUtils, baseTemplate, searchTemplate, resultsTemplate, facetsTemplate){
+define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.position', 'places/views/DetailView', 'places/utils', 'hbs!places/templates/list-map-layout', 'hbs!places/templates/search', 'hbs!places/templates/results', 'hbs!places/templates/facets', 'core/views/InfiniteScrollView'],
+    function($, Backbone, _, L, MoxieConf, userPosition, DetailView, placesUtils, baseTemplate, searchTemplate, resultsTemplate, facetsTemplate, InfiniteScrollView){
 
-    var SearchView = Backbone.View.extend({
+    var SearchView = InfiniteScrollView.extend({
 
         // View constructor
         initialize: function() {
@@ -190,43 +190,12 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             this.map = placesUtils.getMap(this.$('#map')[0]);
             userPosition.follow(this.handle_geolocation_query);
 
-            // Infinite scroll stuff
-            // We bind to scroll events for both the $el and #list
-            // $el scrolls in the mobile view
-            // #list scrolls in the tablet view
-            $(window).scroll(
-                _.bind(function(){ this.window_scrolled = true; }, this)
-            );
-            this.$('#list').scroll(
-                _.bind(function(){ this.list_scrolled = true; }, this)
-            );
-            this.scrolling_interval = window.setInterval(
-                _.bind(function(){
-                if ((this.next_results) && (this.window_scrolled || this.list_scrolled) && (!this.loadingResults)) {
-                    this.loadMorePOIs();
-                    this.window_scrolled = false;
-                    this.list_scrolled = false;
-                }
-            }, this), 250); // limit to 250ms per Mr. Resig's suggestion
+            var options = {windowScroll: true, scrollElement: this.$('#list')[0], scrollThreshold: 0.7};
+            InfiniteScrollView.prototype.initScroll.apply(this, [options]);
             return this;
         },
 
-        list_scrolled: false,
-        window_scrolled: false,
-        loadingResults: false,
-        infiniteScrollThreshold: 0.7,
-        loadMorePOIs: function() {
-            // Inspect the div to determine if more POI's should be loaded
-            // Check if we're 70% of the way down the page
-            var scroll_threshold;
-            if (this.list_scrolled) {
-                var list = this.$('#list')[0];
-                scroll_threshold = ((list.scrollTop / list.scrollHeight) > this.infiniteScrollThreshold);
-            } else if (this.window_scrolled) {
-                scroll_threshold = (($(document).scrollTop() / $(document).height()) > this.infiniteScrollThreshold);
-            }
-            if (scroll_threshold) {
-                this.loadingResults = true;
+        scrollCallbacks: [function() {
                 if (this.user_position) {
                     headers = {'Geo-Position': this.user_position.join(';')};
                 }
@@ -235,15 +204,12 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
                     dataType: 'json',
                     headers: headers
                 }).success(this.extendPOIs);
-            }
-        },
+        }],
 
         extendPOIs: function(data) {
             // Used when the collection is extended through infinite scrolling
-            this.list_scrolled = false;
-            this.el_scrolled = false;
-            this.loadingResults = false;
             this.next_results = data._links['hl:next'];
+            this.infiniteScrollEnabled = Boolean(this.next_results);
             this.facets = data._links['hl:types'];
             this.collection.add(data._embedded);
             this.setMapBounds();
@@ -278,10 +244,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
         },
 
         onClose: function() {
-            if (this.scrolling_interval) {
-                // Stop looking for #list's scroll event
-                window.clearInterval(this.scrolling_interval);
-            }
+            InfiniteScrollView.prototype.onClose.apply(this);
             userPosition.unfollow(this.handle_geolocation_query);
         }
     });
