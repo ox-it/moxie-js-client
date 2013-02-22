@@ -41,7 +41,7 @@
 	{{! TODO only make this div visible if either phone or website exist }}
 	<div class="metadata-buttons">
 		{{#if poi.attributes.phone}}<a class="meta-action-button tel" href="tel:{{ poi.attributes.phone }}">{{ poi.attributes.phone }}</a>{{/if}}
-		{{#if poi.attributes.website}}<a class="meta-action-button" href="{{ poi.attributes.website }}">Website</a>{{/if}}
+		{{#if poi.attributes.website}}<a class="meta-action-button" href="{{ poi.attributes.website }}" target="_blank">Website</a>{{/if}}
 	</div>
 
 	{{! Links to parents and children }}
