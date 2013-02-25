@@ -1,0 +1,23 @@
+
+
+
+
+.library-unavailabile {
+	@include label($fail-red);
+}
+
+.library-unknown {
+
+}
+
+.library-stack {
+
+}
+
+.library-reference {
+
+}
+
+.library-available {
+	@include label($success-green);
+}

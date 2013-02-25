@@ -27,6 +27,8 @@
 @import "components/labels";
 @import "components/buttons";
 @import "components/navbar";
+// App level
+@import "library";
 
 // Colours for each application
 $todayColor: $pantone7412;
@@ -120,6 +122,7 @@ h3 {
 
 h4 {
     font-weight: 300;
+    margin-bottom: 0;
 }
 
 img.preloader {
