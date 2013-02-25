@@ -18,6 +18,7 @@ var require = {
         "fastclick": "libs/fastclick",
         "backbone.queryparams": "libs/backbone.queryparams",
         "backbone.subroute": "libs/backbone.subroute",
+        "backbone.layoutmanager": "libs/backbone.layoutmanager",
         "backbone.hal": "libs/backbone.hal",
         "localstorage": "libs/backbone.localStorage",
 
@@ -38,6 +39,10 @@ var require = {
         },
         "backbone.queryparams": {
             "deps": ["backbone"]
+        },
+        "backbone.layoutmanager": {
+            "deps": ["backbone"],
+            "exports": "Backbone.Layout"
         },
         "leaflet": {
             "exports": "L"
