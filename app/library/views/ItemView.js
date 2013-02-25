@@ -48,7 +48,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'places/utils', 'moxie.co
                 var holdings = [];
                 var attr = item.attributes;
                 for(var holding in attr.holdings) {
-                    holdings.push({holdings: attr.holdings[holding][0], location: attr._embedded[holding]});
+                    holdings.push({code: holding, holdings: attr.holdings[holding], location: attr._embedded[holding]});
                 }
                 return holdings;
             },
