@@ -30,7 +30,7 @@
     <h4>Holdings</h4>
     <ul>
         {{#holdings}}
-            <li>{{ location.name }}: {{holdings.shelfmark}} ({{holdings.availability}} available, {{holdings.availability_display}})</li>
+            <li><a href="#{{ location._links.self.href }}">{{ location.name }}</a>: {{holdings.shelfmark}} ({{holdings.availability}} available, {{holdings.availability_display}})</li>
         {{/holdings}}
     </ul>
     {{/if}}
