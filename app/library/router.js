@@ -14,7 +14,7 @@ define(["app", "backbone", "library/models/ItemModel", "library/collections/Item
             app.showView(new SearchView({
                 params: params,
                 collection: new Items()
-            }));
+            }), {back: true});
         },
 
         detail: function(id, params) {
@@ -23,7 +23,7 @@ define(["app", "backbone", "library/models/ItemModel", "library/collections/Item
                 params: params,
                 item_id: id
             });
-            app.showView(itemView);
+            app.showView(itemView, {back: true});
             itemView.invalidateMapSize();
         }
     });
