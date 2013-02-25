@@ -6,9 +6,6 @@
 TARGET_FOLDER = phonegap_build
 
 package:
-	@echo "=> Cleaning..."
-	@rm -rf $(TARGET_FOLDER)
-	@rm -f $(TARGET_FOLDER).zip
 	@mkdir $(TARGET_FOLDER)
 	@echo "=> Copying files"
 	@cp index-phonegap.html $(TARGET_FOLDER)/index.html
@@ -26,4 +23,9 @@ package:
 	@echo "=> ZIPping..."
 	@zip -r $(TARGET_FOLDER) $(TARGET_FOLDER)
 
-all: package
+clean:
+	@echo "=> Cleaning..."
+	@rm -rf $(TARGET_FOLDER)
+	@rm -f $(TARGET_FOLDER).zip
+
+all: clean package
