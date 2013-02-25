@@ -24,6 +24,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'app', 'moxie.conf', 'mox
 
         // Event Handlers
         events: {
+            'click .results-list > a': "clickResult",
             'keypress :input': "searchEvent",
             'click .deleteicon': "clearSearch",
             'click .facet-list > li[data-category]': "clickFacet"
@@ -37,6 +38,18 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'app', 'moxie.conf', 'mox
             e.preventDefault();
             this.query.type = $(e.target).data('category');
             this.search();
+        },
+
+        clickResult: function(e) {
+            console.log("cliked");
+            e.preventDefault();
+            // Find the POID from the click event
+            var poid = $(e.target).data('poid');
+            // We may have clicked on the actual LI element or a child... so search up parents
+            // TODO: Find a better way of doing this...
+            poid = (poid!==undefined) ? poid : $(e.target).parents('[data-poid]').data('poid');
+            var poi = this.collection.get(poid);
+            poi.set({selected: true});
         },
 
         searchEvent: function(ev) {
@@ -98,7 +111,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'app', 'moxie.conf', 'mox
             Backbone.trigger('domchange:title', "Search for Places of Interest");
             userPosition.follow(this.handle_geolocation_query);
 
-            var options = {windowScroll: true, scrollElement: this.$('#list')[0], scrollThreshold: 0.7};
+            var options = {windowScroll: true, scrollElement: this.el, scrollThreshold: 0.7};
             InfiniteScrollView.prototype.initScroll.apply(this, [options]);
             // TODO: Handle redirecting when we only have 1 result
             // Events may not have been delegated (using 'back' button)
