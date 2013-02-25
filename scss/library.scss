@@ -19,3 +19,12 @@
 .library-available {
 	@include label($success-green);
 }
+
+// Styling for detail DLs
+dl {
+    > dt.library-location {
+        font-variant: normal;
+        border-top: 1px solid #eee;
+        padding-top: 4px;
+    }
+ }
