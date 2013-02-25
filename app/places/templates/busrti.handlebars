@@ -1,25 +1,33 @@
-<table>
-{{#messages}}
-<tr>{{ this }}</tr>
-{{/messages}}
-</table>
+{{#if messages}}
+    <table>
+    {{#messages}}
+    <tr>{{ this }}</tr>
+    {{/messages}}
+    </table>
+{{/if}}
 
-<table>
-{{#services}}
-<tr>
-    <td rowspan="2" class="service-id">{{ service }}</td>
-    <td>{{ destination }}</td>
-    <td>{{ next }}</td>
-</tr>
-<tr class="notopborder">
-    <td colspan="2"><small>
-    {{#if following }}
-    Next:
-    {{/if}}
-    {{#following}}
-		{{ this }},
-    {{/following}}
-    </small></td>
-</tr>
-{{/services}}
-</table>
+{{#if services}}
+<div class="rti">
+    <table id="bus-rti">
+        <tbody>
+        {{#services}}
+        <tr>
+            <td rowspan="2"><span class="service-id">{{ service }}</span></td>
+            <td class="service-destination">{{ destination }}</td>
+            <td class="service-next-bus">{{ next }}</td>
+        </tr>
+        <tr class="notopborder">
+            <td colspan="2" class="service-next-buses-following"><small>
+            {{#if following }}
+            Next:
+            {{/if}}
+            {{#following}}
+        		{{ this }},
+            {{/following}}
+            </small></td>
+        </tr>
+        {{/services}}
+        </tbody>
+    </table>
+</div>
+{{/if}}

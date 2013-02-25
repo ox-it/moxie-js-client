@@ -1,11 +1,11 @@
-<h3>{{ title }}</h3>
-<strong>{{ provider }}</strong><br />
-<strong>
+<h2>{{ title }}</h2>
+<p class="type">{{ provider }}</p>
+<p>
 {{#subjects}}
-<a href='#/courses/course_subject:"{{this}}"'>{{this}}</a>, 
+<a class="label-facet label-small" href='#/courses/course_subject:"{{this}}"'>{{this}}</a>
 {{/subjects}}
-</strong>
-<p>{{ description }} </p>
+</p>
+<p class="free-text">{{ description }} </p>
 
 <div id="authStatus"></div>
 

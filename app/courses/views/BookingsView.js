@@ -49,7 +49,7 @@ define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/bookings', 'l
             if(data._embedded.length > 0) {
                 this.$el.html(bookingsTemplate(data));
             } else {
-                this.$el.html("<h3>No bookings</h3>");
+                this.$el.html("<h2>No bookings</h2>");
             }
         }
     });

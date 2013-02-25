@@ -10,6 +10,13 @@ The Code
 
 There is a lot of JavaScript in this project. To manage this we're using [require.js](http://requirejs.org/) this allows us to write modular JavaScript following the API defined by AMD.
 
+Tests
+-----
+
+The easiest way to run Moxie's Jasmine test suite is simply opening `SpecRunner.html` in your browser. However if you have phantomjs installed (`npm install phantomjs -g`) you can run the tests with the following command:
+
+    phantomjs run-jasmine.js SpecRunner.html
+
 The Build
 ---------
 
@@ -23,6 +30,10 @@ The Build
 
     r.js -o js/moxie.build.js
 
+PhoneGap build
+--------------
+
+Alternatively, you can build a package that contains all required files by typing `make` at the root of the repository. This is mainly targeted for PhoneGap (there is a configuration file `config.xml` used by PhoneGap) but the content can be reused.
 
 Development
 -----------

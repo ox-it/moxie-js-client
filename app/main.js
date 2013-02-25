@@ -1,66 +1,16 @@
-// Sets the require.js configuration for your application.
-require.config({
-    // 3rd party script alias names (Easier to type "jquery" than "libs/jquery-1.7.2.min")
-    paths: {
+require(['modernizr','jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'favourites/views/FavouriteButtonView', 'backbone.queryparams'], function(Modernizr, $, Backbone, MoxieRouter, FastClick, conf, FavouriteButtonView) {
+    // Include FastClick, this removes a 300ms touch event delay
+    window.addEventListener('load', function() {
+        new FastClick(document.body);
+    }, false);
 
-        // Core Libraries
-        "modernizr": "libs/modernizr",
-        "jquery": "libs/jquery",
-        "underscore": "libs/underscore",
-        "backbone": "libs/backbone",
-        "handlebars": "libs/Handlebars",
-        "hbs": "libs/hbs",
-        "json2": "libs/json2",
-        "i18nprecompile": "libs/i18nprecompile",
-        "leaflet": "libs/leaflet",
-        "time_domain": "libs/time_domain",
-        "fastclick": "libs/fastclick",
-        "backbone.queryparams": "libs/backbone.queryparams",
-        "backbone.subroute": "libs/backbone.subroute",
-        "backbone.hal": "libs/backbone.hal"
-    },
-
-    // Sets the configuration for your third party scripts that are not AMD compatible
-    shim: {
-        "backbone": {
-            "deps": ["underscore", "jquery"],
-            "exports": "Backbone"  //attaches "Backbone" to the window object
-        },
-        "underscore": {
-            "exports": "_"
-        },
-        "backbone.queryparams": {
-            "deps": ["backbone"]
-        },
-        "leaflet": {
-            "exports": "L"
-        },
-        "time_domain": {
-            "exports": "TimeDomain"
-        },
-        "handlebars": {
-            "exports": "Handlebars"
-        },
-        "json2": {
-            "exports": "JSON"
-        }
-    },
-
-    hbs: {
-        templateExtension: 'handlebars',
-        disableI18n: true,
-        helperPathCallback: function(name) {return 'templates/helpers/' + name;}
-    }
-});
-
-require(['modernizr','jquery','backbone', 'router', 'fastclick', 'backbone.queryparams'], function(Modernizr, $, Backbone, MoxieRouter, FastClick) {
     moxieRouter = new MoxieRouter();
 
     // Default to requesting hal+json but fallback to json
     $.ajaxSetup({ headers: { 'Accept': 'application/hal+json;q=1.0, application/json;q=0.9, */*; q=0.01' } });
 
     // Add an event listener for sending document title changes
-    Backbone.on('domchange:title', function(title) {$(document).attr('title', "Mobile Oxford - "+title);}, this);
+    Backbone.on('domchange:title', function(title) {$(document).attr('title', conf.titlePrefix+title);}, this);
 
     // This kicks off the app -- discovering the hashchanges and calling routers
     Backbone.history.start();
@@ -74,9 +24,5 @@ require(['modernizr','jquery','backbone', 'router', 'fastclick', 'backbone.query
     $('.overlay, #sidebar a').click(function(ev) {
         $('body').toggleClass('is-sidebar-active');
     });
-
-    // Include FastClick, this removes a 300ms touch event delay
-    window.addEventListener('load', function() {
-        new FastClick(document.body);
-    }, false);
+    new FavouriteButtonView({el: $('#favourite a')});
 });

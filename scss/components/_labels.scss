@@ -5,7 +5,7 @@
     display: inline-block;
     background-color:($color);
     @include border-radius(8px);
-    font-size: $font-size !important;
+    font-size: $font-size;
     padding: 2px 4px 1px 4px;
     font-weight: 600;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
@@ -27,4 +27,14 @@ $success-green: #468847;
     @include label($pantone624, ms(0));
     margin-top: 5px;
     cursor: pointer;
+    // For smaller labels
+    &.label-small {
+        // going against ms styling model here. Deemed acceptable due to
+        // it being a label and ms(-1), ms(0) are unacceptable.
+        font-size: 13px;
+        font-weight: 400;
+    }
+    &:hover {
+        color: #fff;
+    }
 }

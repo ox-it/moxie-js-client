@@ -19,21 +19,21 @@ define(["app", "backbone", "courses/views/SearchView", "courses/views/BookingsVi
         bookings: function(params) {
             app.showView(new BookingsView({
                 params: params
-            }));
+            }), {back: true});
         },
 
         courses: function(query, params) {
             app.showView(new CoursesView({
                 params: params,
                 query: query
-            }));
+            }), {back: true});
         },
 
         course: function(id, params) {
             app.showView(new CourseView({
                 params: params,
                 id: id
-            }));
+            }), {back: true});
         }
 
     });

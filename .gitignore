@@ -3,7 +3,12 @@
 
 .DS_Store
 
-css/*
+# CSS
+css/app.css
+css/components/*
+css/globals/*
+
+# Fonts
 webfonts/*
 
 # Minified JS
@@ -14,3 +19,7 @@ app/main-built.js
 
 #Documentation
 docs/build/
+
+#PhoneGap build
+phonegap_build.zip
+phonegap_build/

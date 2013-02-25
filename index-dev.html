@@ -31,12 +31,13 @@
     <link href="webfonts/ss-standard.css" rel="stylesheet">
 
     <!-- Leaflet -->
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet.css">
+    <link rel="stylesheet" href="css/leaflet.css" />
     <!--[if lte IE 8]>
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet.ie.css" />
+    <link rel="stylesheet" href="css/leaflet.ie.css" />
     <![endif]-->
 
-    <script data-main="app/main" src="app/libs/require.js"></script>
+    <script src="app/require.config.js"></script>
+    <script data-main="main" src="app/libs/require.js"></script>
 
     <!-- IE Fix for HTML5 Tags -->
     <!--[if lt IE 9]>
@@ -55,6 +56,7 @@
             <a href="#places/"><li>Places</li></a>
             <a href="#library/"><li>Library search</li></a>
             <a href="#courses/"><li>Graduate courses</li></a>
+            <a href="#favourites/"><li>Favourites</li></a>
         </ul>
     </div>
     <div id="main">
