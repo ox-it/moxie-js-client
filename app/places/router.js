@@ -1,5 +1,6 @@
-define(["app", "backbone", "places/models/POIModel", "places/views/CategoriesView", "places/views/SearchView", "places/views/DetailView", "places/collections/POICollection", "backbone.subroute"], function(app, Backbone, POI, CategoriesView, SearchView, DetailView, POIs){
+define(["app", "backbone", "places/models/POIModel", "places/views/CategoriesView", "places/views/SearchView", "places/views/MapView", "places/views/DetailView", "places/collections/POICollection", "hbs!places/templates/list-map-layout", "backbone.subroute"], function(app, Backbone, POI, CategoriesView, SearchView, MapView, DetailView, POIs, ListMapTemplate){
 
+    var pois = new POIs();
     var PlacesRouter = Backbone.SubRoute.extend({
 
         // All of your Backbone Routes (add more)
@@ -20,12 +21,22 @@ define(["app", "backbone", "places/models/POIModel", "places/views/CategoriesVie
         },
 
         search: function(params) {
+            mapView = new MapView({
+                collection: pois
+            });
             searchView = new SearchView({
-                collection: new POIs(),
+                collection: pois,
                 params: params
             });
-            app.showView(searchView, {back: true});
-            searchView.invalidateMapSize();
+            var layout = new Backbone.Layout({
+                template: ListMapTemplate,
+                views: {
+                    ".content-detail": mapView,
+                    "#list": searchView
+                }
+            });
+            app.showView(layout, {back: true});
+            mapView.invalidateMapSize();
         },
 
         detail: function(id, params) {
