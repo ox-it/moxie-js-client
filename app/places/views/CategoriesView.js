@@ -1,4 +1,5 @@
-define(['jquery', 'underscore', 'backbone', 'moxie.conf', 'moxie.position', 'places/utils', 'hbs!places/templates/categories'], function($, _, Backbone, conf, userPosition, utils, categoriesTemplate){
+define(['jquery', 'underscore', 'backbone', 'moxie.conf', 'moxie.position', 'places/utils', 'hbs!places/templates/base_categories', 'hbs!places/templates/categories'],
+    function($, _, Backbone, conf, userPosition, utils, baseTemplate, categoriesTemplate){
 
     var CategoriesView = Backbone.View.extend({
 
@@ -25,6 +26,7 @@ define(['jquery', 'underscore', 'backbone', 'moxie.conf', 'moxie.position', 'pla
         },
 
         render: function() {
+            this.$el.html(baseTemplate());
             $.ajax({
                 url: conf.endpoint + conf.pathFor('places_categories'),
                 dataType: 'json'
@@ -62,15 +64,19 @@ define(['jquery', 'underscore', 'backbone', 'moxie.conf', 'moxie.position', 'pla
         },
 
         renderCategories: function() {
+            this.$(".preloader").hide();
             var context;
             if (this.category_name) {
                 var category_hierarchy = this.category_name.split('/');
                 context = utils.getCategory(category_hierarchy, this.category_data);
+                // updating base template with type name
+                this.$("#category_title").text(context.type_name_plural);
+                this.$("#input_search").attr("placeholder", "Search " + context.type_name_plural.toLowerCase() + "...");
             } else {
                 context = {types: this.category_data.types};
             }
             context.category_name = (this.category_name) ? this.category_name : "";
-            this.$el.html(categoriesTemplate(context));
+            this.$("#categories").html(categoriesTemplate(context));
         }
     });
     return CategoriesView;
