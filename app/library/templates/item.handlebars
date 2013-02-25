@@ -29,25 +29,21 @@
     {{#if holdings}}
     <h4>Holdings</h4>
     <table class="content">
-        <tbody>
+        <dl>
         {{#holdings}}
-        <tr>
-            <th>
+        <dt>
                 {{#if location.name}}
                     <a href="#{{ location._links.self.href }}">{{ location.name }}</a>
                 {{else}}
                     {{code}}
                 {{/if}}
-            </th>
-        </tr>
+        </dt>
             {{#holdings}}
-            <tr>
-                <td>Shelfmark: <em>{{ shelfmark }}</em></td>
-                <td><em>{{ availability_display }}</em></td>
-            </tr>
+                <dd>Shelfmark: <em>{{ shelfmark }}</em></dd>
+                <dd class="availability">{{ availability_display }}</dd>
             {{/holdings}}
         {{/holdings}}
-    </table>
+    </dl>
     <p>Please note that all libraries have admission and borrowing policies; inclusion in this list does not imply access.</p>
     {{/if}}
 </div>
