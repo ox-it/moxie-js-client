@@ -7,18 +7,11 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'app', 'moxie.conf', 'mox
 
         initialize: function() {
             _.bindAll(this);
+            console.log("init", this.model);
         },
 
         attributes: {
             'class': 'detail-map'
-        },
-
-        render: function() {
-            this.$el.html(baseTemplate());
-            this.map = placesUtils.getMap(this.$('#map')[0]);
-            userPosition.follow(this.handle_geolocation_query);
-            this.requestPOI();
-            return this;
         },
 
         navigateBack: function(ev) {
@@ -48,6 +41,12 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'app', 'moxie.conf', 'mox
             this.renderPOI();
         },
 
+        serialize: function() {
+            console.log("serializing");
+            var rti = this.model.attributes._links['hl:rti'];
+            return {'poi': this.model, 'rti': rti};
+        },
+
         updateMap: function() {
             if (this.user_position && this.latlng) {
                 this.map.fitBounds([
@@ -61,6 +60,9 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'app', 'moxie.conf', 'mox
             }
         },
 
+        template: detailTemplate,
+        manage: true,
+
         renderPOI: function(cb) {
             if (cb) {
                 this.delegateEvents(this.events);
@@ -68,20 +70,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'app', 'moxie.conf', 'mox
                 app.showBack(this.navigateBack);
             }
             Backbone.trigger('domchange:title', this.poi.attributes.name);
-            this.rti = this.poi.attributes._links['hl:rti'];
-            var context = {'poi': this.poi, 'rti': this.rti};
             this.$("#list").html(detailTemplate(context));
-            this.$el.scrollTop(0);
-            if(this.poi.get('lat') && this.poi.get('lon')) {
-                this.latlng = new L.LatLng(this.poi.get('lat'), this.poi.get('lon'));
-                this.marker = new L.marker(this.latlng, {'title': this.poi.get('name')});
-                this.marker.addTo(this.map);
-            }
-            this.updateMap();
-            if (this.rti) {
-                this.refreshRTI();
-                this.refreshID = setInterval(this.refreshRTI, RTI_REFRESH);
-            }
         },
 
         renderRTI: function(data) {
