@@ -1,21 +1,19 @@
 
-
-
-
+// Labels for the different states of library book availability
 .library-unavailabile {
 	@include label($fail-red);
 }
 
 .library-unknown {
-
+	@include label($unknown-grey);
 }
 
 .library-stack {
-
+	@include label($stack-yellow);
 }
 
 .library-reference {
-
+	@include label($reference-blue);
 }
 
 .library-available {
