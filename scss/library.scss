@@ -1,6 +1,6 @@
 
 // Labels for the different states of library book availability
-.library-unavailabile {
+.library-unavailable {
 	@include label($fail-red);
 }
 
@@ -18,6 +18,10 @@
 
 .library-available {
 	@include label($success-green);
+}
+
+.library-shelfmark {
+    margin-left: 12px;
 }
 
 // Styling for detail DLs

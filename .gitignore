@@ -5,6 +5,7 @@
 
 # CSS
 css/app.css
+css/library.css
 css/components/*
 css/globals/*
 
