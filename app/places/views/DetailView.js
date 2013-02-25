@@ -83,7 +83,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             this.updateMap();
             if (this.rti) {
                 this.refreshRTI();
-                setInterval(this.refreshRTI, RTI_REFRESH);
+                this.refreshID = setInterval(this.refreshRTI, RTI_REFRESH);
             }
         },
 
@@ -120,6 +120,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
         onClose: function() {
             $('#back').hide().off('click');
             userPosition.unfollow(this.handle_geolocation_query);
+            clearInterval(this.refreshID);
         }
 
     });
