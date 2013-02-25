@@ -24,7 +24,8 @@ define([], function() {
         },
         geolocationInterval: 25000,
         defaultLocation: {coords: {latitude: 51.752018, longitude: -1.257723}},
-        cloudmade: {key: 'b0a15b443b524d1a9739e92fe9dd8459'}
+        cloudmade: {key: 'b0a15b443b524d1a9739e92fe9dd8459'},
+        mapbox: {key: 'mobileox.map-iihxb1dl'}
     };
     return MoxieConf;
 });
