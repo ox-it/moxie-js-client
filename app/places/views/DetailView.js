@@ -1,5 +1,8 @@
 define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.position', 'places/utils', 'hbs!places/templates/list-map-layout', 'hbs!places/templates/detail', 'hbs!places/templates/busrti'],
     function($, Backbone, _, L, MoxieConf, userPosition, placesUtils, baseTemplate, detailTemplate, busRTITemplate){
+
+    var RTI_REFRESH = 15000;    // 15 seconds
+
     var DetailView = Backbone.View.extend({
 
         initialize: function() {
@@ -68,8 +71,8 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
                 $('#back').show().on('click', this.navigateBack);
             }
             Backbone.trigger('domchange:title', this.poi.attributes.name);
-            var rti = this.poi.attributes._links['hl:rti'];
-            var context = {'poi': this.poi, 'rti': rti};
+            this.rti = this.poi.attributes._links['hl:rti'];
+            var context = {'poi': this.poi, 'rti': this.rti};
             this.$("#list").html(detailTemplate(context));
             this.$el.scrollTop(0);
             if(this.poi.get('lat') && this.poi.get('lon')) {
@@ -78,17 +81,23 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
                 this.marker.addTo(this.map);
             }
             this.updateMap();
-            if (rti) {
-                var url = MoxieConf.endpoint + rti.href;
-                $.ajax({
-                    url: url,
-                    dataType: 'json'
-                }).success(this.renderRTI);
+            if (this.rti) {
+                this.refreshRTI();
+                this.refreshID = setInterval(this.refreshRTI, RTI_REFRESH);
             }
         },
 
         renderRTI: function(data) {
             this.$('#poi-rti').html(busRTITemplate(data));
+            this.$("#rti-load").hide();
+        },
+
+        refreshRTI: function() {
+            this.$("#rti-load").show();
+            $.ajax({
+                url: MoxieConf.endpoint + this.rti.href,
+                dataType: 'json'
+            }).success(this.renderRTI);
         },
 
         geo_error: function(error) {
@@ -111,6 +120,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
         onClose: function() {
             $('#back').hide().off('click');
             userPosition.unfollow(this.handle_geolocation_query);
+            clearInterval(this.refreshID);
         }
 
     });
