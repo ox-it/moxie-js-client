@@ -28,6 +28,7 @@
 
     {{#if holdings}}
     <h4>Holdings</h4>
+    <p>Please note that all libraries have admission and borrowing policies; inclusion in this list does not imply access.</p>
     <ul>
         {{#holdings}}
             <li><a href="#{{ location._links.self.href }}">{{ location.name }}</a>: {{holdings.shelfmark}} ({{holdings.availability}} available, {{holdings.availability_display}})</li>
