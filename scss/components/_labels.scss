@@ -9,7 +9,7 @@
     padding: 2px 4px 1px 4px;
     font-weight: 600;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-    @include box-shadow(0 0 1px darken($success-green, 10%))
+    @include box-shadow(0 0 1px darken($color, 10%))
 }
 
 .label-place-open {
