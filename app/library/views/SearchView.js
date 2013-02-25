@@ -1,6 +1,6 @@
-define(['jquery', 'backbone', 'underscore', 'hbs!library/templates/search', 'hbs!library/templates/results', 'moxie.conf'],
-    function($, Backbone, _, searchTemplate, resultsTemplate, MoxieConf){
-        var SearchView = Backbone.View.extend({
+define(['jquery', 'backbone', 'underscore', 'core/views/InfiniteScrollView', 'hbs!library/templates/search', 'hbs!library/templates/results', 'moxie.conf'],
+    function($, Backbone, _, InfiniteScrollView, searchTemplate, resultsTemplate, MoxieConf){
+        var SearchView = InfiniteScrollView.extend({
 
             initialize: function() {
                 _.bindAll(this);
@@ -70,6 +70,9 @@ define(['jquery', 'backbone', 'underscore', 'hbs!library/templates/search', 'hbs
                 } else {
                     Backbone.trigger("domchange:title", "Library search");
                 }
+
+                var options = {windowScroll: true, scrollElement: this.$('.results-list')[0], scrollThreshold: 0.7};
+                InfiniteScrollView.prototype.initScroll.apply(this, [options]);
             },
 
             search: function(title, author, isbn) {
@@ -83,10 +86,18 @@ define(['jquery', 'backbone', 'underscore', 'hbs!library/templates/search', 'hbs
                 return this;
             },
 
+            scrollCallbacks: [function() {
+                $.ajax({
+                    url: MoxieConf.endpoint + this.next_results.href,
+                    dataType: 'json'
+                }).success(this.extendResults);
+            }],
+
             createItems: function(data) {
                 // Called when we want to empty the existing collection
                 // For example when a search is issued and we clear the existing results.
                 this.collection.reset(data._embedded.items);
+                this.next_results = data._links['hl:next'];
                 this.$("#loading").hide();
             },
 
@@ -96,6 +107,13 @@ define(['jquery', 'backbone', 'underscore', 'hbs!library/templates/search', 'hbs
                     results: [item]
                 };
                 this.$(".results-list").append(resultsTemplate(context));
+            },
+
+            extendResults: function(data) {
+                // Used when the collection is extended through infinite scrolling
+                this.next_results = data._links['hl:next'];
+                this.infiniteScrollEnabled = Boolean(this.next_results);
+                this.collection.add(data._embedded.items);
             },
 
             resetResults: function(collection) {
@@ -111,6 +129,10 @@ define(['jquery', 'backbone', 'underscore', 'hbs!library/templates/search', 'hbs
 
             onError: function(jqXHR, textStatus, errorThrown) {
                 console.log(textStatus);
+            },
+
+            onClose: function() {
+                InfiniteScrollView.prototype.onClose.apply(this);
             }
         });
         return SearchView;
