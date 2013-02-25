@@ -28,19 +28,17 @@
 
     {{#if holdings}}
     <h4>Holdings</h4>
-    <table class="content">
-        <dl>
+    <dl>
         {{#holdings}}
-        <dt>
-                {{#if location.name}}
-                    <a href="#{{ location._links.self.href }}">{{ location.name }}</a>
-                {{else}}
-                    {{code}}
-                {{/if}}
+        <dt class="library-location">
+            {{#if location.name}}
+                <a href="#{{ location._links.self.href }}">{{ location.name }}</a>
+            {{else}}
+                {{code}}
+            {{/if}}
         </dt>
             {{#holdings}}
-                <dd>Shelfmark: <em>{{ shelfmark }}</em></dd>
-                <dd class="availability">{{ availability_display }}</dd>
+                <dd>Shelfmark: <span class="library-shelfmark">{{ shelfmark }}</span> <span class="library-availability">{{ availability_display }}</span></dd>
             {{/holdings}}
         {{/holdings}}
     </dl>
