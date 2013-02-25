@@ -33,6 +33,12 @@ define(["app", "backbone", "places/models/POIModel", "places/views/CategoriesVie
                 views: {
                     ".content-detail": mapView,
                     "#list": searchView
+                },
+                afterRender: function() {
+                    that = this;
+                    pois.on("change:selected", function(poi) {
+                        that.setView("#list", new DetailView({model: poi})).render();
+                    });
                 }
             });
             app.showView(layout, {back: true});
