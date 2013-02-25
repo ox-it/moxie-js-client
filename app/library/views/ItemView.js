@@ -10,7 +10,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'places/utils', 'moxie.co
             },
 
             attributes: {
-                'class': 'generic free-text'
+                'class': 'generic'
             },
 
             render: function () {
