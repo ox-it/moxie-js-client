@@ -52,6 +52,14 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             this.browseDetails(poi, _.bind(this.render_results, this, true), false);
         },
 
+        highlightResult: function(poi) {
+            // Remove any existing Highlighted classes
+            this.$('li.highlighted').removeClass('highlighted');
+            var resultLi = this.$('li[data-poid="'+poi.id+'"]');
+            resultLi.addClass('highlighted');
+            this.$('#list').scrollTop((this.$('#list').scrollTop() + resultLi.position().top) - 70);
+        },
+
         browseDetails: function(poi, cb, replace) {
             // Browse to a given POI, passing in a callback to be called when the back button is pressed
             // Use the 'replace' to silently change the URL without writing history -- used for displaying 1 result
@@ -74,7 +82,12 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
         placePOI: function(poi) {
             if(poi.attributes.lat && poi.attributes.lon) {
                 var latlng = new L.LatLng(poi.attributes.lat, poi.attributes.lon);
-                var marker = new L.marker(latlng, {'title': poi.attributes.name});
+                var marker = new L.marker(latlng, {'title': poi.attributes.name, 'data-poid': poi.id});
+                marker.on('click', _.bind(function(ev) {
+                    var highlightedPOI = this.collection.get(ev.target.options['data-poid']).set('highlighted', true);
+                    this.highlightResult(highlightedPOI);
+                    return false;
+                }, this));
                 marker.addTo(this.map);
                 this.markers.push(marker);
             }
