@@ -66,6 +66,7 @@ define(['jquery', 'backbone', 'underscore', 'core/views/InfiniteScrollView', 'hb
                 // if at least one field is not empty, do a search
                 if(title !== "" || author !== "" || isbn !== "") {
                     this.search(title, author, isbn);
+                    this.$("#library-info").hide();
                     Backbone.trigger("domchange:title", "Library search " + title + " " + author + " " + isbn);
                 } else {
                     Backbone.trigger("domchange:title", "Library search");
