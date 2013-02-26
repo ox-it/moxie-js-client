@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/courses', 'leaflet', 'moxie.conf'],
-function($, Backbone, _, coursesTemplate, L, MoxieConf){
+define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/base_courses', 'hbs!courses/templates/courses', 'leaflet', 'moxie.conf'],
+function($, Backbone, _, baseTemplate, coursesTemplate, L, MoxieConf){
     var CoursesView = Backbone.View.extend({
 
         initialize: function() {
@@ -11,6 +11,8 @@ function($, Backbone, _, coursesTemplate, L, MoxieConf){
         },
 
         render: function() {
+            var context = {query: this.getQueryTitle(this.options.query)}
+            this.$el.html(baseTemplate(context));
             $.ajax({
                 url: MoxieConf.urlFor('courses_search') + "?q=" + this.options.query,
                 dataType: 'json'
@@ -19,8 +21,9 @@ function($, Backbone, _, coursesTemplate, L, MoxieConf){
         },
 
         renderCoursesList: function(data) {
-            var context = {courses: data._embedded, query: this.getQueryTitle(this.options.query)};
-            this.$el.html(coursesTemplate(context));
+            this.$("#loading").hide();
+            var context = {courses: data._embedded};
+            this.$("#results").html(coursesTemplate(context));
         },
 
         getQueryTitle: function(query) {
