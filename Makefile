@@ -5,6 +5,8 @@
 
 TARGET_FOLDER = phonegap_build
 
+all: clean package
+
 package:
 	@mkdir $(TARGET_FOLDER)
 	@echo "=> Copying files"
@@ -28,4 +30,3 @@ clean:
 	@rm -rf $(TARGET_FOLDER)
 	@rm -f $(TARGET_FOLDER).zip
 
-all: clean package
