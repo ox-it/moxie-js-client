@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/course', 'hbs!courses/templates/auth_status', 'leaflet', 'moxie.conf', 'places/views/EmbeddedPoiView', 'hbs!places/templates/embedded_poi'],
-    function($, Backbone, _, courseTemplate, authTemplate, L, MoxieConf, EmbeddedPoiView){
+define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/base_course', 'hbs!courses/templates/course', 'hbs!courses/templates/auth_status', 'leaflet', 'moxie.conf', 'places/views/EmbeddedPoiView', 'hbs!places/templates/embedded_poi'],
+    function($, Backbone, _, baseTemplate, courseTemplate, authTemplate, L, MoxieConf, EmbeddedPoiView){
         var CourseView = Backbone.View.extend({
 
             initialize: function() {
@@ -15,6 +15,7 @@ define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/course', 'hbs
             },
 
             render: function() {
+                this.$el.html(baseTemplate());
                 // Get course information
                 $.ajax({
                     url: MoxieConf.urlFor('course_id') + this.options.id,
@@ -25,7 +26,8 @@ define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/course', 'hbs
             },
 
             renderCourse: function(data) {
-                this.$el.html(courseTemplate(data));
+                this.$("#loading").hide();
+                this.$("#item").html(courseTemplate(data));
                 for (var i=0;i<data._embedded.length;i++) {
                     if (data._embedded[i].location) {
                         var poid = data._embedded[i].location;
