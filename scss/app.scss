@@ -429,8 +429,8 @@ ul.results-list {
         .meta-info {
             font-size: $meta-info-font-size;
             padding: 0;
-            margin: 6px 0 0 5px;
-            line-height: $meta-info-font-size;
+            margin: 3px 0 0 5px;
+            line-height: $meta-info-font-size + 3px;
             font-weight: 200;
         }
 
