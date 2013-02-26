@@ -10,10 +10,19 @@
 	font-weight: 500;
 	margin: 5px 5px 5px 0;
 
-	.tel &:before {
-		padding-right: 8px;
+	&:before {
 		font-family: "SSStandard";
+		font-size: 11px;
+	}
+
+	// Add telephone or globe icons on the left of each button
+	&.tel:before {
+		padding-right: 8px;
 		content: "📞";
+	}
+
+	&.web:before {
+		padding-right: 8px;
 		content: "🌎";
 	}
 
