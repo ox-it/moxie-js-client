@@ -1,0 +1,35 @@
+@import "components/labels";
+
+// Labels for the different states of library book availability
+.library-unavailable {
+	@include label($fail-red);
+}
+
+.library-unknown {
+	@include label($unknown-grey);
+}
+
+.library-stack {
+	@include label($stack-yellow);
+}
+
+.library-reference {
+	@include label($reference-blue);
+}
+
+.library-available {
+	@include label($success-green);
+}
+
+.library-shelfmark {
+    margin-left: 12px;
+}
+
+// Styling for detail DLs
+dl {
+    > dt.library-location {
+        font-variant: normal;
+        border-top: 1px solid #eee;
+        padding-top: 4px;
+    }
+ }

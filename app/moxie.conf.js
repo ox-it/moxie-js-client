@@ -14,7 +14,9 @@ define([], function() {
             presentation_id: '/courses/presentation/',
             courses_auth_verify: '/courses/oauth/verify',
             courses_auth_authorized: '/courses/oauth/authorized',
-            courses_auth_authorize: '/courses/oauth/authorize'
+            courses_auth_authorize: '/courses/oauth/authorize',
+            library_search: '/library/search',
+            library_item: '/library/item:'
         },
         urlFor: function(api_method) {
             return this.endpoint + this.paths[api_method];
