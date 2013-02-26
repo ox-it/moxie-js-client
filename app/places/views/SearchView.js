@@ -16,7 +16,6 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
                 this.query.type = this.options.params.type;
             }
             this.user_position = null;
-            this.latlngs = [];
             this.markers = [];
         },
 
@@ -77,13 +76,24 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
                 var latlng = new L.LatLng(poi.attributes.lat, poi.attributes.lon);
                 var marker = new L.marker(latlng, {'title': poi.attributes.name});
                 marker.addTo(this.map);
-                this.latlngs.push(latlng);
                 this.markers.push(marker);
             }
         },
 
         setMapBounds: function() {
-            var bounds = new L.LatLngBounds(this.latlngs);
+            latlngs = [];
+            query = this.query;
+            this.collection.each(function(poi) {
+                if (query.q || ((Math.pow((poi.get('distance')*1000), MoxieConf.map.bounds.exponent) * (latlngs.length + 1)) < MoxieConf.map.bounds.limit)) {
+                    latlngs.push(new L.LatLng(poi.get('lat'), poi.get('lon')));
+                }
+            });
+            if (latlngs.length === 0) {
+                _.each(this.collection.first(MoxieConf.map.bounds.fallback), function(poi) {
+                    latlngs.push(new L.LatLng(poi.get('lat'), poi.get('lon')));
+                });
+            }
+            var bounds = new L.LatLngBounds(latlngs);
             if (this.user_position) {
                 bounds.extend(this.user_position);
             }
@@ -97,7 +107,6 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
                 this.map.removeLayer(marker);
             }, this);
             // Create new list of markers from search results
-            this.latlngs = [];
             this.markers = [];
             this.collection.each(this.placePOI);
             this.setMapBounds();
