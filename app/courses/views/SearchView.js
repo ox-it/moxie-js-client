@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/search', 'leaflet', 'moxie.conf'],
-    function($, Backbone, _, searchTemplate, L, MoxieConf){
+define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/base_search', 'hbs!courses/templates/subjects', 'leaflet', 'moxie.conf'],
+    function($, Backbone, _, baseTemplate, subjectsTemplate, L, MoxieConf){
         var SearchView = Backbone.View.extend({
 
             initialize: function() {
@@ -32,6 +32,7 @@ define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/search', 'lea
             },
 
             render: function() {
+                this.$el.html(baseTemplate());
                 $.ajax({
                     url: MoxieConf.urlFor('courses_subjects'),
                     dataType: 'json'
@@ -41,8 +42,9 @@ define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/search', 'lea
             },
 
             renderSubjectsList: function(data) {
+                this.$("#loading").hide();
                 var context = {subjects: data._links['courses:subject']};
-                this.$el.html(searchTemplate(context));
+                this.$('#results').html(subjectsTemplate(context));
             }
         });
         return SearchView;

@@ -155,15 +155,6 @@ p.type {
     line-height: ms(0);
 }
 
-// A div to centre align any buttons associated with metadata on a page
-// Typically used in places detail
-div.metadata-buttons {
-    margin: 10px auto 10px auto;
-    padding-top: 10px;
-    text-align: center;
-    border-top: 1px solid #ddd;
-}
-
 // Definition lists
 // definitions should be slightly right of the term
 dl {
@@ -429,10 +420,27 @@ ul.results-list {
         }
 
         // Used on list items to show the count in the proceeding category/group
-        span.subtext {
+        .subtext {
             display: block;
             font-size: ms(0)/1.3;
             font-weight: bold;
+            margin: 0;
+        }
+
+        // Used to convey complex list items such as library search results
+        $meta-info-font-size: ms(0)/1.2;
+        .meta-info {
+            font-size: $meta-info-font-size;
+            padding: 0;
+            margin: 3px 0 0 5px;
+            line-height: $meta-info-font-size + 3px;
+            font-weight: 200;
+        }
+
+        .meta-info-title {
+            font-size: inherit;
+            font-weight: 800;
+
         }
 
         // Extra button to lead to detail directly or after the main button has been pressed

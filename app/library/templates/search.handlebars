@@ -1,15 +1,15 @@
 <div id="library-search-form">
     <div class="search-input">
-        <span for="input-title">Title:</span>
-        <input id="input-title" type="text" placeholder="Title" name="title" value="{{title}}">
+        <label for="input-title">Title:</label>
+        <input id="input-title" type="text" name="title" value="{{title}}">
 
-        <span for="input-author">Author:</span>
-        <input id="input-author" type="text" placeholder="Author" name="author" value="{{author}}">
+        <label for="input-author">Author:</label>
+        <input id="input-author" type="text" name="author" value="{{author}}">
 
-        <span for="input-isbn">ISBN:</span>
-        <input id="input-isbn" type="text" placeholder="ISBN" name="isbn" value="{{isbn}}">
+        <label for="input-isbn">ISBN:</label>
+        <input id="input-isbn" type="text" name="isbn" value="{{isbn}}">
 
-        <input type="submit" value="Search" id="submit-search"></input>
+        <input class="action-button search" type="submit" value="Search" id="submit-search"></input>
     </div>
 </div>
 
@@ -22,12 +22,15 @@
 </ul>
 
 <div id="library-info">
-    <h2>Library Services Info</h2>
+    <h2 class="free-text">Library Services Info</h2>
     <ul class="results-list">
         <a href="#places/search?type=%2Funiversity%2Flibrary"><li>List of libraries</li></a>
-        <a href="mailto:reader.services@ouls.ox.ac.uk"><li>Mail: reader.services@ouls.ox.ac.uk</li></a>
-        <a href="tel:+441865277162"><li>Telephone: 01865 (2)77162</li></a>
-        <a href="http://www.bodleian.ox.ac.uk/" target="_blank"><li>Bodleian Libraries</li></a>
-        <a href="http://library.ox.ac.uk/" target="_blank"><li>OLIS (Oxford Library Information System)</li></a>
+        <a href="http://www.bodleian.ox.ac.uk/" target="_blank"><li class="web">Bodleian Libraries Home</li></a>
+        <a href="http://library.ox.ac.uk/" target="_blank"><li class="web">OLIS (Oxford Library Information System)</li></a>
     </ul>
+
+    <div class="metadata-buttons">
+        <a class="action-button email" href="mailto:reader.services@ouls.ox.ac.uk">Email Reader Services</a>
+        <a class="action-button tel" href="tel:+441865277162">01865 (2)77162</a>
+    </div>
 </div>

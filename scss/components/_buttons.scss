@@ -1,4 +1,13 @@
-.meta-action-button {
+// A div to centre align any buttons associated with metadata on a page
+// Typically used in places detail
+div.metadata-buttons {
+    margin: 10px auto 10px auto;
+    padding-top: 10px;
+    text-align: center;
+    border-top: 1px solid #ddd;
+}
+
+.action-button {
 	@include border-radius(5px);
 	@include background(linear-gradient(#fafafa, #dfdfdf));
 	@include box-shadow(0 0 1px rgba(0,0,0,0.4));
@@ -9,13 +18,25 @@
 	color: #333;
 	font-weight: 500;
 	margin: 5px 5px 5px 0;
+}
 
-	.tel &:before {
-		padding-right: 8px;
-		font-family: "SSStandard";
-		content: "📞";
-		content: "🌎";
-	}
+// Add telephone or globe icons on the left of each button
+.tel:before {
+	@include symbolset-icon-before();
+	content: "📞";
+}
 
+.web:before {
+	@include symbolset-icon-before();
+	content: "🌎";
+}
 
+.email:before {
+	@include symbolset-icon-before();
+	content: "✉";
+}
+
+.search:before {
+	@include symbolset-icon-before();
+	content: "🔎";
 }
