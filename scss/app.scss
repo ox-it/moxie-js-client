@@ -155,15 +155,6 @@ p.type {
     line-height: ms(0);
 }
 
-// A div to centre align any buttons associated with metadata on a page
-// Typically used in places detail
-div.metadata-buttons {
-    margin: 10px auto 10px auto;
-    padding-top: 10px;
-    text-align: center;
-    border-top: 1px solid #ddd;
-}
-
 // Definition lists
 // definitions should be slightly right of the term
 dl {
