@@ -5,14 +5,12 @@
         {{#if attributes.title }}
             <h3>{{ attributes.title }}</h3>
         {{/if}}
-        <ul>
         {{#if attributes.author }}
-            <li><strong>Author:</strong> {{ attributes.author }}</li>
+            <p class="metadata"><strong>Author:</strong> {{ attributes.author }}</p>
         {{/if}}
         {{#if attributes.publisher }}
-            <li><strong>Publisher:</strong> {{ attributes.publisher }}</li>
+            <p class="metadata"><strong>Publisher:</strong> {{ attributes.publisher }}</p>
         {{/if}}
-        </ul>
         </li>
         </a>
     {{/results}}
