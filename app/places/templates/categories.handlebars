@@ -2,11 +2,12 @@
     {{#if types}}
         {{! If this category has any sub-categories, place a link to them }}
         {{#if ../../category_name}}
-            <a href="#places/search?type=/{{ ../../../category_name }}/{{ type }}"><li><h3>{{ type_name }}</h3></li></a>
+            <a href="#places/search?type=/{{ ../../../category_name }}/{{ type }}">
         {{else}}
-            <a data-category="{{ type }}" href="#places/categories/{{ type }}"><li><h3>{{ type_name }}</h3></li></a>
+            <a data-category="{{ type }}" href="#places/categories/{{ type }}">
         {{/if}}
     {{else}}
-        <a href="#places/search?type=/{{ ../../category_name }}/{{ type }}"><li><h3>{{ type_name }}</h3></li></a>
+        <a href="#places/search?type=/{{ ../../category_name }}/{{ type }}">
     {{/if}}
+    <li><h3>{{ type_name }}</h3></li></a>
 {{/types}}
