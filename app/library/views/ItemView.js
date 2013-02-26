@@ -38,7 +38,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'places/utils', 'moxie.co
                 Backbone.trigger('domchange:title', this.item.attributes.title);
                 var holdings = this.getHoldings(this.item);
                 var context = {item: this.item, holdings: holdings};
-                this.$("#item").html(itemTemplate(context));
+                this.$("#list").html(itemTemplate(context));
                 this.prepareMap(holdings);
                 this.setMapBounds();
             },
