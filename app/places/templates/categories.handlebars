@@ -9,5 +9,9 @@
     {{else}}
         <a href="#places/search?type=/{{ ../../category_name }}/{{ type }}">
     {{/if}}
-    <li><h3>{{ type_name }}</h3></li></a>
+    <li><h3>{{ type_name }}</h3>
+    {{#if description}}
+        <p class="subtext">{{ description }}</p>
+    {{/if}}
+    </li></a>
 {{/types}}
