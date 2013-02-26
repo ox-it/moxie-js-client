@@ -406,6 +406,9 @@ ul.results-list {
         border-top: 2px solid $border-color;
     }
 
+    .highlighted {
+        background: $border-color;
+    }
     // Only apply to first level of li, allowing us to nest lists without styling all of them
     > li, > a li {
         min-height: 46px;
