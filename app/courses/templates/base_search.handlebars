@@ -3,13 +3,14 @@
     <span class="deleteicon ss-delete"></span>
 </div>
 
-<!-- TODO: what is the behaviour when user is not logged in? -->
+{{! TODO: what is the behaviour when user is not logged in?}}
 <a class="meta-action-button" href='#/courses/bookings'>View my bookings</a>
 
-
 <h2 class="free-heading">Courses by skill</h2>
-<ul class="results-list">
-    {{#subjects}}
-        <a href='#/courses/course_subject:"{{ title }}"'><li>{{ title }} <span class="subtext">{{ count }} course(s)</span></li></a>
-    {{/subjects}}
+
+<div id="loading">
+    <img src="images/preloader.gif" class="preloader">
+</div>
+
+<ul id="results" class="results-list">
 </ul>
