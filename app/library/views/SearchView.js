@@ -15,7 +15,7 @@ define(['jquery', 'backbone', 'underscore', 'core/views/InfiniteScrollView', 'hb
             },
 
             attributes: {
-                'class': 'generic free-text'
+                'class': 'generic'
             },
 
             searchEventFields: function(ev) {

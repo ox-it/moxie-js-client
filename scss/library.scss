@@ -1,4 +1,5 @@
 @import "components/labels";
+@import "globals/mixins";
 
 // Labels for the different states of library book availability
 .library-unavailable {
@@ -33,3 +34,8 @@ dl {
         padding-top: 4px;
     }
  }
+
+
+#library-search-form {
+	@include free-text();
+}
