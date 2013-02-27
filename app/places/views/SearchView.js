@@ -202,7 +202,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
                 query: this.query.q
             };
             this.$(".results-list").html(resultsTemplate(context));
-            if (this.query.type && this.facets.length > 1) {
+            if (this.query.type && this.facets && this.facets.length > 1) {
                 this.$(".facet-list").html(facetsTemplate({facets: this.facets}));
             }
             this.resetMapContents();
@@ -220,14 +220,16 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
         },
 
         scrollCallbacks: [function() {
-                if (this.user_position) {
-                    headers = {'Geo-Position': this.user_position.join(';')};
+                if (this.next_results) {
+                    if (this.user_position) {
+                        headers = {'Geo-Position': this.user_position.join(';')};
+                    }
+                    $.ajax({
+                        url: MoxieConf.endpoint + this.next_results.href,
+                        dataType: 'json',
+                        headers: headers
+                    }).success(this.extendPOIs);
                 }
-                $.ajax({
-                    url: MoxieConf.endpoint + this.next_results.href,
-                    dataType: 'json',
-                    headers: headers
-                }).success(this.extendPOIs);
         }],
 
         extendPOIs: function(data) {
