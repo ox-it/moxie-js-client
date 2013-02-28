@@ -310,8 +310,8 @@ ul.sidebar-items {
 
 #content {
     /* Content is a container for two child divs:
-    - #list which typically contains a scrolling list container
-    - .content-detail which holds a detail view or a map (#map)
+    - .content-browse which typically contains a scrolling list container
+    - .content-map which holds map (#map)
      */
 
 top: $navbarHeight;
@@ -320,7 +320,7 @@ background: $white;
 border-left: $grayBorder;
 border-right: $grayBorder;
 
-#list {
+.content-browse {
     height: 100%;
     padding: 0px 0px;
     overflow: auto;
@@ -338,7 +338,12 @@ border-right: $grayBorder;
     }
 }
 
-.content-detail {
+.map-browse-layout {
+    height: 100%;
+}
+
+.content-map {
+    height: 100%;
     @include column(8);
     @include push(4);
     border-top: $grayBorder;
