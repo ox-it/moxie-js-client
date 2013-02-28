@@ -7,7 +7,6 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'app', 'moxie.conf', 'mox
 
         initialize: function() {
             _.bindAll(this);
-            console.log("init", this.model);
         },
 
         attributes: {
@@ -41,12 +40,6 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'app', 'moxie.conf', 'mox
             this.renderPOI();
         },
 
-        serialize: function() {
-            console.log("serializing");
-            var rti = this.model.attributes._links['hl:rti'];
-            return {'poi': this.model, 'rti': rti};
-        },
-
         updateMap: function() {
             if (this.user_position && this.latlng) {
                 this.map.fitBounds([
@@ -60,6 +53,9 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'app', 'moxie.conf', 'mox
             }
         },
 
+        serialize: function() {
+            return {'poi': this.model.toJSON(), 'rti': this.model.getRTI()};
+        },
         template: detailTemplate,
         manage: true,
 
