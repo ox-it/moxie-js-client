@@ -1,4 +1,4 @@
-define(["app", "backbone", "places/models/POIModel", "places/views/CategoriesView", "places/views/SearchView", "places/views/MapView", "places/views/DetailView", "places/collections/POICollection", "hbs!places/templates/list-map-layout", "backbone.subroute"], function(app, Backbone, POI, CategoriesView, SearchView, MapView, DetailView, POIs, ListMapTemplate){
+define(["app", "backbone", "places/models/POIModel", "places/views/CategoriesView", "places/views/SearchView", "places/views/DetailView", "places/collections/POICollection", "backbone.subroute"], function(app, Backbone, POI, CategoriesView, SearchView, DetailView, POIs){
 
     var pois = new POIs();
     var PlacesRouter = Backbone.SubRoute.extend({
@@ -21,38 +21,37 @@ define(["app", "backbone", "places/models/POIModel", "places/views/CategoriesVie
         },
 
         search: function(params) {
-            mapView = new MapView({
-                collection: pois
-            });
+            var layout = app.getLayout('MapBrowseLayout');
             searchView = new SearchView({
                 collection: pois,
                 params: params
             });
-            var layout = new Backbone.Layout({
-                template: ListMapTemplate,
-                views: {
-                    ".content-detail": mapView,
-                    "#list": searchView
-                },
-                afterRender: function() {
-                    that = this;
-                    pois.on("change:selected", function(poi) {
-                        that.setView("#list", new DetailView({model: poi})).render();
-                    });
-                }
-            });
-            app.showView(layout, {back: true});
-            mapView.invalidateMapSize();
+            layout.setView('.content-browse', searchView);
+            layout.getView('.content-map').setCollection(pois);
+            searchView.render();
         },
 
-        detail: function(id, params) {
-            detailView = new DetailView({
-                model: POI,
-                params: params,
-                poid: id
+        showDetail: function(poi) {
+            var layout = app.getLayout('MapBrowseLayout');
+            var detailView = new DetailView({
+                model: poi
             });
-            app.showView(detailView);
-            detailView.invalidateMapSize();
+            layout.setView('.content-browse', detailView);
+            layout.getView('.content-map').setCollection(new POIs([poi]));
+            detailView.render();
+        },
+
+        detail: function(id) {
+            var poi = pois.get(id);
+            if (poi) {
+                this.showDetail(poi);
+            } else {
+                poi = new POI({id: id});
+                poi.fetch({success: _.bind(function(model, response, options) {
+                    pois.add(model);
+                    this.showDetail(model);
+                }, this) });
+            }
         }
 
     });
