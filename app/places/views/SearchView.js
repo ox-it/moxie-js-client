@@ -6,7 +6,6 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'app', 'moxie.conf', 'mox
         // View constructor
         initialize: function() {
             _.bindAll(this);
-            console.log("Init!!");
             this.collection.on("reset", this.resetResults, this);
             this.collection.on("add", this.addResult, this);
             this.query = {};
@@ -16,7 +15,6 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'app', 'moxie.conf', 'mox
             if (this.options.params && this.options.params.type) {
                 this.query.type = this.options.params.type;
             }
-            console.log(this.query);
             this.user_position = null;
         },
 
@@ -24,7 +22,6 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'app', 'moxie.conf', 'mox
 
         // Event Handlers
         events: {
-            'click .results-list > a': "clickResult",
             'keypress :input': "searchEvent",
             'click .deleteicon': "clearSearch",
             'click .facet-list > li[data-category]': "clickFacet"
@@ -38,18 +35,6 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'app', 'moxie.conf', 'mox
             e.preventDefault();
             this.query.type = $(e.target).data('category');
             this.search();
-        },
-
-        clickResult: function(e) {
-            console.log("cliked");
-            e.preventDefault();
-            // Find the POID from the click event
-            var poid = $(e.target).data('poid');
-            // We may have clicked on the actual LI element or a child... so search up parents
-            // TODO: Find a better way of doing this...
-            poid = (poid!==undefined) ? poid : $(e.target).parents('[data-poid]').data('poid');
-            var poi = this.collection.get(poid);
-            poi.set({selected: true});
         },
 
         searchEvent: function(ev) {
@@ -107,7 +92,6 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'app', 'moxie.conf', 'mox
         serialize: function() { return {query: this.query.q}; },
 
         afterRender: function() {
-            console.log("rendering");
             Backbone.trigger('domchange:title', "Search for Places of Interest");
             userPosition.follow(this.handle_geolocation_query);
 
