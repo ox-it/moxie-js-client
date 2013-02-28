@@ -3,25 +3,40 @@ define(['backbone', 'places/utils', 'moxie.position'], function(Backbone, utils,
 
         initialize: function() {
             _.bindAll(this);
-            this.collection.on("reset", this.resetMapContents, this);
-            this.collection.on("add", this.placePOI, this);
             this.latlngs = [];
             this.markers = [];
             this.userPosition = null;
         },
 
         manage: true,
+        id: "map",
 
         beforeRender: function() {
-            console.log("Rendering map");
             this.map = utils.getMap(this.el);
             userPosition.follow(this.handle_geolocation_query);
-            console.log(this.map);
             return this;
         },
 
         afterRender: function() {
             this.invalidateMapSize();
+        },
+
+        setCollection: function(collection) {
+            this.unsetCollection();
+            this.collection = collection;
+            this.collection.on("reset", this.resetMapContents, this);
+            this.collection.on("add", this.placePOI, this);
+            if (this.collection.length) {
+                this.resetMapContents();
+            }
+        },
+
+        unsetCollection: function() {
+            if (this.collection) {
+                this.collection.off("reset", this.resetMapContents, this);
+                this.collection.off("add", this.placePOI, this);
+                this.collection = null;
+            }
         },
 
         handle_geolocation_query: function(position) {
