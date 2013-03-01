@@ -1,21 +1,14 @@
-define(['jquery', 'backbone', 'underscore', 'leaflet', 'app', 'moxie.conf', 'moxie.position', 'places/views/DetailView', 'places/utils', 'hbs!places/templates/list-map-layout', 'hbs!places/templates/search', 'hbs!places/templates/results', 'hbs!places/templates/facets', 'core/views/InfiniteScrollView'],
-    function($, Backbone, _, L, app, MoxieConf, userPosition, DetailView, placesUtils, baseTemplate, searchTemplate, resultsTemplate, facetsTemplate, InfiniteScrollView){
+define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'places/views/ItemView', 'hbs!places/templates/search', 'core/views/InfiniteScrollView'],
+    function($, Backbone, _, MoxieConf, ItemView, searchTemplate, InfiniteScrollView){
 
     var SearchView = InfiniteScrollView.extend({
 
         // View constructor
         initialize: function() {
             _.bindAll(this);
-            this.collection.on("reset", this.render, this);
-            this.collection.on("add", this.render, this);
-            this.query = {};
-            if (this.options.params && this.options.params.q) {
-                this.query.q = this.options.params.q;
-            }
-            if (this.options.params && this.options.params.type) {
-                this.query.type = this.options.params.type;
-            }
-            this.user_position = null;
+            this.collection.followUser();
+            this.collection.on("reset", this.resetResults, this);
+            this.collection.on("add", this.addResult, this);
         },
 
         manage: true,
@@ -39,52 +32,35 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'app', 'moxie.conf', 'mox
 
         searchEvent: function(ev) {
             if (ev.which === 13) {
-                this.query.q = ev.target.value;
-                this.search();
+                this.collection.query.q = ev.target.value;
+                this.collection.geoFetch();
             }
-        },
-
-        getPath: function() {
-            var qstring = $.param(this.query);
-            var searchPath = MoxieConf.pathFor('places_search');
-            if (qstring) {
-                searchPath += ('?' + qstring);
-            }
-            return searchPath;
-        },
-
-        search: function() {
-            var headers;
-            var path = this.getPath().replace(/\+/g, "%20");
-            var url = MoxieConf.endpoint + path;
-            if (this.user_position) {
-                headers = {'Geo-Position': this.user_position.join(';')};
-            }
-            $.ajax({
-                url: url,
-                dataType: 'json',
-                headers: headers
-            }).success(this.createPOIs);
-        },
-
-        createPOIs: function(data) {
-            // Called when we want to empty the existing collection
-            // For example when a search is issued and we clear the existing results.
-            this.next_results = data._links['hl:next'];
-            this.facets = data._links['hl:types'];
-            this.collection.reset(data._embedded);
         },
 
         resetResults: function(collection) {
-            this.afterRender();
+            var views = [];
+            this.$('ul.results-list').empty();
+            this.collection.each(function(model) { views.push(new ItemView({model: model})); });
+            this.insertViews({"ul.results-list": views});
+            _.each(views, function(view) { view.render(); });
+        },
+
+        addResult: function(model) {
+            var view = new ItemView({model: model});
+            this.insertView("ul.results-list", view);
+            view.render();
         },
 
         template: searchTemplate,
-        serialize: function() { return {query: this.query, results: this.collection.toJSON(), facets: this.facets}; },
+        serialize: function() { return {query: this.query, facets: this.facets}; },
 
         beforeRender: function() {
             Backbone.trigger('domchange:title', "Search for Places of Interest");
-            userPosition.follow(this.handle_geolocation_query);
+            if (this.collection.length) {
+                var views = [];
+                this.collection.each(function(model) { views.push(new ItemView({model: model})); });
+                this.insertViews({"ul.results-list": views});
+            }
         },
 
         afterRender: function() {
@@ -93,16 +69,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'app', 'moxie.conf', 'mox
         },
 
         scrollCallbacks: [function() {
-                if (this.next_results) {
-                    if (this.user_position) {
-                        headers = {'Geo-Position': this.user_position.join(';')};
-                    }
-                    $.ajax({
-                        url: MoxieConf.endpoint + this.next_results.href,
-                        dataType: 'json',
-                        headers: headers
-                    }).success(this.extendPOIs);
-                }
+            this.collection.fetchNextPage();
         }],
 
         extendPOIs: function(data) {
@@ -120,19 +87,9 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'app', 'moxie.conf', 'mox
             this.search();
         },
 
-        initial_call: true,
-        user_marker: null,
-        handle_geolocation_query: function(position) {
-            this.user_position = [position.coords.latitude, position.coords.longitude];
-            if (this.initial_call) {
-                this.initial_call = false;
-                this.search();
-            }
-        },
-
-        onClose: function() {
+        cleanup: function() {
+            this.collection.unfollowUser();
             InfiniteScrollView.prototype.onClose.apply(this);
-            userPosition.unfollow(this.handle_geolocation_query);
         }
     });
 
