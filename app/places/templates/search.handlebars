@@ -1,8 +1,40 @@
 <div class="search-input">
-    <input type="text" placeholder="Places search" name="q" value="{{query}}">
+    <input type="text" placeholder="Places search" name="q" value="{{query.q}}">
     <span class="deleteicon ss-delete"></span>
 </div>
 <ul class="facet-list">
+    {{#facets}}
+        <li class="label-facet" data-category="{{ name }}">{{ title }}</li>
+    {{/facets}}
 </ul>
 <ul class="results-list">
+{{#if results}}
+    {{#results}}
+        <a href="#/places/{{ id }}"><li data-lon="{{ lon }}" data-lat="{{ lat }}" data-poid="{{ id }}">
+        {{#if name }}
+            <h3>{{ name }}</h3>
+            <p class="type">{{ type_name }}
+            {{# if opening_hours }}
+                {{{currentlyOpen opening_hours}}}
+            {{/if}}
+            </p>
+        {{ else }}
+            <p class="type">{{ type_name }}
+            {{! opening_hours should be a string if it exists}}
+            {{# if opening_hours }}
+                <p class="type">{{{currentlyOpen opening_hours}}}</p>
+            {{/if}}
+        {{/if}}
+        {{# if collection_times }}
+            <p class="type">{{{collectionTimes collection_times}}}</p>
+        {{/if}}
+        {{#if address }}
+                <p class="metadata">{{ address }}</p>
+        {{/if}}
+        <p class="metadata">{{humaniseDistance distance }}</p>
+        </li></a>
+    {{/results}}
+{{else}}
+    <p>No results found for <strong>{{query.q}}</strong></p>
+{{/if}}
 </ul>
