@@ -6,8 +6,8 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'app', 'moxie.conf', 'mox
         // View constructor
         initialize: function() {
             _.bindAll(this);
-            this.collection.on("reset", this.resetResults, this);
-            this.collection.on("add", this.addResult, this);
+            this.collection.on("reset", this.render, this);
+            this.collection.on("add", this.render, this);
             this.query = {};
             if (this.options.params && this.options.params.q) {
                 this.query.q = this.options.params.q;
@@ -75,41 +75,21 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'app', 'moxie.conf', 'mox
             this.collection.reset(data._embedded);
         },
 
-        addResult: function(poi) {
-            // Append an individual result to the existing results-list
-            var context = {
-                results: [poi],
-                query: this.query.q
-            };
-            this.$(".results-list").append(resultsTemplate(context));
-        },
-
         resetResults: function(collection) {
             this.afterRender();
         },
 
         template: searchTemplate,
-        serialize: function() { return {query: this.query.q}; },
+        serialize: function() { return {query: this.query, results: this.collection.toJSON(), facets: this.facets}; },
 
-        afterRender: function() {
+        beforeRender: function() {
             Backbone.trigger('domchange:title', "Search for Places of Interest");
             userPosition.follow(this.handle_geolocation_query);
+        },
 
+        afterRender: function() {
             var options = {windowScroll: true, scrollElement: this.el, scrollThreshold: 0.7};
             InfiniteScrollView.prototype.initScroll.apply(this, [options]);
-            // TODO: Handle redirecting when we only have 1 result
-            // Events may not have been delegated (using 'back' button)
-            this.delegateEvents(this.events);
-            // Create the results-list div and search query input
-            // Actually populate the results-list
-            var context = {
-                results: this.collection.toArray(),
-                query: this.query.q
-            };
-            this.$(".results-list").html(resultsTemplate(context));
-            if (this.query.type && this.facets && this.facets.length > 1) {
-                this.$(".facet-list").html(facetsTemplate({facets: this.facets}));
-            }
         },
 
         scrollCallbacks: [function() {
@@ -131,7 +111,6 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'app', 'moxie.conf', 'mox
             this.infiniteScrollEnabled = Boolean(this.next_results);
             this.facets = data._links['hl:types'];
             this.collection.add(data._embedded);
-            this.setMapBounds();
         },
 
         geo_error: function(error) {
