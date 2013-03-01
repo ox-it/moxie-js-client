@@ -344,12 +344,14 @@ border-right: $grayBorder;
 
 .content-map {
     height: 100%;
+    padding: 0px 0px;
     @include column(8);
     @include push(4);
     border-top: $grayBorder;
     border-bottom: $grayBorder;
     border-left: $grayBorder;
     @include respondTo(smallScreen) {
+        height: auto;
         left: auto;
     }
 }
