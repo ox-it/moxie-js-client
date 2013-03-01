@@ -17,15 +17,17 @@ define(["app", "backbone", "places/models/POIModel", "places/views/CategoriesVie
         categories: function(category_name) {
             // Navigate to the list of categories (root view of places)
             categoriesView = new CategoriesView({category_name: category_name});
-            app.showView(categoriesView);
+            app.renderView(categoriesView);
         },
 
         search: function(params) {
+            var query = params || {};
+            if (!_.isEqual(query, pois.query) || (pois.length === 0)) {
+                // If the Collection has the correct query and we have items don't bother fetching new results now
+                pois.query = query;
+            }
             var layout = app.getLayout('MapBrowseLayout');
-            searchView = new SearchView({
-                collection: pois,
-                params: params
-            });
+            searchView = new SearchView({collection: pois});
             layout.setView('.content-browse', searchView);
             layout.getView('.content-map').setCollection(pois);
             searchView.render();
