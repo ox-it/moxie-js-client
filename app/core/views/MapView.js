@@ -84,7 +84,6 @@ define(['backbone', 'places/utils', 'moxie.position'], function(Backbone, utils,
         },
 
         cleanup: function() {
-            console.log("Cleanup");
             this.unsetCollection();
             userPosition.unfollow(this.handle_geolocation_query);
         }
