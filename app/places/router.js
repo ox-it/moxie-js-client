@@ -25,6 +25,7 @@ define(["app", "backbone", "places/models/POIModel", "places/views/CategoriesVie
             if (!_.isEqual(query, pois.query) || (pois.length === 0)) {
                 // If the Collection has the correct query and we have items don't bother fetching new results now
                 pois.query = query;
+                pois.geoFetch();
             }
             var layout = app.getLayout('MapBrowseLayout');
             searchView = new SearchView({collection: pois});
