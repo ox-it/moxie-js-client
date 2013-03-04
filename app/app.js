@@ -1,6 +1,9 @@
-define(['jquery', 'underscore', 'core/views/MapBrowseLayout'], function($, _, MapBrowseLayout) {
+define(['jquery', 'backbone', 'underscore', 'core/views/MapBrowseLayout'], function($, Backbone, _, MapBrowseLayout) {
     var app = {
 
+        navigate: _.wrap(Backbone.history.navigate, function(nav, path, options) {
+            nav.apply(Backbone.history, [path, options]);
+        }),
         currentLayout: null,
 
         layouts: {'MapBrowseLayout': MapBrowseLayout},
