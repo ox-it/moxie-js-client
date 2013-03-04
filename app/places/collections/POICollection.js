@@ -6,6 +6,7 @@ define(["backbone", "underscore", "places/models/POIModel", "moxie.conf", 'moxie
 
         initialize: function(query) {
             this.query = query || {};
+            this.facets = new Backbone.Collection();
         },
 
         followUser: function() {
@@ -25,9 +26,6 @@ define(["backbone", "underscore", "places/models/POIModel", "moxie.conf", 'moxie
                 this.fetch(options);
             };
             this.geoFetch = _.bind(geoFetch, this);
-            if (!this.models.length) {
-                this.geoFetch();
-            }
         },
 
         fetchNextPage: function() {
@@ -45,7 +43,7 @@ define(["backbone", "underscore", "places/models/POIModel", "moxie.conf", 'moxie
             // Called when we want to empty the existing collection
             // For example when a search is issued and we clear the existing results.
             this.next_results = data._links['hl:next'];
-            this.facets = data._links['hl:types'];
+            this.facets.reset(data._links['hl:types']);
             return data._embedded;
         },
 
