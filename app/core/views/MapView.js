@@ -83,7 +83,9 @@ define(['backbone', 'places/utils', 'moxie.position'], function(Backbone, utils,
             this.setMapBounds();
         },
 
-        onClose: function() {
+        cleanup: function() {
+            console.log("Cleanup");
+            this.unsetCollection();
             userPosition.unfollow(this.handle_geolocation_query);
         }
     });
