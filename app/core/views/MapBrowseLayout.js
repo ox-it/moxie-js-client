@@ -1,12 +1,12 @@
 define(['backbone', 'core/views/MapView', 'hbs!core/templates/map-browse'], function(Backbone, MapView, mapBrowseTemplate) {
 
-    var MapBrowseLayout = Backbone.View.extend({
+    var MapBrowseLayout = Backbone.Layout.extend({
         manage: true,
         template: mapBrowseTemplate,
         className: 'map-browse-layout',
         name: 'MapBrowseLayout',
-        views: {
-            ".content-map": new MapView()
+        beforeRender: function() {
+            this.setView(".content-map", new MapView());
         }
     });
 
