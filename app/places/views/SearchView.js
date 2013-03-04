@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'places/views/ItemView', 'places/views/FacetView', 'hbs!places/templates/search', 'core/views/InfiniteScrollView'],
-    function($, Backbone, _, MoxieConf, ItemView, FacetView, searchTemplate, InfiniteScrollView){
+define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'places/views/ItemView', 'hbs!places/templates/search', 'hbs!places/templates/facets', 'core/views/InfiniteScrollView'],
+    function($, Backbone, _, MoxieConf, ItemView, searchTemplate, facetTemplate, InfiniteScrollView){
 
     var SearchView = InfiniteScrollView.extend({
 
@@ -9,7 +9,6 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'places/views/ItemView
             this.collection.followUser();
             this.collection.on("reset", this.resetResults, this);
             this.collection.on("add", this.addResult, this);
-            this.collection.facets.on("reset", this.resetFacets, this);
         },
 
         manage: true,
@@ -46,15 +45,14 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'places/views/ItemView
             collection.each(function(model) { views.push(new ItemView({model: model})); });
             this.insertViews({"ul.results-list": views});
             _.each(views, function(view) { view.render(); });
+            if (this.collection.query.q || this.collection.query.type) {
+                this.renderFacets();
+            }
         },
 
-        resetFacets: function(collection) {
-            console.log(collection);
-            var views = [];
-            this.$('ul.facet-list').empty();
-            collection.each(function(model) { views.push(new FacetView({model: model})); });
-            this.insertViews({"ul.facet-list": views});
-            _.each(views, function(view) { view.render(); });
+        renderFacets: function() {
+            console.log(this.collection.facets);
+            this.$('ul.facet-list').html(facetTemplate({facets: this.collection.facets}));
         },
 
         addResult: function(model) {
