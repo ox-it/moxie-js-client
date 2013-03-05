@@ -8,6 +8,10 @@ define(['jquery', 'backbone', 'underscore', 'core/views/MapBrowseLayout'], funct
 
         layouts: {'MapBrowseLayout': MapBrowseLayout},
 
+        showView: function(view) {
+            return this.renderView(view);
+        },
+
         renderView: function(view) {
             // Remove any existing layouts
             // If managed with LayoutManager this will call cleanup
