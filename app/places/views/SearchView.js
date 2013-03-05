@@ -51,7 +51,6 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'places/views/ItemView
         },
 
         renderFacets: function() {
-            console.log(this.collection.facets);
             this.$('ul.facet-list').html(facetTemplate({facets: this.collection.facets}));
         },
 
