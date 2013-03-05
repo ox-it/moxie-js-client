@@ -50,11 +50,13 @@ define(['backbone', 'places/utils', 'moxie.position'], function(Backbone, utils,
         },
 
         placePOI: function(poi) {
-            var latlng = new L.LatLng(poi.attributes.lat, poi.attributes.lon);
-            var marker = new L.marker(latlng, {'title': poi.attributes.name});
-            marker.addTo(this.map);
-            this.latlngs.push(latlng);
-            this.markers.push(marker);
+            if (poi.has('lat') && poi.has('lon')) {
+                var latlng = new L.LatLng(poi.get('lat'), poi.get('lon'));
+                var marker = new L.marker(latlng, {'title': poi.get('name')});
+                marker.addTo(this.map);
+                this.latlngs.push(latlng);
+                this.markers.push(marker);
+            }
         },
 
         invalidateMapSize: function() {
