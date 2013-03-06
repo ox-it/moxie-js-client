@@ -1,6 +1,8 @@
-define(["app", "backbone", "library/models/ItemModel", "library/collections/ItemCollection", "library/views/SearchView", "library/views/ItemView", "backbone.subroute"],
-    function(app, Backbone, Item, Items, SearchView, ItemView){
+define(["app", "backbone", "library/models/ItemModel", "library/collections/ItemCollection", "places/collections/POICollection", "library/views/SearchView", "library/views/ItemView", "backbone.subroute"],
+    function(app, Backbone, Item, Items, POIs, SearchView, ItemView){
 
+
+    var items = new Items();
     var LibraryRouter = Backbone.SubRoute.extend({
 
         // All of your Backbone Routes (add more)
@@ -11,20 +13,32 @@ define(["app", "backbone", "library/models/ItemModel", "library/collections/Item
         },
 
         search: function(params) {
+            params = params || {};
+            items.query = params;
+            items.geoFetch();
             app.showView(new SearchView({
-                params: params,
-                collection: new Items()
-            }), {back: true});
+                collection: items
+            }));
         },
 
-        detail: function(id, params) {
+        showDetail: function(item) {
+            var layout = app.getLayout('MapBrowseLayout');
             var itemView =  new ItemView({
-                model: Item,
-                params: params,
-                item_id: id
+                model: item
             });
-            app.showView(itemView, {back: true});
-            itemView.invalidateMapSize();
+            layout.setView('.content-browse', itemView);
+            layout.getView('.content-map').setCollection(item.getPOIs());
+            itemView.render();
+        },
+
+        detail: function(id) {
+            var item = items.get(id);
+            if (!item) {
+                item = new Item({id: id});
+            }
+            item.fetch({success: _.bind(function(model, response, options) {
+                this.showDetail(model);
+            }, this) });
         }
     });
 
