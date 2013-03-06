@@ -16,7 +16,7 @@ define(["backbone", "underscore", "places/models/POIModel", "moxie.conf", 'moxie
             userPosition.unfollow(_.bind(this.handle_geolocation_query, this));
         },
 
-        geoFetch: function() { return this.fetch(arguments); },
+        geoFetch: function(options) { return this.fetch(options); },
         handle_geolocation_query: function(position) {
             var geoFetch = function(options) {
                 options = options || {};
