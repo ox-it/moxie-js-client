@@ -1,0 +1,11 @@
+<a href="#/library/item/{{ item.id }}">
+    {{#if item.title }}
+    <h3>{{ item.title }}</h3>
+    {{/if}}
+    {{#if item.author }}
+    <p class="meta-info"><span class="meta-info-title">Author:</span> {{ item.author }}</p>
+    {{/if}}
+    {{#if item.publisher }}
+    <p class="meta-info"><span class="meta-info-title">Publisher:</span> {{ item.publisher }}</p>
+    {{/if}}
+</a>
