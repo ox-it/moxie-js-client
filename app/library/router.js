@@ -13,9 +13,14 @@ define(["app", "backbone", "library/models/ItemModel", "library/collections/Item
         },
 
         search: function(params) {
-            params = params || {};
-            items.query = params;
-            items.geoFetch();
+            query = params || {};
+            if (!_.isEmpty(query)) {
+                items.query = query;
+            }
+            if (!_.isEmpty(query) || (!_.isEqual(query, items.query) || (items.length === 0))) {
+                // If the Collection has the correct query and we have items don't bother fetching new results now
+                items.geoFetch();
+            }
             app.showView(new SearchView({
                 collection: items
             }));
