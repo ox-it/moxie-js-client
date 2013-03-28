@@ -1,13 +1,13 @@
 {{#types}}
-    {{#if types}}
+    {{#if hasTypes}}
         {{! If this category has any sub-categories, place a link to them }}
         {{#if ../../category_name}}
-            <a href="#places/search?type=/{{ ../../../category_name }}/{{ type }}">
+            <a href="#places/search?type={{ type_prefixed }}">
         {{else}}
-            <a data-category="{{ type }}" href="#places/categories/{{ type }}">
+            <a href="#places/categories{{ type_prefixed }}">
         {{/if}}
     {{else}}
-        <a href="#places/search?type=/{{ ../../category_name }}/{{ type }}">
+        <a href="#places/search?type={{ type_prefixed }}">
     {{/if}}
     <li><h3>{{ type_name }}</h3>
     {{#if description}}
