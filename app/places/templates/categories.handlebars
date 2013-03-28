@@ -1,3 +1,11 @@
+<div class="search-input">
+    <input type="text" id="input_search" placeholder="Search places..." name="q">
+    <span class="deleteicon ss-delete"></span>
+</div>
+
+<h2 class="free-heading" id="category_title">Places</h2>
+
+<ul class="results-list" id="categories">
 {{#types}}
     {{#if hasTypes}}
         {{! If this category has any sub-categories, place a link to them }}
@@ -15,3 +23,4 @@
     {{/if}}
     </li></a>
 {{/types}}
+</ul>
