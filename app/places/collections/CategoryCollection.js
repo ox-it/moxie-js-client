@@ -4,13 +4,14 @@ define(["backbone", "underscore", "places/models/CategoryModel", "moxie.conf"], 
         model: Category,
         url: conf.endpoint + conf.pathFor('places_categories'),
         parse: function(data) {
-            console.log(data);
             var flattened_cats = [];
             function flatten_categories(prefix, depth, cats) {
                 depth++;
                 for (var i=0; i < cats.length; i++) {
                     var cat_data = cats[i];
-                    var new_prefix = prefix + cat_data.type + '/';
+                    // Since the top level type is simply '/' we need this logic to stop us prefixing with '//'
+                    // TODO: Test
+                    var new_prefix = (prefix.length > 1) ? prefix + '/' + cat_data.type : prefix + cat_data.type;
                     cat_data.type_prefixed = new_prefix;
                     cat_data.depth = depth;
                     if (cat_data.types) {
@@ -21,7 +22,7 @@ define(["backbone", "underscore", "places/models/CategoryModel", "moxie.conf"], 
                     flattened_cats.push(_.omit(cat_data, ['types']));
                 }
             }
-            data.type = '';
+            data.type = data.type || '/';
             flatten_categories('', 0, [data]);
             return flattened_cats;
         }
