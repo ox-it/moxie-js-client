@@ -14,9 +14,7 @@ define(['jquery', 'underscore', 'backbone', 'app', 'moxie.conf', 'moxie.position
         template: categoriesTemplate,
         serialize: function() {
             var context = {};
-            console.log(this.category_name);
             var category = this.collection.find(function(model) { return model.get('type_prefixed') === this.category_name; }, this);
-            console.log("cat", this.category_name, category);
             if (category) {
                 context.types = new Categories(category.getChildren()).toJSON();
             }
