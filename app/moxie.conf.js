@@ -1,6 +1,6 @@
 define([], function() {
     var MoxieConf = {
-        endpoint: 'http://127.0.0.1:5000',
+        endpoint: 'http://api.m.ox.ac.uk',
         titlePrefix: 'Mobile Oxford - ',
         paths: {
             places_search: '/places/search',
