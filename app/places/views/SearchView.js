@@ -164,7 +164,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             // For example when a search is issued and we clear the existing results.
             this.next_results = data._links['hl:next'];
             this.facets = data._links['hl:types'];
-            this.collection.reset(data._embedded);
+            this.collection.reset(data._embedded.pois);
         },
 
         addResult: function(poi) {
@@ -237,7 +237,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
             this.next_results = data._links['hl:next'];
             this.infiniteScrollEnabled = Boolean(this.next_results);
             this.facets = data._links['hl:types'];
-            this.collection.add(data._embedded);
+            this.collection.add(data._embedded.pois);
             this.setMapBounds();
         },
 

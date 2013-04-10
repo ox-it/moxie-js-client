@@ -22,7 +22,7 @@ function($, Backbone, _, baseTemplate, coursesTemplate, L, MoxieConf){
 
         renderCoursesList: function(data) {
             this.$("#loading").hide();
-            var context = {courses: data._embedded};
+            var context = {courses: data._embedded.courses};
             this.$("#results").html(coursesTemplate(context));
         },
 
