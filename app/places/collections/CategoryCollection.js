@@ -10,7 +10,6 @@ define(["backbone", "underscore", "places/models/CategoryModel", "moxie.conf"], 
                 for (var i=0; i < cats.length; i++) {
                     var cat_data = cats[i];
                     // Since the top level type is simply '/' we need this logic to stop us prefixing with '//'
-                    // TODO: Test
                     var new_prefix = (prefix.length > 1) ? prefix + '/' + cat_data.type : prefix + cat_data.type;
                     cat_data.type_prefixed = new_prefix;
                     cat_data.depth = depth;

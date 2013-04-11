@@ -26,5 +26,16 @@ define(["jquery", "backbone", "jasmine", "places/collections/CategoryCollection"
             collection.reset(categories, {parse: true});
             expect(collection.find(function(m) { return m.get('type') === 'baz';}).get('hasTypes')).toBe(undefined);
         });
+        it("Should set a '/' delimited prefix", function() {
+            var collection = new Categories();
+            collection.reset(categories, {parse: true});
+            expect(collection.find(function(m) { return m.get('type') === 'baz';}).get('type_prefixed')).toBe('foo/bar/baz');
+        });
+        it("Should set a prefix rooted at '/' when the toplevel category is unnamed", function() {
+            var categories = {types: [{type: 'bar', types: [{type: 'baz'}]}]};
+            var collection = new Categories();
+            collection.reset(categories, {parse: true});
+            expect(collection.find(function(m) { return m.get('type') === 'baz';}).get('type_prefixed')).toBe('/bar/baz');
+        });
     });
 });
