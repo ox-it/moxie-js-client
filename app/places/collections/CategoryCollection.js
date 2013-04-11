@@ -4,6 +4,11 @@ define(["backbone", "underscore", "places/models/CategoryModel", "moxie.conf"], 
         model: Category,
         url: conf.endpoint + conf.pathFor('places_categories'),
         parse: function(data) {
+            // The data Moxie presents for categories is in a (sensible) tree structure.
+            // This kind of structure doesn't fit the Model/Collection paradigm in Backbone
+            // too well, so we flatten the structure. We leave behind markers for 'depth'
+            // and build a '/' delimited path for the branches of the tree. That way we can
+            // make fast queries on the content at depth 2 without any need to traverse again.
             var flattened_cats = [];
             function flatten_categories(prefix, depth, cats) {
                 depth++;
@@ -11,7 +16,10 @@ define(["backbone", "underscore", "places/models/CategoryModel", "moxie.conf"], 
                     var cat_data = cats[i];
                     // Since the top level type is simply '/' we need this logic to stop us prefixing with '//'
                     var new_prefix = (prefix.length > 1) ? prefix + '/' + cat_data.type : prefix + cat_data.type;
+                    // A '/' delimited path which reflects the tree structure
+                    // eg. /transport/car-park/park-and-ride
                     cat_data.type_prefixed = new_prefix;
+                    // How far into the tree are we? This is kept around as a convenience.
                     cat_data.depth = depth;
                     if (cat_data.types) {
                         cat_data.hasTypes = true;
