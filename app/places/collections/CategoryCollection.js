@@ -2,7 +2,7 @@ define(["backbone", "underscore", "places/models/CategoryModel", "moxie.conf"], 
 
     var CategoryCollection = Backbone.Collection.extend({
         model: Category,
-        url: conf.endpoint + conf.pathFor('places_categories'),
+        url: conf.urlFor('places_categories'),
         parse: function(data) {
             // The data Moxie presents for categories is in a (sensible) tree structure.
             // This kind of structure doesn't fit the Model/Collection paradigm in Backbone
