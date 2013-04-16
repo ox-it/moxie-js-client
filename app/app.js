@@ -44,7 +44,7 @@ define(['jquery', 'backbone', 'underscore', 'core/views/MapBrowseLayout'], funct
             } else {
                 if (this.layouts[name]) {
                     var RequestedLayout = this.layouts[name];
-                    layout = new RequestedLayout();
+                    var layout = new RequestedLayout();
                     this.renderView(layout);
                     return layout;
                 } else {
