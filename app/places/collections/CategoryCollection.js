@@ -1,5 +1,6 @@
 define(["backbone", "underscore", "places/models/CategoryModel", "moxie.conf"], function(Backbone, _, Category, conf) {
 
+    var DEPTH_LIMIT = 3;
     var CategoryCollection = Backbone.Collection.extend({
         model: Category,
         url: conf.urlFor('places_categories'),
@@ -21,7 +22,7 @@ define(["backbone", "underscore", "places/models/CategoryModel", "moxie.conf"], 
                     cat_data.type_prefixed = new_prefix;
                     // How far into the tree are we? This is kept around as a convenience.
                     cat_data.depth = depth;
-                    if (cat_data.types) {
+                    if (cat_data.types && depth < DEPTH_LIMIT) {
                         cat_data.hasTypes = true;
                         flatten_categories(new_prefix, depth, cat_data.types);
                     }
