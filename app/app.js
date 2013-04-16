@@ -48,7 +48,7 @@ define(['jquery', 'backbone', 'underscore', 'core/views/MapBrowseLayout'], funct
                     this.renderView(layout);
                     return layout;
                 } else {
-                    throw "Layout doesn't exist";
+                    throw new Error("Layout doesn't exist");
                 }
             }
         }
