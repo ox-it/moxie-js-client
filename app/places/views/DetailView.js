@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'underscore', 'hbs!places/templates/detail', 'hbs!places/templates/busrti'],
-    function($, Backbone, _, detailTemplate, busRTITemplate){
+define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'hbs!places/templates/detail', 'hbs!places/templates/busrti'],
+    function($, Backbone, _, conf, detailTemplate, busRTITemplate){
     var RTI_REFRESH = 15000;    // 15 seconds
     var DetailView = Backbone.View.extend({
 
@@ -17,6 +17,14 @@ define(['jquery', 'backbone', 'underscore', 'hbs!places/templates/detail', 'hbs!
         template: detailTemplate,
         manage: true,
 
+        afterRender: function() {
+            Backbone.trigger('domchange:title', this.model.get('name'));
+            if (this.model.getRTI()) {
+                this.refreshRTI();
+                this.refreshID = setInterval(this.refreshRTI, RTI_REFRESH);
+            }
+        },
+
         renderRTI: function(data) {
             this.$('#poi-rti').html(busRTITemplate(data));
             this.$("#rti-load").hide();
@@ -25,7 +33,7 @@ define(['jquery', 'backbone', 'underscore', 'hbs!places/templates/detail', 'hbs!
         refreshRTI: function() {
             this.$("#rti-load").show();
             $.ajax({
-                url: MoxieConf.endpoint + this.model.getRTI().href,
+                url: conf.endpoint + this.model.getRTI().href,
                 dataType: 'json'
             }).success(this.renderRTI);
         },
