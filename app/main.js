@@ -21,6 +21,11 @@ require(['modernizr','jquery','backbone', 'router', 'fastclick', 'moxie.conf', '
         $('body').toggleClass('is-sidebar-active');
         return false;
     });
+    $('#back a').click(function(ev) {
+        ev.preventDefault();
+        window.history.back();
+        return false;
+    });
     $('.overlay, #sidebar a').click(function(ev) {
         $('body').toggleClass('is-sidebar-active');
     });
