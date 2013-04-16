@@ -12,7 +12,15 @@ define(['jquery', 'backbone', 'underscore', 'core/views/MapBrowseLayout'], funct
             return this.renderView(view);
         },
 
-        renderView: function(view) {
+        renderView: function(view, options) {
+            options = options || {};
+            if (options.menu) {
+                $('#back').hide();
+                $('#home').show();
+            } else {
+                $('#home').hide();
+                $('#back').show();
+            }
             // Remove any existing layouts
             // If managed with LayoutManager this will call cleanup
             if (this.currentLayout) {
