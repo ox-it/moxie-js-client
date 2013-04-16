@@ -6,6 +6,12 @@ define(['jquery', 'backbone', 'underscore', 'core/views/MapBrowseLayout'], funct
         }),
         currentLayout: null,
 
+        // These are full-container layouts
+        // Specifically we're using it so we don't remove the Map when
+        // the layout is updated, to reduce processing/requests
+        //
+        // Most layouts don't need to be included here unless similar
+        // benefits (such as keeping the Map in the DOM) can be found.
         layouts: {'MapBrowseLayout': MapBrowseLayout},
 
         showView: function(view) {
