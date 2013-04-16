@@ -16,22 +16,11 @@ define(["backbone", "underscore", "library/models/ItemModel", "places/collection
             userPosition.unfollow(_.bind(this.handle_geolocation_query, this));
         },
 
-        geoFetch: function(options) { return this.fetch(options); },
-        handle_geolocation_query: function(position) {
-            var geoFetch = function(options) {
-                options = options || {};
-                options.headers = options.headers || {};
-                options.headers['Geo-Position'] = [position.coords.latitude, position.coords.longitude].join(';');
-                this.fetch(options);
-            };
-            this.geoFetch = _.bind(geoFetch, this);
-        },
-
         fetchNextPage: function() {
             if (this.next_results) {
                 var urlFunc = this.url;
                 this.url = conf.endpoint + this.next_results.href;
-                this.geoFetch({update: true, remove: false});
+                this.fetch({update: true, remove: false});
                 this.url = urlFunc;
             } else {
                 return false;

@@ -37,7 +37,7 @@ define(['jquery', 'backbone', 'underscore', 'core/views/InfiniteScrollView', 'li
                 if (author || this.collection.query.author) { this.collection.query.author = author; }
                 var isbn = $("#input-isbn").val();
                 if (isbn || this.collection.query.isbn) { this.collection.query.isbn = isbn; }
-                this.collection.geoFetch();
+                this.collection.fetch();
                 Backbone.history.navigate('/library/?'+$.param(this.collection.query).replace(/\+/g, "%20"), {trigger: false, replace: false});
             },
 

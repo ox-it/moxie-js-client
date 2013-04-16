@@ -24,7 +24,7 @@ define(["app", "underscore", "backbone", "library/models/ItemModel", "library/co
             }
             if (!_.isEmpty(query) || (!_.isEqual(query, items.query) || (items.length === 0))) {
                 // If the Collection has the correct query and we have items don't bother fetching new results now
-                items.geoFetch();
+                items.fetch();
             }
             app.renderView(new SearchView({
                 collection: items
