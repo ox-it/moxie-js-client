@@ -1,8 +1,14 @@
-define(["backbone"], function(Backbone) {
+define(["backbone", "moxie.conf"], function(Backbone, conf) {
 
     var POI = Backbone.Model.extend({
-        // Model Constructor
-        initialize: function() {
+        url: function() {
+           return conf.urlFor('places_id') + this.id;
+        },
+
+        getRTI: function() {
+            if (this.attributes._links && this.attributes._links['hl:rti']) {
+                return this.attributes._links['hl:rti'];
+            }
         }
     });
 

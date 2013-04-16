@@ -1,10 +1,10 @@
-define(['jquery', 'backbone', 'underscore', 'core/views/InfiniteScrollView', 'hbs!library/templates/search', 'hbs!library/templates/results', 'moxie.conf'],
-    function($, Backbone, _, InfiniteScrollView, searchTemplate, resultsTemplate, MoxieConf){
+define(['jquery', 'backbone', 'underscore', 'core/views/InfiniteScrollView', 'library/views/ResultItemView', 'hbs!library/templates/search', 'moxie.conf'],
+    function($, Backbone, _, InfiniteScrollView, ResultItemView, searchTemplate, MoxieConf){
         var SearchView = InfiniteScrollView.extend({
 
             initialize: function() {
                 _.bindAll(this);
-                this.collection.on("reset", this.resetResults, this);
+                this.collection.on("reset", this.render, this);
                 this.collection.on("add", this.addResult, this);
             },
 
@@ -30,44 +30,39 @@ define(['jquery', 'backbone', 'underscore', 'core/views/InfiniteScrollView', 'hb
             },
 
             prepareSearch: function() {
+                this.$('#loading').show();
                 var title = $("#input-title").val();
+                if (title || this.collection.query.title) { this.collection.query.title = title; }
                 var author = $("#input-author").val();
+                if (author || this.collection.query.author) { this.collection.query.author = author; }
                 var isbn = $("#input-isbn").val();
-                var kv = [];
-                if(title !== "") {
-                    kv.push("title=" + title);
-                }
-                if(author !== "") {
-                    kv.push("author=" + author);
-                }
-                if(isbn !== "") {
-                    kv.push("isbn=" + isbn);
-                }
-                Backbone.history.navigate('/library/?' + kv.join("&"), true);
+                if (isbn || this.collection.query.isbn) { this.collection.query.isbn = isbn; }
+                this.collection.fetch();
+                Backbone.history.navigate('/library/?'+$.param(this.collection.query).replace(/\+/g, "%20"), {trigger: false, replace: false});
             },
 
-            render: function() {
-                var title = "";
-                var author = "";
-                var isbn = "";
-                if(this.options.params && this.options.params.title) {
-                    title = this.options.params.title;
-                }
-                if(this.options.params && this.options.params.author) {
-                    author = this.options.params.author;
-                }
-                if(this.options.params && this.options.params.isbn) {
-                    isbn = this.options.params.isbn;
-                }
-                this.$el.html(searchTemplate({title: title, author: author, isbn: isbn}));
+            serialize: function() {
+                return this.collection.query;
+            },
 
-                this.$("#loading").hide();
+            id: 'library-search',
+            template: searchTemplate,
+            manage: true,
 
+            beforeRender: function() {
+                if (this.collection.length) {
+                    var views = [];
+                    this.collection.each(function(model) { views.push(new ResultItemView({model: model})); });
+                    this.insertViews({"#search-results": views});
+                }
                 // if at least one field is not empty, do a search
-                if(title !== "" || author !== "" || isbn !== "") {
-                    this.search(title, author, isbn);
+                if (!_.isEmpty(this.collection.query)) {
                     this.$("#library-info").hide();
-                    Backbone.trigger("domchange:title", "Library search " + title + " " + author + " " + isbn);
+                    var page_title = "Library search:";
+                    page_title += this.collection.query.title ? " title: "+this.collection.query.title : "";
+                    page_title += this.collection.query.author ? " author: "+this.collection.query.author : "";
+                    page_title += this.collection.query.isbn ? " isbn: "+this.collection.query.isbn : "";
+                    Backbone.trigger("domchange:title", page_title);
                 } else {
                     Backbone.trigger("domchange:title", "Library search");
                 }
@@ -76,15 +71,8 @@ define(['jquery', 'backbone', 'underscore', 'core/views/InfiniteScrollView', 'hb
                 InfiniteScrollView.prototype.initScroll.apply(this, [options]);
             },
 
-            search: function(title, author, isbn) {
-                var query = "?title=" + title + "&author=" + author + "&isbn=" + isbn;
-                this.$("#loading").show();
-                $.ajax({
-                    url: MoxieConf.urlFor('library_search') + query,
-                    dataType: 'json'
-                }).success(this.createItems)
-                    .error(this.onError);
-                return this;
+            afterRender: function() {
+                this.$('#loading').hide();
             },
 
             scrollCallbacks: [function() {
@@ -99,15 +87,10 @@ define(['jquery', 'backbone', 'underscore', 'core/views/InfiniteScrollView', 'hb
                 // For example when a search is issued and we clear the existing results.
                 this.collection.reset(data._embedded.items);
                 this.next_results = data._links['hl:next'];
-                this.$("#loading").hide();
             },
 
             addResult: function(item) {
-                // Append an individual result to the existing results-list
-                var context = {
-                    results: [item]
-                };
-                this.$(".results-list").append(resultsTemplate(context));
+                this.insertView({"#search-results": new ResultItemView({model: model})});
             },
 
             extendResults: function(data) {
@@ -115,21 +98,6 @@ define(['jquery', 'backbone', 'underscore', 'core/views/InfiniteScrollView', 'hb
                 this.next_results = data._links['hl:next'];
                 this.infiniteScrollEnabled = Boolean(this.next_results);
                 this.collection.add(data._embedded.items);
-            },
-
-            resetResults: function(collection) {
-                this.render_results();
-            },
-
-            render_results: function(back_button) {
-                var context = {
-                    results: this.collection.toArray()
-                };
-                this.$(".results-list").html(resultsTemplate(context));
-            },
-
-            onError: function(jqXHR, textStatus, errorThrown) {
-                console.log(textStatus);
             },
 
             onClose: function() {

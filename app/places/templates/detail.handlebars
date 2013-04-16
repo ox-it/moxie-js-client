@@ -1,25 +1,25 @@
 <div class="free-text">
-	{{#if poi.attributes.name}}
-		<h2>{{ poi.attributes.name }}</h2>
-		<p class="type">{{ poi.attributes.type_name }}
-		{{#if poi.attributes.opening_hours}}
-			{{{currentlyOpen poi.attributes.opening_hours}}}
+	{{#if poi.name }}
+		<h2>{{ poi.name }}</h2>
+		<p class="type">{{ poi.type_name }}
+		{{#if poi.opening_hours }}
+			{{{currentlyOpen poi.opening_hours}}}
 		{{/if}}
 		</p>
-	{{else}}
-		<h2>{{ poi.attributes.type_name }}</h2>
+	{{ else }}
+		<h2>{{ poi.type_name }}</h2>
 		{{! opening_hours should be a string if it exists}}
-		{{# if poi.attributes.opening_hours}}
-			<p class="type">{{{currentlyOpen poi.attributes.opening_hours}}}</p>
+		{{# if poi.opening_hours }}
+			<p class="type">{{{currentlyOpen poi.opening_hours}}}</p>
 		{{/if}}
 	{{/if}}
 
-	{{#if poi.attributes.collection_times}}
-	    <p class="type">{{{collectionTimes poi.attributes.collection_times}}}</p>
+	{{#if poi.collection_times }}
+	    <p class="type">{{{collectionTimes poi.collection_times}}}</p>
 	{{/if}}
 
 	<p class="metadata">
-		{{#if poi.attributes.address}}{{ poi.attributes.address }}{{/if}}
+		{{#if poi.address }}{{ poi.address }}{{/if}}
 	</p>
 </div>
 	{{#if rti}}
@@ -30,13 +30,13 @@
 
 <div class="free-text">
 	<p class="metadata">
-		{{#if poi.attributes.opening_hours}}{{ poi.attributes.opening_hours }}<br />
+		{{#if poi.opening_hours }}{{ poi.opening_hours }}<br />
 		{{/if}}
-		{{#if poi.attributes.collection_times}}
-		Collection times: {{ poi.attributes.collection_times }}<br />
+		{{#if poi.collection_times}}
+		<p>Collection times: {{ poi.collection_times }}</p>
 		{{/if}}
-
-
+		{{#if poi.phone }}<a class="meta-action-button tel" href="tel:{{ poi.phone }}">{{ poi.phone }}</a>{{/if}}
+		{{#if poi.website }}<a class="meta-action-button" href="{{ poi.website }}">Website</a>{{/if}}
 	</p>
 
 	{{! Buttons for phone or website }}

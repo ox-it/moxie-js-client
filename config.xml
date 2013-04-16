@@ -8,8 +8,9 @@
     <feature name="http://api.phonegap.com/1.0/network"/>
 
     <icon src="mobile-oxford-logo.png" />
-    <preference name="prerendered-icon" value="true" />
 
+    <preference name="phonegap-version" value="2.5.0" />
+    <preference name="prerendered-icon" value="true" />
     <preference name="show-splash-screen-spinner" value="false" />
 
     <gap:splash src="mobile-oxford-splash.png" />
