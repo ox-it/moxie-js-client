@@ -1,5 +1,5 @@
-define(["app", "backbone", "library/models/ItemModel", "library/collections/ItemCollection", "places/collections/POICollection", "library/views/SearchView", "library/views/ItemView", "backbone.subroute"],
-    function(app, Backbone, Item, Items, POIs, SearchView, ItemView){
+define(["app", "underscore", "backbone", "library/models/ItemModel", "library/collections/ItemCollection", "places/collections/POICollection", "library/views/SearchView", "library/views/ItemView", "backbone.subroute"],
+    function(app, _, Backbone, Item, Items, POIs, SearchView, ItemView){
 
 
     var items = new Items();
@@ -13,17 +13,22 @@ define(["app", "backbone", "library/models/ItemModel", "library/collections/Item
         },
 
         search: function(params) {
-            query = params || {};
+            var query = params || {};
+            var options;
             if (!_.isEmpty(query)) {
                 items.query = query;
+                options = {};
+            } else {
+                // Show the top-level menu
+                options = {menu: true};
             }
             if (!_.isEmpty(query) || (!_.isEqual(query, items.query) || (items.length === 0))) {
                 // If the Collection has the correct query and we have items don't bother fetching new results now
                 items.geoFetch();
             }
-            app.showView(new SearchView({
+            app.renderView(new SearchView({
                 collection: items
-            }));
+            }), options);
         },
 
         showDetail: function(item) {

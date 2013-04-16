@@ -18,8 +18,9 @@ define(["app", "backbone", "places/models/POIModel", "places/views/CategoriesVie
 
         categories: function(category_name) {
             // Navigate to the list of categories (root view of places)
-            categoriesView = new CategoriesView({collection: categories, category_name: category_name});
-            app.renderView(categoriesView);
+            var categoriesView = new CategoriesView({collection: categories, category_name: category_name});
+            var options = category_name ? {} : {menu: true};
+            app.renderView(categoriesView, options);
         },
 
         search: function(params) {
