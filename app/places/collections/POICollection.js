@@ -43,7 +43,7 @@ define(["backbone", "underscore", "places/models/POIModel", "moxie.conf", 'moxie
             // For example when a search is issued and we clear the existing results.
             this.next_results = data._links['hl:next'];
             this.facets = data._links['hl:types'];
-            return data._embedded;
+            return data._embedded.pois;
         },
 
         url: function() {
