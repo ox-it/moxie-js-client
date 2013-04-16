@@ -1,4 +1,4 @@
-require(['modernizr','jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'favourites/views/FavouriteButtonView', 'backbone.queryparams'], function(Modernizr, $, Backbone, MoxieRouter, FastClick, conf, FavouriteButtonView) {
+require(['modernizr','jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'favourites/views/FavouriteButtonView', 'backbone.queryparams', 'backbone.layoutmanager'], function(Modernizr, $, Backbone, MoxieRouter, FastClick, conf, FavouriteButtonView) {
     // Include FastClick, this removes a 300ms touch event delay
     window.addEventListener('load', function() {
         new FastClick(document.body);
@@ -19,6 +19,11 @@ require(['modernizr','jquery','backbone', 'router', 'fastclick', 'moxie.conf', '
     $('#home a').click(function(ev) {
         ev.preventDefault();
         $('body').toggleClass('is-sidebar-active');
+        return false;
+    });
+    $('#back a').click(function(ev) {
+        ev.preventDefault();
+        window.history.back();
         return false;
     });
     $('.overlay, #sidebar a').click(function(ev) {

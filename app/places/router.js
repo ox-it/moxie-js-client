@@ -1,5 +1,8 @@
-define(["app", "backbone", "places/models/POIModel", "places/views/CategoriesView", "places/views/SearchView", "places/views/DetailView", "places/collections/POICollection", "backbone.subroute"], function(app, Backbone, POI, CategoriesView, SearchView, DetailView, POIs){
+define(["app", "backbone", "places/models/POIModel", "places/views/CategoriesView", "places/views/SearchView", "places/views/DetailView", "places/collections/POICollection", "places/collections/CategoryCollection", "backbone.subroute"], function(app, Backbone, POI, CategoriesView, SearchView, DetailView, POIs, Categories){
 
+    var pois = new POIs();
+    var categories = new Categories();
+    categories.fetch();
     var PlacesRouter = Backbone.SubRoute.extend({
 
         // All of your Backbone Routes (add more)
@@ -7,7 +10,7 @@ define(["app", "backbone", "places/models/POIModel", "places/views/CategoriesVie
 
             "": "categories",
             "categories": "categories",
-            "categories/*category_name": "categories",
+            "categories*category_name": "categories",
             "search": "search",
             ":id": "detail"
 
@@ -15,27 +18,46 @@ define(["app", "backbone", "places/models/POIModel", "places/views/CategoriesVie
 
         categories: function(category_name) {
             // Navigate to the list of categories (root view of places)
-            categoriesView = new CategoriesView({category_name: category_name});
-            app.showView(categoriesView);
+            var categoriesView = new CategoriesView({collection: categories, category_name: category_name});
+            var options = category_name ? {} : {menu: true};
+            app.renderView(categoriesView, options);
         },
 
         search: function(params) {
-            searchView = new SearchView({
-                collection: new POIs(),
-                params: params
-            });
-            app.showView(searchView);
-            searchView.invalidateMapSize();
+            var query = params || {};
+            if (!_.isEqual(query, pois.query) || (pois.length <= 1)) {
+                // If the Collection has the correct query and we have items don't bother fetching new results now
+                pois.query = query;
+                pois.geoFetch();
+            }
+            var layout = app.getLayout('MapBrowseLayout');
+            searchView = new SearchView({collection: pois});
+            layout.setView('.content-browse', searchView);
+            layout.getView('.content-map').setCollection(pois);
+            searchView.render();
         },
 
-        detail: function(id, params) {
-            detailView = new DetailView({
-                model: POI,
-                params: params,
-                poid: id
+        showDetail: function(poi) {
+            var layout = app.getLayout('MapBrowseLayout');
+            var detailView = new DetailView({
+                model: poi
             });
-            app.showView(detailView);
-            detailView.invalidateMapSize();
+            layout.setView('.content-browse', detailView);
+            layout.getView('.content-map').setCollection(new POIs([poi]));
+            detailView.render();
+        },
+
+        detail: function(id) {
+            var poi = pois.get(id);
+            if (poi) {
+                this.showDetail(poi);
+            } else {
+                poi = new POI({id: id});
+                poi.fetch({success: _.bind(function(model, response, options) {
+                    pois.add(model);
+                    this.showDetail(model);
+                }, this) });
+            }
         }
 
     });

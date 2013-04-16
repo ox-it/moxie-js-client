@@ -1,54 +1,58 @@
-define(['jquery', 'underscore'], function($, _) {
-    function App(){
-        this.pageStack = 0;
-        this.showView = function(view, options) {
-            // Options should be a js object with optional arguments
-            // options.el -- is the element to render the view within (defaults to #content)
-            // options.back -- boolean which when set to true will display the back button
-            options = options ? options : {};
-            var content = options.el ? options.el : $("#content");
-            if (this.currentView){
-                this.currentView.remove();
-                this.currentView.unbind();
-                if (this.currentView.onClose) {
-                    this.currentView.onClose();
-                }
-            }
-            this.currentView = view;
-            this.currentView.render();
-            content.html(this.currentView.el);
-            if (options.back && (this.pageStack > 0)) {
-                // there are a couple of edge cases here
-                // the core problem is registering the back click event multiple times to prevent this:
-                //  * Remove any existing click handlers before adding one
-                //  * When the back button is clicked it removes its own event handler
-                //    - This covers the case where we have other 'smarter' back buttons in existence
-                //
-                //  The pageStack is a simple count of how many pages have been loaded for each page loaded
-                //  we add 1 to pageStack, when the user clicks our back button we reduce pageStack by 2
-                //  Effectively resetting the pageStack (you have to remove 2 because when you go back you
-                //  will be calling showView once to render the view you're returning to [we have no idea
-                //  that the user clicked the back button due to history stuff])
-                var back_button = $('#back');
-                back_button.show();
-                var back_button_a = back_button.find('a');
-                back_button_a.unbind('click');
-                back_button_a.click(_.bind(function(ev) {
-                    this.pageStack -= 2;
-                    ev.preventDefault();
-                    window.history.back();
-                    back_button_a.unbind('click');
-                    return false;
-                }, this));
-                $('#home').hide();
-            } else {
+define(['jquery', 'backbone', 'underscore', 'core/views/MapBrowseLayout'], function($, Backbone, _, MapBrowseLayout) {
+    var app = {
+
+        navigate: _.wrap(Backbone.history.navigate, function(nav, path, options) {
+            nav.apply(Backbone.history, [path, options]);
+        }),
+        currentLayout: null,
+
+        // These are full-container layouts
+        // Specifically we're using it so we don't remove the Map when
+        // the layout is updated, to reduce processing/requests
+        //
+        // Most layouts don't need to be included here unless similar
+        // benefits (such as keeping the Map in the DOM) can be found.
+        layouts: {'MapBrowseLayout': MapBrowseLayout},
+
+        showView: function(view) {
+            return this.renderView(view);
+        },
+
+        renderView: function(view, options) {
+            options = options || {};
+            if (options.menu) {
                 $('#back').hide();
                 $('#home').show();
+            } else {
+                $('#home').hide();
+                $('#back').show();
             }
-            this.pageStack++;
-        };
-    }
-    // This needs to be a global singleton
-    var app = new App();
+            // Remove any existing layouts
+            // If managed with LayoutManager this will call cleanup
+            if (this.currentLayout) {
+                this.currentLayout.remove();
+            }
+            // Attach a view to the DOM and call render
+            this.currentLayout = view;
+            $('#content').empty().append(this.currentLayout.el);
+            this.currentLayout.render();
+        },
+
+        getLayout: function(name) {
+            if (this.currentLayout && this.currentLayout.name === name) {
+                return this.currentLayout;
+            } else {
+                if (this.layouts[name]) {
+                    var RequestedLayout = this.layouts[name];
+                    var layout = new RequestedLayout();
+                    this.renderView(layout);
+                    return layout;
+                } else {
+                    throw new Error("Layout doesn't exist");
+                }
+            }
+        }
+    };
+
     return app;
 });

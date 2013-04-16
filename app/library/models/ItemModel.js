@@ -1,8 +1,19 @@
-define(["backbone"], function(Backbone) {
+define(["backbone", "moxie.conf", "places/collections/POICollection"], function(Backbone, conf, POIs) {
 
     var Item = Backbone.Model.extend({
-        // Model Constructor
-        initialize: function() {
+        url: function() {
+            return conf.urlFor('library_item') + this.id + '/';
+        },
+        getPOIs: function() {
+            var embeddedPOI = this.get('_embedded');
+            var pois = [];
+            if (embeddedPOI) {
+                _.each(embeddedPOI, function(poi, holding_ident) {
+                    poi.holding_identifier = holding_ident;
+                    pois.push(poi);
+                });
+            }
+            return new POIs(pois);
         }
     });
 

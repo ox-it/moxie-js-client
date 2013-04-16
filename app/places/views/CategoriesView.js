@@ -1,19 +1,32 @@
-define(['jquery', 'underscore', 'backbone', 'moxie.conf', 'moxie.position', 'places/utils', 'hbs!places/templates/base_categories', 'hbs!places/templates/categories'],
-    function($, _, Backbone, conf, userPosition, utils, baseTemplate, categoriesTemplate){
+define(['jquery', 'underscore', 'backbone', 'app', 'moxie.conf', 'moxie.position', 'places/utils', 'places/collections/CategoryCollection', 'hbs!places/templates/categories'],
+    function($, _, Backbone, app, conf, userPosition, utils, Categories, categoriesTemplate){
 
     var CategoriesView = Backbone.View.extend({
 
         // View constructor
         initialize: function() {
             _.bindAll(this);
-            this.category_name = this.options.category_name;
-            // Used when navigating backwards
-            this.back_category = null;
+            this.category_name = this.options.category_name || "/";
+            this.collection.on('reset', this.render, this);
+        },
+
+        manage: true,
+        template: categoriesTemplate,
+        serialize: function() {
+            var context = {};
+            var category = this.collection.find(function(model) { return model.get('type_prefixed') === this.category_name; }, this);
+            if (category) {
+                context.types = new Categories(category.getChildren()).toJSON();
+            }
+            return context;
+        },
+
+        cleanup: function() {
+            this.collection.off('reset', this.render, this);
         },
 
         events: {
             'keypress :input': "searchEvent",
-            'click .results-list > a[data-category]': "clickCategory",
             'click .deleteicon': "clearSearch"
         },
 
@@ -25,37 +38,13 @@ define(['jquery', 'underscore', 'backbone', 'moxie.conf', 'moxie.position', 'pla
             'class': 'generic'
         },
 
-        render: function() {
-            this.$el.html(baseTemplate());
-            $.ajax({
-                url: conf.endpoint + conf.pathFor('places_categories'),
-                dataType: 'json'
-            }).success(this.setCategoryData);
-        },
-
         searchEvent: function(ev) {
             if (ev.which === 13) {
                 var query = ev.target.value;
                 var qstring = $.param({q: query}).replace(/\+/g, "%20");
                 var path = conf.pathFor('places_search') + '?' + qstring;
-                Backbone.history.navigate(path, {trigger: true, replace: false});
+                app.navigate(path, {trigger: true, replace: false});
             }
-        },
-
-        clickCategory: function(e) {
-            e.preventDefault();
-            this.back_category = this.category_name;
-            this.category_name = $(e.target).parents('a').data('category');
-            this.renderCategories();
-            if (!this.category_name) {
-                this.category_name = '';
-                $('#home').show();
-                $('#back').hide();
-            } else {
-                $('#home').hide();
-                $('#back').show().on('click', this.clickCategory);
-            }
-            Backbone.history.navigate('/places/categories/'+this.category_name, {replace:false});
         },
 
         setCategoryData: function(data) {

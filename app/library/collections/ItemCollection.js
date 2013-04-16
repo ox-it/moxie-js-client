@@ -1,12 +1,50 @@
-define(["backbone","library/models/ItemModel"], function(Backbone, Item) {
+define(["backbone", "underscore", "library/models/ItemModel", "places/collections/POICollection", "moxie.conf", "moxie.position"], function(Backbone, _, Item, POIs, conf, userPosition) {
 
     var Items = Backbone.Collection.extend({
 
-        model: Item
+        model: Item,
+
+        initialize: function(query, pois) {
+            this.query = query || {};
+        },
+
+        followUser: function() {
+            userPosition.follow(_.bind(this.handle_geolocation_query, this));
+        },
+
+        unfollowUser: function() {
+            userPosition.unfollow(_.bind(this.handle_geolocation_query, this));
+        },
+
+        fetchNextPage: function() {
+            if (this.next_results) {
+                var urlFunc = this.url;
+                this.url = conf.endpoint + this.next_results.href;
+                this.fetch({update: true, remove: false});
+                this.url = urlFunc;
+            } else {
+                return false;
+            }
+        },
+
+        parse: function(data) {
+            // Called when we want to empty the existing collection
+            // For example when a search is issued and we clear the existing results.
+            this.next_results = data._links['hl:next'];
+            return data._embedded.items;
+        },
+
+        url: function() {
+            var qstring = $.param(this.query);
+            var searchPath = conf.pathFor('library_search');
+            if (qstring) {
+                searchPath += ('?' + qstring);
+            }
+            return conf.endpoint + searchPath.replace(/\+/g, "%20");
+        }
 
     });
 
-    // Returns the Model class
     return Items;
 
 });

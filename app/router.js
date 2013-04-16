@@ -11,11 +11,11 @@ define(["app", "backbone", "places/router", "today/views/IndexView", "courses/ro
         },
 
         index: function(params) {
-            app.showView(new IndexView({params: params}));
+            app.renderView(new IndexView({params: params}), {menu: true});
         },
 
         favourites: function(params) {
-            app.showView(new FavouritesView({params: params}));
+            app.renderView(new FavouritesView({params: params}), {menu: true});
         },
 
         placesModule: function(subroute) {
