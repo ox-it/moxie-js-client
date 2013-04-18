@@ -1,5 +1,8 @@
 define(["backbone", "underscore", "places/models/POIModel", "moxie.conf", 'moxie.position'], function(Backbone, _, POI, conf, userPosition) {
 
+    // Limit how often we search when the users geo position updates
+    // Default to 2 seconds
+    var GEOSEARCH_FREQ_LIMIT = 2000;
     var POIs = Backbone.Collection.extend({
 
         model: POI,
@@ -17,6 +20,7 @@ define(["backbone", "underscore", "places/models/POIModel", "moxie.conf", 'moxie
         },
 
         geoFetch: function(options) { return this.fetch(options); },
+        recentlySearched: false,
         handle_geolocation_query: function(position) {
             var geoFetch = function(options) {
                 options = options || {};
@@ -25,6 +29,11 @@ define(["backbone", "underscore", "places/models/POIModel", "moxie.conf", 'moxie
                 this.fetch(options);
             };
             this.geoFetch = _.bind(geoFetch, this);
+            if (!this.recentlySearched) {
+                this.geoFetch();
+                this.recentlySearched = true;
+                window.setTimeout(_.bind(function() {this.recentlySearched = false;}, this), GEOSEARCH_FREQ_LIMIT);
+            }
         },
 
         fetchNextPage: function() {
