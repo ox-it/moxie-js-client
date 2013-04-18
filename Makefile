@@ -30,3 +30,9 @@ clean:
 	@rm -rf $(TARGET_FOLDER)
 	@rm -f $(TARGET_FOLDER).zip
 
+# Push to build.phonegap.com with your auth token
+# Run: 'make AUTH=yourtoken push'
+push:
+	@echo "=> PUT phonegap_build.zip to build.phonegap.com (app 322181)"
+	@echo "   [AUTH_TOKEN = $(AUTH)]"
+	@curl -X PUT -F file=@phonegap_build.zip https://build.phonegap.com/api/v1/apps/322181?auth_token=$(AUTH)
