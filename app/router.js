@@ -1,15 +1,14 @@
-define(["app", "underscore", "backbone", "places/router", "today/views/IndexView", "courses/router", "library/router", "contacts/collections/ContactCollection", "contacts/views/SearchView", "favourites/views/FavouritesView"], function(app, _, Backbone, PlacesRouter, IndexView, CoursesRouter, LibraryRouter, Contacts, ContactsView, FavouritesView){
+define(["app", "backbone", "places/router", "today/views/IndexView", "courses/router", "library/router", "contacts/router", "favourites/views/FavouritesView"], function(app, Backbone, PlacesRouter, IndexView, CoursesRouter, LibraryRouter, ContactsRouter, FavouritesView){
     var MoxieRouter = Backbone.Router.extend({
-        contactsCollection: new Contacts(),
         subrouters: {},
         routes: {
             "": "index",
             "favourites/": "favourites",
-            "contacts*": "contacts",
 
             "places/*subroute": "placesModule",
             "courses/*subroute": "coursesModule",
-            "library/*subroute": "libraryModule"
+            "library/*subroute": "libraryModule",
+            "contacts/*subroute": "contacts"
         },
 
         index: function(params) {
@@ -21,12 +20,9 @@ define(["app", "underscore", "backbone", "places/router", "today/views/IndexView
         },
 
         contacts: function(params) {
-            var query = params || {};
-            if (!(_.isEqual(query, this.contactsCollection.query) && (this.contactsCollection.length))) {
-                this.contactsCollection.query = query;
-                this.contactsCollection.fetch();
+            if (!this.subrouters.Contacts) {
+                this.subrouters.Contacts = new ContactsRouter('contacts', {createTrailingSlashRoutes: true});
             }
-            app.renderView(new ContactsView({collection: this.contactsCollection, params: params}), {menu: true});
         },
 
         placesModule: function(subroute) {
