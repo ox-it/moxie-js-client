@@ -1,4 +1,4 @@
-define(["app", "backbone", "places/router", "today/views/IndexView", "courses/router", "library/router", "favourites/views/FavouritesView"], function(app, Backbone, PlacesRouter, IndexView, CoursesRouter, LibraryRouter, FavouritesView){
+define(["app", "backbone", "places/router", "today/views/IndexView", "courses/router", "library/router", "contacts/router", "favourites/views/FavouritesView"], function(app, Backbone, PlacesRouter, IndexView, CoursesRouter, LibraryRouter, ContactsRouter, FavouritesView){
     var MoxieRouter = Backbone.Router.extend({
         subrouters: {},
         routes: {
@@ -7,7 +7,8 @@ define(["app", "backbone", "places/router", "today/views/IndexView", "courses/ro
 
             "places/*subroute": "placesModule",
             "courses/*subroute": "coursesModule",
-            "library/*subroute": "libraryModule"
+            "library/*subroute": "libraryModule",
+            "contacts/*subroute": "contacts"
         },
 
         index: function(params) {
@@ -16,6 +17,12 @@ define(["app", "backbone", "places/router", "today/views/IndexView", "courses/ro
 
         favourites: function(params) {
             app.renderView(new FavouritesView({params: params}), {menu: true});
+        },
+
+        contacts: function(params) {
+            if (!this.subrouters.Contacts) {
+                this.subrouters.Contacts = new ContactsRouter('contacts', {createTrailingSlashRoutes: true});
+            }
         },
 
         placesModule: function(subroute) {
