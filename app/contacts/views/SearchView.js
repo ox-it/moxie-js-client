@@ -31,7 +31,7 @@ define(['jquery', 'backbone', 'underscore', 'contacts/views/ResultItemView', 'hb
                 var query = $("#input-query").val();
                 if (query || this.collection.query.q) { this.collection.query.q = query; }
                 this.collection.fetch();
-                Backbone.history.navigate('/contacts?'+$.param(this.collection.query).replace(/\+/g, "%20"), {trigger: false, replace: false});
+                Backbone.history.navigate('/contacts/search?'+$.param(this.collection.query).replace(/\+/g, "%20"), {trigger: false, replace: false});
             },
 
             serialize: function() {
