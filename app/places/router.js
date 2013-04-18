@@ -1,4 +1,4 @@
-define(["app", "backbone", "places/models/POIModel", "places/views/CategoriesView", "places/views/SearchView", "places/views/DetailView", "places/collections/POICollection", "places/collections/CategoryCollection", "backbone.subroute"], function(app, Backbone, POI, CategoriesView, SearchView, DetailView, POIs, Categories){
+define(["app", "underscore", "backbone", "places/models/POIModel", "places/views/CategoriesView", "places/views/SearchView", "places/views/DetailView", "places/collections/POICollection", "places/collections/CategoryCollection", "backbone.subroute"], function(app, _, Backbone, POI, CategoriesView, SearchView, DetailView, POIs, Categories){
 
     var pois = new POIs();
     var categories = new Categories();
@@ -31,7 +31,7 @@ define(["app", "backbone", "places/models/POIModel", "places/views/CategoriesVie
                 pois.geoFetch();
             }
             var layout = app.getLayout('MapBrowseLayout');
-            searchView = new SearchView({collection: pois});
+            var searchView = new SearchView({collection: pois});
             layout.setView('.content-browse', searchView);
             layout.getView('.content-map').setCollection(pois);
             searchView.render();
