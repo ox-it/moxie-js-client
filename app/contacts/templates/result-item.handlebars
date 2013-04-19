@@ -1,7 +1,10 @@
 <h3>{{ contact.name }}</h3>
 <p class="contact-info">
+{{#if contact.unit}}
+<span>{{ contact.unit }}</span>
+{{/if}}
 {{#if contact.email}}
-<span>Email: <a href="mailto:{{ contact.email }}">{{ contact.email }}</a></span>
+<span><a href="mailto:{{ contact.email }}">{{ contact.email }}</a></span>
 {{/if}}
 {{#if contact.external_tel}}
 <span>External tel: <a href="tel:{{contact.external_tel}}">{{ contact.external_tel }}</a></span>
