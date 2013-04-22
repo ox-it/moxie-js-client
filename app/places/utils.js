@@ -13,16 +13,9 @@ define(['underscore', 'moxie.conf', 'leaflet'], function(_, MoxieConf, L){
                 L.Browser.any3d = false;
             }
             var map = new L.map(el).setView([MoxieConf.defaultLocation.coords.latitude, MoxieConf.defaultLocation.coords.longitude], 15, true);
-            // display different tiles if we're in zoom 18
-            L.tileLayer('http://{s}.tile.cloudmade.com/'+MoxieConf.cloudmade.key+'/997/256/{z}/{x}/{y}.png', {
-                minZoom: 18,
-                maxZoom: 18,
-                // Detect retina - if true 4* map tiles are downloaded
-                detectRetina: true
-            }).addTo(map);
             L.tileLayer('http://a.tiles.mapbox.com/v3/'+MoxieConf.mapbox.key+'/{z}/{x}/{y}.png', {
                 minZoom: 0,
-                maxZoom: 17,
+                maxZoom: 18,
                 // Detect retina - if true 4* map tiles are downloaded
                 detectRetina: true
             }).addTo(map);
