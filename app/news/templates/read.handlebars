@@ -1,0 +1,9 @@
+<h2>{{ feed.title }}</h2>
+<ul class="results-list">
+    {{#feed.entries}}
+    <li>
+        <a href="{{ link }}"><h3>{{ title }}</h3></a>
+        <p>{{{ contentSnippet }}}</p>
+    </li>
+    {{/feed.entries}}
+</ul>
