@@ -1,9 +1,10 @@
 <h2>{{ feed.title }}</h2>
 <ul class="results-list">
-    {{#feed.entries}}
+    {{#entries}}
     <li>
-        <a href="{{ link }}"><h3>{{ title }}</h3></a>
+        <a href="#news/{{ ../feed.slug }}/{{ slug }}/"><h3>{{ title }}</h3></a>
+        <span>Posted: {{ dateFormat publishedDate }}</span>
         <p>{{{ contentSnippet }}}</p>
     </li>
-    {{/feed.entries}}
+    {{/entries}}
 </ul>
