@@ -59,7 +59,10 @@ define(['jquery', 'backbone', 'underscore', 'contacts/views/ResultItemView', 'hb
 
             afterRender: function() {
                 this.$('#loading').hide();
-            },
+                if (this.collection.length) {
+                    this.$('#main-contacts').hide();
+                }
+            }
 
         });
         return SearchView;
