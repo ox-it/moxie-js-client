@@ -1,4 +1,8 @@
 define(["app", "underscore", "backbone", "news/collections/FeedCollection", "news/views/BrowseView", "news/views/ReadView", "news/views/EntryView"], function(app, _, Backbone, Feeds, BrowseView, ReadView, EntryView){
+    var errorHandler = function(resource) {
+        alert("Sorry the "+ resource +" you requested could not be found.");
+        Backbone.history.navigate("#news/", {trigger: true});
+    };
     var NewsRouter = Backbone.SubRoute.extend({
         feeds: new Feeds([
             {title: "What's on?", slug: "whats-on", url: "http://www.ox.ac.uk/events_rss.rm"},
@@ -14,33 +18,17 @@ define(["app", "underscore", "backbone", "news/collections/FeedCollection", "new
             app.renderView(new BrowseView({collection: this.feeds}), {menu: true});
         },
         entryListing: function(slug) {
-            var feed = this.feeds.get(slug);
-            if (!feed && this.feeds.length===0) {
-                this.feeds.once('reset', _.bind(this.entryListing, this, slug));
-            } else if (!feed) {
-                console.log("Feed not found");
-                Backbone.history.navigate('', {trigger: true});
-            } else {
+            this.feeds.getAsync(slug, {success: function(feed) {
                 app.renderView(new ReadView({model: feed}));
-            }
+            }, failure: _.bind(errorHandler, this, 'feed')});
         },
         readEntry: function(feedslug, entryslug) {
-            var feed = this.feeds.get(feedslug);
-            if (!feed && this.feeds.length===0) {
-                this.feeds.once('reset', _.bind(this.readEntry, this, feedslug, entryslug));
-            } else if (!feed) {
-                console.log("Feed not found");
-            } else {
-                var entry = feed.entries.get(entryslug);
-                if (!entry && feed.entries.length===0) {
-                    feed.entries.once('reset', _.bind(this.readEntry, this, feedslug, entryslug));
-                } else if (!entry) {
-                    console.log("Entry not found");
-                } else {
+            this.feeds.getAsync(feedslug, {success: function(feed) {
+                feed.entries.getAsync(entryslug, {success: function(entry) {
                     app.renderView(new EntryView({model: entry}));
-                }
-            }
-        }
+                }, failure: _.bind(errorHandler, this, 'entry')});
+            }, failure: _.bind(errorHandler, this, 'feed')});
+        },
     });
     return NewsRouter;
 });
