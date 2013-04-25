@@ -1,7 +1,7 @@
 define(['backbone', 'hbs!news/templates/read'], function(Backbone, readTemplate) {
     var ReadView = Backbone.View.extend({
         initialize: function() {
-            this.model.on("change:entries", this.entriesUpdated, this);
+            this.model.entries.on("reset", this.entriesUpdated, this);
         },
         entriesUpdated: function() {
             this.render();
@@ -10,7 +10,7 @@ define(['backbone', 'hbs!news/templates/read'], function(Backbone, readTemplate)
         manage: true,
 
         serialize: function() {
-            return {feed: this.model.toJSON()};
+            return {feed: this.model.toJSON(), entries: this.model.entries.toJSON()};
         }
     });
     return ReadView;
