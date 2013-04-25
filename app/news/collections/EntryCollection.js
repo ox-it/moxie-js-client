@@ -1,6 +1,6 @@
-define(["backbone", "news/models/EntryModel"], function(Backbone, Entry) {
+define(["core/collections/MoxieCollection", "news/models/EntryModel"], function(MoxieCollection, Entry) {
 
-    var Entries = Backbone.Collection.extend({
+    var Entries = MoxieCollection.extend({
         model: Entry
     });
 

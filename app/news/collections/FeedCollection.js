@@ -1,6 +1,6 @@
-define(["backbone", "news/models/FeedModel"], function(Backbone, Feed) {
+define(["core/collections/MoxieCollection", "news/models/FeedModel"], function(MoxieCollection, Feed) {
 
-    var Feeds = Backbone.Collection.extend({
+    var Feeds = MoxieCollection.extend({
         model: Feed
     });
 
