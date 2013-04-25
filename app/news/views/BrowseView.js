@@ -1,4 +1,4 @@
-define(['backbone', 'news/views/ItemView', 'hbs!news/templates/browse'], function(Backbone, ItemView, browseTemplate) {
+define(['backbone', 'hbs!news/templates/browse'], function(Backbone, browseTemplate) {
     var BrowseView = Backbone.View.extend({
 
         template: browseTemplate,
