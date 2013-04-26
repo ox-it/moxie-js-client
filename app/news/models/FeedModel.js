@@ -5,9 +5,7 @@ define(["backbone", "underscore", "moxie.conf", "news/collections/EntryCollectio
             this.entries = new Entries();
             var moduleID = "goog!feeds,1";
             require([moduleID], _.bind(function() {
-                console.log("Feed google call");
                 var feed = new google.feeds.Feed(this.get('url'));
-                console.log("Feed google call done");
                 feed.setNumEntries(conf.news.numberOfEntries);
                 feed.load(_.bind(this.loaded, this));
             }, this));
