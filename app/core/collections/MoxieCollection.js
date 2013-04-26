@@ -1,6 +1,9 @@
 define(['backbone', 'underscore'], function(Backbone, _) {
     var MoxieCollection = Backbone.Collection.extend({
+        // Documented in "Moxie Backbone Extensions" in our docs.
         getAsync: function(id, options, retry) {
+            // get the ``id`` if it's already in the collection or wait
+            // for the options.pendingEvent and try to ``get`` again.
             options = options || {};
             var m = this.get(id);
             if (!m && this.length===0 && !retry) {
