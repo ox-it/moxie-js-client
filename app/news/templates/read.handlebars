@@ -1,0 +1,10 @@
+<h2>{{ feed.title }}</h2>
+<ul class="results-list">
+    {{#entries}}
+    <li>
+        <a href="#news/{{ ../feed.slug }}/{{ slug }}/"><h3>{{ title }}</h3></a>
+        <span>Posted: {{ dateFormat publishedDate }}</span>
+        <p>{{{ contentSnippet }}}</p>
+    </li>
+    {{/entries}}
+</ul>
