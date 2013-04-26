@@ -17,8 +17,10 @@ Our base Collection providing some common methods we're using throughout our app
    ``getAsync``. This allows you to wait for an event to fire on your collection before calling ``get`` on
    the key. Passing a success callback which will receive the object requested as the first argument.
 
+   :param key: The ``id`` of the model you want to access from the collection. See ``Backbone.Model.idAttribute``.
    :param object options: The following optional arguments can be passed in the options argument
 
      * ``success``: Called when the get has succeeded, this function will be called with the object returned from the collection as the argument.
      * ``failure``: Called if the ``key`` cannot be found in the collection.
      * ``pendingEvent``: default ``reset`` - The event you want getAsync to wait for before calling ``success``.
+   :param boolean retry: Used to prevent repeated callbacks occuring.
