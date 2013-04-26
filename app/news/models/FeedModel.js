@@ -1,11 +1,16 @@
-define(["backbone", "underscore", "moxie.conf", "news/collections/EntryCollection", "goog!feeds,1"], function(Backbone, _, conf, Entries) {
+define(["backbone", "underscore", "moxie.conf", "news/collections/EntryCollection", "goog"], function(Backbone, _, conf, Entries) {
 
     var Feed = Backbone.Model.extend({
         initialize: function() {
             this.entries = new Entries();
-            var feed = new google.feeds.Feed(this.get('url'));
-            feed.setNumEntries(conf.news.numberOfEntries);
-            feed.load(_.bind(this.loaded, this));
+            var moduleID = "goog!feeds,1";
+            require([moduleID], _.bind(function() {
+                console.log("Feed google call");
+                var feed = new google.feeds.Feed(this.get('url'));
+                console.log("Feed google call done");
+                feed.setNumEntries(conf.news.numberOfEntries);
+                feed.load(_.bind(this.loaded, this));
+            }, this));
         },
         loaded: function(result) {
             if (!result.error) {
