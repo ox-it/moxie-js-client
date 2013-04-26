@@ -1,4 +1,4 @@
-define(["app", "backbone", "places/router", "today/views/IndexView", "courses/router", "library/router", "contacts/router", "favourites/views/FavouritesView"], function(app, Backbone, PlacesRouter, IndexView, CoursesRouter, LibraryRouter, ContactsRouter, FavouritesView){
+define(["app", "backbone", "places/router", "today/views/IndexView", "courses/router", "library/router", "contacts/router", "news/router", "favourites/views/FavouritesView"], function(app, Backbone, PlacesRouter, IndexView, CoursesRouter, LibraryRouter, ContactsRouter, NewsRouter, FavouritesView){
     var MoxieRouter = Backbone.Router.extend({
         subrouters: {},
         routes: {
@@ -8,7 +8,8 @@ define(["app", "backbone", "places/router", "today/views/IndexView", "courses/ro
             "places/*subroute": "placesModule",
             "courses/*subroute": "coursesModule",
             "library/*subroute": "libraryModule",
-            "contacts/*subroute": "contacts"
+            "contacts/*subroute": "contacts",
+            "news/*subroute": "news"
         },
 
         index: function(params) {
@@ -24,7 +25,11 @@ define(["app", "backbone", "places/router", "today/views/IndexView", "courses/ro
                 this.subrouters.Contacts = new ContactsRouter('contacts', {createTrailingSlashRoutes: true});
             }
         },
-
+        news: function(params) {
+            if (!this.subrouters.News) {
+                this.subrouters.News = new NewsRouter('news', {createTrailingSlashRoutes: true});
+            }
+        },
         placesModule: function(subroute) {
             if (!this.subrouters.Places) {
                 this.subrouters.Places = new PlacesRouter('places', {createTrailingSlashRoutes: true});

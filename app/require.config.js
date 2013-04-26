@@ -22,6 +22,11 @@ var require = {
         "backbone.hal": "libs/backbone.hal",
         "localstorage": "libs/backbone.localStorage",
 
+        // Require plugins
+        "propertyParser": "libs/require.propertyParser",
+        "async": "libs/require.async",
+        "goog": "libs/require.goog",
+
         // Testing libs
         "jasmine": "tests/libs/jasmine-1.3.1/jasmine",
         "jasmine-html": "tests/libs/jasmine-1.3.1/jasmine-html",
