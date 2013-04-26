@@ -28,7 +28,25 @@ define([], function() {
         geolocationInterval: 25000,
         defaultLocation: {coords: {latitude: 51.752018, longitude: -1.257723}},
         mapbox: {key: 'mobileox.map-iihxb1dl'},
-        map: {bounds: {exponent: 0.75, limit: 500, fallback: 5}}
+        map: {bounds: {exponent: 0.75, limit: 500, fallback: 5}},
+        news: {
+            feeds: [
+                    {"title": "Department of Biochemistry", "url": "http://rss.oucs.ox.ac.uk/bioch/news/rss20.xml", "slug": "biochemistry-department"},
+                    {"title": "Department of Computer Science", "url": "http://www.cs.ox.ac.uk/feeds/News-All.xml", "slug": "cs-news"},
+                    {"title": "News from the RSL", "url": "http://rss.oucs.ox.ac.uk/oxitems/generatersstwo2.php?channel_name=ulib/science", "slug": "ulib-science"},
+                    {"title": "Linacre College", "url": "http://www.linacre.ox.ac.uk/Linacre/news-and-events/news/RSS", "slug": "linacre"},
+                    {"title": "Lady Margaret Hall news", "url": "http://www.lmh.ox.ac.uk/CMSPages/NewsRss.aspx", "slug": "lmh"},
+                    {"title": "University of Oxford - Media", "url": "http://www.ox.ac.uk/news_rss.rm", "slug": "offices-media"},
+                    {"title": "Student News Twitter Feed", "url": "http://twitter.com/statuses/user_timeline/uniofoxfordsi.rss", "slug": "student-news-twitter"},
+                    {"title": "St. Antony's College Events", "url": "http://www.google.com/calendar/feeds/it-support%40sant.ox.ac.uk/public/basic?orderby=starttime&sortorder=ascending&futureevents=true&singleevents=true", "slug": "st-antonys-events"},
+                    {"title": "Wolfson College", "url": "http://www.wolfson.ox.ac.uk/rss.xml", "slug": "wolfson"},
+                    {"title": "Oriel College", "url": "http://www.oriel.ox.ac.uk/news/rss", "slug": "oriel-news"},
+                    {"title": "Somerville College ROQ Blog", "url": "http://roq.some.ox.ac.uk/?feed=atom", "slug": "some-roq"},
+                    {"title": "Oxford University Rowing Club Twitter Feed", "url": "http://twitter.com/statuses/user_timeline/5741492.rss", "slug": "rowing-club"},
+                    {"title": "ClimatePrediction.net", "url": "http://climateprediction.net/rss.xml", "slug": "climate-predication"},
+                ],
+            numberOfEntries: 10,
+        }
     };
     return MoxieConf;
 });
