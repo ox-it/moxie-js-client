@@ -22,5 +22,6 @@
     <gap:splash src="images/ios/mobile-oxford-splash-screen-768_1024.png" width="768" height="1024" />
 
     <access origin="http://api.m.ox.ac.uk" />
+    <access origin="http://www.google.com" />
     <access origin="http://tiles.mapbox.com" subdomains="true" />
 </widget>
