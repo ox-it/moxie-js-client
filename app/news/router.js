@@ -1,14 +1,10 @@
-define(["app", "underscore", "backbone", "news/collections/FeedCollection", "news/views/BrowseView", "news/views/ReadView", "news/views/EntryView"], function(app, _, Backbone, Feeds, BrowseView, ReadView, EntryView){
+define(["app", "moxie.conf", "underscore", "backbone", "news/collections/FeedCollection", "news/views/BrowseView", "news/views/ReadView", "news/views/EntryView"], function(app, conf, _, Backbone, Feeds, BrowseView, ReadView, EntryView){
     var errorHandler = function(resource) {
         alert("Sorry the "+ resource +" you requested could not be found.");
         Backbone.history.navigate("#news/", {trigger: true});
     };
     var NewsRouter = Backbone.SubRoute.extend({
-        feeds: new Feeds([
-            {title: "What's on?", slug: "whats-on", url: "http://www.ox.ac.uk/events_rss.rm"},
-            {title: "BBC Oxford", slug: "bbc-oxford", url: "http://feeds.bbci.co.uk/news/england/oxford/rss.xml"},
-            {title: "Kellogg College News", slug: "kellogg-news", url: "http://www.kellogg.ox.ac.uk/rss.xml"},
-                ]),
+        feeds: new Feeds(conf.news.feeds),
         routes: {
             '': 'browse',
             ':slug/': 'entryListing',
