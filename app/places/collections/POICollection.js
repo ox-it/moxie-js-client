@@ -30,7 +30,7 @@ define(["backbone", "underscore", "places/models/POIModel", "moxie.conf", 'moxie
             };
             this.geoFetch = _.bind(geoFetch, this);
             if (!this.recentlySearched) {
-                this.geoFetch();
+                this.geoFetch({reset: true});
                 this.recentlySearched = true;
                 window.setTimeout(_.bind(function() {this.recentlySearched = false;}, this), GEOSEARCH_FREQ_LIMIT);
             }
