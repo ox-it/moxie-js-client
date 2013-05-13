@@ -52,6 +52,11 @@ define(['backbone', 'leaflet', 'underscore', 'moxie.conf', 'places/utils', 'moxi
             if (poi.has('lat') && poi.has('lon')) {
                 var latlng = new L.LatLng(poi.get('lat'), poi.get('lon'));
                 var marker = new L.marker(latlng, {'title': poi.get('name')});
+                marker.on('click', _.bind(function(ev) {
+                    var highlighted = this.collection.findWhere({'highlighted': true});
+                    if (highlighted) { highlighted.set('highlighted', false); }
+                    poi.set('highlighted', true);
+                }, this));
                 marker.addTo(this.map);
                 this.markers.push(marker);
             }
@@ -83,7 +88,7 @@ define(['backbone', 'leaflet', 'underscore', 'moxie.conf', 'places/utils', 'moxi
             if (this.user_position) {
                 bounds.extend(this.user_position);
             }
-            bounds = bounds.pad(0.2);
+            bounds = bounds.pad(0.1);
             this.map.fitBounds(bounds);
         },
 
