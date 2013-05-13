@@ -1,9 +1,8 @@
-define(['backbone', 'places/utils', 'moxie.position'], function(Backbone, utils, userPosition) {
+define(['backbone', 'leaflet', 'underscore', 'moxie.conf', 'places/utils', 'moxie.position'], function(Backbone, L, _, MoxieConf, utils, userPosition) {
     var MapView = Backbone.View.extend({
 
         initialize: function() {
             _.bindAll(this);
-            this.latlngs = [];
             this.markers = [];
             this.userPosition = null;
         },
@@ -54,7 +53,6 @@ define(['backbone', 'places/utils', 'moxie.position'], function(Backbone, utils,
                 var latlng = new L.LatLng(poi.get('lat'), poi.get('lon'));
                 var marker = new L.marker(latlng, {'title': poi.get('name')});
                 marker.addTo(this.map);
-                this.latlngs.push(latlng);
                 this.markers.push(marker);
             }
         },
@@ -65,11 +63,27 @@ define(['backbone', 'places/utils', 'moxie.position'], function(Backbone, utils,
         },
 
         setMapBounds: function() {
-            var bounds = new L.LatLngBounds(this.latlngs);
+            var latlngs = [];
+            var query = this.collection.query;
+            this.collection.each(function(poi) {
+                // See paramaters in moxie.conf
+                //
+                // If there is a seach term we show all results. If not then we add a few nearby results.
+                // This was ported verbatim from Molly.
+                if (query.q || ((Math.pow((poi.get('distance')*1000), MoxieConf.map.bounds.exponent) * (latlngs.length + 1)) < MoxieConf.map.bounds.limit)) {
+                    latlngs.push(new L.LatLng(poi.get('lat'), poi.get('lon')));
+                }
+            });
+            if (latlngs.length === 0) {
+                _.each(this.collection.first(MoxieConf.map.bounds.fallback), function(poi) {
+                    latlngs.push(new L.LatLng(poi.get('lat'), poi.get('lon')));
+                });
+            }
+            var bounds = new L.LatLngBounds(latlngs);
             if (this.user_position) {
                 bounds.extend(this.user_position);
             }
-            bounds.pad(5);
+            bounds = bounds.pad(0.2);
             this.map.fitBounds(bounds);
         },
 
@@ -79,7 +93,6 @@ define(['backbone', 'places/utils', 'moxie.position'], function(Backbone, utils,
                 this.map.removeLayer(marker);
             }, this);
             // Create new list of markers from search results
-            this.latlngs = [];
             this.markers = [];
             this.collection.each(this.placePOI);
             this.setMapBounds();
