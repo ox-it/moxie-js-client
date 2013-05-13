@@ -398,12 +398,8 @@ border-right: $grayBorder;
 }
 
 ul.results-list {
+    border-top: 2px solid $border-color;
     list-style: none;
-    a:first-child > li {
-        // Give the first item in an anchored list a border on top
-        border-top: 2px solid $border-color;
-    }
-
     .highlighted {
         background: $border-color;
     }
@@ -424,6 +420,14 @@ ul.results-list {
             linear-gradient(top, $light, $dark),
             url($cream-dust-hidpi)
             );
+        }
+
+        > a {
+            height: 100%;
+            width: 100%;
+            display: block;
+            color: rgba(40, 40, 40, 0.8);
+            padding: 0;
         }
 
         // Used on list items to show the count in the proceeding category/group
