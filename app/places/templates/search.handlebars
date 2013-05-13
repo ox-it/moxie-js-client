@@ -1,5 +1,9 @@
 <div class="search-input">
+    {{#if query.type}}
+    <input type="text" placeholder="Search within {{query.type}}" name="q" value="{{query.q}}">
+    {{else}}
     <input type="text" placeholder="Places search" name="q" value="{{query.q}}">
+    {{/if}}
     <span class="deleteicon ss-delete"></span>
 </div>
 <ul class="facet-list">
