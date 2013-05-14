@@ -1,5 +1,14 @@
 define(['backbone', 'underscore'], function(Backbone, _) {
     var MoxieCollection = Backbone.Collection.extend({
+        fetch: function(options) {
+            // Reverts Backbone to using the previous "fetch" behaviour
+            // Unless specified we use the "reset" method (e.g. empty the collection)
+            options = options || {};
+            if (!options.update && options.reset===undefined) {
+                options.reset = true;
+            }
+            return Backbone.Collection.prototype.fetch.apply(this, [options]);
+        },
         // Documented in "Moxie Backbone Extensions" in our docs.
         getAsync: function(id, options, retry) {
             // get the ``id`` if it's already in the collection or wait

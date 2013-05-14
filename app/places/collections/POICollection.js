@@ -1,9 +1,9 @@
-define(["backbone", "underscore", "places/models/POIModel", "moxie.conf", 'moxie.position'], function(Backbone, _, POI, conf, userPosition) {
+define(["core/collections/MoxieCollection", "underscore", "places/models/POIModel", "moxie.conf", 'moxie.position'], function(MoxieCollection, _, POI, conf, userPosition) {
 
     // Limit how often we search when the users geo position updates
     // Default to 2 seconds
     var GEOSEARCH_FREQ_LIMIT = 2000;
-    var POIs = Backbone.Collection.extend({
+    var POIs = MoxieCollection.extend({
 
         model: POI,
 
@@ -19,18 +19,20 @@ define(["backbone", "underscore", "places/models/POIModel", "moxie.conf", 'moxie
             userPosition.unfollow(_.bind(this.handle_geolocation_query, this));
         },
 
-        geoFetch: function(options) { return this.fetch(options); },
+        userLatLon: null,
+        geoFetch: function(options) {
+            options = options || {};
+            if (this.userLatLon) {
+                options.headers = options.headers || {};
+                options.headers['Geo-Position'] = this.userLatLon.join(';');
+            }
+            return this.fetch(options);
+        },
         recentlySearched: false,
         handle_geolocation_query: function(position) {
-            var geoFetch = function(options) {
-                options = options || {};
-                options.headers = options.headers || {};
-                options.headers['Geo-Position'] = [position.coords.latitude, position.coords.longitude].join(';');
-                this.fetch(options);
-            };
-            this.geoFetch = _.bind(geoFetch, this);
+            this.userLatLon = [position.coords.latitude, position.coords.longitude];
             if (!this.recentlySearched) {
-                this.geoFetch({reset: true});
+                this.geoFetch();
                 this.recentlySearched = true;
                 window.setTimeout(_.bind(function() {this.recentlySearched = false;}, this), GEOSEARCH_FREQ_LIMIT);
             }
