@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'places/views/ItemView', 'hbs!places/templates/search', 'hbs!places/templates/facets', 'core/views/InfiniteScrollView'],
-    function($, Backbone, _, MoxieConf, ItemView, searchTemplate, facetTemplate, InfiniteScrollView){
+define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'places/views/ItemView', 'hbs!places/templates/search', 'core/views/InfiniteScrollView'],
+    function($, Backbone, _, MoxieConf, ItemView, searchTemplate, InfiniteScrollView){
 
     var SearchView = InfiniteScrollView.extend({
 
@@ -68,24 +68,19 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'places/views/ItemView
             }
         },
 
+        infiniteScrollConfigured: false,
         afterRender: function() {
-            // this.el is no longer the el which scrolls so we need to pass the parentNode
-            var options = {windowScroll: true, scrollElement: this.el.parentNode, scrollThreshold: 1};
-            InfiniteScrollView.prototype.initScroll.apply(this, [options]);
+            if (!this.infiniteScrollConfigured) {
+                // this.el is no longer the el which scrolls so we need to pass the parentNode
+                var options = {windowScroll: true, scrollElement: this.el.parentNode, scrollThreshold: 1};
+                InfiniteScrollView.prototype.initScroll.apply(this, [options]);
+                this.infiniteScrollConfigured = true;
+            }
         },
 
         scrollCallbacks: [function() {
             this.collection.fetchNextPage();
         }],
-
-        extendPOIs: function(data) {
-            // Used when the collection is extended through infinite scrolling
-            this.next_results = data._links['hl:next'];
-            this.infiniteScrollEnabled = Boolean(this.next_results);
-            this.collection.facets = data._links['hl:types'];
-            this.collection.add(data._embedded);
-            this.setMapBounds();
-        },
 
         cleanup: function() {
             this.collection.unfollowUser();
