@@ -42,7 +42,12 @@ define(['jquery', 'backbone', 'underscore', 'core/views/InfiniteScrollView', 'li
             },
 
             serialize: function() {
-                return this.collection.query;
+                return {
+                    query: this.collection.query,
+                    hasResults: Boolean(this.collection.length),
+                    midRequest: this.collection.ongoingFetch,
+                    emptyQuery: _.isEmpty(this.collection.query)
+                };
             },
 
             id: 'library-search',
@@ -66,41 +71,30 @@ define(['jquery', 'backbone', 'underscore', 'core/views/InfiniteScrollView', 'li
                 } else {
                     Backbone.trigger("domchange:title", "Library search");
                 }
-
-                var options = {windowScroll: true, scrollElement: this.$('.results-list')[0], scrollThreshold: 0.7};
-                InfiniteScrollView.prototype.initScroll.apply(this, [options]);
             },
 
+            infiniteScrollConfigured: false,
             afterRender: function() {
-                this.$('#loading').hide();
+                if (!this.infiniteScrollConfigured) {
+                    // this.el is no longer the el which scrolls so we need to pass the parentNode
+                    var options = {windowScroll: true, scrollElement: this.el.parentNode, scrollThreshold: 1};
+                    InfiniteScrollView.prototype.initScroll.apply(this, [options]);
+                    this.infiniteScrollConfigured = true;
+                }
             },
 
             scrollCallbacks: [function() {
-                $.ajax({
-                    url: MoxieConf.endpoint + this.next_results.href,
-                    dataType: 'json'
-                }).success(this.extendResults);
+                this.collection.fetchNextPage();
             }],
 
-            createItems: function(data) {
-                // Called when we want to empty the existing collection
-                // For example when a search is issued and we clear the existing results.
-                this.collection.reset(data._embedded.items);
-                this.next_results = data._links['hl:next'];
+            addResult: function(model) {
+                var view = new ResultItemView({model: model});
+                this.insertView("#search-results", view);
+                view.render();
             },
 
-            addResult: function(item) {
-                this.insertView({"#search-results": new ResultItemView({model: model})});
-            },
-
-            extendResults: function(data) {
-                // Used when the collection is extended through infinite scrolling
-                this.next_results = data._links['hl:next'];
-                this.infiniteScrollEnabled = Boolean(this.next_results);
-                this.collection.add(data._embedded.items);
-            },
-
-            onClose: function() {
+            cleanup: function() {
+                this.collection.off(null, null, this);
                 InfiniteScrollView.prototype.onClose.apply(this);
             }
         });
