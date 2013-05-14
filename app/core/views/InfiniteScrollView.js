@@ -8,8 +8,19 @@ define(['jquery', 'backbone', 'underscore'], function($, Backbone, _){
         elScrolled: false,
         windowScrolled: false,
 
-        testThreshold: function(el) {
+        testElThreshold: function(el) {
+            // NOTE: This works for testing within a scrolling element but not the window
+            // Unless using Gecko... in which case it also works on document.documentElement.
+            //
+            // FUN!
             return (((el.scrollTop + el.clientHeight) / el.scrollHeight) >= this.scrollThreshold);
+        },
+
+        testDocumentScroll: function() {
+            // This seems to be a cross-browser way to test how far down the document scroll
+            //
+            // The jquery stuff does some magic you *really* don't want to see.
+            return (($(document).scrollTop() + document.documentElement.clientHeight) / $(document).height() >= this.scrollThreshold);
         },
 
         handleScroll: function() {
@@ -21,7 +32,7 @@ define(['jquery', 'backbone', 'underscore'], function($, Backbone, _){
                     if (this.elScrolled) {
                         thresholdSurpassed = this.testThreshold(this.scrollElement);
                     } else {
-                        thresholdSurpassed = this.testThreshold(document.documentElement);
+                        thresholdSurpassed = this.testDocumentScroll();
                     }
                 }
                 // Call our callbacks with the correct `this` context
