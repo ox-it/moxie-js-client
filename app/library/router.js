@@ -22,7 +22,7 @@ define(["app", "underscore", "backbone", "library/models/ItemModel", "library/co
                 // Show the top-level menu
                 options = {menu: true};
             }
-            if (!_.isEmpty(query) || (!_.isEqual(query, items.query) || (items.length === 0))) {
+            if (!_.isEmpty(query) && (!_.isEqual(query, items.query) || (items.length === 0))) {
                 // If the Collection has the correct query and we have items don't bother fetching new results now
                 items.fetch();
             }
