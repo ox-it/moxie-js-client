@@ -1,7 +1,7 @@
-define(["backbone", "underscore", "places/models/CategoryModel", "moxie.conf"], function(Backbone, _, Category, conf) {
+define(["core/collections/MoxieCollection", "underscore", "places/models/CategoryModel", "moxie.conf"], function(MoxieCollection, _, Category, conf) {
 
     var DEPTH_LIMIT = 3;
-    var CategoryCollection = Backbone.Collection.extend({
+    var CategoryCollection = MoxieCollection.extend({
         model: Category,
         url: conf.urlFor('places_categories'),
         parse: function(data) {
