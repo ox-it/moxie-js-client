@@ -69,13 +69,13 @@ define(['backbone', 'leaflet', 'underscore', 'moxie.conf', 'places/utils', 'moxi
 
         setMapBounds: function() {
             var latlngs = [];
-            var query = this.collection.query;
             this.collection.each(function(poi) {
                 // See paramaters in moxie.conf
                 //
-                // If there is a seach term we show all results. If not then we add a few nearby results.
+                // Show just a few nearby results -- since we load quite a lot of resutlts by default
+                // the entire listing can be quite overwhelming and the map ends up being very zoomed out.
                 // This was ported verbatim from Molly.
-                if (query.q || ((Math.pow((poi.get('distance')*1000), MoxieConf.map.bounds.exponent) * (latlngs.length + 1)) < MoxieConf.map.bounds.limit)) {
+                if ((Math.pow((poi.get('distance')*1000), MoxieConf.map.bounds.exponent) * (latlngs.length + 1)) < MoxieConf.map.bounds.limit) {
                     latlngs.push(new L.LatLng(poi.get('lat'), poi.get('lon')));
                 }
             });
