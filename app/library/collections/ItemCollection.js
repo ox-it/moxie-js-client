@@ -1,6 +1,6 @@
-define(["backbone", "underscore", "library/models/ItemModel", "places/collections/POICollection", "moxie.conf", "moxie.position"], function(Backbone, _, Item, POIs, conf, userPosition) {
+define(["core/collections/MoxieCollection", "underscore", "library/models/ItemModel", "places/collections/POICollection", "moxie.conf", "moxie.position"], function(MoxieCollection, _, Item, POIs, conf, userPosition) {
 
-    var Items = Backbone.Collection.extend({
+    var Items = MoxieCollection.extend({
 
         model: Item,
 
@@ -16,6 +16,11 @@ define(["backbone", "underscore", "library/models/ItemModel", "places/collection
             userPosition.unfollow(_.bind(this.handle_geolocation_query, this));
         },
 
+        fetch: function(options) {
+            this.ongoingFetch = true;
+            return MoxieCollection.prototype.fetch.apply(this, [options]);
+        },
+
         fetchNextPage: function() {
             if (this.next_results) {
                 var urlFunc = this.url;
@@ -28,6 +33,8 @@ define(["backbone", "underscore", "library/models/ItemModel", "places/collection
         },
 
         parse: function(data) {
+            // Fetched
+            this.ongoingFetch = false;
             // Called when we want to empty the existing collection
             // For example when a search is issued and we clear the existing results.
             this.next_results = data._links['hl:next'];
