@@ -7,7 +7,7 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'places/views/ItemView
         initialize: function() {
             _.bindAll(this);
             this.collection.followUser();
-            this.collection.on("reset", this.resetResults, this);
+            this.collection.on("reset", this.render, this);
             this.collection.on("add", this.addResult, this);
         },
 
@@ -39,21 +39,6 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'places/views/ItemView
             }
         },
 
-        resetResults: function(collection) {
-            var views = [];
-            this.$('ul.results-list').empty();
-            collection.each(function(model) { views.push(new ItemView({model: model})); });
-            this.insertViews({"ul.results-list": views});
-            _.each(views, function(view) { view.render(); });
-            if (this.collection.query.q || this.collection.query.type) {
-                this.renderFacets();
-            }
-        },
-
-        renderFacets: function() {
-            this.$('ul.facet-list').html(facetTemplate({facets: this.collection.facets}));
-        },
-
         addResult: function(model) {
             var view = new ItemView({model: model});
             this.insertView("ul.results-list", view);
@@ -61,7 +46,13 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'places/views/ItemView
         },
 
         template: searchTemplate,
-        serialize: function() { return {query: this.collection.query, facets: this.collection.facets}; },
+        serialize: function() {
+            var context = {query: this.collection.query, facets: [], hasResults: Boolean(this.collection.length)};
+            if (this.collection.query.q || this.collection.query.type) {
+                context.facets = this.collection.facets;
+            }
+            return context;
+        },
 
         beforeRender: function() {
             Backbone.trigger('domchange:title', "Search for Places of Interest");

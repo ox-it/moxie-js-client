@@ -7,6 +7,13 @@
     <span class="deleteicon ss-delete"></span>
 </div>
 <ul class="facet-list">
+    {{#facets}}
+    <li class="label-facet" data-category="{{ name }}">{{ title }}</li>
+    {{/facets}}
 </ul>
 <ul class="results-list">
+    {{#unless hasResults}}
+    <img src="images/preloader.gif" class="preloader">
+    {{/unless}}
 </ul>
+
