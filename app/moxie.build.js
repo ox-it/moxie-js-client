@@ -2,6 +2,6 @@
     mainConfigFile: 'require.config.js',
     baseUrl: '.',
     include: ['main'],
-    name: 'libs/require',
+    name: 'libs/almond',
     out: 'main-built.js'
 })
