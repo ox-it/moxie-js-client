@@ -28,6 +28,8 @@ define(["app", "underscore", "backbone", "places/models/POIModel", "places/views
             if (!_.isEqual(query, pois.query) || (pois.length <= 1)) {
                 // If the Collection has the correct query and we have items don't bother fetching new results now
                 pois.query = query;
+                // Calling reset here prevents us from rendering any old results
+                pois.reset();
                 pois.geoFetch();
             }
             var layout = app.getLayout('MapBrowseLayout');
