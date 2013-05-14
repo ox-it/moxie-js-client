@@ -8,6 +8,10 @@ define(['jquery', 'backbone', 'underscore'], function($, Backbone, _){
         elScrolled: false,
         windowScrolled: false,
 
+        testThreshold: function(el) {
+            return (((el.scrollTop + el.clientHeight) / el.scrollHeight) >= this.scrollThreshold);
+        },
+
         handleScroll: function() {
             // Are we enabled? Has anything been scrolled?
             if ((this.infiniteScrollEnabled) && (this.windowScrolled || this.elScrolled)) {
@@ -15,9 +19,9 @@ define(['jquery', 'backbone', 'underscore'], function($, Backbone, _){
                 var thresholdSurpassed = false;
                 if (this.scrollThreshold) {
                     if (this.elScrolled) {
-                        thresholdSurpassed = (((this.scrollElement.scrollTop + this.scrollElement.clientHeight) / this.scrollElement.scrollHeight) > this.scrollThreshold);
+                        thresholdSurpassed = this.testThreshold(this.scrollElement);
                     } else {
-                        thresholdSurpassed = (($(document).scrollTop() / $(document).height()) > this.scrollThreshold);
+                        thresholdSurpassed = this.testThreshold(document.documentElement);
                     }
                 }
                 // Call our callbacks with the correct `this` context
