@@ -47,7 +47,12 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'places/views/ItemView
 
         template: searchTemplate,
         serialize: function() {
-            var context = {query: this.collection.query, facets: [], hasResults: Boolean(this.collection.length)};
+            var context = {
+                query: this.collection.query,
+                facets: [],
+                hasResults: Boolean(this.collection.length),
+                midRequest: this.collection.ongoingFetch
+            };
             if (this.collection.facets && (this.collection.query.q || this.collection.query.type) && this.collection.facets.length > 1) {
                 context.facets = this.collection.facets;
             }

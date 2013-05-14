@@ -21,6 +21,8 @@ define(["core/collections/MoxieCollection", "underscore", "places/models/POIMode
 
         userLatLon: null,
         geoFetch: function(options) {
+            // Set a boolean for while the fetch is inflight
+            this.ongoingFetch = true;
             options = options || {};
             if (this.userLatLon) {
                 options.headers = options.headers || {};
@@ -50,6 +52,8 @@ define(["core/collections/MoxieCollection", "underscore", "places/models/POIMode
         },
 
         parse: function(data) {
+            // Fetch over
+            this.ongoingFetch = false;
             // Called when we want to empty the existing collection
             // For example when a search is issued and we clear the existing results.
             this.next_results = data._links['hl:next'];
