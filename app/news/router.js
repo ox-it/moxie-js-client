@@ -11,14 +11,17 @@ define(["app", "moxie.conf", "underscore", "backbone", "news/collections/FeedCol
             ':feedslug/:entryslug/': 'readEntry'
         },
         browse: function() {
+            this.feeds.load();
             app.renderView(new BrowseView({collection: this.feeds}), {menu: true});
         },
         entryListing: function(slug) {
+            this.feeds.load();
             this.feeds.getAsync(slug, {success: function(feed) {
                 app.renderView(new ReadView({model: feed}));
             }, failure: _.bind(errorHandler, this, 'feed')});
         },
         readEntry: function(feedslug, entryslug) {
+            this.feeds.load();
             this.feeds.getAsync(feedslug, {success: function(feed) {
                 feed.entries.getAsync(entryslug, {success: function(entry) {
                     app.renderView(new EntryView({model: entry}));
