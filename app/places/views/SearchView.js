@@ -69,7 +69,8 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'places/views/ItemView
         },
 
         afterRender: function() {
-            var options = {windowScroll: true, scrollElement: this.el, scrollThreshold: 0.7};
+            // this.el is no longer the el which scrolls so we need to pass the parentNode
+            var options = {windowScroll: true, scrollElement: this.el.parentNode, scrollThreshold: 1};
             InfiniteScrollView.prototype.initScroll.apply(this, [options]);
         },
 
