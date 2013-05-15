@@ -18,14 +18,27 @@ define(['jquery', 'backbone', 'underscore', 'core/views/MapBrowseLayout'], funct
             return this.renderView(view);
         },
 
+        _isCordova: null,
+        isCordova: function() {
+            // Cordova will report document.URL with file:// as the scheme
+            //
+            // Memoize the result since one session cannot (typically) move URL scheme
+            if (this._isCordova===null) {
+                this._isCordova = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
+            }
+            return this._isCordova;
+        },
+
         renderView: function(view, options) {
             options = options || {};
-            if (options.menu) {
-                $('#back').hide();
-                $('#home').show();
-            } else {
-                $('#home').hide();
-                $('#back').show();
+            if (this.isCordova()) {
+                if (options.menu) {
+                    $('#back').hide();
+                    $('#home').show();
+                } else {
+                    $('#home').hide();
+                    $('#back').show();
+                }
             }
             // Remove any existing layouts
             // If managed with LayoutManager this will call cleanup
