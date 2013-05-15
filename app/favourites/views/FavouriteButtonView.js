@@ -7,7 +7,7 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'favourites/collection
                 this.favourites.fetch();
                 this.updateButton();
                 this.favourites.on("remove add", this.updateButton, this);
-                window.addEventListener("hashchange", this.updateButton, false);
+                $(window).on("hashchange", this.updateButton);
             },
 
             attributes: {
@@ -35,7 +35,7 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'favourites/collection
             removeFavourite: function(favourite) {
                 this.favourites.remove(favourite);
             },
-            updateButton: function(favourite) {
+            updateButton: function() {
                 if (this.favourites.getCurrentPage()) {
                     this.$el.addClass('favourited');
                 } else {

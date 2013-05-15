@@ -1,10 +1,10 @@
-require(['modernizr','jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'favourites/views/FavouriteButtonView', 'backbone.queryparams', 'backbone.layoutmanager'], function(Modernizr, $, Backbone, MoxieRouter, FastClick, conf, FavouriteButtonView) {
+require(['jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'favourites/views/FavouriteButtonView', 'backbone.queryparams', 'backbone.layoutmanager'], function($, Backbone, MoxieRouter, FastClick, conf, FavouriteButtonView) {
     // Include FastClick, this removes a 300ms touch event delay
-    window.addEventListener('load', function() {
+    $(function() {
         new FastClick(document.body);
-    }, false);
+    });
 
-    moxieRouter = new MoxieRouter();
+    var moxieRouter = new MoxieRouter();
 
     // Default to requesting hal+json but fallback to json
     $.ajaxSetup({ headers: { 'Accept': 'application/hal+json;q=1.0, application/json;q=0.9, */*; q=0.01' } });

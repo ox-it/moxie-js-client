@@ -10,10 +10,9 @@ define(["backbone", "underscore", "moxie.conf", "news/collections/EntryCollectio
             feed.load(_.bind(this.loaded, this));
         },
         loaded: function(result) {
+            // TODO: Log errors here? Perhaps using Raven.js
             if (!result.error) {
                 this.entries.reset(result.feed.entries, {parse: true});
-            } else {
-                console.log("Failed to load RSS Feed");
             }
         },
         idAttribute: "slug"

@@ -2,6 +2,7 @@ define(["underscore", "backbone", "moxie.conf"], function(_, Backbone, conf){
     var EVENT_POSITION_UPDATED = 'position:updated';
     var userPosition = {
         count: 0,
+        supportsGeoLocation: Boolean(navigator.geolocation),
         follow: function(cb) {
             if (this.count===0) {
                 this.startWatching();
@@ -21,7 +22,7 @@ define(["underscore", "backbone", "moxie.conf"], function(_, Backbone, conf){
             this.trigger(EVENT_POSITION_UPDATED, position);
             this.latest = position;
         },
-        locationError: function(e) {
+        locationError: function() {
             if (!this.latest) {
                 // We have no good position data so update to the default location
                 this.trigger(EVENT_POSITION_UPDATED, conf.defaultLocation);
@@ -29,10 +30,14 @@ define(["underscore", "backbone", "moxie.conf"], function(_, Backbone, conf){
             }
         },
         startWatching: function() {
-            // Ask for immediate position then watch with a big timeout / max age
-            navigator.geolocation.getCurrentPosition(this.locationSuccess, this.locationError);
-            this.watchID = navigator.geolocation.watchPosition(this.locationSuccess, this.locationError,
-                {maximumAge: 120000, timeout:25000}); // This is useful for debugging problem with geolocation
+            if (this.supportsGeoLocation) {
+                // Ask for immediate position then watch with a big timeout / max age
+                navigator.geolocation.getCurrentPosition(this.locationSuccess, this.locationError);
+                this.watchID = navigator.geolocation.watchPosition(this.locationSuccess, this.locationError,
+                    {maximumAge: 120000, timeout:25000}); // This is useful for debugging problem with geolocation
+            } else {
+                this.locationError();
+            }
         }
     };
     _.bindAll(userPosition);
