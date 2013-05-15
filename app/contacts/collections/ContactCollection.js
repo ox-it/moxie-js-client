@@ -1,6 +1,6 @@
-define(["backbone", "contacts/models/ContactModel", "moxie.conf"], function(Backbone, Contact, conf) {
+define(["core/collections/MoxieCollection", "contacts/models/ContactModel", "moxie.conf"], function(MoxieCollection, Contact, conf) {
 
-    var Contacts = Backbone.Collection.extend({
+    var Contacts = MoxieCollection.extend({
 
         model: Contact,
 
