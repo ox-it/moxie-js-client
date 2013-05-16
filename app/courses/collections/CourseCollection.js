@@ -3,11 +3,7 @@ define(["underscore", "core/collections/MoxieCollection", "courses/models/Course
     var courses = MoxieCollection.extend({
         model: course,
         url: function() {
-            if (this.query) {
-                return conf.urlFor('courses_search') + "?q=" + this.query;
-            } else {
-                return conf.urlFor('courses_subjects');
-            }
+            return conf.urlFor('courses_search') + "?q=" + this.query;
         },
         fetch: function(query) {
             if (this.ongoingFetch && (this.query===query)) { return; }
@@ -16,9 +12,7 @@ define(["underscore", "core/collections/MoxieCollection", "courses/models/Course
             MoxieCollection.prototype.fetch.apply(this);
         },
         parse: function(data) {
-            console.log(data);
             this.ongoingFetch = false;
-            this.subjects = data._links['courses:subject'];
             if (data._embedded && data._embedded.courses) {
                 return data._embedded.courses;
             } else {
