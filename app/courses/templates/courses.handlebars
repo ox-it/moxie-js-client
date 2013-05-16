@@ -1,3 +1,8 @@
+{{#if query}}
+    <h2 class="free-heading">{{ query }}</h2>
+{{/if}}
+
+
 {{#if courses}}
     <ul class="results-list">
     {{#courses}}
@@ -7,5 +12,11 @@
     {{/courses}}
     </ul>
 {{else}}
+    {{#if ongoingFetch}}
+    <div id="loading">
+        <img src="images/preloader.gif" class="preloader">
+    </div>
+    {{else}}
     <p>Sorry, no results for your query.</p>
+    {{/if}}
 {{/if}}
