@@ -1,9 +1,15 @@
-define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/base_search', 'hbs!courses/templates/subjects', 'leaflet', 'moxie.conf'],
-    function($, Backbone, _, baseTemplate, subjectsTemplate, L, MoxieConf){
-        var SearchView = Backbone.View.extend({
+define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/subjects', 'leaflet', 'moxie.conf'],
+    function($, Backbone, _, subjectsTemplate, L, MoxieConf){
+        var SubjectsView = Backbone.View.extend({
 
             initialize: function() {
-                _.bindAll(this);
+                this.collection.on('reset', this.render, this);
+            },
+            manage: true,
+            template: subjectsTemplate,
+
+            attributes: {
+                'class': 'generic'
             },
 
             // Event Handlers
@@ -16,36 +22,24 @@ define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/base_search',
                 this.$('.search-input input').val('').focus();
             },
 
-            attributes: {
-                'class': 'generic'
+            serialize: function() {
+                return {
+                    subjects: this.collection.subjects,
+                    ongoingFetch: this.collection.ongoingFetch
+                };
             },
 
             searchEventCourses: function(ev) {
                 // 13 is Enter
                 if (ev.which === 13) {
-                    this.search(ev.target.value);
+                    Backbone.history.navigate('/courses/' + ev.target.value, true);
                 }
             },
 
-            search: function(query) {
-                Backbone.history.navigate('/courses/' + query, true);
-            },
-
-            render: function() {
-                this.$el.html(baseTemplate());
-                $.ajax({
-                    url: MoxieConf.urlFor('courses_subjects'),
-                    dataType: 'json'
-                }).success(this.renderSubjectsList);
+            beforeRender: function() {
                 Backbone.trigger('domchange:title', "Courses");
-                return this;
             },
 
-            renderSubjectsList: function(data) {
-                this.$("#loading").hide();
-                var context = {subjects: data._links['courses:subject']};
-                this.$('#results').html(subjectsTemplate(context));
-            }
         });
-        return SearchView;
+        return SubjectsView;
     });
