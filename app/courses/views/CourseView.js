@@ -41,7 +41,7 @@ define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/base_course',
             },
 
             renderAuthRequired: function() {
-                data = {};
+                var data = {};
                 data.authorized = false;
                 data.authorization_url = this.authorization_url;
                 this.$('#authStatus').html(authTemplate(data));
@@ -78,7 +78,7 @@ define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/base_course',
                 var id = this.$(ev.currentTarget).attr("data-id");
                 var url = MoxieConf.urlFor('presentation_id') + id + "/booking";
                 // TODO: We need to send supervisor credentials
-                data = {'jsj': 'ksjdjf', 'sjsj': 'ksjsj' };
+                var data = {'jsj': 'ksjdjf', 'sjsj': 'ksjsj' };
 
                 $.ajax({
                     url: url,
@@ -111,7 +111,7 @@ define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/base_course',
             },
 
             handleError: function(data) {
-                console.log(data);
+                // TODO: Actually handle this error
             }
         });
         return CourseView;
