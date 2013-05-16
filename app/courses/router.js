@@ -6,8 +6,8 @@ define(["app", "underscore", "backbone", "courses/views/SubjectsView", "courses/
         routes: {
             "": "subjects",
             "bookings": "bookings",
-            "detail/:id": "course",
-            ":query": "courses"
+            ":query": "courses",
+            "detail/:id": "course"
         },
 
         subjects: function() {
@@ -23,10 +23,10 @@ define(["app", "underscore", "backbone", "courses/views/SubjectsView", "courses/
             }));
         },
 
-        courses: function(query, params) {
+        courses: function(query) {
+            this.collection.fetch(query);
             app.showView(new CoursesView({
-                params: params,
-                query: query
+                collection: this.collection,
             }));
         },
 
