@@ -23,7 +23,7 @@ define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/subjects', 'l
 
         serialize: function() {
             return {
-                subjects: this.collection.subjects,
+                subjects: this.collection.toJSON(),
                 ongoingFetch: this.collection.ongoingFetch
             };
         },

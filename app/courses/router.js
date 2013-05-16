@@ -1,36 +1,37 @@
-define(["app", "underscore", "backbone", "courses/views/SubjectsView", "courses/views/BookingsView", "courses/views/CoursesView", "courses/views/CourseView", "courses/collections/CourseCollection", "backbone.subroute"],
- function(app, _, Backbone, SubjectsView, BookingsView, CoursesView, CourseView, Courses){
+define(["app", "underscore", "backbone", "courses/views/SubjectsView", "courses/views/BookingsView", "courses/views/CoursesView", "courses/views/CourseView", "courses/collections/CourseCollection", "courses/collections/SubjectCollection", "backbone.subroute"],
+ function(app, _, Backbone, SubjectsView, BookingsView, CoursesView, CourseView, Courses, Subjects){
     var CoursesRouter = Backbone.SubRoute.extend({
-        collection: new Courses(),
+        courses: new Courses(),
+        subjects: new Subjects(),
 
         routes: {
-            "": "subjects",
-            "bookings": "bookings",
-            ":query": "courses",
-            "detail/:id": "course"
+            "": "browseSubject",
+            "bookings": "myBookings",
+            ":query": "searchCourses",
+            "detail/:id": "courseDetail"
         },
 
-        subjects: function() {
-            this.collection.fetch();
+        browseSubject: function() {
+            this.subjects.fetch();
             app.renderView(new SubjectsView({
-                collection: this.collection,
+                collection: this.subjects,
             }), {menu: true});
         },
 
-        bookings: function(params) {
+        myBookings: function(params) {
             app.showView(new BookingsView({
                 params: params
             }));
         },
 
-        courses: function(query) {
-            this.collection.fetch(query);
+        searchCourses: function(query) {
+            this.courses.fetch(query);
             app.showView(new CoursesView({
-                collection: this.collection,
+                collection: this.courses,
             }));
         },
 
-        course: function(id, params) {
+        courseDetail: function(id, params) {
             app.showView(new CourseView({
                 params: params,
                 id: id
