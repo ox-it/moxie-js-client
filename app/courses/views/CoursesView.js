@@ -1,30 +1,26 @@
-define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/base_courses', 'hbs!courses/templates/courses', 'leaflet', 'moxie.conf'],
-function($, Backbone, _, baseTemplate, coursesTemplate, L, MoxieConf){
+define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/courses', 'leaflet', 'moxie.conf'],
+function($, Backbone, _, coursesTemplate, L, MoxieConf){
     var CoursesView = Backbone.View.extend({
 
         initialize: function() {
-            _.bindAll(this);
+            this.collection.on('reset', this.render, this);
         },
 
         attributes: {
             'class': 'generic'
         },
 
-        render: function() {
-            var context = {query: this.getQueryTitle(this.options.query)}
-            this.$el.html(baseTemplate(context));
-            $.ajax({
-                url: MoxieConf.urlFor('courses_search') + "?q=" + this.options.query,
-                dataType: 'json'
-            }).success(this.renderCoursesList);
-            Backbone.trigger('domchange:title', this.options.query);
+        manage: true,
+        template: coursesTemplate,
+        serialize: function() {
+            return {
+                query: this.getQueryTitle(this.collection.query),
+                courses: this.collection.toJSON(),
+                ongoingFetch: this.collection.ongoingFetch
+            };
         },
 
-        renderCoursesList: function(data) {
-            this.$("#loading").hide();
-            var context = {courses: data._embedded.courses};
-            this.$("#results").html(coursesTemplate(context));
-        },
+        beforeRender: function() { Backbone.trigger('domchange:title', this.collection.query); },
 
         getQueryTitle: function(query) {
             // this code hides the Solr query syntax to replace it by a user-friendly definition
@@ -34,6 +30,10 @@ function($, Backbone, _, baseTemplate, coursesTemplate, L, MoxieConf){
             } else {
                 return "Search: " + query;
             }
+        },
+
+        cleanup: function() {
+            this.collection.off('reset', this.render, this);
         }
     });
     return CoursesView;
