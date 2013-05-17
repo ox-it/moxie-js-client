@@ -1,13 +1,11 @@
-define(["underscore", "core/collections/MoxieCollection", "courses/models/CourseModel", "moxie.conf"], function(_, MoxieCollection, course, conf) {
+define(["underscore", "core/collections/MoxieCollection", "courses/models/CourseModel", "moxie.conf"], function(_, MoxieCollection, Course, conf) {
 
     var courses = MoxieCollection.extend({
-        model: course,
+        model: Course,
         url: function() {
             return conf.urlFor('courses_search') + "?q=" + this.query;
         },
-        fetch: function(query) {
-            if (this.ongoingFetch || (this.query===query && this.length)) { return; }
-            this.query = query;
+        fetch: function() {
             this.ongoingFetch = true;
             MoxieCollection.prototype.fetch.apply(this);
         },
