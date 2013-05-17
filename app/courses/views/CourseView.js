@@ -3,7 +3,7 @@ define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/base_course',
         var CourseView = Backbone.View.extend({
 
             initialize: function() {
-                _.bindAll(this);
+                this.user = this.options.user;
             },
 
             events: {
@@ -33,38 +33,9 @@ define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/base_course',
                     });
                 }
                 Backbone.trigger('domchange:title', this.model.get('title'));
-            },
-
-            renderAuthRequired: function() {
-                var data = {};
-                data.authorized = false;
-                data.authorization_url = this.authorization_url;
-                this.$('#authStatus').html(authTemplate(data));
-            },
-
-            checkAuthorization: function(data) {
-                this.authorization_url = MoxieConf.urlFor('courses_auth_authorize')+ '?callback_uri=' + window.escape(window.location.href);
-                // Check if the user has to be verified (back from oauth auth)
-                if (this.options.params && this.options.params.oauth_verifier) {
-                    $.ajax({
-                        url: MoxieConf.urlFor('courses_auth_verify'),
-                        data: {'oauth_verifier': this.options.params.oauth_verifier},
-                        dataType: 'json',
-                        xhrFields: {
-                            withCredentials: true
-                        }
-                    }).success(this.verifyAuth).error(this.handleError);
-                } else {
-                    // Check if the user is authorized
-                    $.ajax({
-                        url: MoxieConf.urlFor('courses_auth_authorized'),
-                        dataType: 'json',
-                        xhrFields: {
-                            withCredentials: true
-                        }
-                    }).success(this.verifyAuth).error(this.handleError);
-                    this.renderAuthRequired();
-                }
+                this.user.checkAuthorization({
+                    success: _.bind(this.renderAuthorized)
+                });
             },
 
             bookCourse: function(ev) {
@@ -85,29 +56,18 @@ define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/base_course',
                     xhrFields: {
                         withCredentials: true
                     }
-                }).success(this.callbackBookCourse)
-                .error(this.handleError);
-
+                }).success(this.callbackBookCourse);
             },
 
             callbackBookCourse: function(data) {
                 alert("Course booked!");
             },
 
-            verifyAuth: function(data) {
-                data.authorization_url = this.authorization_url;
-                this.$('#authStatus').html(authTemplate(data));
-                if(data.authorized === false) {
-                    $('.bookable').hide();
-                } else {
-                    $('.bookable').show();
-                }
-                console.log('User authorized? ' + data.authorized);
+            renderAuthorized: function() {
+                console.log("user authorized");
+                this.$('#authStatus').html(authTemplate());
             },
 
-            handleError: function(data) {
-                // TODO: Actually handle this error
-            }
         });
         return CourseView;
     });
