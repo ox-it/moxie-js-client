@@ -6,7 +6,7 @@ define(["underscore", "core/collections/MoxieCollection", "courses/models/Course
             return conf.urlFor('courses_search') + "?q=" + this.query;
         },
         fetch: function(query) {
-            if (this.ongoingFetch && (this.query===query)) { return; }
+            if (this.ongoingFetch || (this.query===query && this.length)) { return; }
             this.query = query;
             this.ongoingFetch = true;
             MoxieCollection.prototype.fetch.apply(this);
