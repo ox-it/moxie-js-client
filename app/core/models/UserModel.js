@@ -2,12 +2,17 @@ define(['underscore', 'backbone', 'jquery'], function(_, Backbone, $) {
     var User = Backbone.Model.extend({
         checkAuthorization: function(options) {
             options = options || {};
-            var success = options.success,
-                failure = options.failure,
+            var authorized = options.authorized,
+                unauthorized = options.unauthorized,
+                error = options.error,
                 verifier = options.verifier;
             var ajaxOptions = {
-                success: success,
-                error: failure,
+                success: _.bind(function(data) {
+                    if (data.authorized === true) { authorized(); }
+                    else if (data.authorized === false) { unauthorized(); }
+                    else { error(); }
+                }, this),
+                error: error,
                 xhrFields: { withCredentials: true } // These requests must send cookies
             };
             if (verifier) {
