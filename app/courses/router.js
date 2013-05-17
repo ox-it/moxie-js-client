@@ -25,17 +25,33 @@ define(["app", "underscore", "backbone", "courses/views/SubjectsView", "courses/
         },
 
         searchCourses: function(query) {
-            this.courses.fetch(query);
+            if (this.courses.query!==query || this.courses.length===0) {
+                // If the query is different or we have no preexisting results
+                this.courses.query = query;
+                this.courses.reset();
+                this.courses.fetch();
+            }
             app.showView(new CoursesView({
                 collection: this.courses,
             }));
         },
 
-        courseDetail: function(id, params) {
+        showDetail: function(course, params) {
             app.showView(new CourseView({
+                model: course,
                 params: params,
-                id: id
             }));
+        },
+        courseDetail: function(id, params) {
+            var course = this.courses.get(id);
+            if (course) {
+                this.showDetail(course, params);
+            } else {
+                course = new this.courses.model({id: id});
+                course.fetch({success: _.bind(function(model, response, options) {
+                    this.showDetail(model, params);
+                }, this) });
+            }
         }
 
     });
