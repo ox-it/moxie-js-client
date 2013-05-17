@@ -1,16 +1,16 @@
-<h2>{{ title }}</h2>
-<p class="type">{{ provider }}</p>
+<h2>{{ course.title }}</h2>
+<p class="type">{{ course.provider }}</p>
 <p>
-{{#subjects}}
+{{#course.subjects}}
 <a class="label-facet label-small" href='#/courses/course_subject:"{{this}}"'>{{this}}</a>
-{{/subjects}}
+{{/course.subjects}}
 </p>
-<p class="free-text">{{ description }} </p>
+<p class="free-text">{{ course.description }} </p>
 
 <div id="authStatus"></div>
 
 <ul>
-{{#_embedded.presentations}}
+{{#course.presentations}}
 <li>
 	{{#if start }}
 	Starts: {{ dateFormat start }}<br />
@@ -40,5 +40,5 @@
     </span>
 
 </li>
-{{/_embedded.presentations}}
+{{/course.presentations}}
 </ul>

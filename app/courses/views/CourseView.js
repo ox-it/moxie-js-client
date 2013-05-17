@@ -14,30 +14,25 @@ define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/base_course',
                 'class': 'generic free-text'
             },
 
-            render: function() {
-                this.$el.html(baseTemplate());
-                // Get course information
-                $.ajax({
-                    url: MoxieConf.urlFor('course_id') + this.options.id,
-                    dataType: 'json'
-                }).success([this.renderCourse, this.checkAuthorization])
-                .error(this.handleError);
-                return this;
+            manage: true,
+            template: courseTemplate,
+            serialize: function() {
+                return {course: this.model.toJSON()};
             },
 
-            renderCourse: function(data) {
-                this.$("#loading").hide();
-                this.$("#item").html(courseTemplate(data));
-                var presentations = data._embedded.presentations;
-                for (var i=0;i<presentations.length;i++) {
-                    if (presentations[i].location) {
-                        var poid = presentations[i].location;
-                        var element = this.$("#poi-" + poid.replace(":", "\\:"));
-                        var poi = new EmbeddedPoiView({el: element, poid: poid});
-                        poi.render();
-                    }
+            afterRender: function() {
+                var presentations = this.model.get('presentations');
+                if (presentations) {
+                    _.each(presentations, function(presentation) {
+                        if (presentation.location) {
+                            var poid = presentation.location;
+                            var element = this.$("#poi-" + poid.replace(":", "\\:"));
+                            var poi = new EmbeddedPoiView({el: element, poid: poid});
+                            poi.render();
+                        }
+                    });
                 }
-                Backbone.trigger('domchange:title', data.title);
+                Backbone.trigger('domchange:title', this.model.get('title'));
             },
 
             renderAuthRequired: function() {
