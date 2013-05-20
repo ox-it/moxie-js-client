@@ -183,7 +183,7 @@ h2.today {
     font-weight: 100;
 }
 
-div.today {
+li.today {
     display: inline-block;
     margin: 0 0 0 10px;
     @include box-shadow(0 0 2px #ccc);
