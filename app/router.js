@@ -1,6 +1,7 @@
-define(["app", "backbone", "places/router", "today/views/IndexView", "courses/router", "library/router", "contacts/router", "news/router", "favourites/views/FavouritesView"], function(app, Backbone, PlacesRouter, IndexView, CoursesRouter, LibraryRouter, ContactsRouter, NewsRouter, FavouritesView){
+define(["app", "backbone", "places/router", "today/views/IndexView", "today/collections/TodayItems", "courses/router", "library/router", "contacts/router", "news/router", "favourites/views/FavouritesView"], function(app, Backbone, PlacesRouter, IndexView, TodayItems, CoursesRouter, LibraryRouter, ContactsRouter, NewsRouter, FavouritesView){
     var MoxieRouter = Backbone.Router.extend({
         subrouters: {},
+        today: new TodayItems(),
         routes: {
             "": "index",
             "favourites/": "favourites",
@@ -12,8 +13,9 @@ define(["app", "backbone", "places/router", "today/views/IndexView", "courses/ro
             "news/*subroute": "news"
         },
 
-        index: function(params) {
-            app.renderView(new IndexView({params: params}), {menu: true});
+        index: function() {
+            this.today.fetch();
+            app.renderView(new IndexView({collection: this.today}), {menu: true});
         },
 
         favourites: function(params) {
