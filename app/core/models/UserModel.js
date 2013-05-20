@@ -8,24 +8,22 @@ define(['underscore', 'backbone', 'jquery'], function(_, Backbone, $) {
                 verifier = options.verifier;
             var ajaxOptions = {
                 success: _.bind(function(data) {
-                    if (data.authorized === true) { authorized(); }
-                    else if (data.authorized === false) { unauthorized(); }
-                    else { error(); }
+                    if (data.authorized === true && _.isFunction(authorized)) { authorized(data); }
+                    else if (data.authorized === false && _.isFunction(unauthorized)) { unauthorized(data); }
+                    else if (_.isFunction(error)) { error(data); }
                 }, this),
                 error: error,
                 xhrFields: { withCredentials: true } // These requests must send cookies
             };
             if (verifier) {
                 // User has just returned from the oAuth server
-                _.extend(ajaxOptions, {
-                    url: this.get('oAuthVerificationURL'),
-                    data: {'oauth_verifier': verifier},
-                    dataType: 'json'
-                });
+                ajaxOptions.url = this.get('oAuthVerificationURL');
+                ajaxOptions.data = {'oauth_verifier': verifier};
             } else {
                 // is the user already authenticated?
                 ajaxOptions.url = this.get('oAuthAuthorizedURL');
             }
+            ajaxOptions.dataType = 'json';
             $.ajax(ajaxOptions);
         },
     });
