@@ -1,25 +1,36 @@
-define(['jquery', 'backbone', 'underscore', 'hbs!today/templates/index', 'hbs!today/templates/oxford_date', 'leaflet', 'moxie.conf'],
-    function($, Backbone, _, indexTemplate, oxfordDate, L, MoxieConf){
+define(['backbone', 'underscore', 'hbs!today/templates/index'], function(Backbone, _, indexTemplate){
     var IndexView = Backbone.View.extend({
-
+        // This view handles the "cards" on the home screen
+        // Cards are views with models in this.collection
+        //
         initialize: function() {
-            _.bindAll(this);
+            this.collection.on('change', function(model) {
+                this.insertViewOnce(model);
+            }, this);
         },
-
-        render: function() {
-            // base, static template
-            this.$el.html(indexTemplate());
-
-            // loading date
-            $.ajax({
-                url: MoxieConf.urlFor('dates'),
-                dataType: 'json'
-            }).success(this.renderTodayDate);
-            return this;
+        insertViewOnce: function(model) {
+            var view = this.getView(function(view) {
+                return view.model === model;
+            });
+            if (view) { return; } // We have already inserted this view
+            view = new model.View({model: model});
+            this.insertView('ul', view);
+            view.render();
+            return view;
         },
-
-        renderTodayDate: function(data) {
-            this.$("#oxford_date").html(oxfordDate(data));
+        beforeRender: function() {
+            // Used for rendering the cards we have already loaded
+            // If the model has some attributes then insert the view.
+            this.collection.each(function(model) {
+                if (!_.isEmpty(model.attributes)) {
+                    this.insertView('ul', new model.View({model: model}));
+                }
+            }, this);
+        },
+        manage: true,
+        template: indexTemplate,
+        cleanup: function() {
+            this.collection.off('change');
         }
     });
     return IndexView;
