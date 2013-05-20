@@ -33,9 +33,12 @@ define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/base_course',
                     });
                 }
                 Backbone.trigger('domchange:title', this.model.get('title'));
-                this.user.checkAuthorization({
-                    success: _.bind(this.renderAuthorized)
-                });
+                var cb = _.bind(this.renderAuthorized, this);
+                var options = {authorized: cb, unauthorized: cb};
+                if (this.options.params && this.options.params.oauth_verifier) {
+                    options.verifier = this.options.params.oauth_verifier;
+                }
+                this.user.checkAuthorization(options);
             },
 
             bookCourse: function(ev) {
@@ -63,9 +66,9 @@ define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/base_course',
                 alert("Course booked!");
             },
 
-            renderAuthorized: function() {
-                console.log("user authorized");
-                this.$('#authStatus').html(authTemplate());
+            renderAuthorized: function(data) {
+                data.authorization_url = MoxieConf.urlFor('courses_auth_authorize')+ '?callback_uri=' + window.escape(window.location.href);
+                this.$('#authStatus').html(authTemplate(data));
             },
 
         });
