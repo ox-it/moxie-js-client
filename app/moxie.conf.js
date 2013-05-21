@@ -9,6 +9,7 @@ define([], function() {
             dates: '/dates/today',
             weather: '/weather/',
             rivers: '/rivers/',
+            webcams: '/webcams/',
             courses_search: '/courses/search',
             courses_subjects: '/courses/subjects',
             courses_bookings: '/courses/bookings',
