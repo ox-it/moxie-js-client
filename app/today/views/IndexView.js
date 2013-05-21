@@ -14,7 +14,7 @@ define(['backbone', 'underscore', 'hbs!today/templates/index'], function(Backbon
             });
             if (view) { return; } // We have already inserted this view
             view = new model.View({model: model});
-            this.insertView('ul', view);
+            this.insertView('.today-card-container', view);
             view.render();
             return view;
         },
@@ -23,7 +23,7 @@ define(['backbone', 'underscore', 'hbs!today/templates/index'], function(Backbon
             // If the model has some attributes then insert the view.
             this.collection.each(function(model) {
                 if (!_.isEmpty(model.attributes)) {
-                    this.insertView('ul', new model.View({model: model}));
+                    this.insertView('.today-card-container', new model.View({model: model}));
                 }
             }, this);
         },

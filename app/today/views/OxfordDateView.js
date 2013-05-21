@@ -1,6 +1,5 @@
 define(['backbone', 'hbs!today/templates/oxford_date'], function(Backbone, oxfordDateTemplate) {
     var OxfordDateView = Backbone.View.extend({
-        tagName: 'li',
         manage: true,
         id: 'oxford_date',
         attributes: {'class': 'today'},
