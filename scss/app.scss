@@ -183,12 +183,36 @@ h2.today {
     font-weight: 100;
 }
 
-li.today {
+div.today {
     display: inline-block;
-    margin: 0 0 0 10px;
+    vertical-align: top;
+    margin-left: 15px;
+    margin-top: 10px;
     @include box-shadow(0 0 2px #ccc);
     @include border-radius(3px);
     border: 1px solid #ccc;
+    min-height: 66px;
+    min-width: 30%;
+    @include respondTo(smallScreen) {
+        display: block;
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+    div.river-status:not(:last-child) {
+        border-right: 1px solid #ccc;
+    }
+    div.river-status {
+        padding: 20px;
+        font-size: 24px;
+        font-weight: 300;
+        text-align: center;
+        // TODO: Capture all the options this value can be
+        // Really the API docs should cover it
+        .green { color: green; }
+        .ss-flag {
+            text-align: right;
+        }
+    }
     > div {
         // Apply to every child div (day + date)
         float: left;
