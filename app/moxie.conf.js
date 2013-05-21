@@ -7,6 +7,8 @@ define([], function() {
             places_categories: '/places/types',
             places_id: '/places/',
             dates: '/dates/today',
+            weather: '/weather/',
+            rivers: '/rivers/',
             courses_search: '/courses/search',
             courses_subjects: '/courses/subjects',
             courses_bookings: '/courses/bookings',
