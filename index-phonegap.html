@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+
 <head>
     <meta charset="utf-8" />
 
@@ -22,7 +28,7 @@
     <link rel="stylesheet" href="css/app.css">
 
     <!-- Symbolset -->
-    <link href="webfonts/ss-standard.css" rel="stylesheet">
+    <link href="css/ss-moxie.css" rel="stylesheet">
 
     <!-- Leaflet -->
     <link rel="stylesheet" href="css/leaflet.css" />
@@ -32,29 +38,38 @@
 
     <script src="phonegap.js"></script>
     <script src="app.js"></script>
+
+    <!-- IE Fix for HTML5 Tags -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Fonts -->
+    <!--<link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>-->
+
 </head>
 <body>
-<div class="overlay"></div>
-<div id="sidebar">
-    <ul class="sidebar-items">
-        <a href="#"><li>Today</li></a>
-        <a href="#places/"><li>Places</li></a>
-        <a href="#library/"><li>Library search</li></a>
-        <a href="#contacts/search"><li>Contacts search</li></a>
-        <a href="#courses/"><li>Graduate courses</li></a>
-        <a href="#news/"><li>News</li></a>
-        <a href="#favourites/"><li>Favourites</li></a>
-    </ul>
-</div>
-<div id="main">
-    <ul id="navbar">
-        <li id="home"><a class="ss-rows" href="#"></a></li>
-        <li id="back" style="display:none"><a class="ss-left" href="#"></a></li>
-        <li id="title"><h1>Mobile Oxford</h1></li>
-        <li id="favourite"><a class="ss-star" href="#"></a></li>
-    </ul>
-    <div id="content">
-        <img src="images/preloader.gif" class="preloader">
+    <div class="overlay"></div>
+    <div id="sidebar">
+        <ul class="sidebar-items">
+            <a href="#"><li>Today</li></a>
+            <a href="#places/"><li>Places</li></a>
+            <a href="#library/"><li>Library search</li></a>
+            <a href="#contacts/search"><li>Contacts search</li></a>
+            <a href="#courses/"><li>Graduate courses</li></a>
+            <a href="#news/"><li>News</li></a>
+            <a href="#favourites/"><li>Favourites</li></a>
+        </ul>
     </div>
-</div>
+    <div id="main">
+        <ul id="navbar">
+            <li id="home"><a class="ss-rows" href="#"></a></li>
+            <li id="back" style="display:none"><a class="ss-left" href="#"></a></li>
+            <li id="title"><h1>Mobile Oxford</h1></li>
+            <li id="favourite"><a class="ss-star" href="#"></a></li>
+        </ul>
+        <div id="content">
+            <img src="images/preloader.gif" class="preloader">
+        </div>
+    </div>
 </body>
