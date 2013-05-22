@@ -3,8 +3,8 @@ define(['backbone', 'underscore', 'moxie.conf', 'today/views/WebcamCard'], funct
         url: conf.urlFor('webcams'),
         View: WebcamCard,
         parse: function(data) {
-            var index = _.random(0, data._embedded.webcams.length);
-            return data._embedded.webcams[index];
+            var webcams = _.shuffle(data._embedded.webcams);
+            return _.findWhere(webcams, {credit: "Oxford Internet Institute"});
         }
     });
     return Webcam;

@@ -1,7 +1,7 @@
 define(['backbone', 'moxie.conf'], function(Backbone, conf) {
     var WebcamCard = Backbone.View.extend({
         manage: true,
-        attributes: {'class': 'today'},
+        attributes: {'class': 'today webcam'},
         serialize: function() {
             return this.model.toJSON();
         },
