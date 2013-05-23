@@ -203,9 +203,9 @@ div.today {
     }
     @include respondTo(smallScreen) {
         // Single column mode
-        min-width: 90%;
-        margin-left: 5%;
-        margin-right: 5%;
+        min-width: 96%;
+        margin-left: 5px;
+        margin-right: 5px;
     }
     ul.five-day-forecast li {
         display: inline;
