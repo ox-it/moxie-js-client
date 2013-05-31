@@ -1,0 +1,11 @@
+<div class="day">
+    <span class="{{ observation.ss_class}}"></span>
+    <span class="ss-forecast ss-thermometer">{{ observation.temperature}}</span>
+</div>
+<div>
+    <ul class="five-day-forecast">
+        {{#forecasts}}
+        <li class="{{ ss_class}}"></li>
+        {{/forecasts}}
+    </ul>
+</div>

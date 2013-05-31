@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'hbs!places/templates/detail', 'hbs!places/templates/busrti'],
-    function($, Backbone, _, conf, detailTemplate, busRTITemplate){
+define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'hbs!places/templates/detail', 'hbs!places/templates/busrti', 'hbs!places/templates/trainrti'],
+    function($, Backbone, _, conf, detailTemplate, busRTITemplate, trainRTITemplate){
     var RTI_REFRESH = 15000;    // 15 seconds
     var DetailView = Backbone.View.extend({
 
@@ -26,12 +26,17 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'hbs!places/templates/
         },
 
         renderRTI: function(data) {
-            this.$('#poi-rti').html(busRTITemplate(data));
-            this.$("#rti-load").hide();
+            var type = this.model.get('type');
+            if (_.contains(type, '/transport/bus-stop')) {
+                this.$('#poi-rti').html(busRTITemplate(data));
+            } else if (_.contains(type, '/transport/rail-station')) {
+                this.$('#poi-rti').html(trainRTITemplate(data));
+            }
+            this.$("#rti-load").css('visibility', 'hidden');
         },
 
         refreshRTI: function() {
-            this.$("#rti-load").show();
+            this.$("#rti-load").css('visibility', 'visible');
             $.ajax({
                 url: conf.endpoint + this.model.getRTI().href,
                 dataType: 'json'
