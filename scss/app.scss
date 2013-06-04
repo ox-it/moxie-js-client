@@ -182,13 +182,55 @@ h2.today {
     margin-left: 10px;
     font-weight: 100;
 }
-
 div.today {
     display: inline-block;
-    margin: 0 0 0 10px;
+    vertical-align: top;
+    margin-left: 15px;
+    margin-top: 10px;
     @include box-shadow(0 0 2px #ccc);
     @include border-radius(3px);
     border: 1px solid #ccc;
+    min-height: 66px;
+    min-width: 30%;
+    h3 {
+        font-size: 15px;
+        border-bottom: 1px solid #ccc;
+        margin-bottom: 4px;
+        padding-left: 20px;
+        .disclaimer {
+            font-size: 14px;
+        }
+    }
+    @include respondTo(smallScreen) {
+        // Single column mode
+        min-width: 96%;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    ul.five-day-forecast li {
+        display: inline;
+        list-style-type: none;
+        padding-right: 8px;
+    }
+    ul.five-day-forecast li:last-child {
+        padding-right: none;
+    }
+
+    div.river-status:not(:last-child) {
+        border-right: 1px solid #ccc;
+    }
+    div.river-status {
+        padding: 20px;
+        font-size: 24px;
+        font-weight: 300;
+        text-align: center;
+        // TODO: Capture all the options this value can be
+        // Really the API docs should cover it
+        .green { color: green; }
+        .ss-flag {
+            text-align: right;
+        }
+    }
     > div {
         // Apply to every child div (day + date)
         float: left;
@@ -219,6 +261,11 @@ div.today {
             padding-bottom: 5px;
             padding-top: 3px;
         }
+    }
+}
+div.webcam {
+    @include respondTo(smallScreen) {
+        display: block;
     }
 }
 

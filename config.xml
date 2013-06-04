@@ -9,7 +9,7 @@
 
     <icon src="mobile-oxford-logo.png" />
 
-    <preference name="phonegap-version" value="2.5.0" />
+    <preference name="phonegap-version" value="2.7.0" />
     <preference name="prerendered-icon" value="true" />
     <preference name="show-splash-screen-spinner" value="false" />
 
