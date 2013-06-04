@@ -1,0 +1,39 @@
+{{#if messages}}
+    {{#messages}}
+    <p>{{{ this }}}</p>
+    {{/messages}}
+{{/if}}
+
+{{#if services}}
+<div class="rti">
+    <img src="images/preloader.gif" id="rti-load" class="preloader" width="15" height="15">
+    <table id="train-rti">
+        <thead>
+            <tr>
+                <th colspan="2">
+                    Destination
+                </th>
+                <th>
+                    Plat.
+                </th>
+                <th>
+                    Scheduled
+                </th>
+                <th>
+                    Expected
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        {{#services}}
+        <tr>
+            <td class="service-destination" colspan="2">{{#destination.location}}{{ locationName }}{{/destination.location}}</td>
+            <td class="service-platform">{{ platform }}</td>
+            <td class="service-std">{{ std }}</td>
+            <td class="service-etd">{{ etd }}</td>
+        </tr>
+        {{/services}}
+        </tbody>
+    </table>
+</div>
+{{/if}}
