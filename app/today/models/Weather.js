@@ -9,6 +9,7 @@ define(['backbone', 'underscore', 'moxie.conf', 'today/views/WeatherCard'], func
         'm': 'ss-haze',
         'f': 'ss-fog',
         'gc': 'ss-clouds',
+        'lr': 'ss-rain',
         'lrs': 'ss-rain',
         'd': 'ss-rain',
         'hr': 'ss-heavyrain',
@@ -26,18 +27,19 @@ define(['backbone', 'underscore', 'moxie.conf', 'today/views/WeatherCard'], func
             if (ssCSSClasses[observation.outlook_icon]) {
                 classes.push(ssCSSClasses[observation.outlook_icon]);
             } else {
+                if (console !== undefined) {
+                    console.log("No icon for forecast: '"+ observation.outlook_description +"' Icon: "+ observation.outlook_icon);
+                }
                 classes.push('ss-clouds');
             }
             observation.ss_class = classes.join(' ');
             return observation;
         },
         parse: function(data) {
-            console.log(data);
             this.setSSClass(data.observation);
             _.each(data.forecasts, function(forecast) {
                 this.setSSClass(forecast);
             }, this);
-            console.log(data);
             return data;
         }
     });
