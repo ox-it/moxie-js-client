@@ -1,5 +1,6 @@
-define(['backbone', 'moxie.conf'], function(Backbone, conf) {
-    var WebcamCard = Backbone.View.extend({
+define(['today/views/CardView', 'moxie.conf'], function(CardView, conf) {
+    var WebcamCard = CardView.extend({
+        weight: 60,
         manage: true,
         attributes: {'class': 'today webcam'},
         serialize: function() {
