@@ -27,7 +27,7 @@ define(['backbone', 'underscore', 'moxie.conf', 'today/views/WeatherCard'], func
             if (ssCSSClasses[observation.outlook_icon]) {
                 classes.push(ssCSSClasses[observation.outlook_icon]);
             } else {
-                if (console !== undefined) {
+                if ('console' in window) {
                     console.log("No icon for forecast: '"+ observation.outlook_description +"' Icon: "+ observation.outlook_icon);
                 }
                 classes.push('ss-clouds');
