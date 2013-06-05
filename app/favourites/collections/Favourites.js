@@ -2,8 +2,18 @@ define(["backbone", "underscore", "favourites/models/Favourite", "localstorage"]
 
     function(Backbone, _, Favourite) {
         var Favourites = Backbone.Collection.extend({
+            initialize: function() {
+                try {
+                    // Possible error thrown when loading without localStorage available
+                    this.localStorage = new Backbone.LocalStorage("favourites");
+                } catch (e) {
+                    if ('console' in window) {
+                        console.log("Error accessing localStorage");
+                        console.log(e);
+                    }
+                }
+            },
             model: Favourite,
-            localStorage: new Backbone.LocalStorage("favourites"), // Unique name within your app.
 
             getCurrentPage: function() {
                 var fragment = Backbone.history.getFragment(undefined, undefined, true);

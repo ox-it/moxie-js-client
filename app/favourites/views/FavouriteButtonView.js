@@ -4,10 +4,13 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'favourites/collection
             initialize: function() {
                 _.bindAll(this);
                 this.favourites = new Favourites();
-                this.favourites.fetch();
-                this.updateButton();
-                this.favourites.on("remove add", this.updateButton, this);
-                $(window).on("hashchange", this.updateButton);
+                if ('localStorage' in this.favourites) {
+                    // Gracefully degrade if we don't support localStorage
+                    this.favourites.fetch();
+                    this.updateButton();
+                    this.favourites.on("remove add", this.updateButton, this);
+                    $(window).on("hashchange", this.updateButton);
+                }
             },
 
             attributes: {
