@@ -6,7 +6,7 @@ require(['jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'favourites/v
         // Listen for events on each click on Android
         // This seems to be the only way to open links in the android browser
         //
-        document.addEventListener("deviceready", function() {
+        $(document).on("deviceready", function() {
             if ((window.device) && (window.device.platform==='Android')) {
                 $('#content').on('click', "a[href][target='_blank']", function(ev) {
                     ev.preventDefault();
@@ -14,7 +14,7 @@ require(['jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'favourites/v
                     return false;
                 });
             }
-        }, false);
+        });
     });
 
     var moxieRouter = new MoxieRouter();
