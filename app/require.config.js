@@ -16,6 +16,7 @@ var require = {
         "leaflet": "libs/leaflet",
         "time_domain": "libs/time_domain",
         "fastclick": "libs/fastclick",
+        "moment": "libs/moment",
         "backbone.queryparams": "libs/backbone.queryparams",
         "backbone.subroute": "libs/backbone.subroute",
         "backbone.layoutmanager": "libs/backbone.layoutmanager",
