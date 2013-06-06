@@ -20,6 +20,14 @@ define(["backbone", "underscore", "today/views/BusCard", "moxie.conf", "moxie.po
             this.fetch({reset: true});
         },
 
+        fetch: function(options) {
+            if (this.userLatLon) {
+                options.headers = options.headers || {};
+                options.headers['Geo-Position'] = this.userLatLon.join(';');
+            }
+            return Backbone.Model.prototype.fetch.apply(this, [options]);
+        },
+
         url: function() {
            return conf.urlFor('places_search') + '?type=/transport/bus-stop&count=1';
         },

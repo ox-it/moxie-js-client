@@ -3,7 +3,7 @@ define(['moxie.conf', 'underscore', 'today/views/CardView', 'hbs!today/templates
     var RTI_REFRESH = 60000;    // 1 minute
     var BusCard = CardView.extend({
         initialize: function() {
-            this.model.on('reset', this.render);
+            this.model.on('change', this.render, this);
         },
         weight: 75,
         manage: true,
