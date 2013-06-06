@@ -21,6 +21,7 @@ define(['moxie.conf', 'underscore', 'today/views/CardView', 'hbs!today/templates
             this.showEl();
         },
         afterRender: function() {
+            this.clearRefresh();
             var rti = this.model.getRTI();
             if (this.model.getRTI()) {
                 this.refreshRTI();
@@ -37,8 +38,13 @@ define(['moxie.conf', 'underscore', 'today/views/CardView', 'hbs!today/templates
         showEl: function() {
             this.el.style.display = null;
         },
+        clearRefresh: function() {
+            if (this.refreshID) {
+                clearInterval(this.refreshID);
+            }
+        },
         cleanup: function() {
-            clearInterval(this.refreshID);
+            this.clearRefresh();
             this.model.off();
             this.model.unfollowUser();
         },
