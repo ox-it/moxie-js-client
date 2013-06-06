@@ -8,8 +8,11 @@ define(['underscore', 'moxie.conf', 'leaflet'], function(_, MoxieConf, L){
             }, categories);
         },
         getMap: function(el) {
-            if (L.Browser.android) {
-                console.log("Android! Disabling 3D acceleration.");
+            if (('device' in window) && (window.device.platform==='Android')) {
+                // Disable 3D acceleration for Android WebViews
+                if ('console' in window) {
+                    console.log("Android! Disabling 3D acceleration.");
+                }
                 L.Browser.any3d = false;
             }
             var map = new L.map(el).setView([MoxieConf.defaultLocation.coords.latitude, MoxieConf.defaultLocation.coords.longitude], 15, true);
