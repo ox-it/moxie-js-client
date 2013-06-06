@@ -37,11 +37,17 @@ $todayColor: $pantone7412;
 // used to provide a base style
 div.rti {
         background: url($subtle-dots);
+        position: relative;
         //@include hidpi {background: url($subtle-dots-hidpi);}
-        padding: 14px 0;
+        padding: 10px 0;
         border-top: 1px solid rgba(255,255,255,0.9);
         border-bottom: 1px solid rgba(255,255,255,0.9);
         @include box-shadow(inset 0 0 8px #ddd);
+        #rti-load {
+            position: absolute;
+            left: 10px;
+            top: 5px;
+        }
 }
 
 // Bus RTI styling
