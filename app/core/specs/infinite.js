@@ -32,16 +32,6 @@ define(["jquery", "backbone", "jasmine", "core/views/InfiniteScrollView"], funct
 
             expect(scrollCallbackCalled).toBe(true);
         });
-        it("Should fire the callback precisely upon the scrollThreshold", function() {
-            scroll.el.scrollTop = ((scroll.el.scrollHeight*scroll.scrollThreshold) - scroll.el.clientHeight);
-
-            // Manually trigger the scroll event, since we're not really scrolling
-            scroll.$el.scroll();
-            // Manually fire what we default to every 250ms
-            scroll.handleScroll();
-
-            expect(scrollCallbackCalled).toBe(true);
-        });
         it("Shouldn't fire the callback just below scrollThreshold", function() {
             scroll.el.scrollTop = ((scroll.el.scrollHeight*scroll.scrollThreshold) - scroll.el.clientHeight) -1;
             scroll.$el.scroll();
