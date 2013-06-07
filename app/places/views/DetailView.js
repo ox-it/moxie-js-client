@@ -20,27 +20,8 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'hbs!places/templates/
         afterRender: function() {
             Backbone.trigger('domchange:title', this.model.get('name'));
             if (this.model.getRTI()) {
-                this.refreshRTI();
-                this.refreshID = setInterval(this.refreshRTI, RTI_REFRESH);
+                this.refreshID = this.model.renderRTI(this.$('#poi-rti')[0], RTI_REFRESH);
             }
-        },
-
-        renderRTI: function(data) {
-            var type = this.model.get('type');
-            if (_.contains(type, '/transport/bus-stop')) {
-                this.$('#poi-rti').html(busRTITemplate(data));
-            } else if (_.contains(type, '/transport/rail-station')) {
-                this.$('#poi-rti').html(trainRTITemplate(data));
-            }
-            this.$("#rti-load").css('visibility', 'hidden');
-        },
-
-        refreshRTI: function() {
-            this.$("#rti-load").css('visibility', 'visible');
-            $.ajax({
-                url: conf.endpoint + this.model.getRTI().href,
-                dataType: 'json'
-            }).success(this.renderRTI);
         },
 
         cleanup: function() {
