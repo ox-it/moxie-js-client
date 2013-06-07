@@ -13,6 +13,8 @@
     <preference name="prerendered-icon" value="true" />
     <preference name="show-splash-screen-spinner" value="false" />
 
+    <gap:plugin name="GAPlugin" /> <!-- latest release -->
+
     <gap:splash src="mobile-oxford-splash.png" />
 
     <gap:splash src="images/ios/mobile-oxford-splash-screen-320_480.png" width="320" height="480" />

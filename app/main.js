@@ -1,4 +1,20 @@
 require(['jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'favourites/views/FavouriteButtonView', 'backbone.queryparams', 'backbone.layoutmanager'], function($, Backbone, MoxieRouter, FastClick, conf, FavouriteButtonView) {
+    function gaError(msg){
+        console.log('GA Plugin Error: ' + msg);
+    }
+    function trackPageError(msg){
+        console.log('GA Plugin Track Page Error: ' + msg);
+    }
+    function trackPageSuccess(){
+        console.log('GA Plugin Track Page Success');
+        //GA set variable (1st)
+        var gaPlugin = window.plugins.gaPlugin;
+        gaPlugin.setVariable(nativePluginResultHandler, nativePluginErrorHandler, "Device info", device.name + '|' + device.platform + '|' + device.version, 1);
+    }
+    function trackPage() {
+        var gaPlugin = window.plugins.gaPlugin;
+        gaPlugin.trackPage(trackPageSuccess, trackPageError, Backbone.history.fragment);
+    }
     // Include FastClick, this removes a 300ms touch event delay
     $(function() {
         new FastClick(document.body);
@@ -6,7 +22,11 @@ require(['jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'favourites/v
         // Listen for events on each click on Android
         // This seems to be the only way to open links in the android browser
         //
+        var gaPlugin;
         $(document).on("deviceready", function() {
+            gaPlugin = window.plugins.gaPlugin;
+            gaPlugin.init(function() {console.log("success on GA");}, function() {console.log("failure on GA");}, "UA-40281467-3", 10);
+            $(window).on("hashchange", trackPage);
             if ((window.device) && (window.device.platform==='Android')) {
                 $('#content').on('click', "a[href][target='_blank']", function(ev) {
                     ev.preventDefault();
