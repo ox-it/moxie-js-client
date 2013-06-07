@@ -1,6 +1,6 @@
-define(["backbone", "underscore", "today/views/BusCard", "moxie.conf", "moxie.position"], function(Backbone, _, BusCard, conf, userPosition) {
+define(["backbone", "underscore", "places/models/POIModel", "today/views/BusCard", "moxie.conf", "moxie.position"], function(Backbone, _, POI, BusCard, conf, userPosition) {
 
-    var Bus = Backbone.Model.extend({
+    var Bus = POI.extend({
         initialize: function(query) {
             this.followUser();
         },
@@ -29,13 +29,7 @@ define(["backbone", "underscore", "today/views/BusCard", "moxie.conf", "moxie.po
         },
 
         url: function() {
-           return conf.urlFor('places_search') + '?type=/transport/bus-stop&count=1';
-        },
-
-        getRTI: function() {
-            if (this.attributes._links && this.attributes._links['hl:rti']) {
-                return this.attributes._links['hl:rti'];
-            }
+           return conf.urlFor('places_search') + '?type_exact=/transport/rail-station&type_exact=/transport/bus-stop&count=1';
         },
 
         parse: function(data) {

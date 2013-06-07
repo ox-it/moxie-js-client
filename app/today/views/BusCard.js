@@ -15,25 +15,15 @@ define(['moxie.conf', 'underscore', 'today/views/CardView', 'hbs!today/templates
             return this.model.toJSON();
         },
         template: busTemplate,
-        renderRTI: function(data) {
-            this.$('#poi-rti').html(busRTITemplate(data));
-            this.$("#rti-load").css('visibility', 'hidden');
-            this.showEl();
+        beforeRender: function() {
+            this.el.style.display = 'none';
         },
         afterRender: function() {
             this.clearRefresh();
-            var rti = this.model.getRTI();
             if (this.model.getRTI()) {
-                this.refreshRTI();
-                this.refreshID = setInterval(_.bind(this.refreshRTI, this), RTI_REFRESH);
+                this.refreshID = this.model.renderRTI(this.$('#poi-rti')[0], RTI_REFRESH);
+                this.model.rti.on('sync', this.showEl, this);
             }
-        },
-        refreshRTI: function() {
-            this.$("#rti-load").css('visibility', 'visible');
-            $.ajax({
-                url: conf.endpoint + this.model.getRTI().href,
-                dataType: 'json'
-            }).success(_.bind(this.renderRTI, this));
         },
         showEl: function() {
             this.el.style.display = null;
