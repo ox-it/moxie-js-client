@@ -1,4 +1,4 @@
-define(['backbone', 'underscore', 'hbs!today/templates/index'], function(Backbone, _, indexTemplate){
+define(['jquery', 'backbone', 'underscore', 'masonry', 'hbs!today/templates/index'], function($, Backbone, _, masonry, indexTemplate){
     var IndexView = Backbone.View.extend({
         // This view handles the "cards" on the home screen
         // Cards are views with models in this.collection
@@ -16,6 +16,7 @@ define(['backbone', 'underscore', 'hbs!today/templates/index'], function(Backbon
             view = new model.View({model: model});
             this.insertView('.today-card-container', view);
             view.render();
+            //$('.today-card-container').masonry('reload');
             return view;
         },
         beforeRender: function() {
@@ -26,6 +27,18 @@ define(['backbone', 'underscore', 'hbs!today/templates/index'], function(Backbon
                     this.insertView('.today-card-container', new model.View({model: model}));
                 }
             }, this);
+        },
+        afterRender: function() {
+            $('.today-card-container').masonry({
+                itemSelector : '.today',
+                columnWidth : 200,
+                isAnimated: true,
+                  animationOptions: {
+                    duration: 750,
+                    easing: 'linear',
+                    queue: false
+                  }
+            });
         },
         manage: true,
         template: indexTemplate,

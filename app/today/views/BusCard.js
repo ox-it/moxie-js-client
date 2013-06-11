@@ -1,4 +1,4 @@
-define(['moxie.conf', 'underscore', 'today/views/CardView', 'hbs!today/templates/bus', 'hbs!places/templates/busrti'], function(conf, _, CardView, busTemplate, busRTITemplate) {
+define(['jquery', 'moxie.conf', 'underscore', 'masonry', 'today/views/CardView', 'hbs!today/templates/bus', 'hbs!places/templates/busrti'], function($, conf, _, masonry, CardView, busTemplate, busRTITemplate) {
 
     var RTI_REFRESH = 60000;    // 1 minute
     var BusCard = CardView.extend({
@@ -24,6 +24,7 @@ define(['moxie.conf', 'underscore', 'today/views/CardView', 'hbs!today/templates
                 this.refreshID = this.model.renderRTI(this.$('#poi-rti')[0], RTI_REFRESH);
                 this.model.rti.on('sync', this.showEl, this);
             }
+            $('.today-card-container').masonry('reload');
         },
         showEl: function() {
             this.el.style.display = null;
