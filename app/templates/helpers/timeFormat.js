@@ -1,5 +1,5 @@
 define(["handlebars", "moment"], function(Handlebars, moment) {
-    var DEFAULT_TIME_FORMAT = "HH:mm";
+    var DEFAULT_TIME_FORMAT = "h:mma";
     function timeFormat(arg) {
         if(!arg) {
             return "";
