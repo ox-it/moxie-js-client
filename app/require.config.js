@@ -22,6 +22,7 @@ var require = {
         "backbone.layoutmanager": "libs/backbone.layoutmanager",
         "backbone.hal": "libs/backbone.hal",
         "localstorage": "libs/backbone.localStorage",
+        "masonry": "libs/jquery.masonry",
 
         // Testing libs
         "jasmine": "tests/libs/jasmine-1.3.1/jasmine",
@@ -56,6 +57,10 @@ var require = {
         },
         "json2": {
             "exports": "JSON"
+        },
+        "masonry": {
+            "deps": ["jquery"],
+            "exports": "masonry"
         },
 
         // Jasmine Unit Testing
