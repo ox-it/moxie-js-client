@@ -20,7 +20,9 @@ define([], function() {
             courses_auth_authorize: '/courses/oauth/authorize',
             library_search: '/library/search',
             library_item: '/library/item:',
-            contact_search: '/contact/search'
+            contact_search: '/contact/search',
+            events_list: '/events/today',
+            events_id: '/events/event/'
         },
         urlFor: function(api_method) {
             return this.endpoint + this.paths[api_method];
