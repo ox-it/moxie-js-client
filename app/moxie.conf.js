@@ -28,10 +28,12 @@ define([], function() {
         pathFor: function(api_method) {
             return this.paths[api_method];
         },
-        geolocationInterval: 25000,
         defaultLocation: {coords: {latitude: 51.752018, longitude: -1.257723}},
         mapbox: {key: 'mobileox.map-iihxb1dl'},
         map: {bounds: {exponent: 0.75, limit: 500, fallback: 5}},
+        position: {
+            updateThrottle: 5000
+        },
         news: {
             feeds: [
                     {"title": "University of Oxford - Media", "url": "http://www.ox.ac.uk/news_rss.rm", "slug": "offices-media"},
