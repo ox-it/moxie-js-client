@@ -1,11 +1,61 @@
 define(["underscore", "backbone", "moxie.conf"], function(_, Backbone, conf){
     var EVENT_POSITION_UPDATED = 'position:updated';
-    var userPosition = {
-        count: 0,
-        supportsGeoLocation: Boolean(navigator.geolocation),
-        follow: function(cb) {
-            if (this.count===0) {
-                this.startWatching();
+    function UserPosition() {
+        _.extend(this, Backbone.Events);
+        var supportsGeoLocation = Boolean(navigator.geolocation),
+            spamReduction = false,
+            missedUpdate = null,
+            watchID;
+        function locationSuccess(position) {
+            // Trigger relevant events for any components listening to the user position
+            //
+            // The complexity here comes from not wanting to "spam" the geolocation API's
+            // Previously we fired callbacks whenever the position updated, If the callbacks
+            // were drawing the map it would severely effect performance on the device as
+            // redrawing the map wouldn't finish before starting the next redraw.
+            //
+            // Now we have a configurable throttle to reduce this effect. No callbacks will
+            // be fired within length of this throttle.
+            if (spamReduction) {
+                // Capture any missed updates whilst we're in "spam reduction mode"
+                missedUpdate = position;
+            } else {
+                this.trigger(EVENT_POSITION_UPDATED, position);
+                this.latest = position;
+                spamReduction = true;
+                setTimeout(_.bind(function() {
+                    spamReduction = false;
+                    if (missedUpdate) {
+                        locationSuccess.apply(this, [missedUpdate]);
+                        missedUpdate = null;
+                    }
+                }, this), conf.position.updateThrottle);
+            }
+        }
+        function locationError() {
+            if (!this.latest) {
+                // We have no good position data so update to the default location
+                this.latest = conf.defaultLocation;
+                this.trigger(EVENT_POSITION_UPDATED, conf.defaultLocation);
+            }
+        }
+        function startWatching() {
+            if (supportsGeoLocation) {
+                watchID = navigator.geolocation.watchPosition(_.bind(locationSuccess, this), _.bind(locationError, this),
+                    {
+                        enableHighAccuracy: true,
+                        maximumAge: 120000,  // 2 minutes
+                        timeout: 25000,      // 25 seconds
+                    });
+            } else {
+                locationError.apply(this);
+            }
+        }
+        var count = 0;
+        this.follow = function(cb) {
+            if (!watchID) {
+                // Call the "private" function with the correct context
+                startWatching.apply(this);
             }
             this.on(EVENT_POSITION_UPDATED, cb);
             if (this.latest) {
@@ -13,34 +63,14 @@ define(["underscore", "backbone", "moxie.conf"], function(_, Backbone, conf){
                 this.trigger(EVENT_POSITION_UPDATED, this.latest);
             }
             this.count++;
-        },
-        unfollow: function(cb) {
+        };
+        this.unfollow = function(cb) {
             this.off(EVENT_POSITION_UPDATED, cb);
             this.count--;
-        },
-        locationSuccess: function(position) {
-            this.trigger(EVENT_POSITION_UPDATED, position);
-            this.latest = position;
-        },
-        locationError: function() {
-            if (!this.latest) {
-                // We have no good position data so update to the default location
-                this.trigger(EVENT_POSITION_UPDATED, conf.defaultLocation);
-                this.latest = conf.defaultLocation;
+            if (this.count === 0) {
+                navigator.geolocation.clearWatch(watchID);
             }
-        },
-        startWatching: function() {
-            if (this.supportsGeoLocation) {
-                // Ask for immediate position then watch with a big timeout / max age
-                navigator.geolocation.getCurrentPosition(this.locationSuccess, this.locationError);
-                this.watchID = navigator.geolocation.watchPosition(this.locationSuccess, this.locationError,
-                    {maximumAge: 120000, timeout:25000}); // This is useful for debugging problem with geolocation
-            } else {
-                this.locationError();
-            }
-        }
-    };
-    _.bindAll(userPosition);
-    _.extend(userPosition, Backbone.Events);
-    return userPosition;
+        };
+    }
+    return new UserPosition();
 });
