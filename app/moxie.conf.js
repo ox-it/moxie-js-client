@@ -21,7 +21,7 @@ define([], function() {
             library_search: '/library/search',
             library_item: '/library/item:',
             contact_search: '/contact/search',
-            events_list: '/events/today',
+            events_list: '/events/search?from=now',
             events_id: '/events/event/'
         },
         urlFor: function(api_method) {
