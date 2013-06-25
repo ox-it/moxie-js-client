@@ -7,11 +7,15 @@ define(["backbone", "underscore", "places/models/POIModel", "today/views/BusCard
         View: BusCard,
 
         followUser: function() {
-            userPosition.follow(_.bind(this.handle_geolocation_query, this));
+            userPosition.getLocation(_.bind(this.handle_geolocation_query, this));
+            // Update the models every minute with an updated position
+            this.positionInterval = window.setInterval(userPosition.getLocation, 60000, _.bind(this.handle_geolocation_query, this));
         },
 
         unfollowUser: function() {
-            userPosition.unfollow(_.bind(this.handle_geolocation_query, this));
+            if (this.positionInterval) {
+                window.clearInterval(this.positionInterval);
+            }
         },
 
         userLatLon: null,
