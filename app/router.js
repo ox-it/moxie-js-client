@@ -1,4 +1,5 @@
-define(["app", "backbone", "places/router", "today/views/IndexView", "today/collections/TodayItems", "courses/router", "library/router", "contacts/router", "news/router", "favourites/views/FavouritesView"], function(app, Backbone, PlacesRouter, IndexView, TodayItems, CoursesRouter, LibraryRouter, ContactsRouter, NewsRouter, FavouritesView){
+define(["app", "backbone", "places/router", "today/views/IndexView", "today/collections/TodayItems", "courses/router", "library/router", "contacts/router", "news/router", "events/router", "favourites/views/FavouritesView"],
+    function(app, Backbone, PlacesRouter, IndexView, TodayItems, CoursesRouter, LibraryRouter, ContactsRouter, NewsRouter, EventsRouter, FavouritesView){
     var MoxieRouter = Backbone.Router.extend({
         subrouters: {},
         today: new TodayItems(),
@@ -10,7 +11,8 @@ define(["app", "backbone", "places/router", "today/views/IndexView", "today/coll
             "courses/*subroute": "coursesModule",
             "library/*subroute": "libraryModule",
             "contacts/*subroute": "contacts",
-            "news/*subroute": "news"
+            "news/*subroute": "news",
+            "events/*subroute": "events"
         },
 
         index: function() {
@@ -30,6 +32,11 @@ define(["app", "backbone", "places/router", "today/views/IndexView", "today/coll
         news: function(params) {
             if (!this.subrouters.News) {
                 this.subrouters.News = new NewsRouter('news', {createTrailingSlashRoutes: true});
+            }
+        },
+        events: function(params) {
+            if (!this.subrouters.Events) {
+                this.subrouters.Events = new EventsRouter('events', {createTrailingSlashRoutes: true});
             }
         },
         placesModule: function(subroute) {
