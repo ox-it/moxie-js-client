@@ -1,4 +1,4 @@
-define(['core/collections/MoxieCollection', 'today/models/OxfordDate', 'today/models/Weather', 'today/models/Webcam', 'today/models/RiverStatus', 'today/models/BusStop', 'events/collections/EventCollection'],
+define(['core/collections/MoxieCollection', 'today/models/OxfordDate', 'today/models/Weather', 'today/models/Webcam', 'today/models/RiverStatus', 'today/models/BusStop', 'today/models/Events'],
     function(MoxieCollection, OxfordDate, Weather, Webcam, RiverStatus, BusStop, Events) {
         var TodayItems = MoxieCollection.extend({
             fetch: function() {
