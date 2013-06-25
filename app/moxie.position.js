@@ -6,6 +6,35 @@ define(["underscore", "backbone", "moxie.conf"], function(_, Backbone, conf){
             spamReduction = false,
             missedUpdate = null,
             watchID;
+        this.getLocation = function(cb, options) {
+            options = options || {};
+            // Default options:
+            // errorMargin = 50 meters
+            // timeout     = 30 seconds
+            //
+            // If we don't get a location within the errorMargin after before the Timeout
+            // we return the most recent position reported by watchPosition
+            options.errorMargin = options.errorMargin || 50;
+            options.timeout = options.timeout || 30000;
+            var watchID;
+            var latestPosition;
+            var accuracyTimeout = setTimeout(function() {
+                navigator.geolocation.clearWatch(watchID);
+            }, options.timeout);
+            watchID = navigator.geolocation.watchPosition(function(position) {
+                latestPosition = position;
+                if (latestPosition.coords && latestPosition.coords.accuracy && latestPosition.coords.accuracy < options.errorMargin) {
+                    window.clearTimeout(accuracyTimeout);
+                    navigator.geolocation.clearWatch(watchID);
+                    cb(latestPosition);
+                }
+            }, _.bind(locationError, this),
+            {
+                    enableHighAccuracy: true,
+                    maximumAge: 120000,  // 2 minutes
+            });
+
+        };
         function locationSuccess(position) {
             // Trigger relevant events for any components listening to the user position
             //
