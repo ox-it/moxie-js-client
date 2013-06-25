@@ -2,7 +2,10 @@ define(["core/collections/MoxieCollection", "events/models/EventModel", "moxie.c
 
     var Events = MoxieCollection.extend({
         model: Event,
-        url: conf.urlFor('events_list')
+        url: conf.urlFor('events_list'),
+        parse: function(data) {
+            return data._embedded;
+        }
     });
 
     return Events;
