@@ -5,7 +5,7 @@ define(['today/views/CardView', 'hbs!today/templates/events'], function(CardView
         id: 'events_list',
         attributes: {'class': 'today'},
         serialize: function() {
-            return this.model.toJSON();
+            return this.collection.toJSON();
         },
         template: eventsTemplate
     });
