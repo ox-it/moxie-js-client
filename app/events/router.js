@@ -5,7 +5,7 @@ define(["app", "underscore", "backbone", "moxie.conf", "events/collections/Event
 
         routes: {
             "": "listEvents",
-            "/:id": "detailEvent"
+            ":id": "detailEvent"
         },
 
         listEvents: function() {
