@@ -8,8 +8,11 @@ define(["app", "underscore", "backbone", "moxie.conf", "events/collections/Event
             ":id": "detailEvent"
         },
 
+        initialize: function() {
+            this.events.fetch({reset: true});
+        },
+
         listEvents: function() {
-            this.events.fetch();
             app.showView(new EventsView({collection: this.events}));
         },
 
@@ -18,9 +21,9 @@ define(["app", "underscore", "backbone", "moxie.conf", "events/collections/Event
             if (event) {
                 app.showView(new EventView({model: event}));
             } else {
-                console.log("TODO");
+                console.log("Not found");
             }
-        }
+        },
     });
 
     return EventsRouter;

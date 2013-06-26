@@ -4,7 +4,7 @@ define(["core/collections/MoxieCollection", "events/models/EventModel", "moxie.c
         model: Event,
         url: conf.urlFor('events_list'),
         parse: function(data) {
-            return data._embedded;
+            return data._embedded.events;
         }
     });
 
