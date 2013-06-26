@@ -30,8 +30,8 @@ define(['jquery', 'backbone', 'underscore', 'hbs!events/templates/events', 'even
             _.each(week, addWeek, this);
 
              this.insertViews({
-                'ul#today': today,
-                'ul#week': week
+                'ul#today': todayEvents,
+                'ul#week': weekEvents
             });
         },
 
