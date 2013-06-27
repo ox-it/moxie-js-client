@@ -3,7 +3,6 @@ Handling Geolocation
 ====================
 
 Any components in moxie-js-client can access the users location data through two different APIs found in the ``moxie.position`` module.
-To add infinite scrolling to your views simply extend ``core/views/InfiniteScrollView``, a simple example of this can be found in ``core/views/specs/infinite``.
 
 Follow/Unfollow - subscribe to updates
 --------------------------------------
