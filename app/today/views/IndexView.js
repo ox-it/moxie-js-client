@@ -31,10 +31,10 @@ define(['jquery', 'backbone', 'underscore', 'masonry', 'hbs!today/templates/inde
         afterRender: function() {
             $('.today-card-container').masonry({
                 itemSelector : '.today',
-                columnWidth : 200,
+                columnWidth : 5,
                 isAnimated: true,
                   animationOptions: {
-                    duration: 750,
+                    duration: 250,
                     easing: 'linear',
                     queue: false
                   }
