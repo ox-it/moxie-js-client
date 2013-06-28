@@ -5,9 +5,9 @@ define(['backbone', 'underscore', 'hbs!places/templates/busrti', 'hbs!places/tem
             this.model.on('request', this.showLoader, this);
             var type = this.model.get('type');
             var template;
-            if (_.contains(type, '/transport/bus-stop')) {
+            if (type === 'bus') {
                 template = busRTITemplate;
-            } else if (_.contains(type, '/transport/rail-station')) {
+            } else if (_.contains(['rail-arrivals', 'rail-departures'], type)) {
                 template = trainRTITemplate;
             }
             this.template = template;
