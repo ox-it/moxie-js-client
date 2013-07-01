@@ -50,6 +50,26 @@ div.rti {
         }
 }
 
+// Train RTI styling
+table#train-rti {
+    width: 98%;
+    .delayed {
+        color: $pantone200;
+    }
+    td {
+      padding-top: 5px;
+      padding-bottom: 5px;
+      padding-right: 5px;
+      padding-left: 10px;
+      border-bottom: 1px solid #ddd;
+      border-right: 1px solid #ddd;
+    }
+
+    td:first-child {
+      padding-right: 0;
+    }
+}
+
 // Bus RTI styling
 table#bus-rti {
     border-collapse: collapse;
