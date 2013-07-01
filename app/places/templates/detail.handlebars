@@ -23,6 +23,13 @@
 	</p>
 </div>
 	{{#if rti}}
+    {{#if multiRTI}}
+    <h5>{{ currentRTI.title }}
+        {{#if alternateRTI}}
+        ({{#alternateRTI}}<a href="#/places/{{../poi.id}}?rti={{type}}">{{ title }}</a>{{/alternateRTI}})
+        {{/if}}
+    </h5>
+    {{/if}}
 	<div id="poi-rti">
 	    <img src="images/preloader.gif" class="preloader" width="15" height="15">
 	</div>
