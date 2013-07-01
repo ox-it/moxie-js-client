@@ -37,7 +37,7 @@ define(["backbone", "underscore", "places/models/POIModel", "today/views/BusCard
         },
 
         parse: function(data) {
-            return data._embedded.pois[0];
+            return POI.prototype.parse.apply(this, [data._embedded.pois[0]]);
         }
     });
     return Bus;
