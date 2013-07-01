@@ -6,9 +6,11 @@ define(["backbone", "underscore", "moxie.conf", "places/models/RTIModel", "place
            return conf.urlFor('places_id') + this.id;
         },
 
-        renderRTI: function(target, timeout) {
-            var rti = this.getRTI(DEFAULT_RTI_TYPES);
-            var attrs = rti[0];
+        renderRTI: function(target, timeout, type) {
+            var types = type ? [type] : DEFAULT_RTI_TYPES;
+            var allRTI = this.getRTI();
+            var filteredRTI = _.filter(allRTI, function(rti) { return _.contains(types, rti.type); });
+            var attrs = filteredRTI[0];
             this.rti = new RTI(attrs);
             var rtiView = new RTIView({model: this.rti, el: target});
             this.rti.fetch();
@@ -17,18 +19,13 @@ define(["backbone", "underscore", "moxie.conf", "places/models/RTIModel", "place
             }
         },
 
-        getRTI: function(types) {
-            types = [] || types;
+        getRTI: function() {
             var rti = [];
             _.each(this.attributes._links, function(val, key) {
-                console.log(key);
                 if (key.indexOf('rti:') === 0) {
                     // Remove the rti: from the front
                     // and set it as a type attr
                     val.type = key.substring(4);
-                    if (_.contains(types, val.type)) {
-                        return val;
-                    }
                     rti.push(val);
                 }
             });
