@@ -9,10 +9,12 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'hbs!places/templates/
 
         serialize: function() {
             var poi = this.model.toJSON();
-            return {poi: poi,
-            multiRTI: poi.RTI.length > 1,
-            alternateRTI: this.model.getAlternateRTI(),
-            currentRTI: this.model.getCurrentRTI()};
+            return {
+                poi: poi,
+                multiRTI: poi.RTI.length > 1,
+                alternateRTI: this.model.getAlternateRTI(),
+                currentRTI: this.model.getCurrentRTI()
+            };
         },
         template: detailTemplate,
         manage: true,
