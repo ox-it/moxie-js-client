@@ -551,3 +551,9 @@ ul.results-list {
 
     }
 }
+// Symbolset CSS
+//
+// Disable text-rendering for now as it causes problems in Android 4.2
+.ss-standard, .ss-forecast {
+    text-rendering: auto;
+}
