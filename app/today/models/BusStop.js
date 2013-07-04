@@ -28,8 +28,8 @@ define(["backbone", "underscore", "places/models/POIModel", "today/views/BusCard
             if (this.userLatLon) {
                 options.headers = options.headers || {};
                 options.headers['Geo-Position'] = this.userLatLon.join(';');
+                return Backbone.Model.prototype.fetch.apply(this, [options]);
             }
-            return Backbone.Model.prototype.fetch.apply(this, [options]);
         },
 
         url: function() {
@@ -37,7 +37,7 @@ define(["backbone", "underscore", "places/models/POIModel", "today/views/BusCard
         },
 
         parse: function(data) {
-            return data._embedded.pois[0];
+            return POI.prototype.parse.apply(this, [data._embedded.pois[0]]);
         }
     });
     return Bus;

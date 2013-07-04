@@ -1,4 +1,4 @@
-define(["backbone", "underscore", "moxie.conf", "places/models/RTIModel", "places/views/RTIView"], function(Backbone, _, conf, RTI, RTIView) {
+define(["backbone", "underscore", "moxie.conf", "places/models/RTIModels", "places/views/RTIViews"], function(Backbone, _, conf, RTIModels, RTIViews) {
 
     var DEFAULT_RTI_TYPES = ['bus', 'rail-departures'];
     var POI = Backbone.Model.extend({
@@ -7,11 +7,10 @@ define(["backbone", "underscore", "moxie.conf", "places/models/RTIModel", "place
         },
 
         renderRTI: function(target, timeout, type) {
-            var types = type ? [type] : DEFAULT_RTI_TYPES;
-            var allRTI = this.getRTI();
-            var filteredRTI = _.filter(allRTI, function(rti) { return _.contains(types, rti.type); });
-            var attrs = filteredRTI[0];
-            this.rti = new RTI(attrs);
+            var attrs = this.getCurrentRTI();
+            var RTIModel = RTIModels[attrs.type];
+            this.rti = new RTIModel(attrs);
+            var RTIView = RTIViews[attrs.type];
             var rtiView = new RTIView({model: this.rti, el: target});
             this.rti.fetch();
             if (timeout) {
@@ -19,18 +18,31 @@ define(["backbone", "underscore", "moxie.conf", "places/models/RTIModel", "place
             }
         },
 
-        getRTI: function() {
-            var rti = [];
-            _.each(this.attributes._links, function(val, key) {
+        getCurrentRTI: function() {
+            var showRTI = this.get('showRTI');
+            var types = showRTI ? [showRTI] : DEFAULT_RTI_TYPES;
+            return _.find(this.get('RTI'), function(rti) { return _.contains(types, rti.type); });
+        },
+
+        getAlternateRTI: function() {
+            var showRTI = this.get('showRTI');
+            var types = showRTI ? [showRTI] : DEFAULT_RTI_TYPES;
+            return _.filter(this.get('RTI'), function(rti) { return !_.contains(types, rti.type); });
+        },
+
+        parse: function(data) {
+            data.RTI = [];
+            _.each(data._links, function(val, key) {
                 if (key.indexOf('rti:') === 0) {
                     // Remove the rti: from the front
                     // and set it as a type attr
                     val.type = key.substring(4);
-                    rti.push(val);
+                    data.RTI.push(val);
                 }
             });
-            return rti;
+            return data;
         }
+
     });
 
     // Returns the Model class
