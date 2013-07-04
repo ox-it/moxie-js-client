@@ -6,8 +6,11 @@ define(['backbone', 'underscore', 'moxie.conf'], function(Backbone, _, conf) {
         url: function() {
             return conf.endpoint + this.get('href');
         },
-        parse: function(data) {
-            if (data.type && _.contains(['rail-arrivals', 'rail-departures'], data.type)) {
+    });
+    var RTIModels = {
+        'bus': RTIModel,
+        'rail-arrivals': RTIModel.extend({
+            parse: function(data) {
                 _.each(data.services, function(service) {
                     service.delayed = false;
                     if (service.etd) {
@@ -16,9 +19,11 @@ define(['backbone', 'underscore', 'moxie.conf'], function(Backbone, _, conf) {
                         service.delayed = testDelayed(service.eta);
                     }
                 });
+                return data;
             }
-            return data;
-        }
-    });
-    return RTIModel;
+        })
+    };
+    // Departures uses the same model as arrivals
+    RTIModels['rail-departures'] = RTIModels['rail-arrivals'];
+    return RTIModels;
 });

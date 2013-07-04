@@ -1,4 +1,4 @@
-define(["backbone", "underscore", "moxie.conf", "places/models/RTIModel", "places/views/RTIView"], function(Backbone, _, conf, RTI, RTIViews) {
+define(["backbone", "underscore", "moxie.conf", "places/models/RTIModel", "places/views/RTIView"], function(Backbone, _, conf, RTIModels, RTIViews) {
 
     var DEFAULT_RTI_TYPES = ['bus', 'rail-departures'];
     var POI = Backbone.Model.extend({
@@ -8,8 +8,9 @@ define(["backbone", "underscore", "moxie.conf", "places/models/RTIModel", "place
 
         renderRTI: function(target, timeout, type) {
             var attrs = this.getCurrentRTI();
-            this.rti = new RTI(attrs);
-            var RTIView = RTIViews[this.rti.get('type')];
+            var RTIModel = RTIModels[attrs.type];
+            this.rti = new RTIModel(attrs);
+            var RTIView = RTIViews[attrs.type];
             var rtiView = new RTIView({model: this.rti, el: target});
             this.rti.fetch();
             if (timeout) {
