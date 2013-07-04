@@ -43,11 +43,38 @@ div.rti {
         border-top: 1px solid rgba(255,255,255,0.9);
         border-bottom: 1px solid rgba(255,255,255,0.9);
         @include box-shadow(inset 0 0 8px #ddd);
+        p {
+            padding: 0 4px;
+        }
+        h3 {
+            font-size: 1.2em;
+            margin-top: 5px;
+        }
         #rti-load {
             position: absolute;
-            left: 10px;
-            top: 5px;
+            right: 10px;
+            top: 10px;
         }
+}
+
+// Train RTI styling
+table#train-rti {
+    width: 100%;
+    .delayed {
+        color: $pantone200;
+    }
+    td {
+      padding-top: 5px;
+      padding-bottom: 5px;
+      padding-right: 5px;
+      padding-left: 10px;
+      border: 1px solid #ddd;
+      background-color: #fff;
+    }
+
+    td:first-child {
+      padding-right: 0;
+    }
 }
 
 // Bus RTI styling
@@ -550,10 +577,4 @@ ul.results-list {
         }
 
     }
-}
-// Symbolset CSS
-//
-// Disable text-rendering for now as it causes problems in Android 4.2
-.ss-standard, .ss-forecast {
-    text-rendering: auto;
 }

@@ -22,9 +22,18 @@
 		{{#if poi.address }}{{ poi.address }}{{/if}}
 	</p>
 </div>
-	{{#if rti}}
-	<div id="poi-rti">
-	    <img src="images/preloader.gif" class="preloader" width="15" height="15">
+	<div class="rti">
+	{{#if poi.RTI}}
+    {{#if multiRTI}}
+    <h3>{{ currentRTI.title }}
+        {{#if alternateRTI}}
+        ({{#alternateRTI}}<a href="#/places/{{../poi.id}}?rti={{type}}">{{ title }}</a>{{/alternateRTI}})
+        {{/if}}
+    </h3>
+    {{/if}}
+        <div id="poi-rti">
+            <img src="images/preloader.gif" class="preloader" width="15" height="15">
+        </div>
 	</div>
 	{{/if}}
 

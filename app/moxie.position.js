@@ -23,7 +23,7 @@ define(["underscore", "backbone", "moxie.conf"], function(_, Backbone, conf){
             }, options.timeout);
             temporaryGeoWatchID = navigator.geolocation.watchPosition(function(position) {
                 latestPosition = position;
-                if (latestPosition.coords && latestPosition.coords.accuracy && latestPosition.coords.accuracy < options.errorMargin) {
+                if (latestPosition.coords && latestPosition.coords.accuracy && latestPosition.coords.accuracy <= options.errorMargin) {
                     window.clearTimeout(accuracyTimeout);
                     navigator.geolocation.clearWatch(temporaryGeoWatchID);
                     cb(latestPosition);

@@ -49,12 +49,15 @@ define(["app", "underscore", "backbone", "places/models/POIModel", "places/views
             detailView.render();
         },
 
-        detail: function(id) {
+        detail: function(id, params) {
+            var query = params || {};
+            var showRTI = 'rti' in query ? params.rti : null;
             var poi = pois.get(id);
             if (poi) {
+                poi.set('showRTI', showRTI);
                 this.showDetail(poi);
             } else {
-                poi = new POI({id: id});
+                poi = new POI({id: id, showRTI: showRTI});
                 poi.fetch({success: _.bind(function(model, response, options) {
                     pois.add(model);
                     this.showDetail(model);
