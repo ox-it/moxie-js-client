@@ -1,16 +1,8 @@
-define(['backbone', 'underscore', 'hbs!places/templates/busrti', 'hbs!places/templates/trainrti'], function(Backbone, _, busRTITemplate, trainRTITemplate) {
+define(['backbone', 'hbs!places/templates/busrti', 'hbs!places/templates/trainrti'], function(Backbone, busRTITemplate, trainRTITemplate) {
     var RTIView = Backbone.View.extend({
         initialize: function() {
             this.model.on('sync', this.render, this);
             this.model.on('request', this.showLoader, this);
-            var type = this.model.get('type');
-            var template;
-            if (_.contains(type, '/transport/bus-stop')) {
-                template = busRTITemplate;
-            } else if (_.contains(type, '/transport/rail-station')) {
-                template = trainRTITemplate;
-            }
-            this.template = template;
         },
         manage: true,
         serialize: function() {
@@ -26,5 +18,15 @@ define(['backbone', 'underscore', 'hbs!places/templates/busrti', 'hbs!places/tem
             this.model.off();
         }
     });
-    return RTIView;
+    var RTIViews = {
+        "bus": RTIView.extend({
+            template: busRTITemplate
+        }),
+        "rail-arrivals": RTIView.extend({
+            template: trainRTITemplate
+        })
+    };
+    // Departures uses the same view as arrivals
+    RTIViews['rail-departures'] = RTIViews['rail-arrivals'];
+    return RTIViews;
 });

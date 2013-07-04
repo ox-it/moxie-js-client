@@ -7,11 +7,15 @@ define(["backbone", "underscore", "places/models/POIModel", "today/views/BusCard
         View: BusCard,
 
         followUser: function() {
-            userPosition.follow(_.bind(this.handle_geolocation_query, this));
+            userPosition.getLocation(_.bind(this.handle_geolocation_query, this));
+            // Update the models every minute with an updated position
+            this.positionInterval = window.setInterval(userPosition.getLocation, 60000, _.bind(this.handle_geolocation_query, this));
         },
 
         unfollowUser: function() {
-            userPosition.unfollow(_.bind(this.handle_geolocation_query, this));
+            if (this.positionInterval) {
+                window.clearInterval(this.positionInterval);
+            }
         },
 
         userLatLon: null,
@@ -24,8 +28,8 @@ define(["backbone", "underscore", "places/models/POIModel", "today/views/BusCard
             if (this.userLatLon) {
                 options.headers = options.headers || {};
                 options.headers['Geo-Position'] = this.userLatLon.join(';');
+                return Backbone.Model.prototype.fetch.apply(this, [options]);
             }
-            return Backbone.Model.prototype.fetch.apply(this, [options]);
         },
 
         url: function() {
@@ -33,7 +37,7 @@ define(["backbone", "underscore", "places/models/POIModel", "today/views/BusCard
         },
 
         parse: function(data) {
-            return data._embedded.pois[0];
+            return POI.prototype.parse.apply(this, [data._embedded.pois[0]]);
         }
     });
     return Bus;

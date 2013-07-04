@@ -7,28 +7,26 @@
 {{/if}}
 
 {{#if services}}
-<div class="rti">
-    <img src="images/preloader.gif" id="rti-load" class="preloader" width="15" height="15">
-    <table id="bus-rti">
-        <tbody>
-        {{#services}}
-        <tr>
-            <td rowspan="2"><span class="service-id">{{ service }}</span></td>
-            <td class="service-destination">{{ destination }}</td>
-            <td class="service-next-bus">{{ next }}</td>
-        </tr>
-        <tr class="notopborder">
-            <td colspan="2" class="service-next-buses-following"><small>
-            {{#if following }}
-            Next:
-            {{/if}}
-            {{#following}}
-        		{{ this }},
-            {{/following}}
-            </small></td>
-        </tr>
-        {{/services}}
-        </tbody>
-    </table>
-</div>
+<img src="images/preloader.gif" id="rti-load" class="preloader" width="15" height="15">
+<table id="bus-rti">
+    <tbody>
+    {{#services}}
+    <tr>
+        <td rowspan="2"><span class="service-id">{{ service }}</span></td>
+        <td class="service-destination">{{ destination }}</td>
+        <td class="service-next-bus">{{ next }}</td>
+    </tr>
+    <tr class="notopborder">
+        <td colspan="2" class="service-next-buses-following"><small>
+        {{#if following }}
+        Next:
+        {{/if}}
+        {{#following}}
+            {{ this }},
+        {{/following}}
+        </small></td>
+    </tr>
+    {{/services}}
+    </tbody>
+</table>
 {{/if}}

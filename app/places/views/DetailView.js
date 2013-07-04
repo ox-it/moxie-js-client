@@ -3,23 +3,25 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'hbs!places/templates/
     var RTI_REFRESH = 15000;    // 15 seconds
     var DetailView = Backbone.View.extend({
 
-        initialize: function() {
-            _.bindAll(this);
-        },
-
         attributes: {
             'class': 'detail-map'
         },
 
         serialize: function() {
-            return {'poi': this.model.toJSON(), 'rti': this.model.getRTI()};
+            var poi = this.model.toJSON();
+            return {
+                poi: poi,
+                multiRTI: poi.RTI.length > 1,
+                alternateRTI: this.model.getAlternateRTI(),
+                currentRTI: this.model.getCurrentRTI()
+            };
         },
         template: detailTemplate,
         manage: true,
 
         afterRender: function() {
             Backbone.trigger('domchange:title', this.model.get('name'));
-            if (this.model.getRTI()) {
+            if (this.model.get('RTI')) {
                 this.refreshID = this.model.renderRTI(this.$('#poi-rti')[0], RTI_REFRESH);
             }
         },
