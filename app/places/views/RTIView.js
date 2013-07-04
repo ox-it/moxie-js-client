@@ -24,10 +24,9 @@ define(['backbone', 'hbs!places/templates/busrti', 'hbs!places/templates/trainrt
         }),
         "rail-arrivals": RTIView.extend({
             template: trainRTITemplate
-        }),
-        "rail-departures": RTIView.extend({
-            template: trainRTITemplate
         })
     };
+    // Departures uses the same view as arrivals
+    RTIViews['rail-departures'] = RTIViews['rail-arrivals'];
     return RTIViews;
 });
