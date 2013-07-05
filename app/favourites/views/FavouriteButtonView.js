@@ -2,15 +2,8 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'favourites/collection
     function($, Backbone, _, conf, Favourites) {
         var FavouriteButtonView = Backbone.View.extend({
             initialize: function() {
-                _.bindAll(this);
-                this.favourites = new Favourites();
-                if ('localStorage' in this.favourites) {
-                    // Gracefully degrade if we don't support localStorage
-                    this.favourites.fetch();
-                    this.updateButton();
-                    this.favourites.on("remove add", this.updateButton, this);
-                    $(window).on("hashchange", this.updateButton);
-                }
+                this.collection.on("reset remove add", this.updateButton, this);
+                $(window).on("hashchange", _.bind(this.updateButton, this));
             },
 
             attributes: {
@@ -21,7 +14,7 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'favourites/collection
 
             toggleFavourite: function(e) {
                 e.preventDefault();
-                var fav = this.favourites.getCurrentPage();
+                var fav = this.collection.getCurrentPage();
                 if (fav) {
                     this.removeFavourite(fav);
                 } else {
@@ -33,13 +26,13 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'favourites/collection
                 var params = Backbone.history.getQueryParameters();
                 var title = document.title.split(conf.titlePrefix, 2)[1];
                 var path = Backbone.history.getFragment();
-                this.favourites.create({path: path, fragment: fragment, params: params, title: title});
+                this.collection.create({path: path, fragment: fragment, params: params, title: title});
             },
             removeFavourite: function(favourite) {
-                this.favourites.remove(favourite);
+                this.collection.remove(favourite);
             },
             updateButton: function() {
-                if (this.favourites.getCurrentPage()) {
+                if (this.collection.getCurrentPage()) {
                     this.$el.addClass('favourited');
                 } else {
                     this.$el.removeClass('favourited');
