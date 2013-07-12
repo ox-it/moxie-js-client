@@ -1,5 +1,5 @@
-define(["app", "underscore", "backbone", "moxie.conf", "events/collections/EventCollection", "events/views/EventsView", "events/views/EventDetailView", "backbone.subroute"],
- function(app, _, Backbone, conf, EventCollection, EventsView, EventView){
+define(["app", "underscore", "backbone", "moxie.conf", "events/models/EventModel", "events/collections/EventCollection", "events/views/EventsView", "events/views/EventDetailView", "backbone.subroute"],
+ function(app, _, Backbone, conf, Event, EventCollection, EventsView, EventView){
     var EventsRouter = Backbone.SubRoute.extend({
         events: new EventCollection(),
 
@@ -21,9 +21,13 @@ define(["app", "underscore", "backbone", "moxie.conf", "events/collections/Event
             if (event) {
                 app.showView(new EventView({model: event}));
             } else {
-                console.log("Not found");
+                event = new Event({id: id});
+                event.fetch({success: _.bind(function(model, response, options) {
+                    this.events.add(model);
+                    app.showView(new EventView({model: event}));
+                }, this) });
             }
-        },
+        }
     });
 
     return EventsRouter;

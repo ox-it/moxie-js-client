@@ -22,7 +22,7 @@ define([], function() {
             library_item: '/library/item:',
             contact_search: '/contact/search',
             events_list: '/events/search?from=now',
-            events_id: '/events/event/'
+            events_id: '/events/'
         },
         urlFor: function(api_method) {
             return this.endpoint + this.paths[api_method];
