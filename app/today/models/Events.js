@@ -14,6 +14,9 @@ define(['backbone', 'moxie.conf', 'moment', 'today/views/EventsCard'], function(
                     evToday.push(event);
                 }
             }
+            if(evToday.length == 0) {
+                return null;
+            }
             return {events: evToday};
         }
     });

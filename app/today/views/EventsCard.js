@@ -5,7 +5,11 @@ define(['today/views/CardView', 'hbs!today/templates/events'], function(CardView
         id: 'events_list',
         attributes: {'class': 'today'},
         serialize: function() {
-            return this.model.toJSON();
+            if (this.model.has('events')) {
+                return this.model.toJSON();
+            } else {
+                throw new Error("No events today!");
+            }
         },
         template: eventsTemplate
     });

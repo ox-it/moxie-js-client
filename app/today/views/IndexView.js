@@ -15,7 +15,13 @@ define(['backbone', 'underscore', 'hbs!today/templates/index'], function(Backbon
             if (view) { return; } // We have already inserted this view
             view = new model.View({model: model});
             this.insertView('.today-card-container', view);
-            view.render();
+            try {
+                view.render();
+            } catch(err) {
+                // we should do some logging here
+                // but we should be able to distinguish "normal" errors
+                // (e.g. "no events today") and "real" errors...
+            }
             return view;
         },
         beforeRender: function() {
