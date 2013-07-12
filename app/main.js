@@ -30,6 +30,11 @@ require(['jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'favourites/v
     // This kicks off the app -- discovering the hashchanges and calling routers
     Backbone.history.start();
 
+    // We create the favouriteButtonView here since it relies on Backbone having the hash url data
+    // This is only available after history.start()
+    // NOTE: I was tempted to move it into router.init but it's a bad idea due to the above comment.
+    favouriteButtonView.updateButton();
+
     // Some simple events called on the default index page -- mostly for the sidebar menu
     $('#home a').click(function(ev) {
         ev.preventDefault();
