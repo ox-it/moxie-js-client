@@ -71,13 +71,7 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'favourites/collection
                 this.collection.remove(favourite);
             },
             updateButton: function() {
-                if (this.inEditMode) { this.exitEditMode(); }
-                this.$el.addClass('ss-star');
-                if (this.collection.getCurrentPage()) {
-                    this.$el.addClass('favourited');
-                } else {
-                    this.$el.removeClass('favourited');
-                }
+                this.$el.toggleClass(favouritedClass, this.collection.currentPageFavourited());
             }
         });
         return FavouriteButtonView;

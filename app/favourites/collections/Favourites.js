@@ -25,7 +25,11 @@ define(["backbone", "underscore", "favourites/models/Favourite", "localstorage"]
                 var fragment = Backbone.history.getFragment(undefined, undefined, true);
                 var params = Backbone.history.getQueryParameters();
                 return this.find(function(model) { return (model.get('fragment') === fragment && _.isEqual(model.get('params'), params)); });
+            },
+            currentPageFavourited: function() {
+                return !_.isUndefined(this.getCurrentPage());
             }
+
         });
         return Favourites;
     }
