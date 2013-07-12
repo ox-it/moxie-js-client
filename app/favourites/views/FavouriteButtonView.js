@@ -1,5 +1,9 @@
 define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'favourites/collections/Favourites'],
     function($, Backbone, _, conf, Favourites) {
+        var editClass = 'ss-lock',
+            saveClass = 'ss-unlock',
+            favouriteClass = 'ss-star',
+            favouritedClass = 'favourited';
         var FavouriteButtonView = Backbone.View.extend({
             initialize: function() {
                 this.collection.on("reset remove add", this.updateButton, this);
@@ -20,41 +24,26 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'favourites/collection
             editing: false,
             toggleEdit: function(e) {
                 e.preventDefault();
-                this.editing = !this.editing;
-                this.setEditState(this.editing);
+                var editing = !this.editing;
+                this.$el.toggleClass(editClass, !editing);
+                this.$el.toggleClass(saveClass, editing);
+                this.trigger('toggleEdit', editing);
+                this.editing = editing;
                 return false;
             },
-            setEditState: function(editState) {
-                if (editState) {
-                    this.$el.removeClass('ss-lock');
-                    this.$el.addClass('ss-unlock');
-                    this.editCB();
-                } else {
-                    this.$el.removeClass('ss-unlock');
-                    this.$el.addClass('ss-lock');
-                    this.saveCB();
-                }
-            },
-            inEditMode: false,
-            editMode: function(editCB, saveCB) {
-                this.editCB = editCB;
-                this.saveCB = saveCB;
-                this.$el.removeClass('favourited');
-                this.$el.removeClass('ss-star');
+            editMode: function() {
+                this.$el.removeClass(favouriteClass);
+                this.$el.addClass(editClass);
                 this.editing = false;
                 this.undelegateEvents();
-                this.events = {'click': 'toggleEdit'};
-                this.delegateEvents();
-                this.setEditState(false);
-                this.inEditMode = true;
+                this.delegateEvents({'click': 'toggleEdit'});
             },
             exitEditMode: function() {
-                this.$el.removeClass('ss-unlock');
-                this.$el.removeClass('ss-lock');
-                this.$el.addClass('ss-star');
+                this.$el.removeClass(editClass);
+                this.$el.removeClass(saveClass);
+                this.$el.addClass(favouriteClass);
                 this.undelegateEvents();
-                this.events = {'click': 'toggleFavourite'};
-                this.delegateEvents();
+                this.delegateEvents({'click': 'toggleFavourite'});
             },
             addFavourite: function() {
                 var fragment = Backbone.history.getFragment(undefined, undefined, true);
@@ -74,6 +63,7 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'favourites/collection
                 this.$el.toggleClass(favouritedClass, this.collection.currentPageFavourited());
             }
         });
+        FavouriteButtonView.extend(Backbone.Events);
         return FavouriteButtonView;
     }
 );
