@@ -1,8 +1,11 @@
-define(['core/collections/MoxieCollection', 'today/models/OxfordDate', 'today/models/Weather', 'today/models/Webcam', 'today/models/RiverStatus', 'today/models/BusStop', 'today/models/ParkAndRide'], function(MoxieCollection, OxfordDate, Weather, Webcam, RiverStatus, BusStop, ParkAndRide) {
+define(['underscore', 'core/collections/MoxieCollection', 'today/models/OxfordDate', 'today/models/Weather', 'today/models/Webcam', 'today/models/RiverStatus', 'today/models/BusStop', 'today/models/FavouriteRTI', 'today/models/ParkAndRide'], function(_, MoxieCollection, OxfordDate, Weather, Webcam, RiverStatus, BusStop, FavRTI, ParkAndRide) {
     var TodayItems = MoxieCollection.extend({
+        initialize: function(models, options) {
+            this.favourites = options.favourites;
+        },
         fetch: function() {
             if (this.length===0) {
-                this.reset([
+                var models = [
                     new OxfordDate(),
                     new Weather(),
                     new RiverStatus(),
@@ -10,6 +13,18 @@ define(['core/collections/MoxieCollection', 'today/models/OxfordDate', 'today/mo
                     new BusStop(),
                     new ParkAndRide()
                 ]);
+                this.favourites.each(function(fav) {
+                    var attrs = fav.attributes;
+                    if ('options' in attrs && 'model' in attrs.options && 'RTI' in attrs.options.model) {
+                        // Find a user Favourite which has an RTI attribute
+                        var favRTI = new FavRTI(attrs.options.model);
+                        if (fav.has('userTitle')) {
+                            favRTI.set('userTitle', fav.get('userTitle'));
+                        }
+                        models.push(favRTI);
+                    }
+                }, this);
+                this.reset(models);
                 this.each(function(model) {
                     model.fetch();
                 });
