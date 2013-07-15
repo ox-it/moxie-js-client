@@ -50,8 +50,8 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'favourites/collection
                 var params = Backbone.history.getQueryParameters();
                 var title = document.title.split(conf.titlePrefix, 2)[1];
                 var path = Backbone.history.getFragment();
-                this.collection.create({path: path, fragment: fragment, params: params, title: title,
-                    success: function(model) {
+                this.collection.create({path: path, fragment: fragment, params: params, title: title},
+                    {success: function(model) {
                         Backbone.trigger('favourited', model);
                     }
                 });
