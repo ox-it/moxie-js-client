@@ -28,9 +28,10 @@ define(['backbone', 'hbs!places/templates/busrti', 'hbs!places/templates/trainrt
                 value: services.percentage,
                 min: 0,
                 max: 100,
-                title: "Real-time availability",
-                label: services.spaces + " available",
+                title: services.spaces + " available",
+                label: "",
                 hideValue: true,
+                hideMinMax: true,
                 counter: false
             });
         },
