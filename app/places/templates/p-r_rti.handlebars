@@ -1,4 +1,10 @@
 {{#if services}}
 <img src="images/preloader.gif" id="rti-load" class="preloader" width="15" height="15">
-<div id="gauge"></div>
+{{#with services}}
+    {{#if unavailable}}
+        <p>RTI not available</p>
+    {{else}}
+        <div id="gauge"></div>
+    {{/if}}
+{{/with}}
 {{/if}}
