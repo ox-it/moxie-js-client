@@ -1,6 +1,6 @@
 define(["backbone", "underscore", "moxie.conf", "places/models/RTIModels", "places/views/RTIViews"], function(Backbone, _, conf, RTIModels, RTIViews) {
 
-    var DEFAULT_RTI_TYPES = ['bus', 'rail-departures'];
+    var DEFAULT_RTI_TYPES = ['bus', 'rail-departures', 'p-r'];
     var POI = Backbone.Model.extend({
         url: function() {
            return conf.urlFor('places_id') + this.id;
