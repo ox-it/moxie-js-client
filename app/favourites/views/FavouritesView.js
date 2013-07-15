@@ -8,6 +8,16 @@ define(['jquery', 'backbone', 'underscore', 'favourites/collections/Favourites',
                 this.collection.on("remove add", this.render, this);
                 this.collection.on("change", this.render, this);
             },
+            events: {
+                'click .remove-fav': 'removeFavourite'
+            },
+            removeFavourite: function(ev) {
+                ev.preventDefault();
+                var favID = ev.target.parentNode.id;
+                var favourite = this.collection.get(favID);
+                this.collection.remove(favourite);
+                return false;
+            },
             manage: true,
             editing: false,
             template: favouritesTemplate,
@@ -22,10 +32,10 @@ define(['jquery', 'backbone', 'underscore', 'favourites/collections/Favourites',
                 // Test its actually false, not something falsy
                 if (editing===false) {
                     // Save the changes
-                    var favouriteInput = this.$('input');
+                    var favouriteInput = this.$('li');
                     _.each(favouriteInput, function(fav) {
                         var favourite = this.collection.get(fav.id);
-                        favourite.set('userTitle', fav.value);
+                        favourite.set('userTitle', $(fav).find('input').val());
                         favourite.save();
                     }, this);
                 }
