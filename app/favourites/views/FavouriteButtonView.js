@@ -1,7 +1,7 @@
 define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'favourites/collections/Favourites'],
     function($, Backbone, _, conf, Favourites) {
-        var editClass = 'ss-lock',
-            saveClass = 'ss-unlock',
+        var editClass = 'ss-write',
+            saveClass = 'ss-check',
             favouriteClass = 'ss-star',
             favouritedClass = 'favourited';
         var FavouriteButtonView = Backbone.View.extend({
