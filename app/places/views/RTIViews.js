@@ -1,4 +1,5 @@
-define(['backbone', 'hbs!places/templates/busrti', 'hbs!places/templates/trainrti'], function(Backbone, busRTITemplate, trainRTITemplate) {
+define(['backbone', 'hbs!places/templates/busrti', 'hbs!places/templates/trainrti', 'hbs!places/templates/p-r_rti'],
+    function(Backbone, busRTITemplate, trainRTITemplate, prRTITemplate) {
     var RTIView = Backbone.View.extend({
         initialize: function() {
             this.model.on('sync', this.render, this);
@@ -24,6 +25,9 @@ define(['backbone', 'hbs!places/templates/busrti', 'hbs!places/templates/trainrt
         }),
         "rail-arrivals": RTIView.extend({
             template: trainRTITemplate
+        }),
+        "p-r": RTIView.extend({
+            template: prRTITemplate
         })
     };
     // Departures uses the same view as arrivals

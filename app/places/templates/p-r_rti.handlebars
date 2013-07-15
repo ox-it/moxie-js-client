@@ -1,0 +1,8 @@
+{{#if services}}
+<img src="images/preloader.gif" id="rti-load" class="preloader" width="15" height="15">
+<div id="pr-rti">
+{{#with services}}
+    <p>{{ spaces }} available out of {{ capacity }} ({{percentage}}% full).</p>
+{{/with}}
+</div>
+{{/if}}

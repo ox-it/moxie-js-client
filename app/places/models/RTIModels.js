@@ -5,7 +5,7 @@ define(['backbone', 'underscore', 'moxie.conf'], function(Backbone, _, conf) {
     var RTIModel = Backbone.Model.extend({
         url: function() {
             return conf.endpoint + this.get('href');
-        },
+        }
     });
     var RTIModels = {
         'bus': RTIModel,
@@ -21,7 +21,8 @@ define(['backbone', 'underscore', 'moxie.conf'], function(Backbone, _, conf) {
                 });
                 return data;
             }
-        })
+        }),
+        'p-r': RTIModel
     };
     // Departures uses the same model as arrivals
     RTIModels['rail-departures'] = RTIModels['rail-arrivals'];
