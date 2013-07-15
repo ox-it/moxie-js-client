@@ -36,7 +36,9 @@ define(['moxie.conf', 'underscore', 'today/views/CardView', 'hbs!today/templates
         cleanup: function() {
             this.clearRefresh();
             this.model.off();
-            this.model.unfollowUser();
+            if ('unfollowUser' in this.model) {
+                this.model.unfollowUser();
+            }
         },
     });
     return BusCard;
