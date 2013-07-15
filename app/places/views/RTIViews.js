@@ -19,6 +19,23 @@ define(['backbone', 'hbs!places/templates/busrti', 'hbs!places/templates/trainrt
             this.model.off();
         }
     });
+    var ParkAndRideView = RTIView.extend({
+        afterRender: function() {
+            this.$("#rti-load").css('visibility', 'hidden');
+            var services = this.model.get('services');
+            var g = new JustGage({
+                id: "gauge",
+                value: services.percentage,
+                min: 0,
+                max: 100,
+                title: "Real-time availability",
+                label: services.spaces + " available",
+                hideValue: true,
+                counter: false
+            });
+        },
+        template: prRTITemplate
+    });
     var RTIViews = {
         "bus": RTIView.extend({
             template: busRTITemplate
@@ -26,9 +43,7 @@ define(['backbone', 'hbs!places/templates/busrti', 'hbs!places/templates/trainrt
         "rail-arrivals": RTIView.extend({
             template: trainRTITemplate
         }),
-        "p-r": RTIView.extend({
-            template: prRTITemplate
-        })
+        "p-r": ParkAndRideView
     };
     // Departures uses the same view as arrivals
     RTIViews['rail-departures'] = RTIViews['rail-arrivals'];
