@@ -1,7 +1,7 @@
 define(["backbone", "underscore", "places/models/POIModel", "today/views/BusCard", "moxie.conf", "moxie.position"], function(Backbone, _, POI, BusCard, conf, userPosition) {
 
     var Bus = POI.extend({
-        initialize: function(query) {
+        initialize: function() {
             this.followUser();
         },
         View: BusCard,
