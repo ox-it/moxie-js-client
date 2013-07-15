@@ -3,15 +3,18 @@
 {{#if editing}}
     <ul class="results-list">
         {{#favourites}}
-        <li>
-            <input id="{{ id }}" type="text" placeholder="{{ title }}" value="{{ userTitle }}">
+        <li id="{{ id }}">
+            <a href="#" class="remove-fav ss-standard ss-delete"></a>
+            <div class="rename-fav">
+                <input type="text" placeholder="{{ title }}" value="{{ userTitle }}">
+            </div>
         </li>
         {{/favourites}}
     </ul>
 {{else}}
     <ul class="results-list">
         {{#favourites}}
-        <li>
+        <li id="{{ id }}">
             <a href="#{{path}}">
                 {{#if userTitle}}
                     {{ userTitle }}
