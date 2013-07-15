@@ -1,12 +1,14 @@
 define(["app", "backbone", "places/router", "today/views/IndexView", "today/collections/TodayItems", "courses/router", "library/router", "contacts/router", "news/router", "favourites/views/FavouritesView"], function(app, Backbone, PlacesRouter, IndexView, TodayItems, CoursesRouter, LibraryRouter, ContactsRouter, NewsRouter, FavouritesView){
     var MoxieRouter = Backbone.Router.extend({
         subrouters: {},
-        today: new TodayItems(),
 
         initialize: function(options) {
             options = options || {};
             this.favourites = options.favourites;
             this.favouriteButtonView = options.favouriteButtonView;
+            // Pass favourites to the TodayItems to personalise the Today View
+            // from the user Favourites. First arg here is empty array of models
+            this.today = new TodayItems([], {favourites: this.favourites});
         },
 
         routes: {
