@@ -1,4 +1,4 @@
-require(['jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'favourites/views/FavouriteButtonView', 'backbone.queryparams', 'backbone.layoutmanager'], function($, Backbone, MoxieRouter, FastClick, conf, FavouriteButtonView) {
+require(['jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'favourites/views/FavouriteButtonView', 'favourites/collections/Favourites', 'backbone.queryparams', 'backbone.layoutmanager'], function($, Backbone, MoxieRouter, FastClick, conf, FavouriteButtonView, Favourites) {
     // Include FastClick, this removes a 300ms touch event delay
     $(function() {
         new FastClick(document.body);
@@ -17,7 +17,9 @@ require(['jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'favourites/v
         });
     });
 
-    var moxieRouter = new MoxieRouter();
+    var favourites = new Favourites();
+    var favouriteButtonView = new FavouriteButtonView({el: $('#favourite a'), collection: favourites});
+    var moxieRouter = new MoxieRouter({favourites: favourites, favouriteButtonView: favouriteButtonView});
 
     // Default to requesting hal+json but fallback to json
     $.ajaxSetup({ headers: { 'Accept': 'application/hal+json;q=1.0, application/json;q=0.9, */*; q=0.01' } });
@@ -27,6 +29,11 @@ require(['jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'favourites/v
 
     // This kicks off the app -- discovering the hashchanges and calling routers
     Backbone.history.start();
+
+    // We create the favouriteButtonView here since it relies on Backbone having the hash url data
+    // This is only available after history.start()
+    // NOTE: I was tempted to move it into router.init but it's a bad idea due to the above comment.
+    favouriteButtonView.updateButton();
 
     // Some simple events called on the default index page -- mostly for the sidebar menu
     $('#home a').click(function(ev) {
@@ -42,5 +49,4 @@ require(['jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'favourites/v
     $('.overlay, #sidebar a').click(function(ev) {
         $('body').toggleClass('is-sidebar-active');
     });
-    new FavouriteButtonView({el: $('#favourite a')});
 });
