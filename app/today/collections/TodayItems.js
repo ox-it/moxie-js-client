@@ -2,9 +2,16 @@ define(['underscore', 'core/collections/MoxieCollection', 'today/models/OxfordDa
     var TodayItems = MoxieCollection.extend({
         initialize: function(models, options) {
             this.favourites = options.favourites;
+            this.favouritesUpdated = false;
+            this.favourites.on('change add remove', _.bind(function() {
+                this.favouritesUpdated = true;
+            }, this));
         },
         fetch: function() {
-            if (this.length===0) {
+            // If we have already loaded the Cards and the favourites haven't updated
+            // we don't need to load them again.
+            if (this.length===0 || this.favouritesUpdated) {
+                this.favouritesUpdated = false;
                 var models = [
                     new OxfordDate(),
                     new Weather(),
