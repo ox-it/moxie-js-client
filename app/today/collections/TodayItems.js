@@ -1,4 +1,4 @@
-define(['underscore', 'core/collections/MoxieCollection', 'today/models/OxfordDate', 'today/models/Weather', 'today/models/Webcam', 'today/models/RiverStatus', 'today/models/BusStop', 'today/models/FavouriteRTI', 'today/models/ParkAndRide'], function(_, MoxieCollection, OxfordDate, Weather, Webcam, RiverStatus, BusStop, FavRTI, ParkAndRide) {
+define(['underscore', 'core/collections/MoxieCollection', 'today/models/OxfordDate', 'today/models/Weather', 'today/models/Webcam', 'today/models/RiverStatus', 'today/models/NearbyRTI', 'today/models/FavouriteRTI', 'today/models/ParkAndRide'], function(_, MoxieCollection, OxfordDate, Weather, Webcam, RiverStatus, NearbyRTI, FavRTI, ParkAndRide) {
     var TodayItems = MoxieCollection.extend({
         initialize: function(models, options) {
             this.favourites = options.favourites;
@@ -10,9 +10,9 @@ define(['underscore', 'core/collections/MoxieCollection', 'today/models/OxfordDa
                     new Weather(),
                     new RiverStatus(),
                     new Webcam(),
-                    new BusStop(),
+                    new NearbyRTI(),
                     new ParkAndRide()
-                ]);
+                ];
                 this.favourites.each(function(fav) {
                     var attrs = fav.attributes;
                     if ('options' in attrs && 'model' in attrs.options && 'RTI' in attrs.options.model) {

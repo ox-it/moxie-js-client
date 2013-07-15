@@ -1,7 +1,7 @@
-define(['moxie.conf', 'underscore', 'today/views/CardView', 'hbs!today/templates/bus', 'hbs!places/templates/busrti'], function(conf, _, CardView, busTemplate, busRTITemplate) {
+define(['moxie.conf', 'underscore', 'today/views/CardView', 'hbs!today/templates/rti'], function(conf, _, CardView, rtiTemplate) {
 
     var RTI_REFRESH = 60000;    // 1 minute
-    var BusCard = CardView.extend({
+    var RTICard = CardView.extend({
         initialize: function() {
             this.model.on('change', this.render, this);
         },
@@ -14,7 +14,7 @@ define(['moxie.conf', 'underscore', 'today/views/CardView', 'hbs!today/templates
         serialize: function() {
             return this.model.toJSON();
         },
-        template: busTemplate,
+        template: rtiTemplate,
         beforeRender: function() {
             this.el.style.display = 'none';
         },
@@ -41,6 +41,5 @@ define(['moxie.conf', 'underscore', 'today/views/CardView', 'hbs!today/templates
             }
         },
     });
-    return BusCard;
-
+    return RTICard;
 });
