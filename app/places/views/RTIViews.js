@@ -1,4 +1,4 @@
-define(['backbone', 'hbs!places/templates/busrti', 'hbs!places/templates/trainrti', 'hbs!places/templates/p-r_rti'],
+define(['backbone', 'hbs!places/templates/busrti', 'hbs!places/templates/trainrti', 'hbs!places/templates/p-r_rti', 'justgage'],
     function(Backbone, busRTITemplate, trainRTITemplate, prRTITemplate) {
     var RTIView = Backbone.View.extend({
         initialize: function() {
