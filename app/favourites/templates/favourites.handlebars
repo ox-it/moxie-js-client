@@ -1,14 +1,31 @@
 <h2 class="free-heading">Favourites</h2>
 {{#if favourites}}
-<ul class="results-list">
-    {{#favourites}}
-    <a href="#{{path}}">
-        <li>
-            {{title}}
+{{#if editing}}
+    <ul class="results-list">
+        {{#favourites}}
+        <li id="{{ id }}">
+            <a href="#" class="remove-fav ss-standard ss-delete"></a>
+            <div class="rename-fav">
+                <input type="text" placeholder="{{ title }}" value="{{ userTitle }}">
+            </div>
         </li>
-    </a>
-    {{/favourites}}
-</ul>
+        {{/favourites}}
+    </ul>
+{{else}}
+    <ul class="results-list">
+        {{#favourites}}
+        <li id="{{ id }}">
+            <a href="#{{path}}">
+                {{#if userTitle}}
+                    {{ userTitle }}
+                {{else}}
+                    {{ title }}
+                {{/if}}
+            </a>
+        </li>
+        {{/favourites}}
+    </ul>
+{{/if}}
 {{else}}
     <p class="free-text">You do not have any favourites just yet.</p>
 {{/if}}

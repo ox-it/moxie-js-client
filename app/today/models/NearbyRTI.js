@@ -1,10 +1,10 @@
-define(["backbone", "underscore", "places/models/POIModel", "today/views/BusCard", "moxie.conf", "moxie.position"], function(Backbone, _, POI, BusCard, conf, userPosition) {
+define(["backbone", "underscore", "places/models/POIModel", "today/views/RTICard", "moxie.conf", "moxie.position"], function(Backbone, _, POI, RTICard, conf, userPosition) {
 
-    var Bus = POI.extend({
-        initialize: function(query) {
+    var NearbyRTI = POI.extend({
+        initialize: function() {
             this.followUser();
         },
-        View: BusCard,
+        View: RTICard,
 
         followUser: function() {
             userPosition.getLocation(_.bind(this.handle_geolocation_query, this));
@@ -40,5 +40,5 @@ define(["backbone", "underscore", "places/models/POIModel", "today/views/BusCard
             return POI.prototype.parse.apply(this, [data._embedded.pois[0]]);
         }
     });
-    return Bus;
+    return NearbyRTI;
 });

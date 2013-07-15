@@ -588,3 +588,18 @@ ul.results-list {
 
     }
 }
+
+// Manage Favourites view
+ul.results-list {
+    li div.rename-fav {
+        margin-left: 35px;
+    }
+    li a.remove-fav {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        color: $pantone200;
+        font-size: 20px;
+        padding: 6px;
+    }
+}
