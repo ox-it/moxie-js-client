@@ -1,2 +1,8 @@
-<h3><a href="#{{ _links.self.href }}">{{ name }}</a></h3>
+<h3><a href="#{{ _links.self.href }}">
+        {{#if userTitle }}
+            {{ userTitle }} ({{ name }})
+        {{else}}
+            {{ name }}
+        {{/if}}
+</a></h3>
 <div id="poi-rti" class="rti"></div>
