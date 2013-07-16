@@ -302,6 +302,16 @@ div.today {
             padding-top: 3px;
         }
     }
+    // Park & Ride -- Note: I set max-width here because
+    // it looks quite bad if the gauges are all on one line
+    // 360 gets 3 on top row and 2 on bottom
+    div.park-and-rides {
+        max-width: 360px;
+        text-align: center;
+        div.p-r {
+            display: inline-block;
+        }
+    }
 }
 div.webcam {
     @include respondTo(smallScreen) {
@@ -576,5 +586,20 @@ ul.results-list {
             color: #444;
         }
 
+    }
+}
+
+// Manage Favourites view
+ul.results-list {
+    li div.rename-fav {
+        margin-left: 35px;
+    }
+    li a.remove-fav {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        color: $pantone200;
+        font-size: 20px;
+        padding: 6px;
     }
 }

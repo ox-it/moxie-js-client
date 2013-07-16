@@ -22,6 +22,8 @@ var require = {
         "backbone.layoutmanager": "libs/backbone.layoutmanager",
         "backbone.hal": "libs/backbone.hal",
         "localstorage": "libs/backbone.localStorage",
+        "raphael": "libs/raphael",
+        "justgage": "libs/justgage",
 
         // Testing libs
         "jasmine": "tests/libs/jasmine-1.3.1/jasmine",
@@ -56,6 +58,10 @@ var require = {
         },
         "json2": {
             "exports": "JSON"
+        },
+        "justgage": {
+            "deps": ["raphael"],
+            "exports": "justgage"
         },
 
         // Jasmine Unit Testing
