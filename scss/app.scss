@@ -312,6 +312,10 @@ div.today {
             display: inline-block;
         }
     }
+    // What's on today -- Note: again, setting max-width
+    &#events_list {
+        max-width: 480px;
+    }
 }
 div.webcam {
     @include respondTo(smallScreen) {
