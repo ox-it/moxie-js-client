@@ -13,8 +13,10 @@ define(['today/views/CardView', 'hbs!today/templates/park_and_rides'], function(
             for(var pr in services) {
                 var park = services[pr];
                 var label = park.spaces + " available";
+                var colors = ["#a9d70b", "#f9c802", "#ff0000"];
                 if (park.unavailable) {
                     label = "No information";
+                    colors = ['#0000FF', '#0000FF', '#0000FF'];
                 }
                 new JustGage({
                     id: "pr-" + park.identifier,
@@ -25,7 +27,8 @@ define(['today/views/CardView', 'hbs!today/templates/park_and_rides'], function(
                     label: label,
                     hideValue: true,
                     hideMinMax: true,
-                    counter: false
+                    counter: false,
+                    levelColors: colors
                 });
             }
         }
