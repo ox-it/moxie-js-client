@@ -35,7 +35,11 @@ define([], function() {
         mapbox: {key: 'mobileox.map-iihxb1dl'},
         map: {bounds: {exponent: 0.75, limit: 500, fallback: 5}},
         position: {
-            updateThrottle: 5000
+            updateInterval: 60000,          // 60 seconds
+            errorMargin: 50,                // 50 meters
+            accuracyTimeout: 25000,         // 25 seconds
+            maximumAge: 600000,             // 10 minutes
+            enableHighAccuracy: true,       // Use the GPS if possible
         },
         news: {
             feeds: [

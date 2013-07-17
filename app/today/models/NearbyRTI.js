@@ -7,15 +7,11 @@ define(["backbone", "underscore", "places/models/POIModel", "today/views/RTICard
         View: RTICard,
 
         followUser: function() {
-            userPosition.getLocation(_.bind(this.handle_geolocation_query, this));
-            // Update the models every minute with an updated position
-            this.positionInterval = window.setInterval(userPosition.getLocation, 60000, _.bind(this.handle_geolocation_query, this));
+            userPosition.follow(this.handle_geolocation_query, this);
         },
 
         unfollowUser: function() {
-            if (this.positionInterval) {
-                window.clearInterval(this.positionInterval);
-            }
+            userPosition.unfollow(this.handle_geolocation_query, this);
         },
 
         userLatLon: null,
@@ -25,6 +21,7 @@ define(["backbone", "underscore", "places/models/POIModel", "today/views/RTICard
         },
 
         fetch: function(options) {
+            options = options || {};
             if (this.userLatLon) {
                 options.headers = options.headers || {};
                 options.headers['Geo-Position'] = this.userLatLon.join(';');
