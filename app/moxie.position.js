@@ -5,6 +5,12 @@ define(["underscore", "backbone", "moxie.conf"], function(_, Backbone, conf){
         var supportsGeoLocation = Boolean(navigator.geolocation),
             latestPosition = null,
             positionInterval;
+        this.getCurrentLocation = function() {
+            // This is used in lieu of conf.defaultLocation as it
+            // might provide a better result (eg. a recent known
+            // location from the geolocation APIs)
+            return latestPosition || conf.defaultLocation;
+        },
         this.getLocation = function(cb, options) {
             options = options || {};
             // If we don't get a location within the errorMargin before the Timeout
