@@ -24,7 +24,7 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'hbs!places/templates/
         manage: true,
 
         afterRender: function() {
-            if (this.model.get('RTI')) {
+            if (this.model.get('RTI').length > 0) {
                 this.refreshID = this.model.renderRTI(this.$('#poi-rti')[0], RTI_REFRESH);
             }
         },

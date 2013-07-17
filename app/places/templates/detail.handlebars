@@ -22,8 +22,8 @@
 		{{#if poi.address }}{{ poi.address }}{{/if}}
 	</p>
 </div>
+{{#if poi.RTI}}
 	<div class="rti">
-	{{#if poi.RTI}}
     {{#if multiRTI}}
     <h3>{{ currentRTI.title }}
         {{#if alternateRTI}}
@@ -35,7 +35,7 @@
             <img src="images/preloader.gif" class="preloader" width="15" height="15">
         </div>
 	</div>
-	{{/if}}
+{{/if}}
 
 <div class="free-text">
 	<p class="metadata">
