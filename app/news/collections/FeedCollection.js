@@ -22,7 +22,11 @@ define(["underscore", "core/collections/MoxieCollection", "news/models/FeedModel
             modules = encodeURIComponent(JSON.stringify(modules));
             var script = document.createElement("script");
             // Protocol relative URL
-            script.src = "//www.google.com/jsapi?autoload=" + modules;
+            var src = "//www.google.com/jsapi?autoload=" + modules;
+            if ('location' in window && 'href' in window.location && window.location.href.indexOf('file')===0) {
+                src = "http://www.google.com/jsapi?autoload=" + modules;
+            }
+            script.src = src;
             script.type = "text/javascript";
             document.getElementsByTagName("head")[0].appendChild(script);
         },
