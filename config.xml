@@ -24,5 +24,5 @@
     <access origin="http://new.m.ox.ac.uk" />
     <access origin="http://api.m.ox.ac.uk" />
     <access origin="http://www.google.com" />
-    <access origin="http://tiles.mapbox.com" subdomains="true" />
+    <access origin="http://a.tiles.mapbox.com"  />
 </widget>
