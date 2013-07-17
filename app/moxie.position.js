@@ -57,13 +57,17 @@ define(["underscore", "backbone", "moxie.conf"], function(_, Backbone, conf){
         }
         var count = 0;
         this.follow = function(cb, context) {
+            context = context || this;
             if (!positionInterval) {
                 // Call the "private" function with the correct context
                 startWatching.apply(this);
             }
             this.on(EVENT_POSITION_UPDATED, cb, context);
-            // TODO: Send user latest userPosition (not default)
             this.count++;
+            // Send user latest userPosition (not default)
+            if (latestPosition) {
+                cb.apply(context, [latestPosition]);
+            }
         };
         this.unfollow = function(cb, context) {
             if (context) {
