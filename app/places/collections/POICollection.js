@@ -12,11 +12,11 @@ define(["core/collections/MoxieCollection", "underscore", "places/models/POIMode
         },
 
         followUser: function() {
-            userPosition.follow(_.bind(this.handle_geolocation_query, this));
+            userPosition.follow(this.handle_geolocation_query, this);
         },
 
         unfollowUser: function() {
-            userPosition.unfollow(_.bind(this.handle_geolocation_query, this));
+            userPosition.unfollow(this.handle_geolocation_query, this);
         },
 
         userLatLon: null,

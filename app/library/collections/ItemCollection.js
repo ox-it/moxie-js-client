@@ -1,4 +1,4 @@
-define(["core/collections/MoxieCollection", "underscore", "library/models/ItemModel", "places/collections/POICollection", "moxie.conf", "moxie.position"], function(MoxieCollection, _, Item, POIs, conf, userPosition) {
+define(["core/collections/MoxieCollection", "library/models/ItemModel", "places/collections/POICollection", "moxie.conf", "moxie.position"], function(MoxieCollection, Item, POIs, conf, userPosition) {
 
     var Items = MoxieCollection.extend({
 
@@ -9,11 +9,11 @@ define(["core/collections/MoxieCollection", "underscore", "library/models/ItemMo
         },
 
         followUser: function() {
-            userPosition.follow(_.bind(this.handle_geolocation_query, this));
+            userPosition.follow(this.handle_geolocation_query, this);
         },
 
         unfollowUser: function() {
-            userPosition.unfollow(_.bind(this.handle_geolocation_query, this));
+            userPosition.unfollow(this.handle_geolocation_query, this);
         },
 
         fetch: function(options) {
