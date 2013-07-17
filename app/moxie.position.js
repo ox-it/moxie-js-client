@@ -3,7 +3,6 @@ define(["underscore", "backbone", "moxie.conf"], function(_, Backbone, conf){
     function UserPosition() {
         _.extend(this, Backbone.Events);
         var supportsGeoLocation = Boolean(navigator.geolocation),
-            spamReduction = false,
             latestPosition = null,
             positionInterval;
         this.getLocation = function(cb, options) {
