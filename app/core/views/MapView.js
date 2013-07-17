@@ -12,7 +12,7 @@ define(['backbone', 'leaflet', 'underscore', 'moxie.conf', 'places/utils', 'moxi
 
         beforeRender: function() {
             this.map = utils.getMap(this.el);
-            userPosition.follow(this.handle_geolocation_query);
+            userPosition.follow(this.handle_geolocation_query, this);
             return this;
         },
 
@@ -105,7 +105,7 @@ define(['backbone', 'leaflet', 'underscore', 'moxie.conf', 'places/utils', 'moxi
 
         cleanup: function() {
             this.unsetCollection();
-            userPosition.unfollow(this.handle_geolocation_query);
+            userPosition.unfollow(this.handle_geolocation_query, this);
         }
     });
     return MapView;
