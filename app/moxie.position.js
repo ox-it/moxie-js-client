@@ -8,14 +8,10 @@ define(["underscore", "backbone", "moxie.conf"], function(_, Backbone, conf){
             positionInterval;
         this.getLocation = function(cb, options) {
             options = options || {};
-            // Default options:
-            // errorMargin = 50 meters
-            // timeout     = 30 seconds
-            //
             // If we don't get a location within the errorMargin before the Timeout
             // we return the most recent position reported by watchPosition
-            options.errorMargin = options.errorMargin || 50;
-            options.timeout = options.timeout || 30000;
+            options.errorMargin = options.errorMargin || conf.position.errorMargin;
+            options.timeout = options.timeout || conf.position.accuracyTimeout;
             var temporaryGeoWatchID;
             var accuracyTimeout = setTimeout(function() {
                 navigator.geolocation.clearWatch(temporaryGeoWatchID);
@@ -34,8 +30,8 @@ define(["underscore", "backbone", "moxie.conf"], function(_, Backbone, conf){
                 }
             }, _.bind(locationError, this),
             {
-                    enableHighAccuracy: true,
-                    maximumAge: 120000,  // 2 minutes
+                    enableHighAccuracy: conf.position.enableHighAccuracy,
+                    maximumAge: conf.position.maximumAge,
             });
 
         };
@@ -50,7 +46,7 @@ define(["underscore", "backbone", "moxie.conf"], function(_, Backbone, conf){
         function startWatching() {
             if (supportsGeoLocation) {
                 this.getLocation(_.bind(locationSuccess, this));
-                positionInterval = window.setInterval(this.getLocation, 60000, _.bind(locationSuccess, this));
+                positionInterval = window.setInterval(this.getLocation, conf.position.updateInterval, _.bind(locationSuccess, this));
             } else {
                 locationError.apply(this);
             }
