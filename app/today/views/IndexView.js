@@ -33,6 +33,16 @@ define(['backbone', 'underscore', 'hbs!today/templates/index'], function(Backbon
                 }
             }, this);
         },
+        afterRender: function() {
+            $(document).on("deviceready", _.bind(function() {
+                // Cordova is initialized
+                if ('splashscreen' in navigator) {
+                    // Remove the splashscreen
+                    // Note: this is safe to call even if the splashscreen has already been removed
+                    setTimeout(navigator.splashscreen.hide, 400);
+                }
+            }, this));
+        },
         manage: true,
         template: indexTemplate,
         cleanup: function() {
