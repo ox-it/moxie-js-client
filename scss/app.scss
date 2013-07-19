@@ -510,11 +510,9 @@ ul.results-list {
     .highlighted {
         background: $border-color;
     }
-    // Only apply to first level of li, allowing us to nest lists without styling all of them
-    > li, > a li {
+    li {
         min-height: 46px;
         border-bottom: 2px solid $border-color;
-        padding: 10px 5px;
         @include box-shadow(inset 0 0 2px #fff);
         color: rgba(40, 40, 40, 0.8);
         text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9);
@@ -532,12 +530,18 @@ ul.results-list {
         .highlighted {
             background-color: red;
         }
+        p {
+            margin-bottom: 0px;
+        }
+        > a, > h3, > p {
+            padding: 10px 8px;
+            padding-bottom: 20px;
+        }
         > a {
             height: 100%;
             width: 100%;
             display: block;
             color: rgba(40, 40, 40, 0.8);
-            padding: 0;
         }
 
         // Used on list items to show the count in the proceeding category/group
