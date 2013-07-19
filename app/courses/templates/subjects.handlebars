@@ -12,7 +12,9 @@
 
 <ul id="results" class="results-list">
 {{#subjects}}
-    <a href='#/courses/course_subject:"{{ title }}"'><li>{{ title }} <span class="subtext">{{ count }} course(s)</span></li></a>
+    <li>
+        <a href='#/courses/course_subject:"{{ title }}"'>{{ title }} <span class="subtext">{{ count }} course(s)</span></a>
+    </li>
 {{/subjects}}
 </ul>
 {{#if ongoingFetch}}
