@@ -5,8 +5,10 @@
 
 <h2 class="free-heading" id="category_title">Places</h2>
 
+{{#if types}}
 <ul class="results-list" id="categories">
 {{#types}}
+    <li>
     {{#if hasTypes}}
         {{! If this category has any sub-categories, place a link to them }}
         {{#if ../../category_name}}
@@ -17,10 +19,13 @@
     {{else}}
         <a href="#places/search?type={{ type_prefixed }}">
     {{/if}}
-    <li><h3>{{ type_name }}</h3>
+    <h3>{{ type_name }}</h3>
     {{#if description}}
         <p class="subtext">{{ description }}</p>
     {{/if}}
-    </li></a>
+    </a></li>
 {{/types}}
 </ul>
+{{else}}
+<img src="images/preloader.gif" class="preloader">
+{{/if}}
