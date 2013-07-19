@@ -1,6 +1,6 @@
-define(["backbone", "underscore", "moxie.conf", "news/collections/EntryCollection"], function(Backbone, _, conf, Entries) {
+define(["MoxieModel", "underscore", "moxie.conf", "news/collections/EntryCollection"], function(MoxieModel, _, conf, Entries) {
 
-    var Feed = Backbone.Model.extend({
+    var Feed = MoxieModel.extend({
         initialize: function() {
             this.entries = new Entries();
         },

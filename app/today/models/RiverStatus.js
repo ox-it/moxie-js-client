@@ -1,5 +1,5 @@
-define(['backbone', 'underscore', 'moment', 'moxie.conf', 'today/views/RiversCard'], function(Backbone, _, moment, conf, RiversCard) {
-    var RiverStatus = Backbone.Model.extend({
+define(['MoxieModel', 'underscore', 'moment', 'moxie.conf', 'today/views/RiversCard'], function(MoxieModel, _, moment, conf, RiversCard) {
+    var RiverStatus = MoxieModel.extend({
         url: conf.urlFor('rivers'),
         View: RiversCard,
         parse: function(data) {

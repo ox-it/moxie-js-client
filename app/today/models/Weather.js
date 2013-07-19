@@ -1,4 +1,4 @@
-define(['backbone', 'underscore', 'moxie.conf', 'today/views/WeatherCard'], function(Backbone, _, conf, WeatherCard) {
+define(['MoxieModel', 'underscore', 'moxie.conf', 'today/views/WeatherCard'], function(MoxieModel, _, conf, WeatherCard) {
     var ssCSSClasses = {
         'NA': 'ss-clouds',
         'ukn': 'ss-clouds',
@@ -18,7 +18,7 @@ define(['backbone', 'underscore', 'moxie.conf', 'today/views/WeatherCard'], func
         'hsn': 'ss-snow',
         'tst': 'ss-thunderstorm',
     };
-    var Weather = Backbone.Model.extend({
+    var Weather = MoxieModel.extend({
         url: conf.urlFor('weather'),
         View: WeatherCard,
         setSSClass: function(observation) {

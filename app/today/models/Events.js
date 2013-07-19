@@ -1,4 +1,4 @@
-define(['backbone', 'moxie.conf', 'moment', 'today/views/EventsCard'], function(Backbone, conf, moment, EventsCard) {
+define(['MoxieModel', 'moxie.conf', 'moment', 'today/views/EventsCard'], function(MoxieModel, conf, moment, EventsCard) {
     var today = moment(new Date());
     var DEFAULT_FORMAT = "h:mma";
     function dateFormat(date) {
@@ -11,7 +11,7 @@ define(['backbone', 'moxie.conf', 'moment', 'today/views/EventsCard'], function(
             return "";
         }
     }
-    var Events = Backbone.Model.extend({
+    var Events = MoxieModel.extend({
         url: conf.urlFor('events_list'),
         View: EventsCard,
         parse: function(data) {

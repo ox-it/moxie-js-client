@@ -1,6 +1,6 @@
-define(["backbone"], function(Backbone) {
+define(["MoxieModel"], function(MoxieModel) {
 
-    var Contact = Backbone.Model.extend({
+    var Contact = MoxieModel.extend({
     });
     return Contact;
 

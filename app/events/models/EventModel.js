@@ -1,4 +1,4 @@
-define(["backbone", "moxie.conf", "moment"], function(Backbone, conf, moment) {
+define(["MoxieModel", "moxie.conf", "moment"], function(MoxieModel, conf, moment) {
     var DEFAULT_FORMAT = "D MMM YYYY, HH:mm";
     var today = moment(new Date());
     function dateFormat(date) {
@@ -11,7 +11,7 @@ define(["backbone", "moxie.conf", "moment"], function(Backbone, conf, moment) {
             return "";
         }
     }
-    var Event = Backbone.Model.extend({
+    var Event = MoxieModel.extend({
         url: function() {
             return conf.urlFor('events_id') + this.id;
         },
