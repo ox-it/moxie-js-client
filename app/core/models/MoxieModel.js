@@ -4,8 +4,10 @@ define(['backbone'], function(Backbone) {
             options = options || {};
             // Set a default error handler
             if (!options.error) {
-                options.error = _.bind(function(err) {
-                    this.trigger("errorFetching", err);
+                options.error = _.bind(function() {
+                    // Pass all the error arguments through
+                    // These are [model, response, options]
+                    this.trigger("errorFetching", arguments);
                 }, this);
             }
             return Backbone.Model.prototype.fetch.apply(this, [options]);
