@@ -1,12 +1,13 @@
-define(["jquery", "backbone", "jasmine", "favourites/views/FavouriteButtonView", "moxie.conf", 'backbone.queryparams'], function($, Backbone, jasmine, FavouriteButtonView, conf) {
+define(["jquery", "backbone", "jasmine", "favourites/views/FavouriteButtonView", "favourites/collections/Favourites", "moxie.conf", 'backbone.queryparams'], function($, Backbone, jasmine, FavouriteButtonView, Favourites, conf) {
     Backbone.history.start();
 
     describe("Behaviour of clicking the favourites button", function() {
         var el = $('<a></a>');
-        var button = new FavouriteButtonView({el: el});
+        var favourites = new Favourites();
+        var button = new FavouriteButtonView({el: el, collection: favourites});
 
         afterEach(function() {
-            button.favourites.remove(button.favourites.models);
+            button.collection.remove(button.collection.models);
         });
 
         it("Should set a class when clicked", function() {
@@ -22,17 +23,17 @@ define(["jquery", "backbone", "jasmine", "favourites/views/FavouriteButtonView",
         });
 
         it("Should create a model in the Favourites collection when clicked", function() {
-            expect(button.favourites.toJSON().length).toBe(0);
+            expect(button.collection.toJSON().length).toBe(0);
             button.$el.click();
-            expect(button.favourites.toJSON().length).toBe(1);
+            expect(button.collection.toJSON().length).toBe(1);
         });
 
         it("Should remove the model from the Favourites collection when clicked twice", function() {
-            expect(button.favourites.toJSON().length).toBe(0);
+            expect(button.collection.toJSON().length).toBe(0);
             button.$el.click();
-            expect(button.favourites.toJSON().length).toBe(1);
+            expect(button.collection.toJSON().length).toBe(1);
             button.$el.click();
-            expect(button.favourites.toJSON().length).toBe(0);
+            expect(button.collection.toJSON().length).toBe(0);
         });
     });
     describe("Behaviour of clicking the favourites button", function() {
@@ -41,8 +42,9 @@ define(["jquery", "backbone", "jasmine", "favourites/views/FavouriteButtonView",
         var pageTitle;
         beforeEach(function() {
             var el = $('<a></a>');
-            button = new FavouriteButtonView({el: el});
-            button.favourites.remove(button.favourites.models);
+            var favourites = new Favourites();
+            button = new FavouriteButtonView({el: el, collection: favourites});
+            button.collection.remove(button.collection.models);
             pageTitle = document.title;
         });
         afterEach(function() {
@@ -51,12 +53,12 @@ define(["jquery", "backbone", "jasmine", "favourites/views/FavouriteButtonView",
         it("Should set a sensible title for the favourite", function() {
             document.title = conf.titlePrefix + "Kaboom!";
             button.$el.click();
-            expect(button.favourites.first().get('title')).toBe("Kaboom!");
+            expect(button.collection.first().get('title')).toBe("Kaboom!");
         });
         it("Should save the current hash with the favourite", function() {
             Backbone.history.navigate('foobar', {trigger:false});
             button.$el.click();
-            expect(button.favourites.first().get('fragment')).toBe("foobar");
+            expect(button.collection.first().get('fragment')).toBe("foobar");
             // leave this undefined as we don't start backbone.history for our tests
             Backbone.history.fragment = undefined;
         });
@@ -65,7 +67,7 @@ define(["jquery", "backbone", "jasmine", "favourites/views/FavouriteButtonView",
             button.$el.click();
             Backbone.history.navigate('foo?baz=2&bar=1', {trigger:false});
             button.$el.click();
-            expect(button.favourites.toJSON().length).toBe(0);
+            expect(button.collection.toJSON().length).toBe(0);
             // leave this undefined as we don't start backbone.history for our tests
             Backbone.history.fragment = undefined;
         });

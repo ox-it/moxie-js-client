@@ -43,11 +43,42 @@ div.rti {
         border-top: 1px solid rgba(255,255,255,0.9);
         border-bottom: 1px solid rgba(255,255,255,0.9);
         @include box-shadow(inset 0 0 8px #ddd);
+        p {
+            padding: 0 4px;
+        }
+        h3 {
+            font-size: 1.2em;
+            margin-top: 5px;
+        }
+        #gauge {
+            width: 380px;
+            height: 155px;
+        }
         #rti-load {
             position: absolute;
-            left: 10px;
-            top: 5px;
+            right: 10px;
+            top: 10px;
         }
+}
+
+// Train RTI styling
+table#train-rti {
+    width: 100%;
+    .delayed {
+        color: $pantone200;
+    }
+    td {
+      padding-top: 5px;
+      padding-bottom: 5px;
+      padding-right: 5px;
+      padding-left: 10px;
+      border: 1px solid #ddd;
+      background-color: #fff;
+    }
+
+    td:first-child {
+      padding-right: 0;
+    }
 }
 
 // Bus RTI styling
@@ -275,6 +306,22 @@ div.today {
             padding-top: 3px;
         }
     }
+    // Park & Ride -- Note: I set max-width here because
+    // it looks quite bad if the gauges are all on one line
+    // 360 gets 3 on top row and 2 on bottom
+    div.park-and-rides {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 360px;
+        text-align: center;
+        div.p-r {
+            display: inline-block;
+        }
+    }
+    // What's on today -- Note: again, setting max-width
+    &#events_list {
+        max-width: 480px;
+    }
 }
 div.webcam {
     @include respondTo(smallScreen) {
@@ -463,11 +510,9 @@ ul.results-list {
     .highlighted {
         background: $border-color;
     }
-    // Only apply to first level of li, allowing us to nest lists without styling all of them
-    > li, > a li {
+    li {
         min-height: 46px;
         border-bottom: 2px solid $border-color;
-        padding: 10px 5px;
         @include box-shadow(inset 0 0 2px #fff);
         color: rgba(40, 40, 40, 0.8);
         text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9);
@@ -485,12 +530,18 @@ ul.results-list {
         .highlighted {
             background-color: red;
         }
+        p {
+            margin-bottom: 0px;
+        }
+        > a, > h3, > p {
+            padding: 10px 8px;
+            padding-bottom: 20px;
+        }
         > a {
             height: 100%;
             width: 100%;
             display: block;
             color: rgba(40, 40, 40, 0.8);
-            padding: 0;
         }
 
         // Used on list items to show the count in the proceeding category/group
@@ -549,5 +600,20 @@ ul.results-list {
             color: #444;
         }
 
+    }
+}
+
+// Manage Favourites view
+ul.results-list {
+    li div.rename-fav {
+        margin-left: 35px;
+    }
+    li a.remove-fav {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        color: $pantone200;
+        font-size: 20px;
+        padding: 6px;
     }
 }

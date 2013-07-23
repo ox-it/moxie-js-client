@@ -2,9 +2,11 @@
 <ul class="results-list">
     {{#entries}}
     <li>
-        <a href="#news/{{ ../feed.slug }}/{{ slug }}/"><h3>{{ title }}</h3></a>
-        <span>Posted: {{ dateFormat publishedDate }}</span>
-        <p>{{{ contentSnippet }}}</p>
+        <a href="#news/{{ ../feed.slug }}/{{ slug }}/">
+            <h3>{{ title }}</h3>
+            <span>Posted: {{ dateFormat publishedDate }}</span>
+            <p>{{{ contentSnippet }}}</p>
+        </a>
     </li>
     {{/entries}}
 </ul>

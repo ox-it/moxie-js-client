@@ -15,8 +15,14 @@ define(['jquery', 'backbone', 'underscore', 'masonry', 'hbs!today/templates/inde
             if (view) { return; } // We have already inserted this view
             view = new model.View({model: model});
             this.insertView('.today-card-container', view);
-            view.render();
             //$('.today-card-container').masonry('reload');
+            try {
+                view.render();
+            } catch(err) {
+                // we should do some logging here
+                // but we should be able to distinguish "normal" errors
+                // (e.g. "no events today") and "real" errors...
+            }
             return view;
         },
         beforeRender: function() {
@@ -39,6 +45,14 @@ define(['jquery', 'backbone', 'underscore', 'masonry', 'hbs!today/templates/inde
                     queue: false
                   }
             });
+            $(document).on("deviceready", _.bind(function() {
+                // Cordova is initialized
+                if ('splashscreen' in navigator) {
+                    // Remove the splashscreen
+                    // Note: this is safe to call even if the splashscreen has already been removed
+                    setTimeout(navigator.splashscreen.hide, 400);
+                }
+            }, this));
         },
         manage: true,
         template: indexTemplate,

@@ -23,6 +23,8 @@ var require = {
         "backbone.hal": "libs/backbone.hal",
         "localstorage": "libs/backbone.localStorage",
         "masonry": "libs/jquery.masonry",
+        "raphael": "libs/raphael",
+        "justgage": "libs/justgage",
 
         // Testing libs
         "jasmine": "tests/libs/jasmine-1.3.1/jasmine",
@@ -61,6 +63,10 @@ var require = {
         "masonry": {
             "deps": ["jquery"],
             "exports": "masonry"
+        },
+        "justgage": {
+            "deps": ["raphael"],
+            "exports": "justgage"
         },
 
         // Jasmine Unit Testing

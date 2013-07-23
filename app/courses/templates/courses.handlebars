@@ -6,9 +6,12 @@
 {{#if courses}}
     <ul class="results-list">
     {{#courses}}
-        <a href='#/courses/detail/{{ id }}'><li>{{ title }}
-        <span class="subtext">{{ provider }}</span></li>
-        </a>
+        <li>
+            <a href='#/courses/detail/{{ id }}'>
+                {{ title }}
+                <span class="subtext">{{ provider }}</span>
+            </a>
+        </li>
     {{/courses}}
     </ul>
 {{else}}

@@ -1,17 +1,17 @@
-define(["backbone", "underscore", "places/models/POIModel", "today/views/BusCard", "moxie.conf", "moxie.position"], function(Backbone, _, POI, BusCard, conf, userPosition) {
+define(["backbone", "underscore", "places/models/POIModel", "today/views/RTICard", "moxie.conf", "moxie.position"], function(Backbone, _, POI, RTICard, conf, userPosition) {
 
-    var Bus = POI.extend({
-        initialize: function(query) {
+    var NearbyRTI = POI.extend({
+        initialize: function() {
             this.followUser();
         },
-        View: BusCard,
+        View: RTICard,
 
         followUser: function() {
-            userPosition.follow(_.bind(this.handle_geolocation_query, this));
+            userPosition.follow(this.handle_geolocation_query, this);
         },
 
         unfollowUser: function() {
-            userPosition.unfollow(_.bind(this.handle_geolocation_query, this));
+            userPosition.unfollow(this.handle_geolocation_query, this);
         },
 
         userLatLon: null,
@@ -21,11 +21,12 @@ define(["backbone", "underscore", "places/models/POIModel", "today/views/BusCard
         },
 
         fetch: function(options) {
+            options = options || {};
             if (this.userLatLon) {
                 options.headers = options.headers || {};
                 options.headers['Geo-Position'] = this.userLatLon.join(';');
+                return Backbone.Model.prototype.fetch.apply(this, [options]);
             }
-            return Backbone.Model.prototype.fetch.apply(this, [options]);
         },
 
         url: function() {
@@ -33,8 +34,8 @@ define(["backbone", "underscore", "places/models/POIModel", "today/views/BusCard
         },
 
         parse: function(data) {
-            return data._embedded.pois[0];
+            return POI.prototype.parse.apply(this, [data._embedded.pois[0]]);
         }
     });
-    return Bus;
+    return NearbyRTI;
 });

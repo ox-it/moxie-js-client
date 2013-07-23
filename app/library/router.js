@@ -14,17 +14,21 @@ define(["app", "underscore", "backbone", "library/models/ItemModel", "library/co
 
         search: function(params) {
             var query = params || {};
-            var options;
-            if (!_.isEmpty(query)) {
-                items.query = query;
-                options = {};
-            } else {
-                // Show the top-level menu
-                options = {menu: true};
-            }
             if (!_.isEmpty(query) && (!_.isEqual(query, items.query) || (items.length === 0))) {
                 // If the Collection has the correct query and we have items don't bother fetching new results now
+                items.query = query;
+                items.reset([]);
                 items.fetch();
+            }
+
+            items.query = query;
+            var options;
+            if (_.isEmpty(query)) {
+                // Show the top-level menu
+                options = {menu: true};
+                items.reset([]);
+            } else {
+                options = {};
             }
             app.renderView(new SearchView({
                 collection: items

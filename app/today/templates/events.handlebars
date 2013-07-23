@@ -1,0 +1,8 @@
+<h3>What's on today</h3>
+<ul class="results-list">
+{{#events}}
+<li class="event">
+<a href="#/events/{{signature}}"><p><span class="subtext">{{ formatted_start_time }} at {{ location }}</span>{{ name }}</p></a>
+</li>
+{{/events}}
+</ul>

@@ -1,46 +1,86 @@
 define(["underscore", "backbone", "moxie.conf"], function(_, Backbone, conf){
     var EVENT_POSITION_UPDATED = 'position:updated';
-    var userPosition = {
-        count: 0,
-        supportsGeoLocation: Boolean(navigator.geolocation),
-        follow: function(cb) {
-            if (this.count===0) {
-                this.startWatching();
-            }
-            this.on(EVENT_POSITION_UPDATED, cb);
-            if (this.latest) {
-                // New subscribers should get the latest location fix
-                this.trigger(EVENT_POSITION_UPDATED, this.latest);
-            }
-            this.count++;
+    function UserPosition() {
+        _.extend(this, Backbone.Events);
+        var supportsGeoLocation = Boolean(navigator.geolocation),
+            latestPosition = null,
+            positionInterval;
+        this.getCurrentLocation = function() {
+            // This is used in lieu of conf.defaultLocation as it
+            // might provide a better result (eg. a recent known
+            // location from the geolocation APIs)
+            return latestPosition || conf.defaultLocation;
         },
-        unfollow: function(cb) {
-            this.off(EVENT_POSITION_UPDATED, cb);
-            this.count--;
-        },
-        locationSuccess: function(position) {
+        this.getLocation = function(cb, options) {
+            options = options || {};
+            // If we don't get a location within the errorMargin before the Timeout
+            // we return the most recent position reported by watchPosition
+            options.errorMargin = options.errorMargin || conf.position.errorMargin;
+            options.timeout = options.timeout || conf.position.accuracyTimeout;
+            var temporaryGeoWatchID;
+            var accuracyTimeout = setTimeout(function() {
+                navigator.geolocation.clearWatch(temporaryGeoWatchID);
+                if (latestPosition) {
+                    cb(latestPosition);
+                } else {
+                    cb(conf.defaultLocation);
+                }
+            }, options.timeout);
+            temporaryGeoWatchID = navigator.geolocation.watchPosition(function(position) {
+                latestPosition = position;
+                if (latestPosition.coords && latestPosition.coords.accuracy && latestPosition.coords.accuracy <= options.errorMargin) {
+                    window.clearTimeout(accuracyTimeout);
+                    navigator.geolocation.clearWatch(temporaryGeoWatchID);
+                    cb(latestPosition);
+                }
+            }, _.bind(locationError, this),
+            {
+                    enableHighAccuracy: conf.position.enableHighAccuracy,
+                    maximumAge: conf.position.maximumAge,
+            });
+
+        };
+        function locationSuccess(position) {
             this.trigger(EVENT_POSITION_UPDATED, position);
-            this.latest = position;
-        },
-        locationError: function() {
-            if (!this.latest) {
-                // We have no good position data so update to the default location
-                this.trigger(EVENT_POSITION_UPDATED, conf.defaultLocation);
-                this.latest = conf.defaultLocation;
-            }
-        },
-        startWatching: function() {
-            if (this.supportsGeoLocation) {
-                // Ask for immediate position then watch with a big timeout / max age
-                navigator.geolocation.getCurrentPosition(this.locationSuccess, this.locationError);
-                this.watchID = navigator.geolocation.watchPosition(this.locationSuccess, this.locationError,
-                    {maximumAge: 120000, timeout:25000}); // This is useful for debugging problem with geolocation
-            } else {
-                this.locationError();
+        }
+        function locationError(err) {
+            if ('console' in window) {
+                console.log("Geolocation error: ", err);
             }
         }
-    };
-    _.bindAll(userPosition);
-    _.extend(userPosition, Backbone.Events);
-    return userPosition;
+        function startWatching() {
+            if (supportsGeoLocation) {
+                this.getLocation(_.bind(locationSuccess, this));
+                positionInterval = window.setInterval(this.getLocation, conf.position.updateInterval, _.bind(locationSuccess, this));
+            } else {
+                locationError.apply(this);
+            }
+        }
+        var count = 0;
+        this.follow = function(cb, context) {
+            context = context || this;
+            if (!positionInterval) {
+                // Call the "private" function with the correct context
+                startWatching.apply(this);
+            }
+            this.on(EVENT_POSITION_UPDATED, cb, context);
+            this.count++;
+            // Send user latest userPosition (not default)
+            if (latestPosition) {
+                cb.apply(context, [latestPosition]);
+            }
+        };
+        this.unfollow = function(cb, context) {
+            if (context) {
+                this.off(EVENT_POSITION_UPDATED, null, context);
+            } else {
+                this.off(EVENT_POSITION_UPDATED, cb);
+            }
+            this.count--;
+            if (this.count === 0) {
+                window.clearInterval(positionInterval);
+            }
+        };
+    }
+    return new UserPosition();
 });

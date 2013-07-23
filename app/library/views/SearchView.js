@@ -30,15 +30,11 @@ define(['jquery', 'backbone', 'underscore', 'core/views/InfiniteScrollView', 'li
             },
 
             prepareSearch: function() {
-                this.$('#loading').show();
-                var title = $("#input-title").val();
-                if (title || this.collection.query.title) { this.collection.query.title = title; }
-                var author = $("#input-author").val();
-                if (author || this.collection.query.author) { this.collection.query.author = author; }
-                var isbn = $("#input-isbn").val();
-                if (isbn || this.collection.query.isbn) { this.collection.query.isbn = isbn; }
-                this.collection.fetch();
-                Backbone.history.navigate('/library/?'+$.param(this.collection.query).replace(/\+/g, "%20"), {trigger: false, replace: false});
+                var query = {};
+                if (this.$("#input-title").val()) { query.title = this.$("#input-title").val(); }
+                if (this.$("#input-author").val()) { query.author = this.$("#input-author").val(); }
+                if (this.$("#input-isbn").val()) { query.isbn = this.$("#input-isbn").val(); }
+                Backbone.history.navigate('/library/?'+$.param(query).replace(/\+/g, "%20"), {trigger: true, replace: false});
             },
 
             serialize: function() {

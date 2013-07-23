@@ -20,7 +20,10 @@ define([], function() {
             courses_auth_authorize: '/courses/oauth/authorize',
             library_search: '/library/search',
             library_item: '/library/item:',
-            contact_search: '/contact/search'
+            contact_search: '/contact/search',
+            events_list: '/events/search?from=now',
+            events_id: '/events/',
+            park_and_rides: '/transport/park-and-rides'
         },
         urlFor: function(api_method) {
             return this.endpoint + this.paths[api_method];
@@ -28,10 +31,16 @@ define([], function() {
         pathFor: function(api_method) {
             return this.paths[api_method];
         },
-        geolocationInterval: 25000,
         defaultLocation: {coords: {latitude: 51.752018, longitude: -1.257723}},
         mapbox: {key: 'mobileox.map-iihxb1dl'},
         map: {bounds: {exponent: 0.75, limit: 500, fallback: 5}},
+        position: {
+            updateInterval: 60000,          // 60 seconds
+            errorMargin: 50,                // 50 meters
+            accuracyTimeout: 25000,         // 25 seconds
+            maximumAge: 600000,             // 10 minutes
+            enableHighAccuracy: true,       // Use the GPS if possible
+        },
         news: {
             feeds: [
                     {"title": "University of Oxford - Media", "url": "http://www.ox.ac.uk/news_rss.rm", "slug": "offices-media"},

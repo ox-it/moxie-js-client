@@ -1,0 +1,13 @@
+<h3>What's on today</h3>
+{{#if eventsToday}}
+<ul class="results-list" id="today"></ul>
+{{else}}
+<p>No events today!</p>
+{{/if}}
+
+<h3>Later this week</h3>
+{{#if eventsWeek}}
+<ul class="results-list" id="week"></ul>
+{{else}}
+<p>No events later this week!</p>
+{{/if}}
