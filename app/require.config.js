@@ -22,7 +22,7 @@ var require = {
         "backbone.layoutmanager": "libs/backbone.layoutmanager",
         "backbone.hal": "libs/backbone.hal",
         "localstorage": "libs/backbone.localStorage",
-        "masonry": "libs/jquery.masonry",
+        "nested": "libs/jquery.nested",
         "raphael": "libs/raphael",
         "justgage": "libs/justgage",
 
@@ -60,9 +60,9 @@ var require = {
         "json2": {
             "exports": "JSON"
         },
-        "masonry": {
+        "nested": {
             "deps": ["jquery"],
-            "exports": "masonry"
+            "exports": "nested"
         },
         "justgage": {
             "deps": ["raphael"],
