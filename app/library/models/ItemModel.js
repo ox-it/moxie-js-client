@@ -1,6 +1,6 @@
-define(["backbone", "moxie.conf", "places/collections/POICollection"], function(Backbone, conf, POIs) {
+define(["MoxieModel", "moxie.conf", "places/collections/POICollection"], function(MoxieModel, conf, POIs) {
 
-    var Item = Backbone.Model.extend({
+    var Item = MoxieModel.extend({
         url: function() {
             return conf.urlFor('library_item') + this.id + '/';
         },

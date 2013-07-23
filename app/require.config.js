@@ -28,7 +28,11 @@ var require = {
         // Testing libs
         "jasmine": "tests/libs/jasmine-1.3.1/jasmine",
         "jasmine-html": "tests/libs/jasmine-1.3.1/jasmine-html",
-        "jasmine-jquery": "tests/libs/jasmine-jquery"
+        "jasmine-jquery": "tests/libs/jasmine-jquery",
+
+        // Moxie Core modules
+        "MoxieModel": "core/models/MoxieModel",
+        "MoxieCollection": "core/collections/MoxieCollection"
     },
 
     // Sets the configuration for your third party scripts that are not AMD compatible
