@@ -4,7 +4,10 @@ define(['today/views/CardView', 'hbs!today/templates/weather'], function(CardVie
         attributes: {'class': 'today'},
         manage: true,
         template: weatherTemplate,
-        serialize: function() { return this.model.toJSON(); }
+        serialize: function() { return this.model.toJSON(); },
+        afterRender: function() {
+            $('.today-card-container').nested('append', this.el);
+        }
     });
     return WeatherCard;
 });

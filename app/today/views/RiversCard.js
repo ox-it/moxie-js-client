@@ -7,7 +7,10 @@ define(['today/views/CardView', 'hbs!today/templates/rivers'], function(CardView
         serialize: function() {
             return this.model.toJSON();
         },
-        template: riversTemplate
+        template: riversTemplate,
+        afterRender: function() {
+            $('.today-card-container').nested('append', this.el);
+        }
     });
     return RiversCard;
 });

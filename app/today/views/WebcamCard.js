@@ -23,6 +23,7 @@ define(['underscore', 'today/views/CardView', 'moxie.conf', 'hbs!today/templates
         },
         showEl: function() {
             this.el.style.display = null;
+            $('.today-card-container').nested('append', this.el);
         },
     });
     return WebcamCard;

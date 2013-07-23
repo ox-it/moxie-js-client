@@ -27,7 +27,7 @@ define(['jquery', 'moxie.conf', 'underscore', 'nested', 'today/views/CardView', 
         },
         showEl: function() {
             this.el.style.display = null;
-            //$('.today-card-container').masonry('reload');
+            $('.today-card-container').nested('append', this.el);
         },
         clearRefresh: function() {
             if (this.refreshID) {

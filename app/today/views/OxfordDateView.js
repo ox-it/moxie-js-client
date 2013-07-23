@@ -7,7 +7,10 @@ define(['today/views/CardView', 'hbs!today/templates/oxford_date'], function(Car
         serialize: function() {
             return this.model.toJSON();
         },
-        template: oxfordDateTemplate
+        template: oxfordDateTemplate,
+        afterRender: function() {
+            $('.today-card-container').nested('append', this.el);
+        }
     });
     return OxfordDateView;
 });

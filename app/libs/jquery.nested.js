@@ -195,6 +195,8 @@ if (!Object.keys) {
             var self = this;
             var box = {};
 
+            if(this.elements.length === 0) return [];
+
             $.each(this.elements, function (index, el) {
                 self._updateMatrix(el);
             });
