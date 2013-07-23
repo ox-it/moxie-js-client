@@ -1,7 +1,7 @@
-define(["backbone"],
+define(["MoxieModel"],
 
-    function(Backbone) {
-        var Favourite = Backbone.Model.extend({
+    function(MoxieModel) {
+        var Favourite = MoxieModel.extend({
             initialize: function() {
                 this.bind('remove', function() {
                     this.destroy();

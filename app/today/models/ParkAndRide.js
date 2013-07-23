@@ -1,6 +1,6 @@
-define(['backbone', 'moxie.conf', 'today/views/ParkAndRidesCard'], function(Backbone, conf, ParkAndRidesCard) {
+define(['MoxieModel', 'moxie.conf', 'today/views/ParkAndRidesCard'], function(MoxieModel, conf, ParkAndRidesCard) {
 
-    var ParkAndRide = Backbone.Model.extend({
+    var ParkAndRide = MoxieModel.extend({
         View: ParkAndRidesCard,
 
         url: function() {

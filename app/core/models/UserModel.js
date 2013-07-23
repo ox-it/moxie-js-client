@@ -1,5 +1,5 @@
-define(['underscore', 'backbone', 'jquery'], function(_, Backbone, $) {
-    var User = Backbone.Model.extend({
+define(['underscore', 'MoxieModel', 'jquery'], function(_, MoxieModel, $) {
+    var User = MoxieModel.extend({
         checkAuthorization: function(options) {
             options = options || {};
             var authorized = options.authorized,

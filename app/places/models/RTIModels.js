@@ -1,8 +1,8 @@
-define(['backbone', 'underscore', 'moxie.conf'], function(Backbone, _, conf) {
+define(['MoxieModel', 'underscore', 'moxie.conf'], function(MoxieModel, _, conf) {
     var testDelayed = function(estTime) {
         return !((estTime.indexOf('On time') === 0) || (estTime.indexOf('Starts here') === 0));
     };
-    var RTIModel = Backbone.Model.extend({
+    var RTIModel = MoxieModel.extend({
         url: function() {
             return conf.endpoint + this.get('href');
         }

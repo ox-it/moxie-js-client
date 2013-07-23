@@ -1,5 +1,5 @@
-define(['backbone', 'underscore', 'moxie.conf', 'today/views/WebcamCard'], function(Backbone, _, conf, WebcamCard) {
-    var Webcam = Backbone.Model.extend({
+define(['MoxieModel', 'underscore', 'moxie.conf', 'today/views/WebcamCard'], function(MoxieModel, _, conf, WebcamCard) {
+    var Webcam = MoxieModel.extend({
         url: conf.urlFor('webcams'),
         View: WebcamCard,
         parse: function(data) {

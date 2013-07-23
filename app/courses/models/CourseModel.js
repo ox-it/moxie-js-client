@@ -1,6 +1,6 @@
-define(["backbone", "underscore", "moxie.conf"], function(Backbone, _, conf) {
+define(["MoxieModel", "underscore", "moxie.conf"], function(MoxieModel, _, conf) {
 
-    var Course = Backbone.Model.extend({
+    var Course = MoxieModel.extend({
         url: function() {
             return conf.urlFor('course_id') + this.id;
         },

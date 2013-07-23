@@ -7,6 +7,14 @@ define(['backbone', 'underscore'], function(Backbone, _) {
             if (!options.update && options.reset===undefined) {
                 options.reset = true;
             }
+            // Set a default error handler
+            if (!options.error) {
+                options.error = _.bind(function() {
+                    // Pass all the error arguments through
+                    // These are [collection, response, options]
+                    this.trigger("errorFetching", arguments);
+                }, this);
+            }
             return Backbone.Collection.prototype.fetch.apply(this, [options]);
         },
         // Documented in "Moxie Backbone Extensions" in our docs.
