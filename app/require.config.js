@@ -22,7 +22,16 @@ var require = {
         "backbone.layoutmanager": "libs/backbone.layoutmanager",
         "backbone.hal": "libs/backbone.hal",
         "localstorage": "libs/backbone.localStorage",
-        "nested": "libs/jquery.nested",
+        // masonry dependencies
+        "outlayer": "libs/masonry",
+        "get-size": "libs/masonry",
+        "eventie": "libs/masonry",
+        "doc-ready": "libs/masonry",
+        "eventEmitter": "libs/masonry",
+        "get-style-property": "libs/masonry",
+        "matches-selector": "libs/masonry",
+        "masonry": "libs/masonry",
+        // gauge
         "raphael": "libs/raphael",
         "justgage": "libs/justgage",
 
@@ -59,10 +68,6 @@ var require = {
         },
         "json2": {
             "exports": "JSON"
-        },
-        "nested": {
-            "deps": ["jquery"],
-            "exports": "nested"
         },
         "justgage": {
             "deps": ["raphael"],

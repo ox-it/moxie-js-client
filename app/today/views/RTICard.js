@@ -1,4 +1,4 @@
-define(['jquery', 'moxie.conf', 'underscore', 'nested', 'today/views/CardView', 'hbs!today/templates/rti'], function($, conf, _, nested, CardView, rtiTemplate) {
+define(['jquery', 'moxie.conf', 'underscore', 'masonry/masonry', 'today/views/CardView', 'hbs!today/templates/rti'], function($, conf, _, masonry, CardView, rtiTemplate) {
 
     var RTI_REFRESH = 60000;    // 1 minute
     var RTICard = CardView.extend({
@@ -27,7 +27,9 @@ define(['jquery', 'moxie.conf', 'underscore', 'nested', 'today/views/CardView', 
         },
         showEl: function() {
             this.el.style.display = null;
-            $('.today-card-container').nested('append', this.el);
+            var container = $('.today-card-container')[0];
+            console.log(container);
+            container.masonry('reloadItems');
         },
         clearRefresh: function() {
             if (this.refreshID) {

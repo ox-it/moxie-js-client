@@ -31,7 +31,6 @@ define(['today/views/CardView', 'hbs!today/templates/park_and_rides'], function(
                     levelColors: colors
                 });
             }
-            $('.today-card-container').nested('append', this.el);
         }
     });
     return RiversCard;
