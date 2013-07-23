@@ -26,7 +26,6 @@ define(['jquery', 'backbone', 'underscore', 'favourites/collections/Favourites',
             },
             afterRender: function() {
                 Backbone.trigger('domchange:title', "Favourites");
-                this.button.editMode();
             },
             editCallback: function(editing) {
                 // Test its actually false, not something falsy
@@ -41,9 +40,6 @@ define(['jquery', 'backbone', 'underscore', 'favourites/collections/Favourites',
                 }
                 this.editing = editing;
                 this.render();
-            },
-            cleanup: function() {
-                this.button.exitEditMode();
             }
         });
         return FavouritesView;
