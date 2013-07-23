@@ -24,10 +24,10 @@ define(['jquery', 'moxie.conf', 'underscore', 'masonry', 'today/views/CardView',
                 this.refreshID = this.model.renderRTI(this.$('#poi-rti')[0], RTI_REFRESH);
                 this.model.rti.on('sync', this.showEl, this);
             }
-            $('.today-card-container').masonry('reload');
         },
         showEl: function() {
             this.el.style.display = null;
+            $('.today-card-container').masonry('reload');
         },
         clearRefresh: function() {
             if (this.refreshID) {

@@ -38,12 +38,7 @@ define(['jquery', 'backbone', 'underscore', 'masonry', 'hbs!today/templates/inde
             $('.today-card-container').masonry({
                 itemSelector : '.today',
                 columnWidth : 5,
-                isAnimated: true,
-                  animationOptions: {
-                    duration: 250,
-                    easing: 'linear',
-                    queue: false
-                  }
+                isAnimated: false
             });
             $(document).on("deviceready", _.bind(function() {
                 // Cordova is initialized
