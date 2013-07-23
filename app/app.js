@@ -1,4 +1,4 @@
-define(['jquery', 'backbone', 'underscore', 'core/views/MapBrowseLayout'], function($, Backbone, _, MapBrowseLayout) {
+define(['jquery', 'backbone', 'underscore', 'core/views/MapBrowseLayout', 'favourites/collections/Favourites', 'favourites/views/FavouriteButtonView'], function($, Backbone, _, MapBrowseLayout, Favourites, FavouriteButtonView) {
     var app = {
 
         navigate: _.wrap(Backbone.history.navigate, function(nav, path, options) {
@@ -29,6 +29,7 @@ define(['jquery', 'backbone', 'underscore', 'core/views/MapBrowseLayout'], funct
             return this._isCordova;
         },
 
+        favourites: new Favourites(),
         renderView: function(view, options) {
             options = options || {};
             if (this.isCordova()) {
@@ -40,6 +41,15 @@ define(['jquery', 'backbone', 'underscore', 'core/views/MapBrowseLayout'], funct
                     $('#back').show();
                 }
             }
+
+            // Render the Context button
+            //
+            // If no `contextButtonView` is specified in `options` then we
+            // render out the FavouriteButtonView as a default button.
+            var contextButtonView = options.contextButtonView || new FavouriteButtonView({collection: this.favourites});
+            $('#context-button').empty().append(contextButtonView.el);
+            contextButtonView.render();
+
             // Remove any existing layouts
             // If managed with LayoutManager this will call cleanup
             if (this.currentLayout) {
