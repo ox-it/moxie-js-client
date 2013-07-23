@@ -1,15 +1,12 @@
-define(["app", "backbone", "places/router", "today/views/IndexView", "today/collections/TodayItems", "courses/router", "library/router", "contacts/router", "news/router", "events/router", "favourites/views/FavouritesView"],
-    function(app, Backbone, PlacesRouter, IndexView, TodayItems, CoursesRouter, LibraryRouter, ContactsRouter, NewsRouter, EventsRouter, FavouritesView){
+define(["app", "backbone", "places/router", "today/views/IndexView", "today/collections/TodayItems", "courses/router", "library/router", "contacts/router", "news/router", "events/router", "favourites/views/FavouritesEditButtonView", "favourites/views/FavouritesView"],
+    function(app, Backbone, PlacesRouter, IndexView, TodayItems, CoursesRouter, LibraryRouter, ContactsRouter, NewsRouter, EventsRouter, FavouritesEditButtonView, FavouritesView){
     var MoxieRouter = Backbone.Router.extend({
         subrouters: {},
 
         initialize: function(options) {
-            options = options || {};
-            this.favourites = options.favourites;
-            this.favouriteButtonView = options.favouriteButtonView;
             // Pass favourites to the TodayItems to personalise the Today View
             // from the user Favourites. First arg here is empty array of models
-            this.today = new TodayItems([], {favourites: this.favourites});
+            this.today = new TodayItems([], {favourites: app.favourites});
         },
 
         routes: {
@@ -30,7 +27,9 @@ define(["app", "backbone", "places/router", "today/views/IndexView", "today/coll
         },
 
         manageFavourites: function(params) {
-            app.renderView(new FavouritesView({collection: this.favourites, button: this.favouriteButtonView}), {menu: true});
+            var favouritesEditButtonView = new FavouritesEditButtonView();
+            var favouritesView = new FavouritesView({collection: app.favourites, button: favouritesEditButtonView});
+            app.renderView(favouritesView, {menu: true, contextButtonView: favouritesEditButtonView});
         },
 
         contacts: function(params) {
