@@ -1,0 +1,7 @@
+<form>
+    {{#settings}}
+    <label for="{{ name }}">{{ label }}:
+        <input id="{{ name }}" name="{{ name }}" type="checkbox" value="true" {{#if enabled}} checked {{/if}}>
+    </label>
+    {{/settings}}
+</form>
