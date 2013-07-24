@@ -20,6 +20,8 @@ define(['today/views/CardView', 'hbs!today/templates/park_and_rides'], function(
                         max: 100,
                         title: park.name.split("Park")[0].trim(),
                         label: "NO INFORMATION",
+                        symbol: "?",
+                        titleFontColor: "#101010",
                         hideValue: true,
                         hideMinMax: true,
                         counter: false
@@ -35,6 +37,8 @@ define(['today/views/CardView', 'hbs!today/templates/park_and_rides'], function(
                         hideValue: true,
                         hideMinMax: true,
                         counter: false,
+                        labelFontColor: "#101010",
+                        titleFontColor: "#101010",
                         levelColors: ["#a9d70b", "#a9d70b", "#a9d70b", "#a9d70b", "#a9d70b", "#f9c802", "#ff0000"]
                     });
                 }
