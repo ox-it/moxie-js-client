@@ -32,7 +32,8 @@ define(['backbone', 'hbs!places/templates/busrti', 'hbs!places/templates/trainrt
                 label: "",
                 hideValue: true,
                 hideMinMax: true,
-                counter: false
+                counter: false,
+                levelColors: ["#a9d70b", "#a9d70b", "#a9d70b", "#a9d70b", "#a9d70b", "#f9c802", "#ff0000"]
             });
         },
         template: prRTITemplate
