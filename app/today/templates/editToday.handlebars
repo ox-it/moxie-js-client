@@ -1,7 +1,15 @@
+<h2 class="free-heading">
+    Today Settings
+</h2>
 <form>
-    {{#settings}}
-    <label for="{{ name }}">{{ label }}:
-        <input id="{{ name }}" name="{{ name }}" type="checkbox" value="true" {{#if enabled}} checked {{/if}}>
-    </label>
-    {{/settings}}
+    <ul class="results-list">
+        {{#settings}}
+        <li>
+            <label for="{{ name }}">
+                <input id="{{ name }}" name="{{ name }}" type="checkbox" value="true" {{#if enabled}} checked {{/if}}>
+                {{ label }}
+            </label>
+        </li>
+        {{/settings}}
+    </ul>
 </form>

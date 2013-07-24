@@ -533,11 +533,11 @@ ul.results-list {
         p {
             margin-bottom: 0px;
         }
-        > a, > h3, > p {
+        > label, > a, > h3, > p {
             padding: 10px 8px;
-            padding-bottom: 20px;
         }
-        > a {
+        > label, > a {
+            margin: 0;
             height: 100%;
             width: 100%;
             display: block;

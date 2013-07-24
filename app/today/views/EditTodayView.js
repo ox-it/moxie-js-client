@@ -2,6 +2,9 @@ define(['backbone', 'hbs!today/templates/editToday'], function(Backbone, editTod
     var EditTodayView = Backbone.View.extend({
         manage: true,
         template: editTodayTemplate,
+        attributes: {
+            'class': 'today-settings'
+        },
         serialize: function() {
             return {settings: this.collection.settings.toJSON()};
         },
