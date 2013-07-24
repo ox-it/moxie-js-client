@@ -1,0 +1,13 @@
+<p class="free-text">Add or remove cards from your Today page</p>
+<form>
+    <ul class="results-list">
+        {{#settings}}
+        <li>
+            <label for="{{ name }}">
+                <input id="{{ name }}" name="{{ name }}" type="checkbox" value="true" {{#if enabled}} checked {{/if}}>
+                {{{ label }}}
+            </label>
+        </li>
+        {{/settings}}
+    </ul>
+</form>
