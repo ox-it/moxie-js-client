@@ -1,16 +1,17 @@
-define(["app", "backbone", "places/router", "today/views/IndexView", "today/collections/TodayItems", "courses/router", "library/router", "contacts/router", "news/router", "events/router", "favourites/views/FavouritesEditButtonView", "favourites/views/FavouritesView"],
-    function(app, Backbone, PlacesRouter, IndexView, TodayItems, CoursesRouter, LibraryRouter, ContactsRouter, NewsRouter, EventsRouter, FavouritesEditButtonView, FavouritesView){
+define(["app", "backbone", "places/router", "today/views/IndexView", "today/collections/TodayItems", "courses/router", "library/router", "contacts/router", "news/router", "events/router", "favourites/views/FavouritesEditButtonView", "favourites/views/FavouritesView", "today/views/EditTodayButton", "today/views/SaveTodayButton", "today/views/EditTodayView"],
+    function(app, Backbone, PlacesRouter, IndexView, TodayItems, CoursesRouter, LibraryRouter, ContactsRouter, NewsRouter, EventsRouter, FavouritesEditButtonView, FavouritesView, EditTodayButton, SaveTodayButton, EditTodayView){
     var MoxieRouter = Backbone.Router.extend({
         subrouters: {},
 
         initialize: function(options) {
             // Pass favourites to the TodayItems to personalise the Today View
             // from the user Favourites. First arg here is empty array of models
-            this.today = new TodayItems([], {favourites: app.favourites});
+            this.today = new TodayItems([], {favourites: app.favourites, settings: app.todaySettings});
         },
 
         routes: {
             "": "index",
+            "today/edit": "editTodayView",
             "favourites/": "manageFavourites",
 
             "places/*subroute": "placesModule",
@@ -23,7 +24,14 @@ define(["app", "backbone", "places/router", "today/views/IndexView", "today/coll
 
         index: function() {
             this.today.fetch();
-            app.renderView(new IndexView({collection: this.today}), {menu: true});
+            var editTodayButton = new EditTodayButton();
+            app.renderView(new IndexView({collection: this.today}), {menu: true, contextButtonView: editTodayButton});
+        },
+
+        editTodayView: function(params) {
+            var saveTodayButton = new SaveTodayButton();
+            var editTodayView = new EditTodayView({collection: this.today, button: saveTodayButton});
+            app.renderView(editTodayView, {menu: true, contextButtonView: saveTodayButton});
         },
 
         manageFavourites: function(params) {
