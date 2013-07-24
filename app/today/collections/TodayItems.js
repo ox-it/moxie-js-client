@@ -23,6 +23,7 @@ define(['underscore', 'core/collections/MoxieCollection', 'today/models/OxfordDa
                 var models = [];
                 if (this.settings.enabled('OxfordDate')) { models.push(new OxfordDate()); }
                 if (this.settings.enabled('Weather')) { models.push(new Weather()); }
+                if (this.settings.enabled('RiverStatus')) { models.push(new RiverStatus()); }
                 if (this.settings.enabled('Webcam')) { models.push(new Webcam()); }
                 if (this.settings.enabled('NearbyRTI')) { models.push(new NearbyRTI()); }
                 if (this.settings.enabled('Events')) { models.push(new Events()); }
