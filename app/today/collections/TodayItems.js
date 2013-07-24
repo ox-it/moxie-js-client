@@ -6,32 +6,42 @@ define(['underscore', 'core/collections/MoxieCollection', 'today/models/OxfordDa
             this.favourites.on('change add remove', _.bind(function() {
                 this.favouritesUpdated = true;
             }, this));
+
+            this.settings = options.settings;
+            this.settingsUpdated = false;
+            this.settings.on('change add remove', _.bind(function() {
+                this.settingsUpdated = true;
+            }, this));
         },
         fetch: function() {
             // If we have already loaded the Cards and the favourites haven't updated
             // we don't need to load them again.
-            if (this.length===0 || this.favouritesUpdated) {
+            if (this.length===0 || this.favouritesUpdated || this.settingsUpdated) {
                 this.favouritesUpdated = false;
-                var models = [
-                    new OxfordDate(),
-                    new Weather(),
-                    new RiverStatus(),
-                    new Webcam(),
-                    new NearbyRTI(),
-                    new Events(),
-                    new ParkAndRide()
-                ];
-                this.favourites.each(function(fav) {
-                    var attrs = fav.attributes;
-                    if ('options' in attrs && 'model' in attrs.options && 'RTI' in attrs.options.model) {
-                        // Find a user Favourite which has an RTI attribute
-                        var favRTI = new FavRTI(attrs.options.model);
-                        if (fav.has('userTitle')) {
-                            favRTI.set('userTitle', fav.get('userTitle'));
+                this.settingsUpdated = false;
+
+                var models = [];
+                if (this.settings.enabled('OxfordDate')) { models.push(new OxfordDate()); }
+                if (this.settings.enabled('Weather')) { models.push(new Weather()); }
+                if (this.settings.enabled('Webcam')) { models.push(new Webcam()); }
+                if (this.settings.enabled('NearbyRTI')) { models.push(new NearbyRTI()); }
+                if (this.settings.enabled('Events')) { models.push(new Events()); }
+                if (this.settings.enabled('ParkAndRide')) { models.push(new ParkAndRide()); }
+
+                if (this.settings.enabled('FavRTI')) {
+                    this.favourites.each(function(fav) {
+                        var attrs = fav.attributes;
+                        if ('options' in attrs && 'model' in attrs.options && 'RTI' in attrs.options.model) {
+                            // Find a user Favourite which has an RTI attribute
+                            var favRTI = new FavRTI(attrs.options.model);
+                            if (fav.has('userTitle')) {
+                                favRTI.set('userTitle', fav.get('userTitle'));
+                            }
+                            models.push(favRTI);
                         }
-                        models.push(favRTI);
-                    }
-                }, this);
+                    }, this);
+                }
+
                 this.reset(models);
                 this.each(function(model) {
                     model.fetch();
