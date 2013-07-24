@@ -1,4 +1,4 @@
-define(['jquery', 'backbone', 'underscore', 'core/views/MapBrowseLayout', 'favourites/collections/Favourites', 'favourites/views/FavouriteButtonView'], function($, Backbone, _, MapBrowseLayout, Favourites, FavouriteButtonView) {
+define(['jquery', 'backbone', 'underscore', 'core/views/MapBrowseLayout', 'favourites/collections/Favourites', 'favourites/views/FavouriteButtonView', 'today/collections/TodaySettings'], function($, Backbone, _, MapBrowseLayout, Favourites, FavouriteButtonView, TodaySettings) {
     var app = {
 
         navigate: _.wrap(Backbone.history.navigate, function(nav, path, options) {
@@ -29,7 +29,11 @@ define(['jquery', 'backbone', 'underscore', 'core/views/MapBrowseLayout', 'favou
             return this._isCordova;
         },
 
+        // These two collections are both stored in localStorage
+        // in Future both should be sync'd remotely
+        todaySettings: new TodaySettings(),
         favourites: new Favourites(),
+
         renderView: function(view, options) {
             options = options || {};
             if (this.isCordova()) {
