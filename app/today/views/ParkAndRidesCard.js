@@ -35,7 +35,7 @@ define(['today/views/CardView', 'hbs!today/templates/park_and_rides'], function(
                         hideValue: true,
                         hideMinMax: true,
                         counter: false,
-                        levelColors: ["#a9d70b", "#f9c802", "#ff0000"]
+                        levelColors: ["#a9d70b", "#a9d70b", "#a9d70b", "#a9d70b", "#a9d70b", "#f9c802", "#ff0000"]
                     });
                 }
             }
