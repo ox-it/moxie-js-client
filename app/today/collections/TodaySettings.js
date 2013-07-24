@@ -24,7 +24,6 @@ define(["backbone", "underscore", "localstorage"],
                 }
             },
             parse: function(data) {
-                console.log(data);
                 _.each(data, function(userSetting) {
                     if ('name' in userSetting && 'enabled' in userSetting) {
                         var setting = _.findWhere(defaultSettings, {name: userSetting.name});
