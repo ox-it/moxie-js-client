@@ -245,19 +245,19 @@ div.today {
         margin-left: 5px;
         margin-right: 5px;
     }
-    ul.five-day-forecast {
-        margin-top: 10px;
-        margin-bottom: 0;
-        float: left;
-    }
-    ul.five-day-forecast li {
-        display: inline;
-        list-style-type: none;
+    div.five-day-forecast div {
+        display: inline-block;
         padding-left: 5px;
+        margin-top: 7px;
         font-size: 1.4em;
+        width: 27px;
+        span.day-of-week {
+            font-size: 0.8em;
+            font-variant: small-caps;
+        }
     }
-    ul.five-day-forecast li:last-child {
-        padding-right: none;
+    div.five-day-forecast div:last-child {
+        margin: 0;
     }
 
     div.river-status:not(:last-child) {
@@ -278,7 +278,7 @@ div.today {
     }
     div.day {
         float: left;
-        padding: 15px;
+        padding: 12px;
         font-size: 24px;
         font-weight: 300;
         font-variant: small-caps;
@@ -288,7 +288,6 @@ div.today {
     div.date {
         float: left;
         padding-left: 10px;
-        padding-top: 5px;
         // Date contains term-date and standard-date one atop the other.
         > div {
             font-size: 15px;
@@ -322,6 +321,10 @@ div.today {
     &#events_list {
         max-width: 480px;
     }
+}
+div.weather {
+    height: 51px;
+    overflow: hidden;
 }
 div.webcam {
     @include respondTo(smallScreen) {
