@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'hbs!places/templates/detail', 'hbs!places/templates/busrti', 'hbs!places/templates/trainrti'],
-    function($, Backbone, _, conf, detailTemplate, busRTITemplate, trainRTITemplate){
+define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'hbs!places/templates/detail'],
+    function($, Backbone, _, conf, detailTemplate){
     var RTI_REFRESH = 15000;    // 15 seconds
     var DetailView = Backbone.View.extend({
 
