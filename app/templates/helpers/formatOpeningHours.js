@@ -25,7 +25,11 @@ define(["handlebars"], function(Handlebars) {
         }
     }
     function replaceAll(string, target, replacement) {
-        return string.split(target).join(replacement);
+        var parts = string.split(target);
+        for (var part in parts) {
+            parts[part] = parts[part].trim();
+        }
+        return parts.join(replacement);
     }
     Handlebars.registerHelper('formatOpeningHours', formatOpeningHours);
     return formatOpeningHours;
