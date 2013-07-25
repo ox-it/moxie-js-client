@@ -46,6 +46,7 @@ define([], function() {
                     {"title": "University of Oxford - Media", "url": "http://www.ox.ac.uk/news_rss.rm", "slug": "offices-media"},
                     {"title": "Wolfson College", "url": "http://www.wolfson.ox.ac.uk/rss.xml", "slug": "wolfson"},
                     {"title": "Linacre College", "url": "http://www.linacre.ox.ac.uk/Linacre/news-and-events/news/RSS", "slug": "linacre"},
+                    {"title": "Kellogg College", "url": "http://www.kellogg.ox.ac.uk/rss.xml", "slug": "kellogg"},
                     {"title": "Lady Margaret Hall news", "url": "http://www.lmh.ox.ac.uk/CMSPages/NewsRss.aspx", "slug": "lmh"},
                     {"title": "Oriel College", "url": "http://www.oriel.ox.ac.uk/news/rss", "slug": "oriel-news"},
                     {"title": "St. Antony's College Events", "url": "http://www.google.com/calendar/feeds/it-support%40sant.ox.ac.uk/public/basic?orderby=starttime&sortorder=ascending&futureevents=true&singleevents=true", "slug": "st-antonys-events"},
