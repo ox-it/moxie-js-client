@@ -13,7 +13,10 @@ define(["handlebars"], function(Handlebars) {
                 var p = parts[part];
                 // normalising to compare to what is used by TimeDomain
                 var normalised = replaceAll(replaceAll(p, '-', ' - '), ',', ' , ').trim();
-                if (normalised === result.usedrule) {
+                // highlight if the rule used corresponds to normalised and
+                // if it is open (otherwise usedrule corresponds to the last rule,
+                // so it might not match appropriately)
+                if (normalised === result.usedrule && result.value === true) {
                     formatted += "<strong>" + p + "</strong><br />";
                 } else {
                     formatted += p + "<br />";
