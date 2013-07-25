@@ -1,7 +1,7 @@
 define(['today/views/CardView', 'hbs!today/templates/weather'], function(CardView, weatherTemplate) {
     var WeatherCard = CardView.extend({
         weight: 80,
-        attributes: {'class': 'today'},
+        attributes: {'class': 'today weather'},
         manage: true,
         template: weatherTemplate,
         serialize: function() { return this.model.toJSON(); }
