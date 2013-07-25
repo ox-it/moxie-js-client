@@ -1,12 +1,15 @@
 define(["handlebars"], function(Handlebars) {
-    function formatOpeningHours(string) {
-        // format opening hours by splitting on ; and highlighting
-        // the rule used to decide if it is open or not
+    function formatOpeningHours(string, td) {
+        /**
+         * Format opening hours and highlight the rule used if it is open
+         * @param string: plain string containing opening hours
+         * @param td: TimeDomain result object containing parsed rules
+         * @return formatted string
+         */
         if(!string) {
             return "";
         }
         try {
-            var result = TimeDomain.evaluateInTime(string);
             var parts = string.split(";");
             var formatted = '';
             for (var part in parts) {
@@ -16,7 +19,7 @@ define(["handlebars"], function(Handlebars) {
                 // highlight if the rule used corresponds to normalised and
                 // if it is open (otherwise usedrule corresponds to the last rule,
                 // so it might not match appropriately)
-                if (normalised === result.usedrule && result.value === true) {
+                if (normalised === td.usedrule && td.value === true) {
                     formatted += "<strong>" + p + "</strong><br />";
                 } else {
                     formatted += p + "<br />";

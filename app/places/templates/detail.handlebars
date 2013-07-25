@@ -3,7 +3,7 @@
 		<h2>{{ poi.name }}</h2>
 		<p class="type">{{ poi.type_name }}
 		{{#if poi.opening_hours }}
-			{{{currentlyOpen poi.opening_hours}}}
+			{{{currentlyOpen currentlyOpen}}}
 		{{/if}}
 		</p>
 	{{ else }}
@@ -39,7 +39,7 @@
 
 <div class="free-text">
 	<p class="metadata">
-		{{#if poi.opening_hours }}{{{formatOpeningHours poi.opening_hours }}}<br />
+		{{#if poi.opening_hours }}{{{formatOpeningHours poi.opening_hours parsedOpeningHours }}}<br />
 		{{/if}}
 		{{#if poi.collection_times}}
 		<p>Collection times: {{ poi.collection_times }}</p>
