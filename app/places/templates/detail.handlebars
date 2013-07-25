@@ -39,7 +39,7 @@
 
 <div class="free-text">
 	<p class="metadata">
-		{{#if poi.opening_hours }}{{ poi.opening_hours }}<br />
+		{{#if poi.opening_hours }}{{{formatOpeningHours poi.opening_hours }}}<br />
 		{{/if}}
 		{{#if poi.collection_times}}
 		<p>Collection times: {{ poi.collection_times }}</p>
