@@ -215,26 +215,28 @@ dl {
 // Today
 // Items specific to the today page
 div.today-card-container {
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+    @include columns(325px);
     @include respondTo(smallScreen) {
-        @include columns(1, 0px);
-    }
-    @include respondTo(mediumScreen) {
-        @include columns(3, 10px);
-    }
-    @include respondTo(largeScreen) {
-        @include columns(4, 10px);
+        // Disable columns in small screen mode
+        @include columns(none);
     }
 }
 
 div.today {
+    text-align: left;
     display: inline-block;
     position: relative;
     vertical-align: top;
-    width: 360px;
-    margin-left: 15px;
+    // This width and min-width combination work with css columns
+    // Meaning Today cards expand to fill 96% of each column, but as
+    // soon as an additional card fits, the columns expand.
+    //
+    //
+    // it's properly mental.
+    width: 300px;
+    min-width: 96%;
     margin-top: 10px;
     @include box-shadow(0 0 2px #ccc);
     @include border-radius(3px);
@@ -253,13 +255,6 @@ div.today {
         right: 0px;
         bottom: 0px;
         font-size: 11px;
-    }
-    @include respondTo(smallScreen) {
-        // Single column mode
-        width: auto;
-        min-width: 96%;
-        margin-left: 5px;
-        margin-right: 5px;
     }
     div.five-day-forecast div {
         display: inline-block;
@@ -333,11 +328,6 @@ div.today {
 div.weather {
     height: 51px;
     overflow: hidden;
-}
-div.webcam {
-    @include respondTo(smallScreen) {
-        display: block;
-    }
 }
 
 div.embedded_map {
