@@ -32,7 +32,7 @@ define(['underscore', 'core/collections/MoxieCollection', 'today/models/OxfordDa
                 if (this.settings.enabled('FavRTI')) {
                     this.favourites.each(function(fav) {
                         var attrs = fav.attributes;
-                        if ('options' in attrs && 'model' in attrs.options && 'RTI' in attrs.options.model) {
+                        if ('options' in attrs && 'model' in attrs.options && 'RTI' in attrs.options.model && attrs.options.model.RTI.length > 0) {
                             // Find a user Favourite which has an RTI attribute
                             var favRTI = new FavRTI(attrs.options.model);
                             if (fav.has('userTitle')) {
