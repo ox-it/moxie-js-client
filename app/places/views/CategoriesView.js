@@ -17,6 +17,7 @@ define(['jquery', 'underscore', 'backbone', 'app', 'moxie.conf', 'moxie.position
             var category = this.collection.find(function(model) { return model.get('type_prefixed') === this.category_name; }, this);
             if (category) {
                 context.types = new Categories(category.getChildren()).toJSON();
+                context.category = category.toJSON();
             }
             return context;
         },
