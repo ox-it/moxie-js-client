@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'hbs!places/templates/detail', 'hbs!places/templates/busrti', 'hbs!places/templates/trainrti'],
-    function($, Backbone, _, conf, detailTemplate, busRTITemplate, trainRTITemplate){
+define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'hbs!places/templates/detail'],
+    function($, Backbone, _, conf, detailTemplate){
     var RTI_REFRESH = 15000;    // 15 seconds
     var DetailView = Backbone.View.extend({
 
@@ -13,11 +13,24 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'hbs!places/templates/
 
         serialize: function() {
             var poi = this.model.toJSON();
+            var currentlyOpen = null;
+            var parsedOpeningHours = null;
+            if (poi.opening_hours) {
+                try {
+                    parsedOpeningHours = TimeDomain.evaluateInTime(poi.opening_hours);
+                    currentlyOpen = parsedOpeningHours.value;
+                } catch(err) {
+                    parsedOpeningHours = null;
+                    currentlyOpen = null;
+                }
+            }
             return {
                 poi: poi,
                 multiRTI: poi.RTI.length > 1,
                 alternateRTI: this.model.getAlternateRTI(),
-                currentRTI: this.model.getCurrentRTI()
+                currentRTI: this.model.getCurrentRTI(),
+                currentlyOpen: currentlyOpen,
+                parsedOpeningHours: parsedOpeningHours
             };
         },
         template: detailTemplate,

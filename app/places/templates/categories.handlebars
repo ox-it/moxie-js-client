@@ -3,7 +3,11 @@
     <span class="deleteicon ss-delete"></span>
 </div>
 
+{{#if category.type_name_plural}}
+<h2 class="free-heading" id="category_title">{{ category.type_name_plural }}</h2>
+{{else}}
 <h2 class="free-heading" id="category_title">Places</h2>
+{{/if}}
 
 {{#if types}}
 <ul class="results-list" id="categories">
