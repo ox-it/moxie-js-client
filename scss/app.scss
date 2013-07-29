@@ -208,16 +208,33 @@ dl {
 
 // Today
 // Items specific to the today page
+div.today-card-container {
+    padding-left: 5px;
+    padding-right: 5px;
+    @include columns(325px);
+    @include respondTo(smallScreen) {
+        // Disable columns in small screen mode
+        @include columns(none);
+    }
+}
+
 div.today {
+    text-align: left;
     display: inline-block;
     position: relative;
     vertical-align: top;
-    margin-left: 15px;
+    // This width and min-width combination work with css columns
+    // Meaning Today cards expand to fill 96% of each column, but as
+    // soon as an additional card fits, the columns expand.
+    //
+    //
+    // it's properly mental.
+    width: 300px;
+    min-width: 96%;
     margin-top: 10px;
     @include box-shadow(0 0 2px #ccc);
     @include border-radius(3px);
     border: 1px solid #ccc;
-    min-width: 30%;
     h3 {
         font-size: 15px;
         border-bottom: 1px solid #ccc;
@@ -232,12 +249,6 @@ div.today {
         right: 0px;
         bottom: 0px;
         font-size: 11px;
-    }
-    @include respondTo(smallScreen) {
-        // Single column mode
-        min-width: 96%;
-        margin-left: 5px;
-        margin-right: 5px;
     }
     div.five-day-forecast div {
         display: inline-block;
@@ -299,31 +310,18 @@ div.today {
             padding-top: 3px;
         }
     }
-    // Park & Ride -- Note: I set max-width here because
-    // it looks quite bad if the gauges are all on one line
-    // 360 gets 3 on top row and 2 on bottom
     div.park-and-rides {
         margin-left: auto;
         margin-right: auto;
-        max-width: 360px;
         text-align: center;
         div.p-r {
             display: inline-block;
         }
     }
-    // What's on today -- Note: again, setting max-width
-    &#events_list {
-        max-width: 480px;
-    }
 }
 div.weather {
     height: 51px;
     overflow: hidden;
-}
-div.webcam {
-    @include respondTo(smallScreen) {
-        display: block;
-    }
 }
 
 div.embedded_map {
