@@ -1,16 +1,16 @@
 define(["handlebars"], function(Handlebars) {
-    function formatOpeningHours(string, td) {
+    function formatOpeningHours(openingHours, td) {
         /**
          * Format opening hours and highlight the rule used if it is open
-         * @param string: plain string containing opening hours
+         * @param openingHours: plain openingHours containing opening hours
          * @param td: TimeDomain result object containing parsed rules
-         * @return formatted string
+         * @return formatted openingHours
          */
-        if(!string) {
+        if(!openingHours) {
             return "";
         }
         try {
-            var parts = string.split(";");
+            var parts = openingHours.split(";");
             var formatted = '';
             for (var part in parts) {
                 var p = parts[part];
@@ -27,7 +27,7 @@ define(["handlebars"], function(Handlebars) {
             }
             return formatted;
         } catch (err) {
-            return string;
+            return openingHours;
         }
     }
     function replaceAll(string, target, replacement) {
