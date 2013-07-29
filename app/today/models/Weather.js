@@ -17,6 +17,7 @@ define(['MoxieModel', 'underscore', 'moxie.conf', 'today/views/WeatherCard', 'mo
         'lsn': 'ss-rainsnow',
         'hsn': 'ss-snow',
         'tst': 'ss-thunderstorm',
+        'tsh': 'ss-thunderstorm',
     };
     var Weather = MoxieModel.extend({
         url: conf.urlFor('weather'),
