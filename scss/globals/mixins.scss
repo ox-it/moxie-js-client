@@ -7,13 +7,10 @@
     }
 }
 
-@mixin columns($count, $gap:0px) {
-    -moz-column-count: $count;
-    -moz-column-gap: $gap;
-    -webkit-column-count: $count;
-    -webkit-column-gap: $gap;
-    column-count: $count;
-    column-gap: $gap;
+@mixin columns($width) {
+    column-width: $width;
+    -moz-column-width: $width; /* Firefox */
+    -webkit-column-width: $width; /* Safari and Chrome */
 }
 
 // A class which keeps a standard padding across the whole site
