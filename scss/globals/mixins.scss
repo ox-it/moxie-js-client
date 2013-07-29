@@ -1,10 +1,16 @@
 @import "globals/variables";
 
 // Mixin giving an inset box-shadow when pressed
-@mixin gentle-inset-shadow-on-state{
+@mixin gentle-inset-shadow-on-state {
     &:active {
         @include box-shadow(0 0 2px rgba(0,0,0,0.6) inset);
     }
+}
+
+@mixin columns($width) {
+    column-width: $width;
+    -moz-column-width: $width; /* Firefox */
+    -webkit-column-width: $width; /* Safari and Chrome */
 }
 
 // A class which keeps a standard padding across the whole site
