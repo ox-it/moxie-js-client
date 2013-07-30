@@ -46,13 +46,17 @@ define(['jquery', 'backbone', 'underscore', 'core/views/MapBrowseLayout', 'favou
                 }
             }
 
+            // Remove existing contextButton, this should call cleanup
+            if (this.contextButtonView) {
+                this.contextButtonView.remove();
+            }
             // Render the Context button
             //
             // If no `contextButtonView` is specified in `options` then we
             // render out the FavouriteButtonView as a default button.
-            var contextButtonView = options.contextButtonView || new FavouriteButtonView({collection: this.favourites});
-            $('#context-button').empty().append(contextButtonView.el);
-            contextButtonView.render();
+            this.contextButtonView = options.contextButtonView || new FavouriteButtonView({collection: this.favourites});
+            $('#context-button').empty().append(this.contextButtonView.el);
+            this.contextButtonView.render();
 
             // Remove any existing layouts
             // If managed with LayoutManager this will call cleanup
