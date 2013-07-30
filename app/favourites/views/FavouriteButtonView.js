@@ -6,6 +6,8 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf'],
         var FavouriteButtonView = Backbone.View.extend({
             initialize: function() {
                 this.collection.on("reset remove add", this.updateButton, this);
+                // Specify a namespace on the event so we don't remove all listeners
+                $(window).on("hashchange.FavouriteButton", _.bind(this.updateButton, this));
             },
             manage: true,
             events: {'click': 'toggleFavourite'},
@@ -41,6 +43,9 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf'],
             },
             updateButton: function() {
                 this.$el.toggleClass(favouritedClass, this.collection.currentPageFavourited());
+            },
+            cleanup: function() {
+                $(window).off("hashchange.FavouriteButton");
             }
         });
         return FavouriteButtonView;
