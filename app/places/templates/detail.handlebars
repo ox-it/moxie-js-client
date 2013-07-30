@@ -53,7 +53,6 @@
 		{{#if poi.website}}<a class="action-button web" href="{{ poi.website }}" target="_blank">Website</a>{{/if}}
 	</div>
 
-    {{! Library opening hours }}
     {{#if poi.library_opening_hours_termtime }}
         <h3>Opening hours</h3>
         <p class="metadata"><strong>Term time</strong>: {{ poi.library_opening_hours_termtime }}</p>
@@ -66,7 +65,6 @@
         {{/if}}
     {{/if}}
 
-    {{! Library admission policies }}
     {{#if poi.library_policy_academic }}
         <h3>Admission policies</h3>
         <p class="metadata"><strong>Academic</strong>: {{ poi.library_policy_academic }}</p>
@@ -79,6 +77,15 @@
         {{#if poi.library_policy_other }}
             <p class="metadata"><strong>Other</strong>: {{ poi.library_policy_other }}</p>
         {{/if}}
+    {{/if}}
+
+    {{#if poi.library_subject }}
+        <h3>Subjects</h3>
+        <ul>
+        {{#poi.library_subject}}
+        <li>{{this}}</li>
+        {{/poi.library_subject}}
+        </ul>
     {{/if}}
 
 	{{! Links to parents and children }}
