@@ -53,6 +53,41 @@
 		{{#if poi.website}}<a class="action-button web" href="{{ poi.website }}" target="_blank">Website</a>{{/if}}
 	</div>
 
+    {{#if poi.library_opening_hours_termtime }}
+        <h3>Opening hours</h3>
+        <p class="metadata"><strong>Term time</strong>: {{ poi.library_opening_hours_termtime }}</p>
+        {{#if poi.library_opening_hours_vacation }}
+            <p class="metadata"><strong>Vacation</strong>: {{ poi.library_opening_hours_vacation }}</p>
+        {{/if}}
+
+        {{#if poi.library_opening_hours_closed }}
+            <p class="metadata"><strong>Closed</strong>: {{ poi.library_opening_hours_closed }}</p>
+        {{/if}}
+    {{/if}}
+
+    {{#if poi.library_policy_academic }}
+        <h3>Admission policies</h3>
+        <p class="metadata"><strong>Academic</strong>: {{ poi.library_policy_academic }}</p>
+        {{#if poi.library_policy_undergraduate }}
+            <p class="metadata"><strong>Undergraduate</strong>: {{ poi.library_policy_undergraduate }}</p>
+        {{/if}}
+        {{#if poi.library_policy_postgraduate }}
+            <p class="metadata"><strong>Postgraduate</strong>: {{ poi.library_policy_postgraduate }}</p>
+        {{/if}}
+        {{#if poi.library_policy_other }}
+            <p class="metadata"><strong>Other</strong>: {{ poi.library_policy_other }}</p>
+        {{/if}}
+    {{/if}}
+
+    {{#if poi.library_subject }}
+        <h3>Subjects</h3>
+        <ul>
+        {{#poi.library_subject}}
+        <li>{{this}}</li>
+        {{/poi.library_subject}}
+        </ul>
+    {{/if}}
+
 	{{! Links to parents and children }}
 	<dl>
 	{{#if poi._links.parent}}
