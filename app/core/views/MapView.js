@@ -1,22 +1,38 @@
 define(['backbone', 'leaflet', 'underscore', 'moxie.conf', 'places/utils', 'moxie.position'], function(Backbone, L, _, MoxieConf, utils, userPosition) {
     var MapView = Backbone.View.extend({
-
-        initialize: function() {
-            _.bindAll(this);
+        initialize: function(options) {
+            this.options = options || {};
             this.markers = [];
             this.userPosition = null;
         },
 
+        attributes: {},
         manage: true,
         id: "map",
 
         beforeRender: function() {
-            this.map = utils.getMap(this.el);
+            var mapOptions = {};
+            if (!this.options.interactiveMap && 'matchMedia' in window && window.matchMedia("only screen and (max-width: 767px)").matches) {
+                 mapOptions.dragging = false;
+                 mapOptions.touchZoom = false;
+                 mapOptions.scrollWheelZoom = false;
+                 mapOptions.doubleClickZoom = false;
+                 mapOptions.boxZoom = false;
+            }
+            this.map = utils.getMap(this.el, {mapOptions: mapOptions});
+            if (!this.options.interactiveMap && 'matchMedia' in window && window.matchMedia("only screen and (max-width: 767px)").matches) {
+                this.map.on('click', function() {
+                    this.trigger('mapClick');
+                }, this);
+            }
             userPosition.follow(this.handle_geolocation_query, this);
             return this;
         },
 
         afterRender: function() {
+            if (this.options.fullScreen) {
+                this.$el.addClass('full-screen');
+            }
             this.invalidateMapSize();
         },
 
@@ -52,12 +68,20 @@ define(['backbone', 'leaflet', 'underscore', 'moxie.conf', 'places/utils', 'moxi
             if (poi.has('lat') && poi.has('lon')) {
                 var latlng = new L.LatLng(poi.get('lat'), poi.get('lon'));
                 var marker = new L.marker(latlng, {'title': poi.get('name')});
-                marker.on('click', _.bind(function(ev) {
-                    var highlighted = this.collection.findWhere({'highlighted': true});
-                    if (highlighted) { highlighted.set('highlighted', false); }
-                    poi.set('highlighted', true);
-                }, this));
-                marker.addTo(this.map);
+                if ('matchMedia' in window && window.matchMedia("only screen and (max-width: 767px)").matches) {
+                    // Phone View
+                    marker.on('click', function(ev) {
+                        Backbone.history.navigate('#/places/'+poi.id, {trigger: true});
+                    });
+                } else {
+                    // Tablet View
+                    marker.on('click', _.bind(function(ev) {
+                        var highlighted = this.collection.findWhere({'highlighted': true});
+                        if (highlighted) { highlighted.set('highlighted', false); }
+                        poi.set('highlighted', true);
+                    }, this));
+                }
+                this.map.addLayer(marker);
                 this.markers.push(marker);
             }
         },
@@ -99,7 +123,7 @@ define(['backbone', 'leaflet', 'underscore', 'moxie.conf', 'places/utils', 'moxi
             }, this);
             // Create new list of markers from search results
             this.markers = [];
-            this.collection.each(this.placePOI);
+            this.collection.each(this.placePOI, this);
             this.setMapBounds();
         },
 
@@ -108,5 +132,6 @@ define(['backbone', 'leaflet', 'underscore', 'moxie.conf', 'places/utils', 'moxi
             userPosition.unfollow(this.handle_geolocation_query, this);
         }
     });
+    MapView.extend(Backbone.Events);
     return MapView;
 });
