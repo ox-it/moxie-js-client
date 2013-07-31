@@ -18,16 +18,10 @@ define(['underscore', 'moxie.conf', 'leaflet', 'moxie.position'], function(_, Mo
                 L.Browser.any3d = false;
             }
             var mapOptions = options.mapOptions || {};
-            var map = new L.map(el, mapOptions).setView([position.coords.latitude, position.coords.longitude], 15, true);
+            var map = new L.map(el, mapOptions).setView([position.coords.latitude, position.coords.longitude], MoxieConf.map.defaultZoom, true);
 
             // Add the tile layer
-            var tileLayerOptions = {
-                minZoom: 0,
-                maxZoom: 18,
-                // Detect retina - if true 4* map tiles are downloaded
-                detectRetina: true
-            };
-            L.tileLayer('http://a.tiles.mapbox.com/v3/'+MoxieConf.mapbox.key+'/{z}/{x}/{y}.png', tileLayerOptions).addTo(map);
+            L.tileLayer('http://a.tiles.mapbox.com/v3/'+MoxieConf.mapbox.key+'/{z}/{x}/{y}.png', MoxieConf.map.defaultTileLayerOptions).addTo(map);
             map.attributionControl.setPrefix('');
             return map;
         }
