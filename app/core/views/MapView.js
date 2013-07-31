@@ -1,8 +1,8 @@
-define(['backbone', 'leaflet', 'underscore', 'moxie.conf', 'places/utils', 'moxie.position'], function(Backbone, L, _, MoxieConf, utils, userPosition) {
+define(['backbone', 'leaflet', 'underscore', 'moxie.conf', 'places/utils', 'moxie.position', 'core/media'], function(Backbone, L, _, MoxieConf, utils, userPosition, media) {
     var MapView = Backbone.View.extend({
         initialize: function(options) {
             this.options = options || {};
-            this.interactiveMap = this.options.interactiveMap || !('matchMedia' in window && window.matchMedia(MoxieConf.map.phoneViewMediaQuery).matches);
+            this.interactiveMap = this.options.interactiveMap || media.isTablet();
             this.markers = [];
             this.userPosition = null;
         },
