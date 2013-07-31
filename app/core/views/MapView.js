@@ -2,6 +2,7 @@ define(['backbone', 'leaflet', 'underscore', 'moxie.conf', 'places/utils', 'moxi
     var MapView = Backbone.View.extend({
         initialize: function(options) {
             this.options = options || {};
+            this.interactiveMap = this.options.interactiveMap || !('matchMedia' in window && window.matchMedia(MoxieConf.map.phoneViewMediaQuery).matches);
             this.markers = [];
             this.userPosition = null;
         },
@@ -12,7 +13,7 @@ define(['backbone', 'leaflet', 'underscore', 'moxie.conf', 'places/utils', 'moxi
 
         beforeRender: function() {
             var mapOptions = {};
-            if (!this.options.interactiveMap && 'matchMedia' in window && window.matchMedia("only screen and (max-width: 767px)").matches) {
+            if (!this.interactiveMap) {
                  mapOptions.dragging = false;
                  mapOptions.touchZoom = false;
                  mapOptions.scrollWheelZoom = false;
@@ -20,7 +21,12 @@ define(['backbone', 'leaflet', 'underscore', 'moxie.conf', 'places/utils', 'moxi
                  mapOptions.boxZoom = false;
             }
             this.map = utils.getMap(this.el, {mapOptions: mapOptions});
-            if (!this.options.interactiveMap && 'matchMedia' in window && window.matchMedia("only screen and (max-width: 767px)").matches) {
+            if (!this.interactiveMap) {
+                // Note: This view can be reused for example when navigating from a POI
+                // SearchView to a DetailView. In which case we need to remove any lingering
+                // events so we don't end up with multiple event handlers.
+                //
+                // See this is handled by the controllers.
                 this.map.on('click', function() {
                     this.trigger('mapClick');
                 }, this);
@@ -62,16 +68,17 @@ define(['backbone', 'leaflet', 'underscore', 'moxie.conf', 'places/utils', 'moxi
             }
             this.user_marker = L.circle(you, 10, {color: 'red', fillColor: 'red', fillOpacity: 1.0});
             this.map.addLayer(this.user_marker);
+            this.setMapBounds();
         },
 
         placePOI: function(poi) {
             if (poi.has('lat') && poi.has('lon')) {
                 var latlng = new L.LatLng(poi.get('lat'), poi.get('lon'));
                 var marker = new L.marker(latlng, {'title': poi.get('name')});
-                if ('matchMedia' in window && window.matchMedia("only screen and (max-width: 767px)").matches) {
+                if (this.options.fullScreen && this.interactiveMap) {
                     // Phone View
                     marker.on('click', function(ev) {
-                        Backbone.history.navigate('#/places/'+poi.id, {trigger: true});
+                        Backbone.history.navigate('#/places/'+poi.id, {trigger: true, replace: false});
                     });
                 } else {
                     // Tablet View
@@ -93,6 +100,9 @@ define(['backbone', 'leaflet', 'underscore', 'moxie.conf', 'places/utils', 'moxi
 
         setMapBounds: function() {
             var latlngs = [];
+            // Only set map bounds if we have some points
+            //
+            if (!this.collection || this.collection.length===0) { return; }
             this.collection.each(function(poi) {
                 // See paramaters in moxie.conf
                 //
@@ -113,7 +123,10 @@ define(['backbone', 'leaflet', 'underscore', 'moxie.conf', 'places/utils', 'moxi
                 bounds.extend(this.user_position);
             }
             bounds = bounds.pad(0.1);
-            this.map.fitBounds(bounds);
+            // Animating here seemed to cause a problem when we call fitBounds several
+            // times during a quick succession, not sure if this is a bug with leaflet
+            // but setting animate: false seems to resolve things.
+            this.map.fitBounds(bounds, {animate: false});
         },
 
         resetMapContents: function(){
