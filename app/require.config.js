@@ -5,7 +5,6 @@ var require = {
     paths: {
 
         // Core Libraries
-        "modernizr": "libs/modernizr",
         "jquery": "libs/jquery",
         "underscore": "libs/underscore",
         "backbone": "libs/backbone",
