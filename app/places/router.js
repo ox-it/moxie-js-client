@@ -12,6 +12,7 @@ define(["app", "underscore", "backbone", "places/models/POIModel", "places/views
             "categories": "categories",
             "categories*category_name": "categories",
             "search": "search",
+            "search/map": "searchMap",
             ":id": "detail",
             ":id/map": "detailMap"
 
@@ -36,8 +37,29 @@ define(["app", "underscore", "backbone", "places/models/POIModel", "places/views
             var layout = app.getLayout('MapBrowseLayout');
             var searchView = new SearchView({collection: pois});
             layout.setView('.content-browse', searchView);
-            layout.getView('.content-map').setCollection(pois);
+            var mapView = layout.getView('.content-map');
+            mapView.setCollection(pois);
+            // Remove any other mapClick listeners (if the view is being reused)
+            mapView.off('mapClick');
+            mapView.on('mapClick', function() {
+                var qstring = Backbone.history.fragment.replace(Backbone.history.getFragment(null, null, true), '');
+                Backbone.history.navigate('#places/search/map'+qstring, {trigger: true, replace: false});
+            });
             searchView.render();
+        },
+
+        searchMap: function(params) {
+            var query = params || {};
+            if (!_.isEqual(query, pois.query) || (pois.length <= 1)) {
+                // If the Collection has the correct query and we have items don't bother fetching new results now
+                pois.query = query;
+                // Calling reset here prevents us from rendering any old results
+                pois.reset();
+                pois.geoFetch();
+            }
+            var mapView = new MapView({interactiveMap: true, fullScreen: true});
+            app.renderView(mapView);
+            mapView.setCollection(pois);
         },
 
         detailMap: function(id) {
@@ -60,7 +82,9 @@ define(["app", "underscore", "backbone", "places/models/POIModel", "places/views
             layout.setView('.content-browse', detailView);
             var mapView = layout.getView('.content-map');
             mapView.setCollection(new POIs([poi]));
-            mapView.on('mapClick', function() { Backbone.history.navigate('#/places/'+poi.id+'/map', {trigger: true}); });
+            // Remove any other mapClick listeners (if the view is being reused)
+            mapView.off('mapClick');
+            mapView.on('mapClick', function() { Backbone.history.navigate('#/places/'+poi.id+'/map', {trigger: true, replace: false}); });
             detailView.render();
         },
 
