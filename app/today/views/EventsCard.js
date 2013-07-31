@@ -11,7 +11,10 @@ define(['today/views/CardView', 'hbs!today/templates/events'], function(CardView
                 throw new Error("No events today!");
             }
         },
-        template: eventsTemplate
+        template: eventsTemplate,
+        afterRender: function() {
+            $('.today-card-container').nested('append', this.el);
+        }
     });
     return EventsCard;
 });

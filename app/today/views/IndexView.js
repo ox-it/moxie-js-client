@@ -1,4 +1,4 @@
-define(['backbone', 'underscore', 'hbs!today/templates/index'], function(Backbone, _, indexTemplate){
+define(['jquery', 'backbone', 'underscore', 'masonry/masonry', 'hbs!today/templates/index'], function($, Backbone, _, masonry, indexTemplate){
     var IndexView = Backbone.View.extend({
         // This view handles the "cards" on the home screen
         // Cards are views with models in this.collection
@@ -15,6 +15,7 @@ define(['backbone', 'underscore', 'hbs!today/templates/index'], function(Backbon
             if (view) { return; } // We have already inserted this view
             view = new model.View({model: model});
             this.insertView('.today-card-container', view);
+            //$('.today-card-container').masonry('reload');
             try {
                 view.render();
             } catch(err) {
@@ -34,6 +35,13 @@ define(['backbone', 'underscore', 'hbs!today/templates/index'], function(Backbon
             }, this);
         },
         afterRender: function() {
+            var container = $('.today-card-container')[0];
+            var msnry = new masonry(container, {
+              // options
+              columnWidth: 200,
+              itemSelector: '.today'
+            });
+
             $(document).on("deviceready", _.bind(function() {
                 // Cordova is initialized
                 if ('splashscreen' in navigator) {
