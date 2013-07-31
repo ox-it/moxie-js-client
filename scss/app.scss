@@ -460,6 +460,9 @@ border-right: $grayBorder;
     height: 100%;
     @include respondTo(smallScreen) {
         height: $mapHeight;
+        &.full-screen {
+            height: 100%;
+        }
         width: 100% !important;
         .leaflet-control-zoom {
             display: none;

@@ -5,7 +5,6 @@ var require = {
     paths: {
 
         // Core Libraries
-        "modernizr": "libs/modernizr",
         "jquery": "libs/jquery",
         "underscore": "libs/underscore",
         "backbone": "libs/backbone",
@@ -24,6 +23,7 @@ var require = {
         "localstorage": "libs/backbone.localStorage",
         "raphael": "libs/raphael",
         "justgage": "libs/justgage",
+        "matchMedia": "libs/matchMedia",
 
         // Testing libs
         "jasmine": "tests/libs/jasmine-1.3.1/jasmine",

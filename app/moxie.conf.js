@@ -33,7 +33,17 @@ define([], function() {
         },
         defaultLocation: {coords: {latitude: 51.752018, longitude: -1.257723}},
         mapbox: {key: 'mobileox.map-iihxb1dl'},
-        map: {bounds: {exponent: 0.75, limit: 500, fallback: 5}},
+        map: {
+            defaultZoom: 15,
+            bounds: {exponent: 0.75, limit: 500, fallback: 5},
+            phoneViewMediaQuery: "only screen and (max-width: 767px)",
+            defaultTileLayerOptions:  {
+                minZoom: 0,
+                maxZoom: 18,
+                // Detect retina - if true 4* map tiles are downloaded
+                detectRetina: true
+            }
+        },
         position: {
             updateInterval: 60000,          // 60 seconds
             errorMargin: 50,                // 50 meters
