@@ -1,12 +1,12 @@
 .. highlight:: javascript
 
-Moxie Backbone Extensions
-=========================
+Core Moxie Modules
+==================
 
 When developing with Backbone.js we identify common code and move that into the ``core`` module.
 
-MoxieCollection
----------------
+core/collections/MoxieCollection
+--------------------------------
 
 Our base Collection providing some common methods we're using throughout our applications. To create a new collection using ``MoxieCollection`` simply extend it.
 
@@ -24,3 +24,48 @@ Our base Collection providing some common methods we're using throughout our app
      * ``failure``: Called if the ``key`` cannot be found in the collection.
      * ``pendingEvent``: default ``reset`` - The event you want getAsync to wait for before calling ``success``.
    :param boolean retry: Used to prevent repeated callbacks occuring.
+
+
+core/media
+----------
+
+Simple module which presents an API to determine which media queries are active
+on the ``document`` at a particular time.
+
+.. js:attribute:: media.isTablet()
+
+   Does our media query suggest the ``document`` is being rendered in a tablet
+   style layout. This also applies for desktop's and any device with
+   significant width.
+
+.. js:attribute:: media.isPhone()
+
+   Are we being rendered on a device with a small width suggesting a phone.
+
+core/views/MapView
+------------------
+
+Base view for rendering a Map with a collection of Points of Interest
+(POICollection) on it.
+
+.. js:class:: MapView([options])
+
+   Accepts all the usual ``Backbone.View`` arguments. As well as:
+
+   :param options.fullScreen: Should this Map have the full-screen class to
+                              render at 100% height?
+   :param options.interactiveMap: Should the map allow user interaction e.g.
+                                  touch and drag the map about. If this is
+                                  falsy or the map is rendered in phone view
+                                  then click events on the map will be fired as
+                                  ``mapClick`` on the ``MapView`` object.
+
+
+.. js:function:: MapView.setCollection(collection)
+
+   Update the MapView, removing any points currently rendered and place
+   pointers for the new ``collection``.
+
+   :param collection: The new ``Backbone.Collection`` to be rendered. Models
+                      within this collection should have ``lat`` and ``lon`
+                      attribute in order for points to be placed.
