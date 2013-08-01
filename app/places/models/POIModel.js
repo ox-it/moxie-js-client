@@ -18,6 +18,10 @@ define(["MoxieModel", "underscore", "moxie.conf", "places/models/RTIModels", "pl
             }
         },
 
+        hasLocation: function() {
+            return this.has('lat') && this.has('lon');
+        },
+
         getCurrentRTI: function() {
             var showRTI = this.get('showRTI');
             var types = showRTI ? [showRTI] : DEFAULT_RTI_TYPES;
