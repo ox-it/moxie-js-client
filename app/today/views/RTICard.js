@@ -20,7 +20,7 @@ define(['moxie.conf', 'underscore', 'today/views/CardView', 'hbs!today/templates
         },
         afterRender: function() {
             this.clearRefresh();
-            if (this.model.get('RTI')) {
+            if (this.model.get('RTI').length > 0) {
                 this.refreshID = this.model.renderRTI(this.$('#poi-rti')[0], RTI_REFRESH);
                 this.model.rti.on('sync', this.showEl, this);
             }
