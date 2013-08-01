@@ -1,7 +1,9 @@
 define(["backbone", "underscore", "places/models/POIModel", "today/views/RTICard", "moxie.conf", "moxie.position"], function(Backbone, _, POI, RTICard, conf, userPosition) {
 
     var NearbyRTI = POI.extend({
-        initialize: function() {
+        initialize: function(options) {
+            options = options || {};
+            this.favouritePOIs = options.favouritePOIs || [];
             this.followUser();
         },
         View: RTICard,
@@ -30,11 +32,17 @@ define(["backbone", "underscore", "places/models/POIModel", "today/views/RTICard
         },
 
         url: function() {
-           return conf.urlFor('places_search') + '?type_exact=/transport/rail-station&type_exact=/transport/bus-stop&count=1';
+           return conf.urlFor('places_search') + '?type_exact=/transport/rail-station&type_exact=/transport/bus-stop&count=' + conf.today.nearbyRTI.fetchCount;
         },
 
         parse: function(data) {
-            return POI.prototype.parse.apply(this, [data._embedded.pois[0]]);
+            // Find a POI which doesn't appear in the users favourites
+            var poi = _.find(data._embedded.pois, function(poi) {
+                return !_.contains(this.favouritePOIs, poi.id);
+            }, this);
+            if (poi) {
+                return POI.prototype.parse.apply(this, [poi]);
+            }
         }
     });
     return NearbyRTI;

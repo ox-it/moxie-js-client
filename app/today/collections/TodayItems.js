@@ -25,15 +25,16 @@ define(['underscore', 'core/collections/MoxieCollection', 'today/models/OxfordDa
                 if (this.settings.enabled('Weather')) { models.push(new Weather()); }
                 if (this.settings.enabled('RiverStatus')) { models.push(new RiverStatus()); }
                 if (this.settings.enabled('Webcam')) { models.push(new Webcam()); }
-                if (this.settings.enabled('NearbyRTI')) { models.push(new NearbyRTI()); }
                 if (this.settings.enabled('Events')) { models.push(new Events()); }
                 if (this.settings.enabled('ParkAndRide')) { models.push(new ParkAndRide()); }
 
+                var favPOIDs = [];
                 if (this.settings.enabled('FavRTI')) {
                     this.favourites.each(function(fav) {
                         var attrs = fav.attributes;
                         if ('options' in attrs && 'model' in attrs.options && 'RTI' in attrs.options.model && attrs.options.model.RTI.length > 0) {
                             // Find a user Favourite which has an RTI attribute
+                            favPOIDs.push(attrs.options.model.id);
                             var favRTI = new FavRTI(attrs.options.model);
                             if (fav.has('userTitle')) {
                                 favRTI.set('userTitle', fav.get('userTitle'));
@@ -42,6 +43,10 @@ define(['underscore', 'core/collections/MoxieCollection', 'today/models/OxfordDa
                         }
                     }, this);
                 }
+
+                // Pass the POI ID's to the nearby RTI card so we can avoid showing
+                // a duplicate RTICard on the today view.
+                if (this.settings.enabled('NearbyRTI')) { models.push(new NearbyRTI({favouritePOIs: favPOIDs})); }
 
                 this.reset(models);
                 this.each(function(model) {

@@ -70,6 +70,11 @@ define([], function() {
                     {"title": "ClimatePrediction.net", "url": "http://climateprediction.net/rss.xml", "slug": "climate-predication"},
                 ],
             numberOfEntries: 10,
+        },
+        today: {
+            nearbyRTI: {
+                fetchCount: 5,      // Number of POIs we fetch to find 1 nearby which doesn't appear in your favourites
+            }
         }
     };
     return MoxieConf;
