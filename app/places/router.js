@@ -94,14 +94,13 @@ define(["app", "underscore", "backbone", "places/models/POIModel", "places/views
             var poi = pois.get(id);
             if (poi) {
                 poi.set('showRTI', showRTI);
-                this.showDetail(poi);
             } else {
                 poi = new POI({id: id, showRTI: showRTI});
                 poi.fetch({success: _.bind(function(model, response, options) {
                     pois.add(model);
-                    this.showDetail(model);
                 }, this) });
             }
+            this.showDetail(poi);
         }
 
     });
