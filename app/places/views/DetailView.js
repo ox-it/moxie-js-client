@@ -5,7 +5,8 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'hbs!places/templates/
 
         initialize: function() {
             Backbone.trigger('domchange:title', this.model.get('name'));
-            Backbone.on('favourited', _.bind(this.favourited, this));
+            Backbone.on('favourited', this.favourited, this);
+            this.model.on('change', this.render, this);
         },
         attributes: {
             'class': 'detail-map'
