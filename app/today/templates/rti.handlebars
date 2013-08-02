@@ -5,4 +5,11 @@
             {{ name }}
         {{/if}}
 </a></h3>
-<div id="poi-rti" class="rti"></div>
+<div id="poi-rti" class="rti">
+    {{#if errorCount}}
+    <p>Error loading transport information, <em>retrying...</em><p>
+        <img src="images/preloader.gif" class="preloader" width=20px height=20px>
+    {{else}}
+        <img src="images/preloader.gif" class="preloader">
+    {{/if}}
+</div>
