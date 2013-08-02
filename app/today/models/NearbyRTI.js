@@ -1,4 +1,4 @@
-define(["backbone", "underscore", "places/models/POIModel", "today/views/RTICard", "moxie.conf", "moxie.position"], function(Backbone, _, POI, RTICard, conf, userPosition) {
+define(["backbone", "underscore", "places/models/POIModel", "today/views/NearbyRTICard", "moxie.conf", "moxie.position"], function(Backbone, _, POI, NearbyRTICard, conf, userPosition) {
 
     var NearbyRTI = POI.extend({
         initialize: function(options) {
@@ -6,7 +6,7 @@ define(["backbone", "underscore", "places/models/POIModel", "today/views/RTICard
             this.favouritePOIs = options.favouritePOIs || [];
             this.followUser();
         },
-        View: RTICard,
+        View: NearbyRTICard,
 
         followUser: function() {
             userPosition.follow(this.handle_geolocation_query, this);

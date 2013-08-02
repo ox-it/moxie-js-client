@@ -1,6 +1,6 @@
-define(["places/models/POIModel", "today/views/RTICard"], function(POI, RTICard) {
+define(["places/models/POIModel", "today/views/FavouriteRTICard"], function(POI, FavouriteRTICard) {
     var FavRTI = POI.extend({
-        View: RTICard.extend({weight: 85}),
+        View: FavouriteRTICard,
         fetch: function() {
             return true;
         },
