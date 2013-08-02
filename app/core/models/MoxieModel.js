@@ -1,4 +1,4 @@
-define(['backbone'], function(Backbone) {
+define(['backbone', 'underscore'], function(Backbone, _) {
     var MoxieModel = Backbone.Model.extend({
         fetch: function(options) {
             options = options || {};
@@ -7,7 +7,8 @@ define(['backbone'], function(Backbone) {
                 options.error = _.bind(function() {
                     // Pass all the error arguments through
                     // These are [model, response, options]
-                    this.trigger("errorFetching", arguments);
+                    var args = ["errorFetching"].concat(Array.prototype.slice.call(arguments));
+                    this.trigger.apply(this, args);
                 }, this);
             }
             return Backbone.Model.prototype.fetch.apply(this, [options]);
