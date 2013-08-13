@@ -2,6 +2,10 @@ define(["MoxieModel", "underscore", "moxie.conf", "places/models/RTIModels", "pl
 
     var DEFAULT_RTI_TYPES = ['bus', 'rail-departures', 'p-r'];
     var POI = MoxieModel.extend({
+        defaults: {
+            'RTI': []
+        },
+
         url: function() {
            return conf.urlFor('places_id') + this.id;
         },
@@ -16,6 +20,10 @@ define(["MoxieModel", "underscore", "moxie.conf", "places/models/RTIModels", "pl
             if (timeout) {
                 return setInterval(_.bind(this.rti.fetch, this.rti), timeout);
             }
+        },
+
+        hasLocation: function() {
+            return this.has('lat') && this.has('lon');
         },
 
         getCurrentRTI: function() {

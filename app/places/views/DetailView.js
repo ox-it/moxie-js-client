@@ -1,14 +1,33 @@
-define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'hbs!places/templates/detail'],
-    function($, Backbone, _, conf, detailTemplate){
+define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'core/views/ErrorView',
+        'hbs!places/templates/detail'],
+    function($, Backbone, _, conf, ErrorView, detailTemplate){
     var RTI_REFRESH = 15000;    // 15 seconds
     var DetailView = Backbone.View.extend({
 
         initialize: function() {
             Backbone.trigger('domchange:title', this.model.get('name'));
-            Backbone.on('favourited', _.bind(this.favourited, this));
+            Backbone.on('favourited', this.favourited, this);
+            this.model.on('sync', this.render, this);
+            this.model.on('error', this.renderError, this);
         },
         attributes: {
             'class': 'detail-map'
+        },
+
+        renderError: function(model, response) {
+            // Error fetching from the API, render a nice error message.
+            var message;
+            if (response.status === 404) {
+                // Set a specific message for 404's
+                message = "Could not find resource: " + model.id;
+            } else {
+                message = "Error fetching resource: " + model.id;
+            }
+            var errorView = new ErrorView({
+                message: message,
+                el: this.el
+            });
+            errorView.render();
         },
 
         serialize: function() {
