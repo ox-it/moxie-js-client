@@ -4,7 +4,7 @@ define(['backbone', 'underscore', 'hbs!today/templates/index'], function(Backbon
         // Cards are views with models in this.collection
         //
         initialize: function() {
-            this.collection.on('change', function(model) {
+            this.collection.on('sync', function(model) {
                 this.insertViewOnce(model);
             }, this);
         },
@@ -28,7 +28,7 @@ define(['backbone', 'underscore', 'hbs!today/templates/index'], function(Backbon
             // Used for rendering the cards we have already loaded
             // If the model has some attributes then insert the view.
             this.collection.each(function(model) {
-                if (!_.isEmpty(model.attributes)) {
+                if (!_.isEmpty(model.attributes) && !model.has('midFetch')) {
                     this.insertView('.today-card-container', new model.View({model: model}));
                 }
             }, this);
@@ -46,7 +46,7 @@ define(['backbone', 'underscore', 'hbs!today/templates/index'], function(Backbon
         manage: true,
         template: indexTemplate,
         cleanup: function() {
-            this.collection.off('change');
+            this.collection.off('sync');
         }
     });
     return IndexView;
