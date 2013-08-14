@@ -1,13 +1,19 @@
-define(['backbone', 'hbs!places/templates/busrti', 'hbs!places/templates/trainrti', 'hbs!places/templates/p-r_rti', 'justgage'],
-    function(Backbone, busRTITemplate, trainRTITemplate, prRTITemplate) {
+define(['backbone', 'underscore', 'moment', 'hbs!places/templates/busrti', 'hbs!places/templates/trainrti', 'hbs!places/templates/p-r_rti', 'justgage'],
+    function(Backbone, _, moment, busRTITemplate, trainRTITemplate, prRTITemplate) {
     var RTIView = Backbone.View.extend({
         initialize: function() {
             this.model.on('sync', this.render, this);
             this.model.on('request', this.showLoader, this);
+            this.intervalID = window.setInterval(_.bind(this.render, this), 10000);
         },
         manage: true,
         serialize: function() {
-            return this.model.toJSON();
+            var context = this.model.toJSON();
+            var lastUpdated = this.model.get('lastUpdated');
+            if (lastUpdated) {
+                context.lastUpdatedFormatted = moment(lastUpdated).fromNow();
+            }
+            return context;
         },
         showLoader: function() {
             this.$("#rti-load").css('visibility', 'visible');
@@ -17,6 +23,7 @@ define(['backbone', 'hbs!places/templates/busrti', 'hbs!places/templates/trainrt
         },
         cleanup: function() {
             this.model.off();
+            window.clearInterval(this.intervalID);
         }
     });
     var ParkAndRideView = RTIView.extend({
