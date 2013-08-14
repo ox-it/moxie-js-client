@@ -1,25 +1,15 @@
-// You custom settings file to override Foundation defaults
-@import "settings";
-
 @import "compass/css3";
-@import "foundation/settings";
-@import "foundation/functions/all";
-@import "foundation/common/globals";
-@import "foundation/mixins/clearfix";
-@import "modular-scale";
-// Control which mixins you have access too
-@import "foundation/mixins/css-triangle";
-@import "foundation/mixins/font-size";
-// Must include next two for semantic grid to work
-@import "foundation/mixins/respond-to";
-@import "foundation/mixins/semantic-grid";
-// Must include the grid for any responsiveness
+/* Each individual part that can be added in */
+@import "settings";
+@import "foundation/components/global";
 @import "foundation/components/grid";
-// Control which common styles get compiled
-@import "foundation/common/typography";
-@import "foundation/common/forms";
-// Used for displaying higher quality graphics to hi res displays
-@import 'hidpi';
+@import "foundation/components/visibility";
+@import "foundation/components/block-grid";
+@import "foundation/components/type";
+@import "foundation/components/buttons";
+@import "foundation/components/forms";
+
+@import 'modular-scale';
 
 @import "globals/variables";
 @import "globals/oxford-palette";
@@ -27,6 +17,8 @@
 @import "components/labels";
 @import "components/buttons";
 @import "components/navbar";
+
+@import "hidpi";
 // App level
 @import "library";
 
@@ -136,7 +128,6 @@ body {
 }
 
 h2 {
-    font-size: ms(3);
     font-weight: 300;
     margin-top: 8px;
     margin-bottom: 3px;
@@ -146,7 +137,7 @@ h2 {
 }
 
 h3 {
-    font-size: ms(3);
+    font-size: ms(2);
     font-weight: 200;
     margin-top: 8px;
 }
@@ -212,10 +203,6 @@ div.today-card-container {
     padding-left: 5px;
     padding-right: 5px;
     @include columns(325px);
-    @include respondTo(smallScreen) {
-        // Disable columns in small screen mode
-        @include columns(none);
-    }
 }
 
 div.today {
@@ -253,7 +240,7 @@ div.today {
     div.five-day-forecast div {
         display: inline-block;
         padding-left: 5px;
-        margin-top: 7px;
+        margin-top: 5px;
         font-size: 1.4em;
         width: 27px;
         span.day-of-week {
@@ -381,7 +368,7 @@ div.embedded_map {
         left: $sidebar-width;
         height: 100%;
         opacity: 0.5;
-        background-color: $black;
+        background-color: #000;
         z-index: 2;
         @if $animations-enabled == true {
             width: $sidebar-margin;
@@ -400,7 +387,7 @@ ul.sidebar-items {
             border-left: 15px solid $border-color;
             color: #666;
             font-weight: 400;
-            font-size: ms(2);
+            font-size: ms(1);
             background: url($cream_dust);
             @include hidpi {background: url($cream-dust-hidpi);}
             @include gentle-inset-shadow-on-state();
@@ -417,25 +404,24 @@ ul.sidebar-items {
 
 top: $navbarHeight;
 bottom: 0;
-background: $white;
+background: #fff;
 border-left: $grayBorder;
 border-right: $grayBorder;
 
 .content-browse {
-    height: 100%;
     padding: 0px 0px;
     overflow: auto;
     background: $body-background;
     -webkit-overflow-scrolling: touch;
-    @include column(4);
-    @include pull(8);
-    @include respondTo(smallScreen) {
-        right: auto;
-        height: auto;
-    }
-    @include respondTo(smallScreen) {
+    right: auto;
+    height: auto;
+    @media #{$small} {
+        @include grid-column(4);
+        position: relative;
+        padding: 0px 0px;
         // Makes the map scroll with the list
-        overflow: visible;
+        height: 100%;
+        overflow-y: scroll;
     }
 }
 
@@ -444,29 +430,30 @@ border-right: $grayBorder;
 }
 
 .content-map {
-    height: 100%;
-    padding: 0px 0px;
-    @include column(8);
-    @include push(4);
-    border-top: $grayBorder;
-    border-bottom: $grayBorder;
-    border-left: $grayBorder;
-    @include respondTo(smallScreen) {
-        height: auto;
-        left: auto;
+    height: $mapHeight;
+    @media #{$small} {
+        @include grid-column(8, $float: right);
+        height: 100%;
+        padding: 0px 0px;
+        border-top: $grayBorder;
+        border-bottom: $grayBorder;
+        border-left: $grayBorder;
     }
 }
 #map {
-    height: 100%;
-    @include respondTo(smallScreen) {
-        height: $mapHeight;
-        &.full-screen {
-            height: 100%;
-        }
-        width: 100% !important;
+    height: $mapHeight;
+    &.full-screen {
+        height: 100%;
+    }
+    .leaflet-control-zoom {
+        display: none;
+    }
+    width: 100% !important;
+    @media #{$small} {
         .leaflet-control-zoom {
-            display: none;
+            display: block;
         }
+        height: 100%;
     }
 }
 .search-input {
@@ -483,7 +470,7 @@ border-right: $grayBorder;
         padding: 4px 4px 2px 4px;
         @include border-radius(30px);
         font-size: 9px;
-        color: $white;
+        color: #fff;
         background: #ccc;
         cursor: pointer;
     }
@@ -586,7 +573,6 @@ ul.results-list {
 
         & * {
             font-family: Helvetica, Verdana, sans-serif;
-            font-size: ms(2)/1.5;
         }
 
         h3 {

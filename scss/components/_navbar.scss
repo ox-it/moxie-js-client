@@ -1,9 +1,11 @@
+@import "globals/variables";
+
 // Navbar
 // Make the navbar sexy.
 #navbar, #content {
     position: absolute;
     left: 0; right: 0;
-    @include respondTo(smallScreen) {
+    @media #{$small} {
         width: auto; min-width: 0; margin-left: 0; margin-right: 0;
         border: 0;
     }
@@ -17,7 +19,7 @@
     z-index: 51;
     height: $navbarHeight;
     line-height: $navbarHeight - 1px;
-    color: $white;
+    color: #fff;
     list-style: none;
     background: $navbarLight; // Basic background for old devices
     @include background(
@@ -45,9 +47,9 @@
         a {
             border-left: $navbarBorderLight;
             display: block;
-            color: $white;
+            color: #fff;
             // Feedback for hover/clicked
-            &:active, &:hover {@include box-shadow(0 0 $navbarItemWidth/2 $black inset);}
+            &:active, &:hover {@include box-shadow(0 0 $navbarItemWidth/2 #000 inset);}
             // If the button has been pressed, distinguish between press and hover
             &:active {background: rgba(0,0,0,0.4);}
             &.ss-star.favourited {
@@ -72,12 +74,12 @@
             width: auto;
             border: 0;
             h1 {
-                color: $white;
+                color: #fff;
                 // Set line-height to navbarHeight to give vertical alignment
                 line-height: $navbarHeight;
-                font-size: ms(0);
+                font-size: 1em;
                 // Left spacing equivalent to font-size.
-                margin: auto 0 auto ms(0);
+                margin: auto 0 auto 1em;
                 // Pull the text up slightly to align with buttons
                 margin-top: -2px;
             }
