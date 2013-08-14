@@ -29,6 +29,9 @@
     {{/services}}
     </tbody>
 </table>
+{{#if lastUpdatedFormatted}}
+<div class="last-updated">updated: {{ lastUpdatedFormatted }}</div>
+{{/if}}
 {{else}}
         <p class="free-text">No real-time information available at the moment</p>
 {{/if}}
