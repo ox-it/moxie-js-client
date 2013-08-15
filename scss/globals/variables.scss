@@ -1,4 +1,6 @@
 /* Available Variables */
+
+// Variables to set our breakpoints
 $small-screen: emCalc(768);
 $medium-screen: emCalc(1280);
 $large-screen: emCalc(1440);
@@ -9,7 +11,6 @@ $medium: "only screen and (min-width:"#{$medium-screen}")";
 $large: "only screen and (min-width:"#{$large-screen}")";
 $landscape: "only screen and (orientation: landscape)";
 $portrait: "only screen and (orientation: portrait)";
-
 
 $body-background: #fafafa;
 

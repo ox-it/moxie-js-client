@@ -2,123 +2,41 @@
 /* Each individual part that can be added in */
 @import "settings";
 @import "foundation/components/global";
-@import "foundation/components/grid";
-@import "foundation/components/visibility";
-@import "foundation/components/block-grid";
 @import "foundation/components/type";
 @import "foundation/components/buttons";
 @import "foundation/components/forms";
 
+// Modular Scale gives us font-sizes on a harmonic scale
 @import 'modular-scale';
+
+// hidpi media queries mixins for selecting higher res images
+@import "hidpi";
 
 @import "globals/variables";
 @import "globals/oxford-palette";
 @import "globals/mixins";
+
+// Foundation grid mixins
+//  - we don't make use of all the foundation stuff
+//    so this was broke into its own module
+@import "components/grid";
 @import "components/labels";
 @import "components/buttons";
 @import "components/navbar";
+@import "components/sidebar";
+@import "components/rti";
 
-@import "hidpi";
-// App level
-@import "library";
+// Moxie Apps
+@import "components/today";
+@import "components/favourites";
+@import "components/library";
+
+
+/* Initialize */
+$base-size: $base-font-size;
 
 // Colours for each application
 $todayColor: $pantone7412;
-
-// RTI enclosing div
-// used to provide a base style
-div.rti {
-        background: url($subtle-dots);
-        position: relative;
-        //@include hidpi {background: url($subtle-dots-hidpi);}
-        padding: 10px 0;
-        border-top: 1px solid rgba(255,255,255,0.9);
-        border-bottom: 1px solid rgba(255,255,255,0.9);
-        @include box-shadow(inset 0 0 8px #ddd);
-        p {
-            padding: 0 4px;
-        }
-        h3 {
-            font-size: 1.2em;
-            margin-top: 5px;
-        }
-        #gauge {
-            width: 380px;
-            height: 155px;
-        }
-        #rti-load {
-            position: absolute;
-            right: 10px;
-            top: 10px;
-        }
-}
-
-// Train RTI styling
-table#train-rti {
-    width: 100%;
-    .delayed {
-        color: $pantone200;
-    }
-    td {
-      padding-top: 5px;
-      padding-bottom: 5px;
-      padding-right: 5px;
-      padding-left: 10px;
-      border: 1px solid #ddd;
-      background-color: #fff;
-    }
-
-    td:first-child {
-      padding-right: 0;
-    }
-}
-
-// Bus RTI styling
-table#bus-rti {
-    border-collapse: collapse;
-    margin: 0 auto;
-    tbody {
-        vertical-align: middle;
-    }
-    tr > td {
-        padding: 6px;
-    }
-
-    .service-id {
-        display: block;
-        line-height: 44px;
-        font-size: ms(1);
-        width: 50px;
-        height: 50px;
-        text-align: center;
-        color: #fff;
-
-        //text-shadow: 0 0 1px rgba(255,255,255, 0.5);
-        font-weight: 800;
-        @include border-radius(50%);
-        border: 3px solid transparentize($pantoneWarmGray6, 0.3);
-        background: transparentize($pantoneWarmGray6, 0.3);
-        //@include background(radial-gradient($darkOxfordBlue, $lightOxfordBlue));
-    }
-
-    .service-destination {
-        font-weight: 200;
-        font-size: ms(1);
-        padding-top: 12px;
-        padding-bottom: 0;
-    }
-
-    .service-next-bus {
-        padding-top: 12px;
-        padding-bottom: 0;
-    }
-
-    .service-next-buses-following {
-        font-size: 16px;
-        line-height: 14px;
-        padding-top: 0;
-    }
-}
 
 html, body { height: 100%; }
 body {
@@ -197,120 +115,6 @@ dl {
 
 
 
-// Today
-// Items specific to the today page
-div.today-card-container {
-    padding-left: 5px;
-    padding-right: 5px;
-    @include columns(325px);
-}
-
-div.today {
-    text-align: left;
-    display: inline-block;
-    position: relative;
-    vertical-align: top;
-    // This width and min-width combination work with css columns
-    // Meaning Today cards expand to fill 96% of each column, but as
-    // soon as an additional card fits, the columns expand.
-    //
-    //
-    // it's properly mental.
-    width: 300px;
-    min-width: 96%;
-    margin-top: 10px;
-    @include box-shadow(0 0 2px #ccc);
-    @include border-radius(3px);
-    border: 1px solid #ccc;
-    h3 {
-        font-size: 15px;
-        border-bottom: 1px solid #ccc;
-        margin-bottom: 0px;
-        padding-left: 20px;
-        .disclaimer {
-            font-size: 14px;
-        }
-    }
-    .last-updated {
-        position: absolute;
-        right: 0px;
-        bottom: 0px;
-        font-size: 11px;
-    }
-    div.five-day-forecast div {
-        display: inline-block;
-        padding-left: 5px;
-        margin-top: 5px;
-        font-size: 1.4em;
-        width: 27px;
-        span.day-of-week {
-            font-size: 0.8em;
-            font-variant: small-caps;
-        }
-    }
-    div.five-day-forecast div:last-child {
-        margin: 0;
-    }
-
-    div.river-status:not(:last-child) {
-        border-right: 1px solid #ccc;
-    }
-    div.river-status {
-        float: left;
-        padding: 20px;
-        font-size: 24px;
-        font-weight: 300;
-        text-align: center;
-        // TODO: Capture all the options this value can be
-        // Really the API docs should cover it
-        .green { color: green; }
-        .ss-flag {
-            text-align: right;
-        }
-    }
-    div.day {
-        float: left;
-        padding: 12px;
-        font-size: 24px;
-        font-weight: 300;
-        font-variant: small-caps;
-        @include background(linear-gradient(top, #fafafa, #fbfbfb));
-        border-right: 1px solid #ccc;
-    }
-    div.date {
-        float: left;
-        padding-left: 10px;
-        // Date contains term-date and standard-date one atop the other.
-        > div {
-            font-size: 15px;
-            font-weight: 300;
-            text-align: center;
-        }
-        div.term-date {
-            padding-top: 5px;
-
-        }
-
-        div.standard-date {
-            border-bottom: 1px solid $border-color;
-            padding-bottom: 5px;
-            padding-top: 3px;
-        }
-    }
-    div.park-and-rides {
-        margin-left: auto;
-        margin-right: auto;
-        text-align: center;
-        div.p-r {
-            display: inline-block;
-        }
-    }
-}
-div.weather {
-    height: 51px;
-    overflow: hidden;
-}
-
 div.embedded_map {
     height: $mapHeight;
     width: auto;
@@ -319,162 +123,85 @@ div.embedded_map {
     }
 }
 
-// Sidebar
-// This relates to how the sidebar operates
-#main, #sidebar {
-    position: relative;
-    @if $animations-enabled == true {
-        @include transition($sidebar-animation-time all ease-out);
-    }
-}
 
-#main {
-    width: 100%;
-    height: 100%;
-    margin-left: 0;
-    float: right;
-    z-index: 1;
-    body.is-sidebar-active & {
-        position: fixed;
-        left: $sidebar-width;
-    }
-}
-
-#sidebar {
-    display: none;
-    top: 0px;
-    width: $sidebar-width;
-    margin-left: -100%;
-    float: left;
-    z-index: 3;
-    body.is-sidebar-active & {
-        display: inline;
-        margin-left: 0;
-    }
-}
-
-.overlay {
-    display: none;
-    @if $animations-enabled == true {
-        opacity: 0;
-        width: 100%;
-        @include transition($sidebar-animation-time all ease-out);
-    }
-    body.is-sidebar-active & {
-        display: inline;
-        position: fixed;
-        top: 0px;
-        width: $sidebar-margin;
-        left: $sidebar-width;
-        height: 100%;
-        opacity: 0.5;
-        background-color: #000;
-        z-index: 2;
-        @if $animations-enabled == true {
-            width: $sidebar-margin;
-            margin-left: $sidebar-width;
-            opacity: 0.5;
-        }
-    }
-}
-
-ul.sidebar-items {
-    list-style: none;
-    > a {
-        li {
-            padding: 10px 5px;
-            border-bottom: 2px solid $border-color;
-            border-left: 15px solid $border-color;
-            color: #666;
-            font-weight: 400;
-            font-size: ms(1);
-            background: url($cream_dust);
-            @include hidpi {background: url($cream-dust-hidpi);}
-            @include gentle-inset-shadow-on-state();
-        }
-
-    }
-}
-
+/* Content is a container for two child divs
+    .content-browse which typically contains a scrolling list container
+    .content-map which holds map (#map)
+*/
 #content {
-    /* Content is a container for two child divs:
-    - .content-browse which typically contains a scrolling list container
-    - .content-map which holds map (#map)
-     */
+    top: $navbarHeight;
+    bottom: 0;
+    background: #fff;
+    border-left: $grayBorder;
+    border-right: $grayBorder;
 
-top: $navbarHeight;
-bottom: 0;
-background: #fff;
-border-left: $grayBorder;
-border-right: $grayBorder;
-
-.content-browse {
-    padding: 0px 0px;
-    overflow: auto;
-    background: $body-background;
-    -webkit-overflow-scrolling: touch;
-    right: auto;
-    height: auto;
-    @media #{$small} {
-        @include grid-column(4);
-        position: relative;
+    .content-browse {
         padding: 0px 0px;
-        // Makes the map scroll with the list
-        height: 100%;
-        overflow-y: scroll;
-    }
-}
-
-.map-browse-layout {
-    height: 100%;
-}
-
-.content-map {
-    height: $mapHeight;
-    @media #{$small} {
-        @include grid-column(8, $float: right);
-        height: 100%;
-        padding: 0px 0px;
-        border-top: $grayBorder;
-        border-bottom: $grayBorder;
-        border-left: $grayBorder;
-    }
-}
-#map {
-    height: $mapHeight;
-    &.full-screen {
-        height: 100%;
-    }
-    .leaflet-control-zoom {
-        display: none;
-    }
-    width: 100% !important;
-    @media #{$small} {
-        .leaflet-control-zoom {
-            display: block;
+        overflow: auto;
+        background: $body-background;
+        -webkit-overflow-scrolling: touch;
+        right: auto;
+        height: auto;
+        @media #{$small} {
+            @include grid-column(4);
+            position: relative;
+            padding: 0px 0px;
+            // Makes the map scroll with the list
+            height: 100%;
+            overflow-y: scroll;
         }
+    }
+
+    .map-browse-layout {
         height: 100%;
     }
-}
-.search-input {
-    padding-top: 10px;
-    margin-left: 5px;
-    margin-right: 5px;
 
-    span.deleteicon {
-        display: block;
-        line-height: 9px;
-        position: absolute;
-        right: 20px;
-        top: 20px;
-        padding: 4px 4px 2px 4px;
-        @include border-radius(30px);
-        font-size: 9px;
-        color: #fff;
-        background: #ccc;
-        cursor: pointer;
+    .content-map {
+        height: $mapHeight;
+        @media #{$small} {
+            @include grid-column(8, $float: right);
+            height: 100%;
+            padding: 0px 0px;
+            border-top: $grayBorder;
+            border-bottom: $grayBorder;
+            border-left: $grayBorder;
+        }
     }
-}
+    #map {
+        height: $mapHeight;
+        &.full-screen {
+            height: 100%;
+        }
+        .leaflet-control-zoom {
+            display: none;
+        }
+        width: 100% !important;
+        @media #{$small} {
+            .leaflet-control-zoom {
+                display: block;
+            }
+            height: 100%;
+        }
+    }
+    .search-input {
+        padding-top: 10px;
+        margin-left: 5px;
+        margin-right: 5px;
+
+        span.deleteicon {
+            display: block;
+            line-height: 9px;
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            padding: 4px 4px 2px 4px;
+            @include border-radius(30px);
+            font-size: 9px;
+            color: #fff;
+            background: #ccc;
+            cursor: pointer;
+        }
+    }
 }
 
 .list-map, .detail-map, .generic {
@@ -585,24 +312,3 @@ ul.results-list {
 
     }
 }
-
-// Manage Favourites view
-ul.results-list {
-    li div.rename-fav {
-        margin-left: 35px;
-    }
-    li a.remove-fav {
-        position: absolute;
-        width: 20px;
-        height: 20px;
-        color: $pantone200;
-        font-size: 20px;
-        padding: 6px;
-    }
-}
-
-// Today view settings
-.today-settings {
-    p { margin: 5px 0px; }
-}
-
