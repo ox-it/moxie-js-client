@@ -1,7 +1,7 @@
 @import "settings";
 
 /* Initialize */
-$base-size: 14px;
+$base-size: $base-font-size;
 $ratio: golden() fourth() !default;
 
 
