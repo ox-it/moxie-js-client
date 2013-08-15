@@ -12,25 +12,21 @@
         <input class="action-button search" type="submit" value="Search" id="submit-search"></input>
     </div>
 </div>
-
-<ul id="search-results" class="results-list">
-
-</ul>
-
-
-{{#if midRequest}}
-<div id="loading">
-    <img src="images/preloader.gif" class="preloader">
+<div class="library-results-container">
+    <ul id="search-results" class="results-list">
+    </ul>
+    {{#if midRequest}}
+    <div id="loading">
+        <img src="images/preloader.gif" class="preloader">
+    </div>
+    {{else}}
+    {{#unless emptyQuery}}
+    {{#unless hasResults}}
+    <p>Your search - <strong>{{ query.title }} / {{ query.author }} / {{ query.isbn }}</strong> - did not match any library items.</p>
+    {{/unless}}
+    {{/unless}}
+    {{/if}}
 </div>
-{{else}}
-{{#unless emptyQuery}}
-{{#unless hasResults}}
-<p>Your search - <strong>{{ query.title }} / {{ query.author }} / {{ query.isbn }}</strong> - did not match any library items.</p>
-{{/unless}}
-{{/unless}}
-{{/if}}
-
-
 <div id="library-info">
     <h2 class="free-text">Library Services Info</h2>
     <ul class="results-list">
