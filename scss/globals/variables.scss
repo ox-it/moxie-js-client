@@ -1,4 +1,9 @@
-/* Available Variables */
+@import "settings";
+
+/* Initialize */
+$base-size: 14px;
+$ratio: golden() fourth() !default;
+
 
 // Variables to set our breakpoints
 $small-screen: emCalc(768);

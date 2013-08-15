@@ -20,6 +20,8 @@
 //  - we don't make use of all the foundation stuff
 //    so this was broke into its own module
 @import "components/grid";
+
+// Our major components used throughout moxie
 @import "components/labels";
 @import "components/buttons";
 @import "components/navbar";
@@ -31,9 +33,6 @@
 @import "components/favourites";
 @import "components/library";
 
-
-/* Initialize */
-$base-size: $base-font-size;
 
 // Colours for each application
 $todayColor: $pantone7412;
