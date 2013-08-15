@@ -5,7 +5,6 @@
 
 # CSS
 css/app.css
-css/library.css
 css/components/*
 css/globals/*
 
@@ -24,3 +23,6 @@ docs/build/
 #PhoneGap build
 phonegap_build.zip
 phonegap_build/
+
+# Ruby bundle (recommended in README.md)
+.bundle
