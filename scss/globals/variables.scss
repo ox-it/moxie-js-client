@@ -1,3 +1,22 @@
+@import "settings";
+
+/* Initialize */
+$base-size: 14px;
+$ratio: golden() fourth() !default;
+
+
+// Variables to set our breakpoints
+$small-screen: emCalc(768);
+$medium-screen: emCalc(1280);
+$large-screen: emCalc(1440);
+
+$screen: "only screen";
+$small: "only screen and (min-width:"#{$small-screen}")";
+$medium: "only screen and (min-width:"#{$medium-screen}")";
+$large: "only screen and (min-width:"#{$large-screen}")";
+$landscape: "only screen and (orientation: landscape)";
+$portrait: "only screen and (orientation: portrait)";
+
 $body-background: #fafafa;
 
 $grayBorder: 1px solid #ccc;
@@ -37,4 +56,3 @@ $success-green: #468847;
 $stack-yellow: #f89406;
 $reference-blue: #002856;
 $unknown-grey: #ccc;
-
