@@ -47,7 +47,10 @@ define(['jquery', 'backbone', 'underscore', 'core/views/InfiniteScrollView', 'li
                 if (this.$("#input-isbn").val()) { query.isbn = this.$("#input-isbn").val(); }
                 Backbone.history.navigate('/library/?'+$.param(query).replace(/\+/g, "%20"), {trigger: false, replace: false});
                 this.collection.query = query;
-                this.collection.fetch();
+                if (!_.isEmpty(query)) {
+                    // Only fetch if we have a query
+                    this.collection.fetch();
+                }
                 this.collection.reset([]);
             },
 
