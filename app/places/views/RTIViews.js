@@ -2,13 +2,13 @@ define(['backbone', 'underscore', 'moment', 'hbs!places/templates/busrti', 'hbs!
     function(Backbone, _, moment, busRTITemplate, trainRTITemplate, prRTITemplate) {
 
     // Refresh every 10 seconds
-    var RTIRenderRefresh = 10000;
+    var RTI_RENDER_REFRESH = 10000;
 
     var RTIView = Backbone.View.extend({
         initialize: function() {
             this.model.on('sync', this.render, this);
             this.model.on('request', this.showLoader, this);
-            this.intervalID = window.setInterval(_.bind(this.render, this), RTIRenderRefresh);
+            this.intervalID = window.setInterval(_.bind(this.render, this), RTI_RENDER_REFRESH);
         },
         manage: true,
         serialize: function() {
