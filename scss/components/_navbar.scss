@@ -48,10 +48,16 @@
             border-left: $navbarBorderLight;
             display: block;
             color: #fff;
-            // Feedback for hover/clicked
-            &:active, &:hover {@include box-shadow(0 0 $navbarItemWidth/2 #000 inset);}
-            // If the button has been pressed, distinguish between press and hover
-            &:active {background: rgba(0,0,0,0.4);}
+            // Only style for the active pseudoclass on mobiles
+            // Doesn't make sense to style hover since it isn't possible
+            &:active {
+                @include box-shadow(0 0 $navbarItemWidth/2 #000 inset);
+                background: rgba(0,0,0,0.4);
+            }
+            @media #{$small} {
+                // Style both hover and clicked pseudoclasses for larger devices
+                &:active, &:hover {@include box-shadow(0 0 $navbarItemWidth/2 #000 inset);}
+            }
             &.ss-star.favourited {
                 color: $pantone129;
             }
