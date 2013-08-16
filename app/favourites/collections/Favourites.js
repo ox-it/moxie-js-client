@@ -1,26 +1,8 @@
-define(["backbone", "underscore", "favourites/models/Favourite", "localstorage"],
-
-    function(Backbone, _, Favourite) {
-        var Favourites = Backbone.Collection.extend({
-            initialize: function() {
-                try {
-                    // Possible error thrown when loading without localStorage available
-                    this.localStorage = new Backbone.LocalStorage("favourites");
-                    this.fetch();
-                } catch (e) {
-                    if ('console' in window) {
-                        console.log("Error accessing localStorage");
-                        console.log(e);
-                    }
-                }
-            },
+define(["backbone", "underscore", "core/collections/LocalStorageCollection", "favourites/models/Favourite", "localstorage"],
+    function(Backbone, _, LocalStorageCollection, Favourite) {
+        var Favourites = LocalStorageCollection.extend({
+            name: "favourites",
             model: Favourite,
-            fetch: function() {
-                if ('localStorage' in this) {
-                    Backbone.Collection.prototype.fetch.apply(this, arguments);
-                }
-                return this;
-            },
             getCurrentPage: function() {
                 var fragment = Backbone.history.getFragment(undefined, undefined, true);
                 var params = Backbone.history.getQueryParameters();
@@ -33,5 +15,4 @@ define(["backbone", "underscore", "favourites/models/Favourite", "localstorage"]
         });
         return Favourites;
     }
-
 );

@@ -1,4 +1,4 @@
-define(['jquery', 'backbone', 'underscore', 'core/views/MapBrowseLayout', 'favourites/collections/Favourites', 'favourites/views/FavouriteButtonView', 'today/collections/TodaySettings'], function($, Backbone, _, MapBrowseLayout, Favourites, FavouriteButtonView, TodaySettings) {
+define(['jquery', 'backbone', 'underscore', 'core/views/MapBrowseLayout', 'favourites/collections/Favourites', 'favourites/views/FavouriteButtonView', 'today/collections/TodaySettings', 'core/collections/HelpMessages'], function($, Backbone, _, MapBrowseLayout, Favourites, FavouriteButtonView, TodaySettings, HelpMessages) {
     var app = {
 
         navigate: _.wrap(Backbone.history.navigate, function(nav, path, options) {
@@ -33,6 +33,7 @@ define(['jquery', 'backbone', 'underscore', 'core/views/MapBrowseLayout', 'favou
         // in Future both should be sync'd remotely
         todaySettings: new TodaySettings(),
         favourites: new Favourites(),
+        helpMessages: new HelpMessages(),
 
         renderView: function(view, options) {
             options = options || {};

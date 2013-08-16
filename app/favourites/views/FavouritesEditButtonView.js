@@ -1,14 +1,28 @@
 define(['jquery', 'backbone', 'underscore', 'moxie.conf'],
     function($, Backbone, _, conf) {
         var standardClass = 'ss-standard',
+            disabledClass = 'ss-writingdisabled',
             editClass = 'ss-write',
             saveClass = 'ss-check';
         var FavouritesEditButtonView = Backbone.View.extend({
+            initialize: function(options) {
+                options = options || {};
+                if (options.disabled) {
+                    this.disabled = true;
+                    this.events = {};
+                }
+            },
+            disabled: false,
             events: {'click': 'toggleEdit'},
             manage: true,
             tagName: 'a',
             attributes: {
                 'class': [standardClass, editClass].join(' ')
+            },
+            beforeRender: function() {
+                if (this.disabled) {
+                    this.$el.addClass(disabledClass);
+                }
             },
             editing: false,
             toggleEdit: function(e) {

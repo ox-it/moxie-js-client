@@ -1,0 +1,16 @@
+// Component for help boxes built from the Today view cards
+@import "globals/oxford-palette";
+
+.help-card-container {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+.today.help {
+    @include border-radius(5px);
+    padding: 20px;
+    padding-bottom: 0px;
+    background-color: $pantone549;
+    color: #fff;
+    font-size: 1.3em;
+}
