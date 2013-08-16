@@ -1,11 +1,12 @@
-define(['jquery', 'backbone', 'underscore', 'core/views/InfiniteScrollView', 'library/views/ResultItemView', 'hbs!library/templates/search', 'moxie.conf'],
-    function($, Backbone, _, InfiniteScrollView, ResultItemView, searchTemplate, MoxieConf){
+define(['jquery', 'backbone', 'underscore', 'core/views/InfiniteScrollView', 'library/views/ResultItemView', 'core/views/ErrorView', 'hbs!library/templates/search', 'moxie.conf'],
+    function($, Backbone, _, InfiniteScrollView, ResultItemView, ErrorView, searchTemplate, MoxieConf){
         var SearchView = InfiniteScrollView.extend({
 
             initialize: function() {
                 _.bindAll(this);
                 this.collection.on("reset", this.render, this);
                 this.collection.on("add", this.addResult, this);
+                this.collection.on("errorFetching", this.renderError, this);
             },
 
             // Event Handlers
@@ -16,6 +17,16 @@ define(['jquery', 'backbone', 'underscore', 'core/views/InfiniteScrollView', 'li
 
             attributes: {
                 'class': 'generic'
+            },
+
+            renderError: function() {
+                this.render();
+                // Error fetching from the API, render a nice error message.
+                var errorView = new ErrorView({
+                    el: this.$('.library-results-container'),
+                    message: "Sorry we encountered an error loading library search results."
+                });
+                errorView.render();
             },
 
             searchEventFields: function(ev) {
@@ -34,7 +45,13 @@ define(['jquery', 'backbone', 'underscore', 'core/views/InfiniteScrollView', 'li
                 if (this.$("#input-title").val()) { query.title = this.$("#input-title").val(); }
                 if (this.$("#input-author").val()) { query.author = this.$("#input-author").val(); }
                 if (this.$("#input-isbn").val()) { query.isbn = this.$("#input-isbn").val(); }
-                Backbone.history.navigate('/library/?'+$.param(query).replace(/\+/g, "%20"), {trigger: true, replace: false});
+                Backbone.history.navigate('/library/?'+$.param(query).replace(/\+/g, "%20"), {trigger: false, replace: false});
+                this.collection.query = query;
+                if (!_.isEmpty(query)) {
+                    // Only fetch if we have a query
+                    this.collection.fetch();
+                }
+                this.collection.reset([]);
             },
 
             serialize: function() {

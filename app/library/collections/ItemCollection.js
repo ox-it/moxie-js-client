@@ -6,6 +6,11 @@ define(["core/collections/MoxieCollection", "library/models/ItemModel", "places/
 
         initialize: function(query, pois) {
             this.query = query || {};
+            this.on('errorFetching', this.errorFetchingResults, this);
+        },
+
+        errorFetchingResults: function() {
+            this.ongoingFetch = false;
         },
 
         followUser: function() {
