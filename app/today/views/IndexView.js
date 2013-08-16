@@ -1,4 +1,5 @@
-define(['backbone', 'underscore', 'hbs!today/templates/index'], function(Backbone, _, indexTemplate){
+define(['backbone', 'underscore', 'app', 'hbs!today/templates/index'], function(Backbone, _, app, indexTemplate){
+    var TODAY_WELCOME_KEY = 'today-welcome';
     var IndexView = Backbone.View.extend({
         // This view handles the "cards" on the home screen
         // Cards are views with models in this.collection
@@ -42,9 +43,13 @@ define(['backbone', 'underscore', 'hbs!today/templates/index'], function(Backbon
                     setTimeout(navigator.splashscreen.hide, 400);
                 }
             }, this));
+            app.helpMessages.setSeen(TODAY_WELCOME_KEY);
         },
         manage: true,
         template: indexTemplate,
+        serialize: function() {
+            return {seenHelp: app.helpMessages.getSeen(TODAY_WELCOME_KEY)};
+        },
         cleanup: function() {
             this.collection.off('sync');
         }
