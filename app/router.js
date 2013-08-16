@@ -35,7 +35,7 @@ define(["app", "backbone", "places/router", "today/views/IndexView", "today/coll
         },
 
         manageFavourites: function(params) {
-            var favouritesEditButtonView = new FavouritesEditButtonView();
+            var favouritesEditButtonView = new FavouritesEditButtonView({disabled: app.favourites.isEmpty()});
             var favouritesView = new FavouritesView({collection: app.favourites, button: favouritesEditButtonView});
             app.renderView(favouritesView, {menu: true, contextButtonView: favouritesEditButtonView});
         },
