@@ -5,6 +5,10 @@ define(['MoxieModel', 'underscore', 'moxie.conf'], function(MoxieModel, _, conf)
     var RTIModel = MoxieModel.extend({
         url: function() {
             return conf.endpoint + this.get('href');
+        },
+        parse: function(data) {
+            data.lastUpdated = new Date().getTime();
+            return data;
         }
     });
     var RTIModels = {
@@ -19,7 +23,7 @@ define(['MoxieModel', 'underscore', 'moxie.conf'], function(MoxieModel, _, conf)
                         service.delayed = testDelayed(service.eta);
                     }
                 });
-                return data;
+                return RTIModel.prototype.parse.apply(this, [data]);
             }
         }),
         'p-r': RTIModel
