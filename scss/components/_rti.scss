@@ -95,3 +95,13 @@ table#bus-rti {
     }
 }
 
+// RTI last-updated messages
+// We style these identically within today cards
+// and within in the POI RTI blocks on places detail
+.today .last-updated, #poi-rti .last-updated {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    font-size: 11px;
+}
+
