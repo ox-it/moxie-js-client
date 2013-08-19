@@ -75,7 +75,8 @@ define([], function() {
             nearbyRTI: {
                 fetchCount: 5,      // Number of POIs we fetch to find 1 nearby which doesn't appear in your favourites
             }
-        }
+        },
+        ga: {trackingID: "UA-40281467-3", period: 10, debug: true}
     };
     return MoxieConf;
 });
