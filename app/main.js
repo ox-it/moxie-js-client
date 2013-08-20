@@ -1,22 +1,46 @@
-require(['jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'backbone.queryparams', 'backbone.layoutmanager'], function($, Backbone, MoxieRouter, FastClick, conf) {
-    // Include FastClick, this removes a 300ms touch event delay
+require(['jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'ga', 'backbone.queryparams', 'backbone.layoutmanager'], function($, Backbone, MoxieRouter, FastClick, conf, GA) {
+    function startGA() {
+        // Init GA & start listening on hashchange
+        var ga = new GA({debug: conf.ga.debug});
+        ga.init(conf.ga.trackingID, conf.ga.period);
+        ga.startListening();
+    }
     $(function() {
+        // Include FastClick, this removes a 300ms touch event delay
         new FastClick(document.body);
 
-        // Listen for events on each click on Android
-        // This seems to be the only way to open links in the android browser
-        //
-        $(document).on("deviceready", function() {
-            if ((window.device) && (window.device.platform==='Android')) {
-                $('#content').on('click', "a[href][target='_blank']", function(ev) {
-                    ev.preventDefault();
-                    navigator.app.loadUrl(this.href, { openExternal:true });
-                    return false;
-                });
-            }
-        });
-    });
+        var app = (document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1);
+        if (app) {
+            // Native application - Cordova
+            $(document).on("deviceready", function() {
+                // Now the GAPlugin will have loaded we can start sending analytics
+                startGA();
 
+                // Listen for events on each click on both Android and iOS
+                // This seems to be the most reliable way to open target=_blank
+                // url's in the native phone browsers.
+                //
+                if ((window.device) && (window.device.platform==='Android')) {
+                    $('body').on('click', "a[href][target='_blank']", function(ev) {
+                        ev.preventDefault();
+                        navigator.app.loadUrl(this.href, { openExternal:true });
+                        return false;
+                    });
+                }
+                else if ((window.device) && (window.device.platform==='iOS')) {
+                    $('body').on('click', "a[href][target='_blank']", function(ev) {
+                        ev.preventDefault();
+                        window.open(this.href, '_system');
+                        return false;
+                    });
+                }
+            });
+        } else {
+            // Load the GA plugin and start sending analytics
+            startGA();
+        }
+    });
+    //
     // Initialse our router
     var moxieRouter = new MoxieRouter();
 
