@@ -1,25 +1,28 @@
-define(["MoxieModel", "underscore", "moxie.conf", "places/collections/POICollection"], function(MoxieModel, _, conf, POIs) {
+define(["MoxieModel", "underscore", "moxie.conf", "places/collections/POICollection", "places/models/POIModel"], function(MoxieModel, _, conf, POIs, POI) {
 
+    var HoldingPOI = POI.extend({
+        idAttribute: 'holdingID'
+    });
+    var HoldingPOIs = POIs.extend({
+        model: HoldingPOI
+    });
     var Item = MoxieModel.extend({
         url: function() {
             return conf.urlFor('library_item') + this.id + '/';
         },
-        defaults: {
-            holdings: []
-        },
         getPOIs: function() {
-            var pois = this.get('pois');
-            return new POIs(pois);
+            return this.get('holdingPOIs');
         },
         parse: function(data) {
             var pois = [];
             if ('_embedded' in data) {
                 _.each(data._embedded, function(poi, holding_ident) {
-                    poi.holding_identifier = holding_ident;
+                    poi.holdingID = holding_ident;
                     pois.push(poi);
                 });
             }
-            data.pois = pois;
+            data.holdingPOIs = new HoldingPOIs(pois);
+            delete data._embedded;
             return data;
         }
     });
