@@ -27,13 +27,17 @@
 }
 
 // Styling for detail DLs
-dl {
-    > dt.library-location {
+.library-holdings {
+    .library-location {
         font-variant: normal;
         border-top: 1px solid #eee;
-        padding-top: 4px;
+        padding: 5px;
     }
- }
+    .library-location.highlighted {
+        background-color: #eee;
+        @include box-shadow(0 0 5px #bbb inset);
+    }
+}
 
 
 #library-search-form {
