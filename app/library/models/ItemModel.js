@@ -1,7 +1,24 @@
-define(["MoxieModel", "underscore", "moxie.conf", "places/collections/POICollection", "places/models/POIModel"], function(MoxieModel, _, conf, POIs, POI) {
+define(["MoxieModel", "underscore", "leaflet", "moxie.conf", "places/collections/POICollection", "places/models/POIModel"], function(MoxieModel, _, L, conf, POIs, POI) {
+
+    var ICON_PATH_PREFIX = 'images/maps/';
 
     var HoldingPOI = POI.extend({
-        idAttribute: 'holdingID'
+        idAttribute: 'holdingID',
+        icons: {
+            0: ['marker-icon-red.png', 'marker-icon-2x-red.png'],
+            1: ['marker-icon-grey.png', 'marker-icon-2x-grey.png'],
+            2: ['marker-icon-yellow.png', 'marker-icon-2x-yellow.png'],
+            3: ['marker-icon.png', 'marker-icon-2x.png'],
+            4: ['marker-icon-green.png', 'marker-icon-2x-green.png'],
+        },
+        getIcon: function() {
+            var av = this.get('availability');
+            return L.icon({
+                iconUrl: ICON_PATH_PREFIX + this.icons[av][0],
+                iconRetinaUrl: ICON_PATH_PREFIX + this.icons[av][1],
+                shadowUrl: ICON_PATH_PREFIX + 'marker-shadow.png'
+            });
+        },
     });
     var HoldingPOIs = POIs.extend({
         model: HoldingPOI
@@ -18,6 +35,14 @@ define(["MoxieModel", "underscore", "moxie.conf", "places/collections/POICollect
             if ('_embedded' in data) {
                 _.each(data._embedded, function(poi, holding_ident) {
                     poi.holdingID = holding_ident;
+                    if (holding_ident in data.holdings) {
+                        poi.availability = 0;
+                        _.each(data.holdings[holding_ident], function(holding) {
+                            if (holding.availability > poi.availability) {
+                                poi.availability = holding.availability;
+                            }
+                        });
+                    }
                     pois.push(poi);
                 });
             }
