@@ -42,7 +42,11 @@ define(["app", "underscore", "backbone", "library/models/ItemModel", "library/co
             layout.setView('.content-browse', itemView);
             var mapView = layout.getView('.content-map');
             mapView.interactiveMap = true;
-            mapView.setCollection(item.getPOIs());
+            var holdingPOIs = item.getPOIs();
+            mapView.setCollection(holdingPOIs);
+            holdingPOIs.on('change', function(model) {
+                itemView.highlightHolding(model);
+            });
             itemView.render();
         },
 

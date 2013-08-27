@@ -3,11 +3,23 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'places/utils', 'moxie.co
         var ItemView = Backbone.View.extend({
             initialize: function() {
                 this.pois = this.model.getPOIs();
-                this.pois.on('change', this.hightligted, this);
             },
 
-            highlighted: function() {
-                console.log(arguments);
+            highlightHolding: function(model) {
+                if (model.get('highlighted')) {
+                    this.render();
+                    var highlightedEl = this.$('.highlighted');
+                    console.log(highlightedEl);
+                    var scrollEl = $('.content-browse');
+                    // Test if we have a scrollable div (ack.)
+                    // Effectively making this a test to see if we're in responsive mode...
+                    if (scrollEl.get(0).scrollHeight > scrollEl.height()) {
+                        scrollEl.scrollTop((scrollEl.scrollTop() + highlightedEl.position().top) - 70);
+                    } else {
+                        scrollEl = $(window);
+                        scrollEl.scrollTop(highlightedEl.position().top);
+                    }
+                }
             },
 
             manage: true,
