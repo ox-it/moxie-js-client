@@ -28,15 +28,18 @@
 
     {{#if holdings}}
     <h4>Holdings</h4>
-    <dl>
+    <ul class="library-holdings">
         {{#holdings}}
-        <dt class="library-location">
+        {{#if location.highlighted }}
+        <li class="highlighted library-location" id="{{ location.id }}">
+        {{else}}
+        <li class="library-location" id="{{ location.id }}">
+        {{/if}}
             {{#if location.name}}
                 <a href="#{{ location._links.self.href }}">{{ location.name }}</a>
             {{else}}
                 {{code}}
             {{/if}}
-        </dt>
             {{#holdings}}
                 {{#if availability_display}}
                 <dd><span class="{{libraryAvailability availability}}">{{ availability_display }}</span><span class="library-shelfmark">{{ shelfmark }}</span></dd>
@@ -45,7 +48,8 @@
                 {{/if}}
             {{/holdings}}
         {{/holdings}}
-    </dl>
+        </li>
+    </ul>
     <p>Please note that all libraries have admission and borrowing policies; inclusion in this list does not imply access.</p>
     {{/if}}
 </div>
