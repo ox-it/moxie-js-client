@@ -8,7 +8,7 @@ define(["MoxieModel", "underscore", "leaflet", "moxie.conf", "places/collections
             0: ['marker-icon-red.png', 'marker-icon-2x-red.png'],
             1: ['marker-icon-grey.png', 'marker-icon-2x-grey.png'],
             2: ['marker-icon-yellow.png', 'marker-icon-2x-yellow.png'],
-            3: ['marker-icon.png', 'marker-icon-2x.png'],
+            3: ['marker-icon-green.png', 'marker-icon-2x-green.png'],
             4: ['marker-icon-green.png', 'marker-icon-2x-green.png'],
         },
         getIcon: function() {
