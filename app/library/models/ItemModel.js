@@ -14,6 +14,8 @@ define(["MoxieModel", "underscore", "leaflet", "moxie.conf", "places/collections
         getIcon: function() {
             var av = this.get('availability');
             return L.icon({
+                iconSize: [25, 41],
+                iconAnchor: [12, 40],
                 iconUrl: ICON_PATH_PREFIX + this.icons[av][0],
                 iconRetinaUrl: ICON_PATH_PREFIX + this.icons[av][1],
                 shadowUrl: ICON_PATH_PREFIX + 'marker-shadow.png'
