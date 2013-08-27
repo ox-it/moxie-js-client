@@ -74,7 +74,12 @@ define(['backbone', 'leaflet', 'underscore', 'moxie.conf', 'places/utils', 'moxi
         placePOI: function(poi) {
             if (poi.hasLocation()) {
                 var latlng = new L.LatLng(poi.get('lat'), poi.get('lon'));
-                var marker = new L.marker(latlng, {'title': poi.get('name')});
+                var marker;
+                if ('getIcon' in poi) {
+                    marker = new L.marker(latlng, {title: poi.get('name'), icon: poi.getIcon()});
+                } else {
+                    marker = new L.marker(latlng, {title: poi.get('name')});
+                }
                 if (this.options.fullScreen && this.interactiveMap) {
                     // Phone View
                     marker.on('click', function(ev) {
