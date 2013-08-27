@@ -36,9 +36,9 @@
         <li class="library-location" id="{{ location.id }}">
         {{/if}}
             {{#if location.name}}
-                <a href="#{{ location._links.self.href }}">{{ location.name }}</a>
+            <a class="library-name" href="#{{ location._links.self.href }}">{{ location.name }}</a>
             {{else}}
-                {{code}}
+            <span class="library-name">{{code}}</span>
             {{/if}}
             {{#holdings}}
                 {{#if availability_display}}
