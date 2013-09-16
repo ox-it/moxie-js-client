@@ -24,6 +24,8 @@ var require = {
         "raphael": "libs/raphael",
         "justgage": "libs/justgage",
         "matchMedia": "libs/matchMedia",
+        "foundation": "libs/foundation/foundation",
+        "foundation.tooltips": "libs/foundation/foundation.tooltips",
 
         // Testing libs
         "jasmine": "tests/libs/jasmine-1.3.1/jasmine",
@@ -66,6 +68,12 @@ var require = {
         "justgage": {
             "deps": ["raphael"],
             "exports": "justgage"
+        },
+        "foundation": {
+            "deps": ["jquery"]
+        },
+        "foundation.tooltips": {
+            "deps": ["foundation"]
         },
 
         // Jasmine Unit Testing
