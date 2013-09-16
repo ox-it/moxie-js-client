@@ -6,11 +6,13 @@ $ratio: golden() fourth() !default;
 
 
 // Variables to set our breakpoints
+$smartphone-screen: emCalc(480);
 $small-screen: emCalc(768);
 $medium-screen: emCalc(1280);
 $large-screen: emCalc(1440);
 
 $screen: "only screen";
+$smartphone: "only screen and (max-width:"#{$small-screen}")";
 $small: "only screen and (min-width:"#{$small-screen}")";
 $medium: "only screen and (min-width:"#{$medium-screen}")";
 $large: "only screen and (min-width:"#{$large-screen}")";
@@ -47,8 +49,8 @@ $navbarBorderDark: 1px solid rgba(darken($navbarDark, 10%),0.7);
 $navbarBorderLight: 1px solid rgba(lighten($navbarDark, 5%),0.7);
 
 $sidebar-animation-time: 0.33s;
-$sidebar-width: 75%;
-$sidebar-margin: 100% - $sidebar-width;
+$sidebar-width: 400px;
+$sidebar-smartphone-width: 250px;
 
 // Colours predominantly for labels and suchlike
 $fail-red: #B94A48;
