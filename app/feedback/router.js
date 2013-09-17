@@ -1,7 +1,6 @@
-define(["app", "moxie.conf", "underscore", "backbone", "feedback/collections/FeedbackCollection", "feedback/views/FeedbackView"],
-    function(app, conf, _, Backbone, Feedbacks, FeedbackView){
+define(["app", "moxie.conf", "underscore", "backbone", "feedback/views/FeedbackView"],
+    function(app, conf, _, Backbone, FeedbackView){
         var FeedbackRouter = Backbone.SubRoute.extend({
-            feedbacks: new Feedbacks(),
             routes: {
                 '': 'feedback'
             },

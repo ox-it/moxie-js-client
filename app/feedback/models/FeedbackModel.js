@@ -1,7 +1,7 @@
-define(["MoxieModel", "underscore", "moxie.conf"], function(MoxieModel, _, conf) {
+define(["backbone", "moxie.conf"], function(Backbone, conf) {
 
-    var Feedback = MoxieModel.extend({
-
+    var Feedback = Backbone.Model.extend({
+        url: conf.urlFor('feedback')
     });
     return Feedback;
 
