@@ -55,10 +55,11 @@ div.today {
         margin: 0;
     }
 
-    div.river-status:not(:last-child) {
-        border-right: 1px solid #ccc;
+    /* River status */
+    ul.rivers {
+        list-style: none;
     }
-    div.river-status {
+    li.river-status {
         float: left;
         padding: 20px;
         font-size: ms(1);
