@@ -7,6 +7,12 @@
     }
 }
 
+@mixin gentle-inset-highlight-on-state {
+    &:active {
+        @include box-shadow(0 0 5px rgba(255,255,255,0.6) inset);
+    }
+}
+
 @mixin columns($width) {
     column-width: $width;
     -moz-column-width: $width; /* Firefox */
