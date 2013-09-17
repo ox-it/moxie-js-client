@@ -20,7 +20,7 @@ package:
 	@r.js -o app/moxie.build.js
 	@cp app/main-built.js $(TARGET_FOLDER)/app.js
 	@echo "=> CSS build"
-	@compass compile
+	@bundle exec compass compile
 	@cp -R css $(TARGET_FOLDER)
 	@echo "=> ZIPping..."
 	@zip -r $(TARGET_FOLDER) $(TARGET_FOLDER)
