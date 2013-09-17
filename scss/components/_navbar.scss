@@ -39,6 +39,9 @@
     );
     body.is-sidebar-active & {
         left: $sidebar-width;
+        @media #{$smartphone} {
+            left: $sidebar-smartphone-width;
+        }
         right: auto;
         width: 100%;
     }
