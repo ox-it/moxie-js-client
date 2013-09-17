@@ -16,6 +16,10 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'feedback/models/Feedb
             'class': 'generic'
         },
 
+        serialize: function() {
+            return {thanks: this.thanks};
+        },
+
         manage: true,
 
         template: feedbackTemplate,
@@ -27,6 +31,8 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'feedback/models/Feedb
         submitFeedback: function(ev) {
             if (this.validFeedback()) {
                 this.sendFeedback();
+                this.thanks = true;
+                this.render();
             }
         },
 
@@ -45,7 +51,6 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'feedback/models/Feedb
             if (this.$("#input-message").val()) { feedback.message = this.$("#input-message").val(); }
             // TODO referer?
             this.model.save(feedback);
-            this.model.sync();
         }
     });
 
