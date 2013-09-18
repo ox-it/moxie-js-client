@@ -33,21 +33,28 @@ define(['backbone', 'underscore', 'moment', 'hbs!places/templates/busrti', 'hbs!
         }
     });
     var ParkAndRideView = RTIView.extend({
+        gauge: null,
         afterRender: function() {
             this.$("#rti-load").css('visibility', 'hidden');
             var services = this.model.get('services');
-            var g = new JustGage({
-                id: "gauge",
-                value: services.percentage,
-                min: 0,
-                max: 100,
-                title: services.spaces + " available",
-                label: "",
-                hideValue: true,
-                hideMinMax: true,
-                counter: false,
-                levelColors: ["#a9d70b", "#a9d70b", "#a9d70b", "#a9d70b", "#a9d70b", "#f9c802", "#ff0000"]
-            });
+
+            if (this.gauge) {
+                console.log(this.gauge);
+                this.gauge.refresh(services.percentage);
+            } else {
+                this.gauge = new JustGage({
+                    id: 'gauge',
+                    value: services.percentage,
+                    min: 0,
+                    max: 100,
+                    title: services.spaces + " available",
+                    label: "",
+                    hideValue: true,
+                    hideMinMax: true,
+                    counter: false,
+                    levelColors: ["#a9d70b", "#a9d70b", "#a9d70b", "#a9d70b", "#a9d70b", "#f9c802", "#ff0000"]
+                });
+            }
         },
         template: prRTITemplate
     });
