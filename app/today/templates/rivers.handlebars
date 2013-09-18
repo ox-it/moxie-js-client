@@ -1,7 +1,10 @@
-<h3>Rowing Conditions <span class="disclaimer">(<a target="_blank" href="http://www.ourcs.org.uk/disclaimer">disclaimer</a>)</span></h3>
-<div class="rivers">
+
+<ul class="rivers">
 {{#rivers}}
-<div class="river-status">{{ name }}: <span class="ss-standard ss-flag {{ status }}"></span></div>
+	<li class="river-status has-tip" data-tooltip title="{{ status_description}}"><span class="ss-standard ss-flag {{ status }}"></span> {{ name }}
+	</li>
 {{/rivers}}
-</div>
-<div class="last-updated">updated: {{ lastUpdated }}</div>
+</ul>
+<span class="ss-standard ss-info has-tip rowing-conditions-info" data-tooltip title="Last Updated: {{ lastUpdated }}.
+<br/> <p>It is important to note that the flag status applies only to the stream speed and as such must be taken as only a part of the cox, crew and coach’s risk assessment before each outing. The flag does not mean it is necessarily safe for those unrestricted but rather it is deemed necessarily unsafe for those restricted.</p>"></span>
+

@@ -1,4 +1,4 @@
-define(['today/views/CardView', 'hbs!today/templates/rivers'], function(CardView, riversTemplate) {
+define(['jquery', 'today/views/CardView', 'hbs!today/templates/rivers', 'foundation.tooltips'], function($, CardView, riversTemplate) {
     var RiversCard = CardView.extend({
         weight: 70,
         manage: true,
@@ -7,7 +7,11 @@ define(['today/views/CardView', 'hbs!today/templates/rivers'], function(CardView
         serialize: function() {
             return this.model.toJSON();
         },
-        template: riversTemplate
+        template: riversTemplate,
+        afterRender: function() {
+            // Initialise Foundation JS (used for tooltip)
+            $(document).foundation();
+        }
     });
     return RiversCard;
 });
