@@ -24,6 +24,7 @@ var require = {
         "raphael": "libs/raphael",
         "justgage": "libs/justgage",
         "matchMedia": "libs/matchMedia",
+        "modernizr": "libs/modernizr",
         "foundation": "libs/foundation/foundation",
         "foundation.tooltips": "libs/foundation/foundation.tooltips",
 
@@ -70,7 +71,7 @@ var require = {
             "exports": "justgage"
         },
         "foundation": {
-            "deps": ["jquery"]
+            "deps": ["jquery", "modernizr"]
         },
         "foundation.tooltips": {
             "deps": ["foundation"]

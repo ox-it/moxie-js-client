@@ -9,9 +9,6 @@ require(['jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'ga', 'backbo
         // Include FastClick, this removes a 300ms touch event delay
         new FastClick(document.body);
 
-        // Initialise Foundation JS
-        $(document).foundation();
-
         var app = (document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1);
         if (app) {
             // Native application - Cordova
