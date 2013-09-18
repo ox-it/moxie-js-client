@@ -34,12 +34,14 @@ define(['backbone', 'underscore', 'moment', 'hbs!places/templates/busrti', 'hbs!
     });
     var ParkAndRideView = RTIView.extend({
         gauge: null,
-        afterRender: function() {
-            this.$("#rti-load").css('visibility', 'hidden');
+        initialize: function() {
+            this.model.on('sync', this.updateGauge, this);
+            this.model.on('request', this.showLoader, this);
+            this.intervalID = window.setInterval(_.bind(this.updateGauge, this), RTI_RENDER_REFRESH);
+        },
+        updateGauge: function() {
             var services = this.model.get('services');
-
             if (this.gauge) {
-                console.log(this.gauge);
                 this.gauge.refresh(services.percentage);
             } else {
                 this.gauge = new JustGage({
@@ -47,7 +49,6 @@ define(['backbone', 'underscore', 'moment', 'hbs!places/templates/busrti', 'hbs!
                     value: services.percentage,
                     min: 0,
                     max: 100,
-                    title: services.spaces + " available",
                     label: "",
                     hideValue: true,
                     hideMinMax: true,
@@ -55,6 +56,10 @@ define(['backbone', 'underscore', 'moment', 'hbs!places/templates/busrti', 'hbs!
                     levelColors: ["#a9d70b", "#a9d70b", "#a9d70b", "#a9d70b", "#a9d70b", "#f9c802", "#ff0000"]
                 });
             }
+        },
+        afterRender: function() {
+            this.$("#rti-load").css('visibility', 'hidden');
+            this.updateGauge();
         },
         template: prRTITemplate
     });
