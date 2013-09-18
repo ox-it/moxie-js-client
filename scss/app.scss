@@ -28,12 +28,12 @@
 @import "components/sidebar";
 @import "components/rti";
 @import "components/help";
+@import "components/tooltips";
 
 // Moxie Apps
 @import "components/today";
 @import "components/favourites";
 @import "components/library";
-
 
 // Colours for each application
 $todayColor: $pantone7412;
