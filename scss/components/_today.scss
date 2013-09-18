@@ -34,12 +34,6 @@ div.today {
             font-size: 14px;
         }
     }
-    .last-updated {
-        position: absolute;
-        right: 0px;
-        bottom: 0px;
-        font-size: 0.9em;
-    }
     div.five-day-forecast div {
         display: inline-block;
         padding-left: 5px;
@@ -55,18 +49,33 @@ div.today {
         margin: 0;
     }
 
-    div.river-status:not(:last-child) {
-        border-right: 1px solid #ccc;
-    }
-    div.river-status {
+    /* River status */
+    .rowing-conditions-info {
+        color: #777;
+        margin-left: 5px;
+        font-size: 12px;
+        line-height: 14px;
         float: left;
-        padding: 20px;
-        font-size: ms(1);
+        display: inline-block;
+    }
+
+    ul.rivers {
+        list-style: none;
+    }
+    li.river-status {
+        float: left;
+        margin: 10px;
+        font-size: ms(0);
         font-weight: 300;
         text-align: center;
-        // TODO: Capture all the options this value can be
-        // Really the API docs should cover it
+        // Information on the colours:
+        // https://github.com/ox-it/moxie-river-status/blob/master/docs/source/http_api.rst
         .green { color: green; }
+        .blue { color: blue; }
+        .yellow { color: yellow; }
+        .red { color: red; }
+        .grey { color: #aaa; }
+        .black { color: #000; }
         .ss-flag {
             text-align: right;
         }
