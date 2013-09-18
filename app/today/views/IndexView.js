@@ -1,4 +1,4 @@
-define(['backbone', 'underscore', 'app', 'hbs!today/templates/index', 'foundation.tooltips'], function(Backbone, _, app, indexTemplate){
+define(['backbone', 'underscore', 'app', 'hbs!today/templates/index'], function(Backbone, _, app, indexTemplate){
     var TODAY_WELCOME_KEY = 'today-welcome';
     var IndexView = Backbone.View.extend({
         // This view handles the "cards" on the home screen
