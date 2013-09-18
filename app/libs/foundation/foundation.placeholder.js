@@ -1,4 +1,6 @@
-/*! http://mths.be/placeholder v2.0.7 by @mathias */
+/*! http://mths.be/placeholder v2.0.7 by @mathias 
+	Modified to work with Zepto.js by ZURB
+*/
 ;(function(window, document, $) {
 
 	var isInputSupported = 'placeholder' in document.createElement('input'),
@@ -154,4 +156,24 @@
 		}
 	}
 
-}(this, document, jQuery));
+}(this, document, Foundation.zj));
+
+;(function ($, window, document, undefined) {
+  'use strict';
+
+  Foundation.libs.placeholder = {
+    name : 'placeholder',
+
+    version : '4.2.2',
+
+    init : function (scope, method, options) {
+      this.scope = scope || this.scope;
+
+      if (typeof method !== 'string') {
+        window.onload = function () {
+        	$('input, textarea').placeholder();
+        }
+      }
+    }
+  };
+}(Foundation.zj, this, this.document));
