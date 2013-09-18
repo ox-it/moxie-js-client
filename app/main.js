@@ -1,4 +1,4 @@
-require(['jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'ga', 'backbone.queryparams', 'backbone.layoutmanager'], function($, Backbone, MoxieRouter, FastClick, conf, GA) {
+require(['jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'ga', 'backbone.queryparams', 'backbone.layoutmanager', 'foundation'], function($, Backbone, MoxieRouter, FastClick, conf, GA) {
     function startGA() {
         // Init GA & start listening on hashchange
         var ga = new GA({debug: conf.ga.debug});
