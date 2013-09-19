@@ -1,5 +1,5 @@
 define(['today/views/CardView', 'hbs!today/templates/park_and_rides'], function(CardView, prTemplate) {
-    var RiversCard = CardView.extend({
+    var ParkAndRidesCard = CardView.extend({
         weight: 70,
         manage: true,
         id: 'pr_status',
@@ -45,5 +45,5 @@ define(['today/views/CardView', 'hbs!today/templates/park_and_rides'], function(
             }
         }
     });
-    return RiversCard;
+    return ParkAndRidesCard;
 });
