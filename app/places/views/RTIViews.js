@@ -33,33 +33,44 @@ define(['backbone', 'underscore', 'moment', 'hbs!places/templates/busrti', 'hbs!
         }
     });
     var ParkAndRideView = RTIView.extend({
+        /* This RTIView is a bit different as we do not want to re-render
+        the view every time we refresh the RTI in order to update the gauge. */
+
         gauge: null,
         initialize: function() {
-            this.model.on('sync', this.updateGauge, this);
+            this.model.on('sync', this.onSync, this);
             this.model.on('request', this.showLoader, this);
-            this.intervalID = window.setInterval(_.bind(this.updateGauge, this), RTI_RENDER_REFRESH);
+            this.intervalID = window.setInterval(_.bind(this.onSync, this), RTI_RENDER_REFRESH);
+            this.render();
         },
-        updateGauge: function() {
+        onSync: function() {
             var services = this.model.get('services');
             if (this.gauge) {
-                this.gauge.refresh(services.percentage);
+                this.updateGauge(services.percentage);
             } else {
-                this.gauge = new JustGage({
-                    id: 'gauge',
-                    value: services.percentage,
-                    min: 0,
-                    max: 100,
-                    label: "",
-                    hideValue: true,
-                    hideMinMax: true,
-                    counter: false,
-                    levelColors: ["#a9d70b", "#a9d70b", "#a9d70b", "#a9d70b", "#a9d70b", "#f9c802", "#ff0000"]
-                });
+                this.setUpGauge(services.percentage);
             }
+        },
+        updateGauge: function(value) {
+            this.gauge.refresh(value);
+        },
+        setUpGauge: function(value) {
+            var gaugeValue = value || 0;
+            this.gauge = new JustGage({
+                id: 'gauge',
+                value: gaugeValue,
+                min: 0,
+                max: 100,
+                label: "",
+                hideValue: true,
+                hideMinMax: true,
+                counter: false,
+                levelColors: ["#a9d70b", "#a9d70b", "#a9d70b", "#a9d70b", "#a9d70b", "#f9c802", "#ff0000"]
+            });
         },
         afterRender: function() {
             this.$("#rti-load").css('visibility', 'hidden');
-            this.updateGauge();
+            this.setUpGauge();
         },
         template: prRTITemplate
     });
