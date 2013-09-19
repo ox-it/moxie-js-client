@@ -1,11 +1,3 @@
-{{#if services}}
 <img src="images/preloader.gif" id="rti-load" class="preloader" width="15" height="15">
-{{#with services}}
-    {{#if unavailable}}
-        <p>RTI not available</p>
-    {{else}}
-        <p>{{ spaces }} available</p>
-    {{/if}}
-{{/with}}
-{{/if}}
+<p id="pr_status"></p>
 <div id="gauge"></div>

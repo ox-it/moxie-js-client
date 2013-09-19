@@ -38,18 +38,24 @@ define(['backbone', 'underscore', 'moment', 'hbs!places/templates/busrti', 'hbs!
 
         gauge: null,
         initialize: function() {
-            this.model.on('sync', this.onSync, this);
             this.model.on('request', this.showLoader, this);
+            this.model.on('sync', this.onSync, this);
             this.intervalID = window.setInterval(_.bind(this.onSync, this), RTI_RENDER_REFRESH);
             this.render();
         },
         onSync: function() {
             var services = this.model.get('services');
+            if (services.unavailable) {
+                this.$("#pr_status").text("Real-Time information not available");
+            } else {
+                this.$("#pr_status").text(services.spaces + " available");
+            }
             if (this.gauge) {
                 this.updateGauge(services.percentage);
             } else {
                 this.setUpGauge(services.percentage);
             }
+            this.$("#rti-load").css('visibility', 'hidden');
         },
         updateGauge: function(value) {
             this.gauge.refresh(value);
@@ -69,7 +75,6 @@ define(['backbone', 'underscore', 'moment', 'hbs!places/templates/busrti', 'hbs!
             });
         },
         afterRender: function() {
-            this.$("#rti-load").css('visibility', 'hidden');
             this.setUpGauge();
         },
         template: prRTITemplate
