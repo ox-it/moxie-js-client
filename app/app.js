@@ -29,6 +29,27 @@ define(['jquery', 'backbone', 'underscore', 'core/views/MapBrowseLayout', 'favou
             return this._isCordova;
         },
 
+        isOnline: function() {
+            var connectionAvailable = true;
+            if (this.isCordova()) {
+                // If device.ready then we can provide more details about the network
+                //
+                // NOTE: It's important to test all these attributes before accessing them as we
+                //       don't know if device.ready has fired. This seems to cause issues on older
+                //       Android devices.
+                if (('connection' in navigator) && ('type' in navigator.connection) && ('Connection' in window)) {
+                    if(navigator.connection.type === window.Connection.NONE) {
+                        connectionAvailable = false;
+                    }
+                }
+            }
+            return connectionAvailable;
+        },
+
+        whenOnline: function(cb) {
+            return $(document).on("online", cb);
+        },
+
         // These two collections are both stored in localStorage
         // in Future both should be sync'd remotely
         todaySettings: new TodaySettings(),
