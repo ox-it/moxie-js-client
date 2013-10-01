@@ -25,8 +25,6 @@ define(["app", "backbone", "places/router", "today/views/IndexView", "today/coll
         index: function() {
             if (app.isOnline()) {
                 this.today.fetch();
-            } else {
-                app.whenOnline(this.today.fetch);
             }
             var editTodayButton = new EditTodayButton();
             app.renderView(new IndexView({collection: this.today}), {menu: true, contextButtonView: editTodayButton});
