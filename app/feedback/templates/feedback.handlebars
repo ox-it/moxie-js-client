@@ -1,0 +1,21 @@
+
+<div class="card">
+	<h3>Feedback</h3>
+	{{#if thanks}}
+        <p><strong>Thank you for your feedback!</strong></p>
+	{{else}}
+		<p>We're a small team based at IT Services as part of Oxford University and we're always interested in hearing what you think and what you'd like to see in Mobile Oxford.</p>
+	{{/if}}
+
+	<div id="feedback-form">
+	    <div class="feedback-input">
+	        <label for="input-email">Your email (optional):</label>
+	        <input id="input-email" type="email" name="email" placeholder="e.g. example@example.com"/>
+
+	        <label for="input-message">Your feedback:</label>
+	        <textarea id="input-message" type="text" name="message" rows="8" />
+
+	        <input class="action-button submit" type="submit" value="Send feedback!" id="submit-feedback" />
+	    </div>
+	</div>
+</div>
