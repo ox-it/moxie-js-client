@@ -7,4 +7,10 @@
         </p>
     </div>
     {{/unless}}
+    {{#unless connectionAvailable}}
+    <div class="today help">
+        <p>No Internet connection available</p>
+        <p>Please check network settings.</p>
+    </div>
+    {{/unless}}
 </div>
