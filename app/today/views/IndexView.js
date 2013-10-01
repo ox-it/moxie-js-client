@@ -26,6 +26,10 @@ define(['backbone', 'underscore', 'app', 'hbs!today/templates/index'], function(
             return view;
         },
         beforeRender: function() {
+            if (!app.isOnline()) {
+                app.whenOnline(_.bind(this.render, this));
+                app.whenOnline(_.bind(this.collection.fetch, this.collection));
+            }
             // Used for rendering the cards we have already loaded
             // If the model has some attributes then insert the view.
             this.collection.each(function(model) {
