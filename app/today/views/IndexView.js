@@ -48,7 +48,10 @@ define(['backbone', 'underscore', 'app', 'hbs!today/templates/index'], function(
         manage: true,
         template: indexTemplate,
         serialize: function() {
-            return {seenHelp: app.helpMessages.getSeen(TODAY_WELCOME_KEY)};
+            return {
+                seenHelp: app.helpMessages.getSeen(TODAY_WELCOME_KEY),
+                connectionAvailable: app.isOnline(),
+            };
         },
         cleanup: function() {
             this.collection.off('sync');
