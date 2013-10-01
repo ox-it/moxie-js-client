@@ -1,0 +1,22 @@
+#contacts-search-form {
+	max-width: 700px;
+	padding: 20px;
+	margin: 0 auto;
+	.search {
+		margin: 0;
+		float: left;
+		padding: 9px 15px 10px 15px;
+		@include border-radius(0);
+		width: 43px;
+	}
+	@include clearfix;
+}
+
+#contacts-search-box {
+	padding-right: 86px;
+	#input-query {
+		float: left;
+		height: 36px;
+	}
+
+}

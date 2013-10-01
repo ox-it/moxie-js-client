@@ -22,6 +22,7 @@
 @import "components/grid";
 
 // Our major components used throughout moxie
+@import "components/fonts";
 @import "components/labels";
 @import "components/buttons";
 @import "components/navbar";
@@ -34,10 +35,14 @@
 @import "components/today";
 @import "components/favourites";
 @import "components/library";
+@import "components/contact";
 
 // Colours for each application
 $todayColor: $pantone7412;
 
+.clearfix {
+    @include clearfix;
+}
 html, body { height: 100%; }
 body {
     overflow-x: hidden;
