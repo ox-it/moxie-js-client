@@ -4,6 +4,10 @@
     <description>Your university and city on the move</description>
     <author href="https://m.ox.ac.uk" email="mobileoxford@oucs.ox.ac.uk">Mobile Oxford team, IT Services, University of Oxford</author>
 
+    <!-- Restricting the build to iOS and Android only for now (hope to speed-up the build process) -->
+    <gap:platform name="ios" />
+    <gap:platform name="android" />
+    
     <feature name="http://api.phonegap.com/1.0/geolocation"/>
     <feature name="http://api.phonegap.com/1.0/network"/>
 
