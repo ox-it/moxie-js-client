@@ -35,6 +35,7 @@
 @import "components/favourites";
 @import "components/library";
 @import "components/security";
+@import "components/feedback";
 
 // Colours for each application
 $todayColor: $pantone7412;
@@ -71,6 +72,13 @@ img.preloader {
     margin-top: 0.5em;
     margin-left: auto;
     margin-right: auto;
+}
+
+// Generic card
+div.card {
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 5px;
 }
 
 // A box to contain free text items inside a root level div

@@ -1,1 +1,7 @@
 script: phantomjs run-jasmine.js SpecRunner.html
+notifications:
+  irc:
+    channels:
+      - "irc.ox.ac.uk#mox"
+    on_success: [change] # default: always
+    on_failure: [always] # default: always

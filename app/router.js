@@ -1,5 +1,5 @@
-define(["app", "backbone", "places/router", "today/views/IndexView", "today/collections/TodayItems", "courses/router", "library/router", "contacts/router", "news/router", "events/router", "security/router", "favourites/views/FavouritesEditButtonView", "favourites/views/FavouritesView", "today/views/EditTodayButton", "today/views/SaveTodayButton", "today/views/EditTodayView"],
-    function(app, Backbone, PlacesRouter, IndexView, TodayItems, CoursesRouter, LibraryRouter, ContactsRouter, NewsRouter, EventsRouter, SecurityRouter, FavouritesEditButtonView, FavouritesView, EditTodayButton, SaveTodayButton, EditTodayView){
+define(["app", "backbone", "places/router", "today/views/IndexView", "today/collections/TodayItems", "courses/router", "library/router", "contacts/router", "news/router", "events/router", "feedback/router", "favourites/views/FavouritesEditButtonView", "favourites/views/FavouritesView", "today/views/EditTodayButton", "today/views/SaveTodayButton", "today/views/EditTodayView", "security/router"],
+    function(app, Backbone, PlacesRouter, IndexView, TodayItems, CoursesRouter, LibraryRouter, ContactsRouter, NewsRouter, EventsRouter, FeedbackRouter, FavouritesEditButtonView, FavouritesView, EditTodayButton, SaveTodayButton, EditTodayView, SecurityRouter){
     var MoxieRouter = Backbone.Router.extend({
         subrouters: {},
 
@@ -20,11 +20,14 @@ define(["app", "backbone", "places/router", "today/views/IndexView", "today/coll
             "contacts/*subroute": "contacts",
             "news/*subroute": "news",
             "events/*subroute": "events",
-            "security/*subroute": "security"
+            "security/*subroute": "security",
+            "feedback/*subroute": "feedback"
         },
 
         index: function() {
-            this.today.fetch();
+            if (app.isOnline()) {
+                this.today.fetch();
+            }
             var editTodayButton = new EditTodayButton();
             app.renderView(new IndexView({collection: this.today}), {menu: true, contextButtonView: editTodayButton});
         },
@@ -59,6 +62,11 @@ define(["app", "backbone", "places/router", "today/views/IndexView", "today/coll
         security: function(params) {
             if (!this.subrouters.Security) {
                 this.subrouters.Security = new SecurityRouter('security', {createTrailingSlashRoutes: true});
+            }
+        },
+        feedback: function(params) {
+            if (!this.subrouters.Feedback) {
+                this.subrouters.Feedback = new FeedbackRouter('feedback', {createTrailingSlashRoutes: true});
             }
         },
         placesModule: function(subroute) {
