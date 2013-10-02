@@ -98,5 +98,20 @@ ul.sidebar-items {
             @include gentle-inset-highlight-on-state();
         }
     }
+    &.sidebar-tools {
+        li {
+            color: #ccc;
+            background: #252525;
+            &:before {
+                // For icon
+                margin-right: 7px;
+                font-size: 13px;
+            }
+            border-bottom: 1px solid #111;
+        }
+        > a:first-child li {
+            border-top: 1px solid #555;
+        }
+    }
 }
 

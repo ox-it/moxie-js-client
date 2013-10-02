@@ -23,7 +23,8 @@ define([], function() {
             contact_search: '/contact/search',
             events_list: '/events/search?from=now',
             events_id: '/events/',
-            park_and_rides: '/transport/park-and-rides'
+            park_and_rides: '/transport/park-and-rides',
+            feedback: '/feedback/'
         },
         urlFor: function(api_method) {
             return this.endpoint + this.paths[api_method];
