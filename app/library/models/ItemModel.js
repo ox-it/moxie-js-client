@@ -1,6 +1,7 @@
 define(["MoxieModel", "underscore", "leaflet", "moxie.conf", "places/collections/POICollection", "places/models/POIModel"], function(MoxieModel, _, L, conf, POIs, POI) {
 
     var ICON_PATH_PREFIX = 'images/maps/';
+    var MARKER_SHADOW = 'marker-shadow.png';
 
     // Holding states
     var UNAVAILABLE = 'unavailable';
@@ -25,7 +26,7 @@ define(["MoxieModel", "underscore", "leaflet", "moxie.conf", "places/collections
                 iconAnchor: [12, 40],
                 iconUrl: ICON_PATH_PREFIX + holdingIcons[av][0],
                 iconRetinaUrl: ICON_PATH_PREFIX + holdingIcons[av][1],
-                shadowUrl: ICON_PATH_PREFIX + 'marker-shadow.png'
+                shadowUrl: ICON_PATH_PREFIX + MARKER_SHADOW
             });
         },
     });
