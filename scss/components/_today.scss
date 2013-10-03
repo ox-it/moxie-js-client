@@ -22,8 +22,7 @@ div.today {
     width: 300px;
     min-width: 96%;
     margin-top: 10px;
-    @include box-shadow(0 0 2px #ccc);
-    @include border-radius(3px);
+    @include border-radius(2px);
     border: 1px solid #ccc;
     h3 {
         font-size: 15px;
