@@ -4,7 +4,10 @@ define(['backbone', 'hbs!news/templates/entry'], function(Backbone, entryTemplat
         serialize: function() {
             return {entry: this.model.toJSON()};
         },
-        template: entryTemplate
+        template: entryTemplate,
+        beforeRender: function() {
+            Backbone.trigger('domchange:title', this.model.get('title'));
+        }
     });
     return EntryView;
 });

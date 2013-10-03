@@ -3,7 +3,10 @@ define(["backbone", "hbs!events/templates/event"],
         var EventDetailView = Backbone.View.extend({
             manage: true,
             serialize: function() { return this.model.toJSON(); },
-            template: eventTemplate
+            template: eventTemplate,
+            beforeRender: function() {
+                Backbone.trigger('domchange:title', this.model.get('name'));
+            }
         });
         return EventDetailView;
 });
