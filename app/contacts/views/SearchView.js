@@ -37,7 +37,15 @@ define(['jquery', 'backbone', 'underscore', 'contacts/views/ResultItemView', 'hb
             },
 
             serialize: function() {
-                return this.collection.query;
+                if (this.collection.length == 0) {
+                    var has_results = false;
+                } else {
+                    var has_results = true;
+                }
+                return {
+                    query: this.collection.query.q,
+                    has_results: has_results
+                }
             },
 
             id: 'contact-search',
