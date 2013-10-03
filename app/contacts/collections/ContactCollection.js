@@ -4,7 +4,7 @@ define(["core/collections/MoxieCollection", "contacts/models/ContactModel", "mox
 
         model: Contact,
 
-        initialize: function(query, pois) {
+        initialize: function(query) {
             this.query = query || {};
         },
 
