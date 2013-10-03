@@ -8,7 +8,7 @@ div.rti {
         padding: 10px 0;
         border-top: 1px solid rgba(255,255,255,0.9);
         border-bottom: 1px solid rgba(255,255,255,0.9);
-        @include box-shadow(inset 0 0 8px #ddd);
+        //@include box-shadow(inset 0 0 8px #ddd);
         p {
             padding: 0 4px;
         }
@@ -50,12 +50,13 @@ table#train-rti {
 // Bus RTI styling
 table#bus-rti {
     border-collapse: collapse;
-    margin: 0 auto;
+    margin: 0;
+    width: 100%;
     tbody {
         vertical-align: middle;
     }
     tr > td {
-        padding: 6px;
+        padding: 6px 8px;
     }
 
     .service-id {
