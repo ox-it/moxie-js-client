@@ -13,12 +13,11 @@
 </div>
 
 {{#if query}}
-        {{#if has_results}}
-        {{else}}
+        {{#unless has_results}}
 <div id="no-result">
     <p>No result for your query "{{query}}"</p>
 </div>
-        {{/if}}
+        {{/unless}}
 {{/if}}
 
 <ul id="search-results" class="results-list">
