@@ -5,6 +5,9 @@ define(['backbone', 'hbs!news/templates/browse'], function(Backbone, browseTempl
         manage: true,
         serialize: function() {
             return {feeds: this.collection.toJSON()};
+        },
+        beforeRender: function() {
+            Backbone.trigger('domchange:title', "News");
         }
     });
     return BrowseView;

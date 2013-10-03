@@ -37,6 +37,8 @@ define(['backbone', 'underscore', 'app', 'hbs!today/templates/index'], function(
                     this.insertView('.card-container', new model.View({model: model}));
                 }
             }, this);
+
+            Backbone.trigger('domchange:title', "Today");
         },
         afterRender: function() {
             $(document).on("deviceready", _.bind(function() {

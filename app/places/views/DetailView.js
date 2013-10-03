@@ -5,7 +5,6 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'core/views/ErrorView'
     var DetailView = Backbone.View.extend({
 
         initialize: function() {
-            Backbone.trigger('domchange:title', this.model.get('name'));
             Backbone.on('favourited', this.favourited, this);
             this.model.on('sync', this.render, this);
             this.model.on('error', this.renderError, this);
@@ -54,6 +53,14 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'core/views/ErrorView'
         },
         template: detailTemplate,
         manage: true,
+
+        beforeRender: function() {
+            if (this.model.get('name')) {
+                Backbone.trigger('domchange:title', this.model.get('name'));
+            } else if (this.model.get('type_name')) {
+                Backbone.trigger('domchange:title', this.model.get('type_name'));
+            }
+        },
 
         afterRender: function() {
             if (this.model.get('RTI').length > 0) {

@@ -5,6 +5,10 @@ define(['backbone'], function(Backbone) {
             this.template = options.template;
         },
 
+        beforeRender: function() {
+            Backbone.trigger('domchange:title', "Safety and Security");
+        },
+
         manage: true
     });
     return StaticView;
