@@ -27,10 +27,15 @@
     <gap:splash src="images/ios/mobile-oxford-splash-screen-640_1136.png" gap:platform="ios" width="640" height="1136" />
     <gap:splash src="images/ios/mobile-oxford-splash-screen-1024_768.png" gap:platform="ios" width="1024" height="768" />
     <gap:splash src="images/ios/mobile-oxford-splash-screen-768_1024.png" gap:platform="ios" width="768" height="1024" />
-
+<!--
     <gap:splash src="images/android/drawable-mdpi/mobile_oxford_splash.9.png" gap:platform="android" gap:density="mdpi" />
     <gap:splash src="images/android/drawable-hdpi/mobile_oxford_splash.9.png" gap:platform="android" gap:density="hdpi" />
     <gap:splash src="images/android/drawable-xhdpi/mobile_oxford_splash.9.png" gap:platform="android" gap:density="xhdpi" />
+-->
+    <gap:splash src="images/android/mdpi.png" gap:platform="android" gap:density="mdpi" />
+    <gap:splash src="images/android/hdpi.png" gap:platform="android" gap:density="hdpi" />
+    <gap:splash src="images/android/xhdpi.png" gap:platform="android" gap:density="xhdpi" />
+    <gap:splash src="images/android/ldpi.png" gap:platform="android" gap:density="ldpi" />
 
     <access origin="http://new.m.ox.ac.uk" />
     <access origin="http://api.m.ox.ac.uk" />
