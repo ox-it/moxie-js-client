@@ -107,10 +107,15 @@ div.today {
             display: inline-block;
         }
     }
+    &.webcam img {
+        border-top: 1px solid #bbb;
+    }
+
     &.weather {
         height: 51px;
         overflow: hidden;
     }
+
 }
 
 // Today view settings
