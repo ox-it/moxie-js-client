@@ -68,7 +68,7 @@ table#bus-rti {
         color: #fff;
 
         //text-shadow: 0 0 1px rgba(255,255,255, 0.5);
-        font-weight: 800;
+        font-weight: 500;
         @include border-radius(50%);
         border: 3px solid transparentize($pantoneWarmGray6, 0.3);
         background: transparentize($pantoneWarmGray6, 0.3);
