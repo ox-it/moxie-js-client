@@ -267,12 +267,12 @@ ul.results-list {
         }
 
         // Used to convey complex list items such as library search results
-        $meta-info-font-size: 0.7em;
+        $meta-info-font-size: 0.8em;
         .meta-info {
             font-size: $meta-info-font-size;
             padding: 0;
             margin: 3px 0 0 5px;
-            line-height: $meta-info-font-size + convert-to-em(3px);
+            line-height: $meta-info-font-size + convert-to-em(5px);
             font-weight: 200;
         }
 
