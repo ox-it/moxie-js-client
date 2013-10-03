@@ -287,6 +287,7 @@ div.embedded_map {
 }
 
 ul.results-list {
+    margin-bottom: 0;
     border-top: 2px solid $border-color;
     list-style: none;
     .highlighted {
