@@ -2,7 +2,7 @@
 @import "globals/variables";
 @import "compass/css3";
 
-@mixin label($color, $font-size: ms(-1)) {
+@mixin label($color, $font-size: 0.9em) {
     color: #fff;
     display: inline-block;
     background-color:($color);
@@ -23,13 +23,11 @@
 }
 
 .label-facet {
-    @include label($pantone624, ms(0));
+    @include label($pantone624);
     margin-top: 5px;
     cursor: pointer;
     // For smaller labels
     &.label-small {
-        // going against ms styling model here. Deemed acceptable due to
-        // it being a label and ms(-1), ms(0) are unacceptable.
         font-size: 13px;
         font-weight: 400;
     }

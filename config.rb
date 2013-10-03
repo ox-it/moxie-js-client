@@ -1,5 +1,4 @@
 require 'zurb-foundation'
-require 'modular-scale'
 
 
 # Set this to the root of your project when deployed:
