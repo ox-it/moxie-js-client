@@ -67,6 +67,10 @@ define(['jquery', 'underscore', 'backbone', 'app', 'moxie.conf', 'moxie.position
             }
             context.category_name = (this.category_name) ? this.category_name : "";
             this.$("#categories").html(categoriesTemplate(context));
+        },
+
+        beforeRender: function() {
+            Backbone.trigger('domchange:title', "Places " + this.category_name);
         }
     });
     return CategoriesView;
