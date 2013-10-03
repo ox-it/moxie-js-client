@@ -1,5 +1,5 @@
-define(["app", "backbone", "places/router", "today/views/IndexView", "today/collections/TodayItems", "courses/router", "library/router", "contacts/router", "news/router", "events/router", "feedback/router", "favourites/views/FavouritesEditButtonView", "favourites/views/FavouritesView", "today/views/EditTodayButton", "today/views/SaveTodayButton", "today/views/EditTodayView"],
-    function(app, Backbone, PlacesRouter, IndexView, TodayItems, CoursesRouter, LibraryRouter, ContactsRouter, NewsRouter, EventsRouter, FeedbackRouter, FavouritesEditButtonView, FavouritesView, EditTodayButton, SaveTodayButton, EditTodayView){
+define(["app", "backbone", "places/router", "today/views/IndexView", "today/collections/TodayItems", "courses/router", "library/router", "contacts/router", "news/router", "events/router", "feedback/router", "favourites/views/FavouritesEditButtonView", "favourites/views/FavouritesView", "today/views/EditTodayButton", "today/views/SaveTodayButton", "today/views/EditTodayView", "security/router"],
+    function(app, Backbone, PlacesRouter, IndexView, TodayItems, CoursesRouter, LibraryRouter, ContactsRouter, NewsRouter, EventsRouter, FeedbackRouter, FavouritesEditButtonView, FavouritesView, EditTodayButton, SaveTodayButton, EditTodayView, SecurityRouter){
     var MoxieRouter = Backbone.Router.extend({
         subrouters: {},
 
@@ -20,6 +20,7 @@ define(["app", "backbone", "places/router", "today/views/IndexView", "today/coll
             "contacts/*subroute": "contacts",
             "news/*subroute": "news",
             "events/*subroute": "events",
+            "security/*subroute": "security",
             "feedback/*subroute": "feedback"
         },
 
@@ -56,6 +57,11 @@ define(["app", "backbone", "places/router", "today/views/IndexView", "today/coll
         events: function(params) {
             if (!this.subrouters.Events) {
                 this.subrouters.Events = new EventsRouter('events', {createTrailingSlashRoutes: true});
+            }
+        },
+        security: function(params) {
+            if (!this.subrouters.Security) {
+                this.subrouters.Security = new SecurityRouter('security', {createTrailingSlashRoutes: true});
             }
         },
         feedback: function(params) {

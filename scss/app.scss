@@ -34,6 +34,7 @@
 @import "components/today";
 @import "components/favourites";
 @import "components/library";
+@import "components/security";
 @import "components/feedback";
 
 // Colours for each application
@@ -73,11 +74,73 @@ img.preloader {
     margin-right: auto;
 }
 
+
+.card-container {
+    padding: 0 5px;
+    margin-bottom: 20px;
+    //text-align: center;
+    @include columns(325px);
+}
+
 // Generic card
-div.card {
-    max-width: 300px;
-    margin: 0 auto;
-    padding: 5px;
+.card {
+    display: inline-block;
+    max-width: 320px;
+    min-width: 310px;
+    width: 100%;
+    margin: 5px auto;
+    border-left: 1px solid #eee;
+    border-right: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    @include border-radius(2px);
+
+    .padded-contents {
+        padding: 5px;
+    }
+    h3 {
+        width: 100%;
+        display: block;
+        min-height: 40px;
+        line-height: 40px;
+        font-size: 20px;
+        background: #dfdfdf;
+        color: #444;
+        padding: 0 10px;
+        margin-top: 0;
+        margin-bottom: 0;
+        @include border-radius(2px 2px 0 0);
+    }
+    .strapline {
+        font-size: 12px;
+        color: #444;
+        line-height: 13px;
+        padding-bottom: 7px;
+        display: block;
+    }
+    ul {
+        padding-left: 20px;
+    }
+    ul.results-list {
+        border-top: 0;
+        margin: 0;
+        padding: 0;
+        li {
+            position: relative;
+            &:last-child {
+                @include border-radius(0 0 2px 2px);
+                border-bottom: 0;
+            }
+            a.ss-standard:before {
+                position: absolute;
+                right: 7px;
+                line-height: 42px;
+                margin-top: -21px;
+                top: 50%;
+                font-size: 16px;
+            }
+        }
+    }
+
 }
 
 // A box to contain free text items inside a root level div
@@ -137,8 +200,8 @@ div.embedded_map {
     top: $navbarHeight;
     bottom: 0;
     background: #fff;
-    border-left: $grayBorder;
-    border-right: $grayBorder;
+    // border-left: $grayBorder;
+    // border-right: $grayBorder;
 
     .content-browse {
         padding: 0px 0px;
