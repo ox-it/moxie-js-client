@@ -186,6 +186,7 @@ div.embedded_map {
         }
     }
     .search-input {
+        position: relative;
         padding-top: 10px;
         margin-left: 5px;
         margin-right: 5px;
@@ -194,8 +195,8 @@ div.embedded_map {
             display: block;
             line-height: 9px;
             position: absolute;
-            right: 20px;
-            top: 20px;
+            right: 15px;
+            top: 15px;
             padding: 4px 4px 2px 4px;
             @include border-radius(30px);
             font-size: 9px;
@@ -260,8 +261,7 @@ ul.results-list {
         // Used on list items to show the count in the proceeding category/group
         .subtext {
             display: block;
-            font-size: 0.6em;
-            font-weight: bold;
+            font-size: 0.9em;
             margin: 0;
         }
 
@@ -305,7 +305,7 @@ ul.results-list {
         }
 
         h3 {
-            font-size: 1.4em;
+            font-size: 1.2em;
             font-weight: normal;
             padding: 0;
             margin: 0;

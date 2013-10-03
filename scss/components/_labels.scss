@@ -23,7 +23,7 @@
 }
 
 .label-facet {
-    @include label($pantone624, 0.8em);
+    @include label($pantone624);
     margin-top: 5px;
     cursor: pointer;
     // For smaller labels
