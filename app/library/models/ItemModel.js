@@ -2,22 +2,29 @@ define(["MoxieModel", "underscore", "leaflet", "moxie.conf", "places/collections
 
     var ICON_PATH_PREFIX = 'images/maps/';
 
+    // Holding states
+    var UNAVAILABLE = 'unavailable';
+    var UNKNOWN = 'unknown';
+    var STACK = 'stack';
+    var REFERENCE = 'reference';
+    var AVAILABLE = 'available';
+    var holdingStates = [UNKNOWN, UNAVAILABLE, STACK, REFERENCE, AVAILABLE];
+    var holdingIcons = {};
+    holdingIcons[UNAVAILABLE] = ['marker-icon-red.png', 'marker-icon-2x-red.png'];
+    holdingIcons[UNKNOWN] = ['marker-icon-grey.png', 'marker-icon-2x-grey.png'];
+    holdingIcons[STACK] = ['marker-icon-yellow.png', 'marker-icon-2x-yellow.png'];
+    holdingIcons[REFERENCE] = ['marker-icon-green.png', 'marker-icon-2x-green.png'];
+    holdingIcons[AVAILABLE] = ['marker-icon-green.png', 'marker-icon-2x-green.png'];
+
     var HoldingPOI = POI.extend({
         idAttribute: 'holdingID',
-        icons: {
-            0: ['marker-icon-red.png', 'marker-icon-2x-red.png'],
-            1: ['marker-icon-grey.png', 'marker-icon-2x-grey.png'],
-            2: ['marker-icon-yellow.png', 'marker-icon-2x-yellow.png'],
-            3: ['marker-icon-green.png', 'marker-icon-2x-green.png'],
-            4: ['marker-icon-green.png', 'marker-icon-2x-green.png'],
-        },
         getIcon: function() {
             var av = this.get('availability');
             return L.icon({
                 iconSize: [25, 41],
                 iconAnchor: [12, 40],
-                iconUrl: ICON_PATH_PREFIX + this.icons[av][0],
-                iconRetinaUrl: ICON_PATH_PREFIX + this.icons[av][1],
+                iconUrl: ICON_PATH_PREFIX + holdingIcons[av][0],
+                iconRetinaUrl: ICON_PATH_PREFIX + holdingIcons[av][1],
                 shadowUrl: ICON_PATH_PREFIX + 'marker-shadow.png'
             });
         },
@@ -33,14 +40,23 @@ define(["MoxieModel", "underscore", "leaflet", "moxie.conf", "places/collections
             return this.get('holdingPOIs');
         },
         parse: function(data) {
+            // Parse the Holding / Item data from our API
+            //
+            // We align the holding data with the POI's to give an overview of
+            // book availability at each library. So we can place approprately
+            // colour coded icons on the map.
             var pois = [];
             if ('_embedded' in data) {
                 _.each(data._embedded, function(poi, holding_ident) {
                     poi.holdingID = holding_ident;
                     if (holding_ident in data.holdings) {
-                        poi.availability = 0;
+                        // Default to UNKNOWN for the entire POI
+                        poi.availability = UNKNOWN;
                         _.each(data.holdings[holding_ident], function(holding) {
-                            if (holding.availability > poi.availability) {
+                            if (holdingStates.indexOf(holding.availability) === -1) {
+                                // missing holding data so set to UNKNOWN also
+                                holding.availability = UNKNOWN;
+                            } else if (holdingStates.indexOf(holding.availability) > holdingStates.indexOf(poi.availability)) {
                                 poi.availability = holding.availability;
                             }
                         });
