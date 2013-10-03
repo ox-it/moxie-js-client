@@ -3,27 +3,31 @@
 
 // Labels for the different states of library book availability
 .library-unavailable {
-	@include label($fail-red);
+	@include label($fail-red, ms(0));
 }
 
 .library-unknown {
-	@include label($unknown-grey);
+	@include label($unknown-grey, ms(0));
 }
 
 .library-stack {
-	@include label($stack-yellow);
+	@include label($stack-yellow, ms(0));
 }
 
 .library-reference {
-	@include label($reference-blue);
+	@include label($reference-blue, ms(0));
 }
 
 .library-available {
-	@include label($success-green);
+	@include label($success-green, ms(0));
 }
 
 .library-shelfmark {
     margin-left: 12px;
+}
+
+.library-name {
+    font-size: 1.3em;
 }
 
 // Styling for detail DLs
@@ -34,8 +38,7 @@
         padding: 5px;
     }
     .library-location.highlighted {
-        background-color: #eee;
-        @include box-shadow(0 0 5px #bbb inset);
+        @include box-shadow(inset 0px 4px 10px -5px #ccc, inset 0px -4px 10px -5px #ccc);
     }
 }
 

@@ -43,7 +43,9 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'places/utils', 'moxie.co
                 var holdings = [];
                 var attr = item.attributes;
                 for(var holding in attr.holdings) {
-                    holdings.push({code: holding, holdings: attr.holdings[holding], location: this.pois.get(holding).toJSON()});
+                    var holdingLocation = this.pois.get(holding);
+                    if (holdingLocation) { holdingLocation = holdingLocation.toJSON(); }
+                    holdings.push({code: holding, holdings: attr.holdings[holding], location: holdingLocation});
                 }
                 return holdings;
             }
