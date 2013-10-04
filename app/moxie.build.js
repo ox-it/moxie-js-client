@@ -3,5 +3,6 @@
     baseUrl: '.',
     include: ['main'],
     name: 'libs/almond',
-    out: 'main-built.js'
+    out: 'main-built.js',
+    preserveLicenseComments: false
 })
