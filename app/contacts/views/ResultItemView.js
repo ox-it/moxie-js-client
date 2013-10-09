@@ -2,6 +2,9 @@ define(["backbone", "underscore", "jquery", "app", "hbs!contacts/templates/resul
     var ResultItemView = Backbone.View.extend({
         manage: true,
         tagName: "li",
+        attributes: {
+            "class": "contact-record"
+        },
         events: {
             "click .add-contact": "addContact"
         },

@@ -1,16 +1,17 @@
-<h3 class="contact-name">{{ contact.name }}</h3>
-<p class="contact-info">
-{{#if contact.unit}}
-<span class="contact-unit">{{ contact.unit }}</span><br />
-{{/if}}
-{{#if nativeApp}}<a class="action-button add-contact" href="#">Add Contact</a>{{/if}}
-{{#if contact.email}}
-<span class="contact-email"><a href="mailto:{{ contact.email }}">{{ contact.email }}</a></span>
-{{/if}}
-{{#if contact.external_tel}}
-<span class="contact-external-tel">External tel: <a href="tel:{{contact.external_tel}}">{{ contact.external_tel }}</a></span>
-{{/if}}
-{{#if contact.internal_tel}}
-<span class="contact-internal-tel">Internal tel: <a href="tel:{{contact.internal_tel}}">{{ contact.internal_tel }}</a></span>
-{{/if}}
-</p>
+<div class="contact-details">
+    {{#if contact.unit}}<span class="contact-unit">{{ contact.unit }}</span>{{/if}}
+    <h3>
+        <span class="contact-name">{{ contact.name }}</span>
+    </h3>
+    <p class="contact-info">
+        {{#if contact.email}}
+        <span class="contact-email"><a href="mailto:{{ contact.email }}">{{ contact.email }}</a></span>
+        {{/if}}
+        {{#if contact.external_tel}}
+        <span class="contact-tel"><a href="tel:{{contact.external_tel}}">{{ contact.external_tel }}</a></span>
+        {{/if}}
+    </p>
+</div>
+<div class="contact-controls">
+    {{#if nativeApp}}<a class="action-button add-contact" href="#">+</a>{{/if}}
+</div>
