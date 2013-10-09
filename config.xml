@@ -10,6 +10,8 @@
 
     <feature name="http://api.phonegap.com/1.0/geolocation"/>
     <feature name="http://api.phonegap.com/1.0/network"/>
+    <feature name="http://api.phonegap.com/1.0/contacts"/>
+    <feature name="http://api.phonegap.com/1.0/notification"/>
 
     <icon src="mobile-oxford-logo.png" />
 
@@ -18,7 +20,7 @@
     <preference name="show-splash-screen-spinner" value="false" />
 
     <!-- Google Analytics plugin -->
-    <gap:plugin name="com.adobe.plugins.gaplugin" version="2.1.1" />
+    <gap:plugin name="com.adobe.plugins.gaplugin" version="2.1.5" />
 
     <gap:splash src="mobile-oxford-splash.png" />
 

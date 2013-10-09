@@ -1,5 +1,6 @@
-define(['jquery', 'backbone', 'underscore', 'contacts/views/ResultItemView', 'hbs!contacts/templates/search'],
-    function($, Backbone, _, ResultItemView, searchTemplate){
+define(['jquery', 'backbone', 'underscore', 'app', 'contacts/views/ResultItemView', 'hbs!contacts/templates/search'],
+    function($, Backbone, _, app, ResultItemView, searchTemplate){
+        var CONTACTS_SAVE_HELP = 'contacts-save-help';
         var SearchView = Backbone.View.extend({
 
             initialize: function() {
@@ -37,15 +38,24 @@ define(['jquery', 'backbone', 'underscore', 'contacts/views/ResultItemView', 'hb
             },
 
             serialize: function() {
-                if (this.collection.length == 0) {
-                    var has_results = false;
+                var has_results;
+                if (this.collection.length === 0) {
+                    has_results = false;
                 } else {
-                    var has_results = true;
+                    has_results = true;
+                }
+                var showHelp = false;
+                if (has_results && app.isCordova()) {
+                    showHelp = !app.helpMessages.getSeen(CONTACTS_SAVE_HELP);
+                    if (showHelp) {
+                        app.helpMessages.setSeen(CONTACTS_SAVE_HELP);
+                    }
                 }
                 return {
                     query: this.collection.query.q,
+                    showHelp: showHelp,
                     has_results: has_results
-                }
+                };
             },
 
             id: 'contact-search',
