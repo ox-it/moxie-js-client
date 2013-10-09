@@ -62,19 +62,24 @@ define(["backbone", "underscore", "jquery", "app", "hbs!contacts/templates/resul
         },
         onContactSaveError: function(err) {
             var errorMessage = "An unknown error has occured";
-            if (err.code == ContactError.UNKNOWN_ERROR) {
+            if (err.code === ContactError.UNKNOWN_ERROR) {
+                // Log the error message but pass silently
+                //
+                // This is because we've seen the UNKNOWN_ERROR occur
+                // even when everything seems to have succeeded.
+                console.log(errorMessage);
+                return;
+            } else if (err.code === ContactError.INVALID_ARGUMENT_ERROR) {
                 errorMessage = "An unknown error has occured";
-            } else if (err.code == ContactError.INVALID_ARGUMENT_ERROR) {
-                errorMessage = "An unknown error has occured";
-            } else if (err.code == ContactError.TIMEOUT_ERROR) {
+            } else if (err.code === ContactError.TIMEOUT_ERROR) {
                 errorMessage = "Enable to reach the address book";
-            } else if (err.code == ContactError.PENDING_OPERATION_ERROR) {
+            } else if (err.code === ContactError.PENDING_OPERATION_ERROR) {
                 errorMessage = "Enable to reach the address book";
-            } else if (err.code == ContactError.IO_ERROR) {
+            } else if (err.code === ContactError.IO_ERROR) {
                 errorMessage = "Enable to reach the address book";
-            } else if (err.code == ContactError.NOT_SUPPORTED_ERROR) {
+            } else if (err.code === ContactError.NOT_SUPPORTED_ERROR) {
                 errorMessage = "Function not supported";
-            } else if (err.code == ContactError.PERMISSION_DENIED_ERROR) {
+            } else if (err.code === ContactError.PERMISSION_DENIED_ERROR) {
                 errorMessage = "Permission denied";
             }
             navigator.notification.alert(errorMessage, _.bind(this.render, this), "Error");
