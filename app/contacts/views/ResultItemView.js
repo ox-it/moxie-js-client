@@ -44,10 +44,9 @@ define(["backbone", "underscore", "jquery", "app", "hbs!contacts/templates/resul
             return false;
         },
         serialize: function() {
-            var nativeApp = app.isCordova();
             return {
                 contact: this.model.toJSON(),
-                nativeApp: nativeApp
+                nativeApp: app.isCordova()
             };
         },
         template: resultTemplate
