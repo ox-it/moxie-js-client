@@ -16,6 +16,7 @@ define(["backbone", "underscore", "jquery", "app", "hbs!contacts/templates/resul
                 name.formatted = this.model.attributes.name;
 
                 try {
+                    // TODO try to extract the prefix ("Mr", "Mrs" etc)
                     var parts = this.model.attributes.name.split(',');
                     name.familyName = parts.shift();
                     name.givenName = parts.join().trim();
@@ -42,6 +43,7 @@ define(["backbone", "underscore", "jquery", "app", "hbs!contacts/templates/resul
                 }
 
                 if (this.model.attributes.external_tel) {
+                    // TODO try to update phone number with international prefix (or should it be on API-side?)
                     var externalTel = new ContactField();
                     externalTel.pref = true;
                     externalTel.type = "External";
