@@ -56,7 +56,23 @@ define(["backbone", "underscore", "jquery", "app", "hbs!contacts/templates/resul
             navigator.notification.alert(this.model.attributes.name + " has been added to your address book.", _.bind(this.render, this), "Contact Saved");
         },
         onContactSaveError: function(err) {
-            navigator.notification.alert("An error has occured " + err.code, _.bind(this.render, this), "Error");
+            var errorMessage = "An unknown error has occured";
+            if (err.code == ContactError.UNKNOWN_ERROR) {
+                errorMessage = "An unknown error has occured";
+            } else if (err.code == ContactError.INVALID_ARGUMENT_ERROR) {
+                errorMessage = "An unknown error has occured";
+            } else if (err.code == ContactError.TIMEOUT_ERROR) {
+                errorMessage = "Enable to reach the address book";
+            } else if (err.code == ContactError.PENDING_OPERATION_ERROR) {
+                errorMessage = "Enable to reach the address book";
+            } else if (err.code == ContactError.IO_ERROR) {
+                errorMessage = "Enable to reach the address book";
+            } else if (err.code == ContactError.NOT_SUPPORTED_ERROR) {
+                errorMessage = "Function not supported";
+            } else if (err.code == ContactError.PERMISSION_DENIED_ERROR) {
+                errorMessage = "Permission denied";
+            }
+            navigator.notification.alert(errorMessage, _.bind(this.render, this), "Error");
         },
         serialize: function() {
             return {
