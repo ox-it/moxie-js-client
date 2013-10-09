@@ -40,3 +40,11 @@ div.metadata-buttons {
 	@include symbolset-icon-before();
 	content: "🔎";
 }
+
+.add-contact {
+    font-size: 1.2em;
+    &:after {
+        @include symbolset-icon-before();
+        content: "👤";
+    }
+}
