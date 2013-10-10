@@ -10,6 +10,8 @@ define(["backbone", "underscore", "jquery", "app", "hbs!contacts/templates/resul
         },
         addContact: function(ev) {
             ev.preventDefault();
+            // use native cordoba API if available
+            // else use data URI to download a vCard
             if ('contacts' in navigator) {
                 this.handleContactNative();
             } else {
@@ -89,6 +91,7 @@ define(["backbone", "underscore", "jquery", "app", "hbs!contacts/templates/resul
         handleContactDataUri: function() {
             var vcard = this.getVcard();
             window.location.href = "data:text/vcard;base64," + btoa(vcard.replace(/\n/g, '\r\n'));
+            // will redirect the user - its browser should propose him to download the vcard
         },
         getVcard: function() {
             var vcard = "BEGIN:VCARD\n";
