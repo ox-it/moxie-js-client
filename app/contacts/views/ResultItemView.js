@@ -118,6 +118,8 @@ define(["backbone", "underscore", "jquery", "app", "hbs!contacts/templates/resul
         },
         extractName: function() {
             // attempt to get family name and given name out of a string
+            // returns an array with last name, first name(s)
+            // or null if there was an issue when trying to extract the parts
             var names = [];
             try {
                 // TODO try to extract the prefix ("Mr", "Mrs" etc)
