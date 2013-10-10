@@ -44,16 +44,23 @@ define(['jquery', 'backbone', 'underscore', 'app', 'contacts/views/ResultItemVie
                 } else {
                     has_results = true;
                 }
-                var showHelp = false;
+                var showHelpNative = false;
+                var showHelpDataUri = false;
                 if (has_results && app.isCordova()) {
-                    showHelp = !app.helpMessages.getSeen(CONTACTS_SAVE_HELP);
-                    if (showHelp) {
+                    showHelpNative = !app.helpMessages.getSeen(CONTACTS_SAVE_HELP);
+                    if (showHelpNative) {
+                        app.helpMessages.setSeen(CONTACTS_SAVE_HELP);
+                    }
+                } else if (has_results && !app.isCordova()) {
+                    showHelpDataUri = !app.helpMessages.getSeen(CONTACTS_SAVE_HELP);
+                    if (showHelpDataUri) {
                         app.helpMessages.setSeen(CONTACTS_SAVE_HELP);
                     }
                 }
                 return {
                     query: this.collection.query.q,
-                    showHelp: showHelp,
+                    showHelpNative: showHelpNative,
+                    showHelpDataUri: showHelpDataUri,
                     has_results: has_results
                 };
             },
