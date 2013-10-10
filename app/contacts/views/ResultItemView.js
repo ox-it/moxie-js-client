@@ -11,49 +11,9 @@ define(["backbone", "underscore", "jquery", "app", "hbs!contacts/templates/resul
         addContact: function(ev) {
             ev.preventDefault();
             if ('contacts' in navigator) {
-                var contact = navigator.contacts.create({
-                    displayName: this.model.attributes.name
-                });
-
-                var name = new ContactName();
-                name.formatted = this.model.attributes.name;
-
-                try {
-                    // TODO try to extract the prefix ("Mr", "Mrs" etc)
-                    var parts = this.model.attributes.name.split(',');
-                    name.familyName = parts.shift();
-                    name.givenName = parts.join().trim();
-                } catch(err) {
-                    console.log(err);
-                }
-
-                contact.name = name;
-
-                if (this.model.attributes.unit) {
-                    var organization = new ContactOrganization();
-                    organization.pref = true;
-                    organization.type = "Work";
-                    organization.name = this.model.attributes.unit;
-                    contact.organizations = [organization];
-                }
-
-                if (this.model.attributes.email) {
-                    var email = new ContactField();
-                    email.pref = true;
-                    email.type = "Work";
-                    email.value = this.model.attributes.email;
-                    contact.emails = [email];
-                }
-
-                if (this.model.attributes.external_tel) {
-                    // TODO try to update phone number with international prefix (or should it be on API-side?)
-                    var externalTel = new ContactField();
-                    externalTel.pref = true;
-                    externalTel.type = "External";
-                    externalTel.value = this.model.attributes.external_tel;
-                    contact.phoneNumbers = [externalTel];
-                }
-                contact.save(_.bind(this.onContactSaveSuccess, this), _.bind(this.onContactSaveError, this));
+                this.handleContactNative();
+            } else {
+                this.handleContactDataUri();
             }
             return false;
         },
@@ -84,10 +44,95 @@ define(["backbone", "underscore", "jquery", "app", "hbs!contacts/templates/resul
             }
             navigator.notification.alert(errorMessage, _.bind(this.render, this), "Error");
         },
+        handleContactNative: function() {
+            var contact = navigator.contacts.create({
+                displayName: this.model.attributes.name
+            });
+
+            var name = new ContactName();
+            name.formatted = this.model.attributes.name;
+
+            var names = this.extractName();
+            if (names != null) {
+                name.familyName = names[0];
+                name.givenName = names[1];
+            }
+
+            contact.name = name;
+
+            if (this.model.attributes.unit) {
+                var organization = new ContactOrganization();
+                organization.pref = true;
+                organization.type = "Work";
+                organization.name = this.model.attributes.unit;
+                contact.organizations = [organization];
+            }
+
+            if (this.model.attributes.email) {
+                var email = new ContactField();
+                email.pref = true;
+                email.type = "Work";
+                email.value = this.model.attributes.email;
+                contact.emails = [email];
+            }
+
+            if (this.model.attributes.external_tel) {
+                // TODO try to update phone number with international prefix (or should it be on API-side?)
+                var externalTel = new ContactField();
+                externalTel.pref = true;
+                externalTel.type = "External";
+                externalTel.value = this.model.attributes.external_tel;
+                contact.phoneNumbers = [externalTel];
+            }
+            contact.save(_.bind(this.onContactSaveSuccess, this), _.bind(this.onContactSaveError, this));
+        },
+        handleContactDataUri: function() {
+            var vcard = this.getVcard();
+            window.location.href = "data:text/vcard;base64," + btoa(vcard.replace(/\n/g, '\r\n'));
+        },
+        getVcard: function() {
+            var vcard = "BEGIN:VCARD\n";
+
+            var names = this.extractName();
+            if (names != null) {
+                vcard += "N:" + names[0] + ";" + names[1] + ";;;\n";
+            }
+
+            vcard += "FN:" + this.model.attributes.name + "\n";
+
+            if (this.model.attributes.email) {
+                vcard += "EMAIL;INTERNET:" + this.model.attributes.email + "\n";
+            }
+
+            if (this.model.attributes.external_tel) {
+                vcard += "TEL;WORK:" + this.model.attributes.external_tel + "\n";
+            }
+
+            if (this.model.attributes.unit) {
+                vcard += "ORG:" + this.model.attributes.unit + "\n";
+            }
+
+            vcard += "END:VCARD";
+
+            return vcard;
+        },
+        extractName: function() {
+            // attempt to get family name and given name out of a string
+            var names = [];
+            try {
+                // TODO try to extract the prefix ("Mr", "Mrs" etc)
+                var parts = this.model.attributes.name.split(',');
+                names[0] = parts.shift();
+                names[1] = parts.join().trim();
+                return names;
+            } catch(err) {
+                console.log(err);
+                return null;
+            }
+        },
         serialize: function() {
             return {
-                contact: this.model.toJSON(),
-                nativeApp: app.isCordova()
+                contact: this.model.toJSON()
             };
         },
         template: resultTemplate
