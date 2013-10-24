@@ -42,8 +42,13 @@
     <!-- Included CSS Files -->
     <link rel="stylesheet" href="css/app.css">
 
-    <script src="app/require.config.js"></script>
-    <script data-main="main" src="app/libs/require.js"></script>
+    <script type="text/javascript">
+      window.onerror=function(e, url, lineNumber)
+      {
+          console.log("ERROR! : " +url + "(" + lineNumber + ") : " + JSON.stringify(e));
+      };
+    </script>
+    <script src="app/main-built-{{build}}.js"></script>
 
     <!-- IE Fix for HTML5 Tags -->
     <!--[if lt IE 9]>
