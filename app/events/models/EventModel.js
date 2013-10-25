@@ -19,6 +19,7 @@ define(["MoxieModel", "moxie.conf", "moment"], function(MoxieModel, conf, moment
             var starts = moment(data.start_time);
             data.happeningToday = starts.isSame(today, "day");
             data.formattedDate = dateFormat(starts);
+            data.start_moment = starts
             return data;
         }
     });
