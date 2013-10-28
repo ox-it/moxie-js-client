@@ -22,6 +22,8 @@
     <!-- Google Analytics plugin -->
     <gap:plugin name="com.adobe.plugins.gaplugin" version="2.1.5" />
 
+    <gap:plugin name="nl.x-services.plugins.calendar" version="1.0" />
+
     <gap:splash src="mobile-oxford-splash.png" />
 
     <gap:splash src="images/ios/mobile-oxford-splash-screen-320_480.png" gap:platform="ios" width="320" height="480" />

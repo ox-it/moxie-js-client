@@ -1,4 +1,10 @@
-<h2>{{ name }}</h2>
-<p class="free-text"><strong>When?</strong> {{ formattedDate }}</p>
-<p class="free-text"><strong>Where?</strong> {{ location }}</p>
-<p class="free-text">{{{ description }}}</p>
+<h2>{{ event.name }}</h2>
+<p class="free-text"><strong>When?</strong> {{ event.formattedDate }}</p>
+<p class="free-text"><strong>Where?</strong> {{ event.location }}</p>
+<p class="free-text">{{{ event.description }}}</p>
+
+{{#if nativeApp}}
+<div class="event-controls">
+    <a id="to-cal" class="action-button add-calendar-event" href="#">Add to my calendar</a>
+</div>
+{{/if}}
