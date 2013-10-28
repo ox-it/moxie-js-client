@@ -17,9 +17,11 @@ define(["MoxieModel", "moxie.conf", "moment"], function(MoxieModel, conf, moment
         },
         parse: function(data) {
             var starts = moment(data.start_time);
+            var ends = moment(data.end_time);
             data.happeningToday = starts.isSame(today, "day");
             data.formattedDate = dateFormat(starts);
-            data.start_moment = starts
+            data.start_moment = starts;
+            data.ends_moment = ends;
             return data;
         }
     });

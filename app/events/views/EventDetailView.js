@@ -20,9 +20,7 @@ define(["backbone", "app", "hbs!events/templates/event"],
 
                 if ('plugins' in window && 'calendar' in window.plugins) {
                     var startDate = this.model.attributes.start_moment.toDate();
-                    var end_moment = this.model.attributes.start_moment.clone();
-                    end_moment.add('h', 1);
-                    var endDate = end_moment.toDate();
+                    var endDate = this.model.attributes.ends_moment.toDate();
                     var title = this.model.attributes.name;
                     var location = this.model.attributes.location;
                     var notes = this.model.attributes.description;
