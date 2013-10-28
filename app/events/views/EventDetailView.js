@@ -1,5 +1,8 @@
 define(["backbone", "app", "hbs!events/templates/event"],
     function(Backbone, app, eventTemplate) {
+
+        var DEFAULT_HOUR_TO_ADD = 1;        // how many hours to add
+
         var EventDetailView = Backbone.View.extend({
             manage: true,
             events: {
@@ -20,7 +23,19 @@ define(["backbone", "app", "hbs!events/templates/event"],
 
                 if ('plugins' in window && 'calendar' in window.plugins) {
                     var startDate = this.model.attributes.start_moment.toDate();
-                    var endDate = this.model.attributes.ends_moment.toDate();
+                    var endDate;
+
+                    // if end_date == start_date, the event would be considered by the
+                    // plugin as a day event... which doesn't seem accurate, just adding
+                    // one hour to the start date for now...
+                    if (this.model.attributes.start_moment.isSame(this.model.attributes.ends_moment)) {
+                        var end_moment = this.model.attributes.start_moment.clone();
+                        end_moment.add('h', DEFAULT_HOUR_TO_ADD);
+                        endDate = end_moment.toDate();
+                    } else {
+                        endDate = this.model.attributes.ends_moment.toDate();
+                    }
+
                     var title = this.model.attributes.name;
                     var location = this.model.attributes.location;
                     var notes = this.model.attributes.description;
