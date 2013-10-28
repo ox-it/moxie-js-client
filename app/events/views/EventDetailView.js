@@ -1,6 +1,5 @@
 define(["backbone", "app", "hbs!events/templates/event"],
     function(Backbone, app, eventTemplate) {
-
         var DEFAULT_HOUR_TO_ADD = 1;        // how many hours to add
 
         var EventDetailView = Backbone.View.extend({
@@ -40,8 +39,17 @@ define(["backbone", "app", "hbs!events/templates/event"],
                     var location = this.model.attributes.location;
                     var notes = this.model.attributes.description;
 
+                    // Android is using Intent to redirect to the Calendar app
+                    // so there is no need to display an actual message
+                    var cbSuccess;
+                    if ((window.device) && (window.device.platform==='Android')) {
+                        cbSuccess = function() { /* no action */ };
+                    } else {
+                        cbSuccess = _.bind(this.onAddToCalendarSuccess, this);
+                    }
+
                     window.plugins.calendar.createEvent(title, location, notes, startDate, endDate,
-                        _.bind(this.onAddToCalendarSuccess, this), _.bind(this.onAddToCalendarError, this));
+                        cbSuccess, _.bind(this.onAddToCalendarError, this));
                 }
             },
             onAddToCalendarSuccess: function(msg) {
