@@ -24,11 +24,13 @@
 
     <gap:splash src="mobile-oxford-splash.png" />
 
-    <gap:splash src="images/ios/mobile-oxford-splash-screen-320_480.png" gap:platform="ios" width="320" height="480" />
-    <gap:splash src="images/ios/mobile-oxford-splash-screen-640_960.png" gap:platform="ios" width="640" height="960" />
-    <gap:splash src="images/ios/mobile-oxford-splash-screen-640_1136.png" gap:platform="ios" width="640" height="1136" />
-    <gap:splash src="images/ios/mobile-oxford-splash-screen-1024_768.png" gap:platform="ios" width="1024" height="768" />
-    <gap:splash src="images/ios/mobile-oxford-splash-screen-768_1024.png" gap:platform="ios" width="768" height="1024" />
+    <gap:splash src="images/ios/mobile-oxford-splashscreen-320_480.png" gap:platform="ios" width="320" height="480" />
+    <gap:splash src="images/ios/mobile-oxford-splashscreen-640_960.png" gap:platform="ios" width="640" height="960" />
+    <gap:splash src="images/ios/mobile-oxford-splashscreen-640_1136.png" gap:platform="ios" width="640" height="1136" />
+    <gap:splash src="images/ios/mobile-oxford-splashscreen-1024_768.png" gap:platform="ios" width="1024" height="768" />
+    <gap:splash src="images/ios/mobile-oxford-splashscreen-768_1024.png" gap:platform="ios" width="768" height="1024" />
+    <gap:splash src="images/ios/mobile-oxford-splashscreen-1536_2048" gap:platform="ios" width="1536" height="2048" />
+    <gap:splash src="images/ios/mobile-oxford-splashscreen-2048_1536" gap:platform="ios" width="2048" height="1536" />
 <!--
     <gap:splash src="images/android/drawable-mdpi/mobile_oxford_splash.9.png" gap:platform="android" gap:density="mdpi" />
     <gap:splash src="images/android/drawable-hdpi/mobile_oxford_splash.9.png" gap:platform="android" gap:density="hdpi" />
