@@ -48,3 +48,12 @@ div.metadata-buttons {
         content: "👤";
     }
 }
+
+.add-calendar-event {
+    &:before {
+        @include symbolset-icon-before();
+        font-size: 1.1em;
+        content: "";
+    }
+}
+
