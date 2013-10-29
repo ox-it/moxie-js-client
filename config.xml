@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="uk.ac.ox.it.mobileoxford" versionCode="2" version="0.1.0">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="uk.ac.ox.it.mobileoxford" versionCode="3" version="0.2.0">
     <name>Mobile Oxford</name>
     <description>Your university and city on the move</description>
     <author href="https://m.ox.ac.uk" email="mobileoxford@it.ox.ac.uk">Mobile Oxford team, IT Services, University of Oxford</author>
