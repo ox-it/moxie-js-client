@@ -52,7 +52,7 @@ define(["backbone", "underscore", "jquery", "app", "hbs!contacts/templates/resul
             name.formatted = this.model.attributes.name;
 
             var names = this.extractName();
-            if (names != null) {
+            if (names !== null) {
                 name.familyName = names[0];
                 name.givenName = names[1];
             }
@@ -92,7 +92,7 @@ define(["backbone", "underscore", "jquery", "app", "hbs!contacts/templates/resul
             var vcard = "BEGIN:VCARD\n";
 
             var names = this.extractName();
-            if (names != null) {
+            if (names !== null) {
                 vcard += "N:" + names[0] + ";" + names[1] + ";;;\n";
             }
 
