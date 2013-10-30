@@ -26,7 +26,9 @@ define(["backbone", "underscore", "jquery", "app", "hbs!contacts/templates/resul
                 //
                 // This is because we've seen the UNKNOWN_ERROR occur
                 // even when everything seems to have succeeded.
-                console.log(errorMessage);
+                if ('console' in window) {
+                    console.log(errorMessage);
+                }
                 return;
             } else if (err.code === ContactError.INVALID_ARGUMENT_ERROR) {
                 errorMessage = "An unknown error has occured";
@@ -126,7 +128,9 @@ define(["backbone", "underscore", "jquery", "app", "hbs!contacts/templates/resul
                 names[1] = parts.join().trim();
                 return names;
             } catch(err) {
-                console.log(err);
+                if ('console' in window) {
+                    console.log(err);
+                }
                 return null;
             }
         },
