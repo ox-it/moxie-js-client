@@ -87,9 +87,6 @@ define(["backbone", "underscore", "jquery", "app", "hbs!contacts/templates/resul
             }
             contact.save(_.bind(this.onContactSaveSuccess, this), _.bind(this.onContactSaveError, this));
         },
-        handleContactDataUri: function() {
-            // will redirect the user - its browser should propose him to download the vcard
-        },
         getVcard: function() {
             var vcard = "BEGIN:VCARD\n";
 
