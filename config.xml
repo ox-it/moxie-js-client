@@ -16,14 +16,14 @@
     <!-- Default icon -->
     <icon src="mobile-oxford-logo.png" />
 
-    <icon src="images/icons/Icon.png" width="57" height="57" />
-    <icon src="images/icons/Icon@2x.png" width="114" height="114" />
-    <icon src="images/icons/Icon-60@2x.png" width="120" height="120" />
-    <icon src="images/icons/Icon-60.png" width="60" height="60" />
-    <icon src="images/icons/Icon-72@2x.png" width="144" height="144" />
-    <icon src="images/icons/Icon-72.png" width="72" height="72" />
-    <icon src="images/icons/Icon-76@2x.png" width="152" height="152" />
-    <icon src="images/icons/Icon-76.png" width="76" height="76" />
+    <icon src="images/icons/Icon.png" gap:platform="ios" width="57" height="57" />
+    <icon src="images/icons/Icon@2x.png" gap:platform="ios" width="114" height="114" />
+    <icon src="images/icons/Icon-60@2x.png" gap:platform="ios" width="120" height="120" />
+    <icon src="images/icons/Icon-60.png" gap:platform="ios" width="60" height="60" />
+    <icon src="images/icons/Icon-72@2x.png" gap:platform="ios" width="144" height="144" />
+    <icon src="images/icons/Icon-72.png" gap:platform="ios" width="72" height="72" />
+    <icon src="images/icons/Icon-76@2x.png" gap:platform="ios" width="152" height="152" />
+    <icon src="images/icons/Icon-76.png" gap:platform="ios" width="76" height="76" />
 
     <preference name="phonegap-version" value="2.9.0" />
     <preference name="prerendered-icon" value="true" />
