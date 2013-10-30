@@ -3,8 +3,6 @@
 <p class="free-text"><strong>Where?</strong> {{ event.location }}</p>
 <p class="free-text">{{{ event.description }}}</p>
 
-{{#if nativeApp}}
 <div class="event-controls">
-    <a id="to-cal" class="action-button add-calendar-event" href="#">Add to my calendar</a>
+    <a id="to-cal" class="action-button add-calendar-event" href="{{ eventiCal }}" target="_blank">Add to my calendar</a>
 </div>
-{{/if}}

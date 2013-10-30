@@ -1,5 +1,5 @@
-define(["backbone", "app", "hbs!events/templates/event"],
-    function(Backbone, app, eventTemplate) {
+define(["backbone", "app", "moxie.conf", "hbs!events/templates/event"],
+    function(Backbone, app, conf, eventTemplate) {
         var DEFAULT_HOUR_TO_ADD = 1;        // how many hours to add
 
         var EventDetailView = Backbone.View.extend({
@@ -8,9 +8,11 @@ define(["backbone", "app", "hbs!events/templates/event"],
                 "click #to-cal": "addToCalendar"
             },
             serialize: function() {
+                var event = this.model.toJSON();
+                var eventiCal = conf.endpoint + event._links.self.href + ".ics";
                 return {
-                    event: this.model.toJSON(),
-                    nativeApp: app.isCordova()
+                    event: event,
+                    eventiCal: eventiCal
                 };
             },
             template: eventTemplate,
@@ -18,6 +20,10 @@ define(["backbone", "app", "hbs!events/templates/event"],
                 Backbone.trigger('domchange:title', this.model.get('name'));
             },
             addToCalendar: function(ev) {
+                // Follow the link if we're not a native app
+                if (!app.isCordova()) {
+                    return true;
+                }
                 ev.preventDefault();
 
                 if ('plugins' in window && 'calendar' in window.plugins) {
