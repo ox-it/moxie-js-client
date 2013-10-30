@@ -9,15 +9,12 @@ define(["backbone", "underscore", "jquery", "app", "hbs!contacts/templates/resul
             "click .add-contact": "addContact"
         },
         addContact: function(ev) {
-            ev.preventDefault();
-            // use native cordoba API if available
-            // else use data URI to download a vCard
             if ('contacts' in navigator) {
+                ev.preventDefault();
                 this.handleContactNative();
-            } else {
-                this.handleContactDataUri();
+                return false;
             }
-            return false;
+            return true;
         },
         onContactSaveSuccess: function() {
             navigator.notification.alert(this.model.attributes.name + " has been added to your address book.", _.bind(this.render, this), "Contact Saved");
@@ -89,8 +86,6 @@ define(["backbone", "underscore", "jquery", "app", "hbs!contacts/templates/resul
             contact.save(_.bind(this.onContactSaveSuccess, this), _.bind(this.onContactSaveError, this));
         },
         handleContactDataUri: function() {
-            var vcard = this.getVcard();
-            window.location.href = "data:text/vcard;base64," + btoa(vcard.replace(/\n/g, '\r\n'));
             // will redirect the user - its browser should propose him to download the vcard
         },
         getVcard: function() {
@@ -136,8 +131,11 @@ define(["backbone", "underscore", "jquery", "app", "hbs!contacts/templates/resul
             }
         },
         serialize: function() {
+            var vcard = this.getVcard();
+            var vcardData = "data:text/vcard;base64," + btoa(vcard.replace(/\n/g, '\r\n'));
             return {
-                contact: this.model.toJSON()
+                contact: this.model.toJSON(),
+                vcardData: vcardData
             };
         },
         template: resultTemplate
