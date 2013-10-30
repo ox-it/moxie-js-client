@@ -131,8 +131,12 @@ define(["backbone", "underscore", "jquery", "app", "hbs!contacts/templates/resul
             }
         },
         serialize: function() {
-            var vcard = this.getVcard();
-            var vcardData = "data:text/vcard;base64," + btoa(vcard.replace(/\n/g, '\r\n'));
+            var vcardData = "";
+            if (!app.isCordova()) {
+                // Only create a vCard if we're in a browser (not Cordova)
+                var vcard = this.getVcard();
+                vcardData = "data:text/vcard;base64," + btoa(vcard.replace(/\n/g, '\r\n'));
+            }
             return {
                 contact: this.model.toJSON(),
                 vcardData: vcardData
