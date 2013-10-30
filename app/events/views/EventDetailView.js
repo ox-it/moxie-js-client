@@ -57,6 +57,7 @@ define(["backbone", "app", "moxie.conf", "hbs!events/templates/event"],
                     window.plugins.calendar.createEvent(title, location, notes, startDate, endDate,
                         cbSuccess, _.bind(this.onAddToCalendarError, this));
                 }
+                return false;
             },
             onAddToCalendarSuccess: function(msg) {
                 navigator.notification.alert('"' + this.model.attributes.name + '" has been added to your calendar.',
