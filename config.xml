@@ -16,7 +16,6 @@
     <!-- Default icon -->
     <icon src="mobile-oxford-logo.png" />
 
-<<<<<<< HEAD
     <icon src="images/icons/Icon.png" gap:platform="ios" width="57" height="57" />
     <icon src="images/icons/Icon@2x.png" gap:platform="ios" width="114" height="114" />
     <icon src="images/icons/Icon-60@2x.png" gap:platform="ios" width="120" height="120" />
@@ -26,28 +25,24 @@
     <icon src="images/icons/Icon-76@2x.png" gap:platform="ios" width="152" height="152" />
     <icon src="images/icons/Icon-76.png" gap:platform="ios" width="76" height="76" />
 
-    <preference name="phonegap-version" value="2.9.0" />
-    <preference name="prerendered-icon" value="true" />
-    <preference name="show-splash-screen-spinner" value="false" />
-
-    <!-- Google Analytics plugin -->
-    <gap:plugin name="com.adobe.plugins.gaplugin" version="2.1.5" />
-=======
     <preference name="phonegap-version" value="3.0.0" />
     <preference name="prerendered-icon" value="true" />
     <preference name="show-splash-screen-spinner" value="false" />
 
     <!-- Google Analytics plugin
     Does not work with Phonegap Build and Phonegap 3 atm
-    <gap:plugin name="com.adobe.plugins.gaplugin" version="2.1.1" />
+    <gap:plugin name="com.adobe.plugins.gaplugin" version="2.1.5" />
     -->
->>>>>>> Updated phonegap version to 3.0.0, disable GAPlugin as it is causing an error when trying to build
-
-    <!-- Calendar plugin -->
-    <gap:plugin name="nl.x-services.plugins.calendar" version="1.0" />
 
     <!-- Push notification plugin -->
     <gap:plugin name="com.phonegap.plugins.pushplugin" version="1.3.7" />
+
+    <gap:plugin name="com.adobe.plugins.gaplugin" version="2.3.0" />
+    <gap:plugin name="nl.x-services.plugins.calendar" version="3.2" />
+    <gap:plugin name="org.apache.cordova.contacts" version="0.2.4" />
+    <gap:plugin name="org.apache.cordova.dialogs" version="0.2.2" />
+    <gap:plugin name="org.apache.cordova.splashscreen" version="0.2.3" />
+    <gap:plugin name="org.apache.cordova.geolocation" version="0.3.2" />
 
     <gap:splash src="mobile-oxford-splash.png" />
 
