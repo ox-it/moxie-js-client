@@ -32,7 +32,11 @@
     <!-- Google Analytics plugin -->
     <gap:plugin name="com.adobe.plugins.gaplugin" version="2.1.5" />
 
+    <!-- Calendar plugin -->
     <gap:plugin name="nl.x-services.plugins.calendar" version="1.0" />
+
+    <!-- Push notification plugin -->
+    <gap:plugin name="com.phonegap.plugins.pushplugin" version="1.3.7" />
 
     <gap:splash src="mobile-oxford-splash.png" />
 
