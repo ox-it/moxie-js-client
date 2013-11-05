@@ -1,4 +1,4 @@
-require(['jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'ga', 'backbone.queryparams', 'backbone.layoutmanager', 'foundation'], function($, Backbone, MoxieRouter, FastClick, conf, GA) {
+require(['jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'ga', 'push', 'backbone.queryparams', 'backbone.layoutmanager', 'foundation'], function($, Backbone, MoxieRouter, FastClick, conf, GA, Push) {
     function startGA() {
         // Init GA & start listening on hashchange
         var ga = new GA({debug: conf.ga.debug});
@@ -48,6 +48,8 @@ require(['jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'ga', 'backbo
                 // url's in the native phone browsers.
                 //
                 if ((window.device) && (window.device.platform==='Android')) {
+                    var push = new Push();
+                    push.registerAndroid();
                     $('body').on('click', "a[href][target='_blank']", function(ev) {
                         ev.preventDefault();
                         navigator.app.loadUrl(this.href, { openExternal:true });
