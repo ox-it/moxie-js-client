@@ -26,7 +26,9 @@ define([], function() {
             park_and_rides: '/transport/park-and-rides',
             feedback: '/feedback/',
             notifications_list: '/notifications/',
-            notifications_id: '/notifications/'
+            notifications_id: '/notifications/',
+            push_notification_register_gcm: '/notifications/register/gcm',
+            push_notification_register_apns: '/notifications/register/apns'
         },
         urlFor: function(api_method) {
             return this.endpoint + this.paths[api_method];
@@ -80,7 +82,12 @@ define([], function() {
                 fetchCount: 5,      // Number of POIs we fetch to find 1 nearby which doesn't appear in your favourites
             }
         },
-        ga: {trackingID: "UA-40281467-3", period: 10, debug: true}
+        ga: {trackingID: "UA-40281467-3", period: 10, debug: true},
+        pushNotifications: {
+            android: {
+                senderID: ""
+            }
+        }
     };
     return MoxieConf;
 });
