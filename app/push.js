@@ -17,6 +17,9 @@ define(['moxie.conf', 'jquery'], function(conf, $) {
 
                 case 'message':
                     if (e.foreground) {
+                        if (e.payload && e.payload.message) {
+                            navigator.notification.alert(e.payload.message);
+                        }
                         if (consoleAvailable) {
                             console.log("Foreground");
                         }
@@ -27,6 +30,9 @@ define(['moxie.conf', 'jquery'], function(conf, $) {
                                 console.log("Cold Start");
                             }
                         } else {
+                            if (e.payload && e.payload.message) {
+                                navigator.notification.alert(e.payload.message);
+                            }
                             if (consoleAvailable) {
                                 console.log("Background");
                             }
