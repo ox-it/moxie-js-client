@@ -47,8 +47,9 @@ require(['jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'ga', 'push',
                 // This seems to be the most reliable way to open target=_blank
                 // url's in the native phone browsers.
                 //
+                var push;
                 if ((window.device) && (window.device.platform==='Android')) {
-                    var push = new Push();
+                    push = new Push();
                     push.registerAndroid();
                     $('body').on('click', "a[href][target='_blank']", function(ev) {
                         ev.preventDefault();
@@ -57,6 +58,8 @@ require(['jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'ga', 'push',
                     });
                 }
                 else if ((window.device) && (window.device.platform==='iOS')) {
+                    push = new Push();
+                    push.registeriOS();
                     $('body').on('click', "a[href][target='_blank']", function(ev) {
                         ev.preventDefault();
                         window.open(this.href, '_system');
