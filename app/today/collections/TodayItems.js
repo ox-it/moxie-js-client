@@ -1,4 +1,4 @@
-define(['underscore', 'core/collections/MoxieCollection', 'today/models/OxfordDate', 'today/models/Weather', 'today/models/Webcam', 'today/models/RiverStatus', 'today/models/NearbyRTI', 'today/models/Events', 'today/models/FavouriteRTI', 'today/models/ParkAndRide'], function(_, MoxieCollection, OxfordDate, Weather, Webcam, RiverStatus, NearbyRTI, Events, FavRTI, ParkAndRide) {
+define(['underscore', 'core/collections/MoxieCollection', 'today/models/OxfordDate', 'today/models/Weather', 'today/models/Webcam', 'today/models/RiverStatus', 'today/models/NearbyRTI', 'today/models/Events', 'today/models/FavouriteRTI', 'today/models/ParkAndRide', 'today/models/Notifications'], function(_, MoxieCollection, OxfordDate, Weather, Webcam, RiverStatus, NearbyRTI, Events, FavRTI, ParkAndRide, Notifications) {
     var TodayItems = MoxieCollection.extend({
         initialize: function(models, options) {
             this.favourites = options.favourites;
@@ -21,6 +21,7 @@ define(['underscore', 'core/collections/MoxieCollection', 'today/models/OxfordDa
                 this.settingsUpdated = false;
 
                 var models = [];
+                models.push(new Notifications());   // not optional
                 if (this.settings.enabled('OxfordDate')) { models.push(new OxfordDate()); }
                 if (this.settings.enabled('Weather')) { models.push(new Weather()); }
                 if (this.settings.enabled('RiverStatus')) { models.push(new RiverStatus()); }
