@@ -1,7 +1,7 @@
 define(['underscore', 'today/views/CardView', 'hbs!today/templates/notifications'],
     function(_, CardView, notificationsTemplate) {
         var NotificationsCard = CardView.extend({
-            weight: 70,
+            weight: 1000,
             manage: true,
             id: 'notifications_list',
             attributes: {'class': 'today'},
