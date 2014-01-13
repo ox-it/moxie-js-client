@@ -2,6 +2,10 @@
 <p class="free-text"><strong>{{ message }}</strong></p>
 <p class="free-text">Initially published: {{ initialDateFormatted }}</p>
 
+{{#if _embedded.followups}}
+<ul>
 {{#_embedded.followups}}
-        <p class="free-text">{{ message }}</p>
+        <li><p class="free-text">{{ message }} ({{ timestamp }})</p></li>
 {{/_embedded.followups}}
+</ul>
+{{/if}}
