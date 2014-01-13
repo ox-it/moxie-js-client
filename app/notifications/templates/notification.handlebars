@@ -1,3 +1,7 @@
-<div data-alert class="alert-box alert">
-<p><h2>{{ message }}</h2></p>
-</div>
+<div data-alert class="alert-box alert"><h2>Alert</h2></div>
+<p class="free-text"><strong>{{ message }}</strong></p>
+<p class="free-text">Initially published: {{ initialDateFormatted }}</p>
+
+{{#_embedded.followups}}
+        <p class="free-text">{{ message }}</p>
+{{/_embedded.followups}}
