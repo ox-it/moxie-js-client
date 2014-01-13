@@ -4,7 +4,11 @@ define(['MoxieModel', 'moxie.conf', 'today/views/NotificationsCard'],
             url: conf.urlFor('notifications_list'),
             View: NotificationsCard,
             parse: function(data) {
-                return {alerts: data._embedded.alerts};
+                if (data._embedded.alerts.length == 0) {
+                    return null;
+                } else {
+                    return {alerts: data._embedded.alerts};
+                }
             }
     });
     return Notifications;

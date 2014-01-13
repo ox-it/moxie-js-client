@@ -6,11 +6,11 @@ define(['underscore', 'today/views/CardView', 'hbs!today/templates/notifications
             id: 'notifications_list',
             attributes: {'class': 'today'},
             serialize: function() {
-                if (_.isEmpty(this.model)) {
+                if (this.model.has('alerts')) {
+                    return this.model.toJSON();
+                } else {
                     // do not display the card if there is no active alert
                     throw new Error("No active alert");
-                } else {
-                    return this.model.toJSON();
                 }
             },
             template: notificationsTemplate
