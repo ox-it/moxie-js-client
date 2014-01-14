@@ -7,16 +7,20 @@ define(['moxie.conf', 'jquery', 'app'], function(conf, $, app) {
                 case 'registered':
                     if ( e.regid.length > 0 ) {
                         var ajaxOptions = {
-                            data: {'registration_id': e.regid},
-                            dataType: 'json',
+                            type: "POST",
+                            data: JSON.stringify({'registration_id': e.regid}),
+                            contentType: 'application/json',
                             url: conf.urlFor('push_notification_register_gcm')
                         };
+                        console.log(ajaxOptions.data);
                         $.ajax(ajaxOptions);
                     }
                     break;
 
                 case 'message':
                     if (e.foreground) {
+                        // Manually fire the alert as there will
+                        // be no notification in the notification bar
                         if (e.payload && e.payload.message) {
                             navigator.notification.alert(e.payload.message);
                         }
@@ -30,9 +34,8 @@ define(['moxie.conf', 'jquery', 'app'], function(conf, $, app) {
                                 console.log("Cold Start");
                             }
                         } else {
-                            if (e.payload && e.payload.message) {
-                                navigator.notification.alert(e.payload.message);
-                            }
+                            // No need to fire alert as user will have
+                            // notification in the notification bar
                             if (consoleAvailable) {
                                 console.log("Background");
                             }
@@ -60,9 +63,6 @@ define(['moxie.conf', 'jquery', 'app'], function(conf, $, app) {
         //
         // handle APNS notifications for iOS
         function onNotificationAPN(e) {
-            alert("Received notification");
-            alert(Object.keys(e));
-            alert(e.alert);
             var pushNotification = window.plugins.pushNotification;
             if (e.alert) {
                 navigator.notification.alert(e.alert);
@@ -74,15 +74,13 @@ define(['moxie.conf', 'jquery', 'app'], function(conf, $, app) {
         window.onNotificationAPN = onNotificationAPN;
 
         function tokenHandler(result) {
-            // DEBUG
-            alert("Device Token");
-            alert(result);
             if (consoleAvailable) {
                 console.log("Device Token: " + result);
             }
             var ajaxOptions = {
-                data: {'device_token': result},
-                dataType: 'json',
+                type: "POST",
+                data: JSON.stringify({'device_token': result}),
+                contentType: 'application/json',
                 url: conf.urlFor('push_notification_register_apns')
             };
             $.ajax(ajaxOptions);
@@ -108,7 +106,6 @@ define(['moxie.conf', 'jquery', 'app'], function(conf, $, app) {
         };
 
         this.registeriOS = function() {
-            alert("Register iOS");
             try {
                 var pushNotification = window.plugins.pushNotification;
                 pushNotification.register(tokenHandler, errorHandler, {"badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN"});
