@@ -89,8 +89,7 @@ define(['moxie.conf', 'jquery', 'app'], function(conf, $, app) {
                 pushNotification.register(tokenHandler, errorHandler, {"badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN"});
             } catch (e) {
                 if (consoleAvailable) {
-                    console.log("PushPlugin - Error Registering");
-                    console.log(e);
+                    console.log("PushPlugin - Error Registering: " + e.msg);
                 }
             }
         };
