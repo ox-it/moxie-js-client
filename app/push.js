@@ -12,7 +12,6 @@ define(['moxie.conf', 'jquery', 'app'], function(conf, $, app) {
                             contentType: 'application/json',
                             url: conf.urlFor('push_notification_register_gcm')
                         };
-                        console.log(ajaxOptions.data);
                         $.ajax(ajaxOptions);
                     }
                     break;
@@ -24,31 +23,13 @@ define(['moxie.conf', 'jquery', 'app'], function(conf, $, app) {
                         if (e.payload && e.payload.message) {
                             navigator.notification.alert(e.payload.message);
                         }
-                        if (consoleAvailable) {
-                            console.log("Foreground");
-                        }
-                    }
-                    else {
-                        if (e.coldstart) {
-                            if (consoleAvailable) {
-                                console.log("Cold Start");
-                            }
-                        } else {
-                            // No need to fire alert as user will have
-                            // notification in the notification bar
-                            if (consoleAvailable) {
-                                console.log("Background");
-                            }
-                        }
                     }
                     break;
-
                 case 'error':
                     if (consoleAvailable) {
                         console.log("Error from GCM:" + e.msg);
                     }
                     break;
-
                 default:
                     if (consoleAvailable) {
                         console.log("Unknown event");
@@ -74,9 +55,6 @@ define(['moxie.conf', 'jquery', 'app'], function(conf, $, app) {
         window.onNotificationAPN = onNotificationAPN;
 
         function tokenHandler(result) {
-            if (consoleAvailable) {
-                console.log("Device Token: " + result);
-            }
             var ajaxOptions = {
                 type: "POST",
                 data: JSON.stringify({'device_token': result}),
@@ -110,7 +88,10 @@ define(['moxie.conf', 'jquery', 'app'], function(conf, $, app) {
                 var pushNotification = window.plugins.pushNotification;
                 pushNotification.register(tokenHandler, errorHandler, {"badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN"});
             } catch (e) {
-                alert(e);
+                if (consoleAvailable) {
+                    console.log("PushPlugin - Error Registering");
+                    console.log(e);
+                }
             }
         };
 
