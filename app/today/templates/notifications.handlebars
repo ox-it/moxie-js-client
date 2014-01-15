@@ -1,6 +1,8 @@
 {{#alerts}}
-<div data-alert class="alert-box alert">
-<p><strong>{{ message }}</strong></p>
-<p><a href="#/notifications/{{ ident }}">More information</a></p>
+<div data-alert class="notification-box">
+    <a href="#/notifications/{{ ident }}">
+        <p class="notification-message">{{ message }}</p>
+        <p class="more-info">More information</p>
+    </a>
 </div>
 {{/alerts}}

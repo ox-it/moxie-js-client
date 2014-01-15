@@ -3,8 +3,7 @@ define(['underscore', 'today/views/CardView', 'hbs!today/templates/notifications
         var NotificationsCard = CardView.extend({
             weight: 1000,
             manage: true,
-            id: 'notifications_list',
-            attributes: {'class': 'today'},
+            attributes: {'class': 'today notifications-list'},
             serialize: function() {
                 if (this.model.has('alerts')) {
                     return this.model.toJSON();
