@@ -7,7 +7,12 @@ define(["backbone", "app", "moxie.conf", "hbs!notifications/templates/notificati
             },
             template: notificationTemplate,
             beforeRender: function() {
-                Backbone.trigger('domchange:title', this.model.get('name'));
+                var message = this.model.get('message');
+                if (message && message.length > 30) {
+                    message = message.substring(0, 30);
+                    message = message + '...';
+                }
+                Backbone.trigger('domchange:title', message);
             }
         });
         return NotificationView;
