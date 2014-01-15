@@ -1,11 +1,12 @@
 <h2>Notification</h2>
 <p class="free-text"><strong>{{ message }}</strong></p>
-<p class="free-text">Initially published: {{ initialDateFormatted }}</p>
+<p class="free-text">Published: {{ fromDateFormatted }}</p>
 
 {{#if _embedded.followups}}
-<ul>
-{{#_embedded.followups}}
-        <li><p class="free-text">{{ message }} ({{ timestamp }})</p></li>
-{{/_embedded.followups}}
+<h2>Updates</h2>
+<ul class="notification-updates">
+    {{#_embedded.followups}}
+    <li>{{ timestampFormatted }} - {{ message }}</li>
+    {{/_embedded.followups}}
 </ul>
 {{/if}}

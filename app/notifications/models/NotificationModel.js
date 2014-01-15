@@ -1,4 +1,4 @@
-define(["MoxieModel", "moxie.conf", "moment"], function(MoxieModel, conf, moment) {
+define(["underscore", "MoxieModel", "moxie.conf", "moment"], function(_, MoxieModel, conf, moment) {
     var DEFAULT_FORMAT = "D MMM YYYY, HH:mm";
     var today = moment(new Date());
     function dateFormat(date) {
@@ -16,8 +16,15 @@ define(["MoxieModel", "moxie.conf", "moment"], function(MoxieModel, conf, moment
             return conf.urlFor('notifications_id') + this.id;
         },
         parse: function(data) {
-            var initialDate = moment(data.initialDate);
-            data.initialDateFormatted = dateFormat(initialDate);
+            if (data.fromDate) {
+                var fromDate = moment(data.fromDate);
+                data.fromDateFormatted = dateFormat(fromDate);
+            }
+            if (data._embedded && data._embedded.followups) {
+                _.each(data._embedded.followups, function(followup) {
+                    followup.timestampFormatted = dateFormat(moment(followup.timestamp));
+                });
+            }
             return data;
         }
     });
