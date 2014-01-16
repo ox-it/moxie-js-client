@@ -1,4 +1,4 @@
-require(['jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'ga', 'backbone.queryparams', 'backbone.layoutmanager', 'foundation'], function($, Backbone, MoxieRouter, FastClick, conf, GA) {
+require(['jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'ga', 'push', 'backbone.queryparams', 'backbone.layoutmanager', 'foundation'], function($, Backbone, MoxieRouter, FastClick, conf, GA, Push) {
     function startGA() {
         // Init GA & start listening on hashchange
         var ga = new GA({debug: conf.ga.debug});
@@ -47,7 +47,10 @@ require(['jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'ga', 'backbo
                 // This seems to be the most reliable way to open target=_blank
                 // url's in the native phone browsers.
                 //
+                var push;
                 if ((window.device) && (window.device.platform==='Android')) {
+                    push = new Push();
+                    push.registerAndroid();
                     $('body').on('click', "a[href][target='_blank']", function(ev) {
                         ev.preventDefault();
                         navigator.app.loadUrl(this.href, { openExternal:true });
@@ -55,6 +58,8 @@ require(['jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'ga', 'backbo
                     });
                 }
                 else if ((window.device) && (window.device.platform==='iOS')) {
+                    push = new Push();
+                    push.registeriOS();
                     $('body').on('click', "a[href][target='_blank']", function(ev) {
                         ev.preventDefault();
                         window.open(this.href, '_system');
