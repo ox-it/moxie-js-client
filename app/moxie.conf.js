@@ -25,8 +25,8 @@ define([], function() {
             events_id: '/events/',
             park_and_rides: '/transport/park-and-rides',
             feedback: '/feedback/',
-            notifications_list: '/notifications/alerts',
-            notifications_id: '/notifications/alert/'
+            notifications_list: '/notifications/',
+            notifications_id: '/notifications/'
         },
         urlFor: function(api_method) {
             return this.endpoint + this.paths[api_method];
