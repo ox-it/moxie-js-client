@@ -5,7 +5,7 @@ define(['underscore', 'today/views/CardView', 'hbs!today/templates/notifications
             manage: true,
             attributes: {'class': 'today notifications-list'},
             serialize: function() {
-                if (this.model.has('alerts')) {
+                if (this.model.has('notifications')) {
                     return this.model.toJSON();
                 } else {
                     // do not display the card if there is no active alert

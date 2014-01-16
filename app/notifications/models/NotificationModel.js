@@ -16,9 +16,9 @@ define(["underscore", "MoxieModel", "moxie.conf", "moment"], function(_, MoxieMo
             return conf.urlFor('notifications_id') + this.id;
         },
         parse: function(data) {
-            if (data.fromDate) {
-                var fromDate = moment(data.fromDate);
-                data.fromDateFormatted = dateFormat(fromDate);
+            if (data.timestamp) {
+                var timestamp = moment(data.timestamp);
+                data.timestampFormatted = dateFormat(timestamp);
             }
             if (data._embedded && data._embedded.followups) {
                 _.each(data._embedded.followups, function(followup) {
