@@ -45,9 +45,6 @@ define(['moxie.conf', 'jquery', 'app'], function(conf, $, app) {
         // handle APNS notifications for iOS
         function onNotificationAPN(e) {
             var pushNotification = window.plugins.pushNotification;
-            if (e.alert) {
-                navigator.notification.alert(e.alert);
-            }
             if (e.badge) {
                 pushNotification.setApplicationIconBadgeNumber(successHandler, e.badge);
             }
