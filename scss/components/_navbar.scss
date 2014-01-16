@@ -86,7 +86,7 @@
             width: auto;
             border: 0;
             h1 {
-                width: 100px;
+                white-space: nowrap;
                 color: #fff;
                 // Set line-height to navbarHeight to give vertical alignment
                 line-height: $navbarHeight;
