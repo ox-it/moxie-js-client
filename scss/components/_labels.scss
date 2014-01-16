@@ -35,3 +35,9 @@
         color: #fff;
     }
 }
+
+.label-notification-updates {
+    @include label($success-green);
+    font-weight: normal;
+    line-height: 1.3em;
+}

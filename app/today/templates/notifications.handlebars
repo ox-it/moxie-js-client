@@ -1,0 +1,16 @@
+{{#notifications}}
+<div data-alert class="notification-box">
+    <div class="notification-icon">
+        <i class="ss-standard ss-alert"></i>
+    </div>
+    <div class="notification-content">
+        <a href="#/notifications/{{ ident }}">
+            <p class="notification-message">{{ message }}</p>
+            <p class="more-info">More information</p>
+            {{#if updates }}
+            <span class="label-notification-updates">{{ _embedded.followups.length }} {{#if multipleUpdates}}updates{{else}}update{{/if}}</span>
+            {{/if}}
+        </a>
+    </div>
+</div>
+{{/notifications}}
