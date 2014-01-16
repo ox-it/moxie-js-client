@@ -81,6 +81,7 @@ div.today {
     }
     div.date {
         float: left;
+        padding-top: 3px;
         padding-left: 10px;
         // Date contains term-date and standard-date one atop the other.
         > div {
@@ -138,6 +139,7 @@ div.today {
                 padding-left: 50px;
                 p.notification-message {
                     margin: 0px;
+                    margin-bottom: 7px;
                     font-weight: 700;
                     color: #222;
                     font-size: 1em;
@@ -145,7 +147,7 @@ div.today {
                 }
                 p.more-info {
                     margin: 0px;
-                    font-size: 1em;
+                    font-size: 0.9em;
                     display: inline;
                 }
             }

@@ -37,6 +37,7 @@
 }
 
 .label-notification-updates {
-    line-height: 1.2em;
     @include label($success-green);
+    font-weight: normal;
+    line-height: 1.3em;
 }
