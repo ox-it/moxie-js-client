@@ -83,7 +83,7 @@ define([], function() {
             }
         },
         security: {
-            feed: {"title": "Mobile Oxford Team Blog", "url": "http://blog.m.ox.ac.uk/feeds/all.atom.xml", "slug": "mox-blog"},
+            feed: null,
         },
         ga: {trackingID: "UA-40281467-3", period: 10, debug: true},
         pushNotifications: {
