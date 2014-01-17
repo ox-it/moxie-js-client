@@ -1,9 +1,11 @@
 require(['jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'ga', 'push', 'backbone.queryparams', 'backbone.layoutmanager', 'foundation'], function($, Backbone, MoxieRouter, FastClick, conf, GA, Push) {
     function startGA() {
         // Init GA & start listening on hashchange
-        var ga = new GA({debug: conf.ga.debug});
-        ga.init(conf.ga.trackingID, conf.ga.period);
-        ga.startListening();
+        if (conf.ga) {
+            var ga = new GA({debug: conf.ga.debug});
+            ga.init(conf.ga.trackingID, conf.ga.period);
+            ga.startListening();
+        }
     }
     $(function() {
         //
