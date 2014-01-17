@@ -82,6 +82,9 @@ define([], function() {
                 fetchCount: 5,      // Number of POIs we fetch to find 1 nearby which doesn't appear in your favourites
             }
         },
+        security: {
+            feed: {"title": "Mobile Oxford Team Blog", "url": "http://blog.m.ox.ac.uk/feeds/all.atom.xml", "slug": "mox-blog"},
+        },
         ga: {trackingID: "UA-40281467-3", period: 10, debug: true},
         pushNotifications: {
             android: {
