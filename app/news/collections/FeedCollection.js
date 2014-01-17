@@ -1,21 +1,23 @@
 define(["underscore", "core/collections/MoxieCollection", "news/models/FeedModel"], function(_, MoxieCollection, Feed) {
 
     var Feeds = MoxieCollection.extend({
-        loading: false,
-        load: function() {
+        initialize: function() {
+            this.feedsLoaded = false;
+        },
+        loadedGoogleFeedsAPI: function() {
+            return Boolean(window.google && window.google.feeds);
+        },
+        loadGoogleFeedsAPI: function(cb) {
             // Load the Google JS API async
             //
             // Using the autoload option to the jsapi we also load the feeds API in a single request
-            if (this.loading) { return; }
-            // Bind our callback with the correct context variable
-            window.requestFeeds = _.bind(this.requestFeeds, this);
-            this.loading = true;
+            window.googleFeedsAPICallback = cb;
             var modules = {
                 "modules" : [
                     {
                         "name": "feeds",
                         "version": "1.0",
-                        "callback": "requestFeeds"
+                        "callback": "googleFeedsAPICallback"
                     }
                 ]
             };
@@ -30,11 +32,22 @@ define(["underscore", "core/collections/MoxieCollection", "news/models/FeedModel
             script.type = "text/javascript";
             document.getElementsByTagName("head")[0].appendChild(script);
         },
+        load: function() {
+            if (!this.feedsLoaded) {
+                if (this.loadedGoogleFeedsAPI()) {
+                    this.requestFeeds();
+                } else {
+                    // Bind our callback with the correct context variable
+                    this.loadGoogleFeedsAPI(_.bind(this.requestFeeds, this));
+                }
+            }
+        },
         requestFeeds: function() {
             // Callback from Google feeds API
             this.each(function(model) {
                 model.load();
             });
+            this.feedsLoaded = true;
         },
         model: Feed
     });

@@ -14,6 +14,31 @@
 	</ul>
 </div>
 
+{{#if feed}}
+<div class="card">
+    <h3>News</h3>
+
+    {{#if entries}}
+    <ul class="results-list">
+        {{#entries}}
+        <li>
+            <a href="#news/{{ ../feed.slug }}/{{ slug }}/">
+                <h4>{{ title }}</h4>
+                <span>Posted: {{ dateFormat publishedDate }}</span>
+                <p>{{{ contentSnippet }}}</p>
+            </a>
+        </li>
+        {{/entries}}
+    </ul>
+    {{else}}
+    <div id="loading">
+        <img src="images/preloader.gif" class="preloader">
+    </div>
+    {{/if}}
+</div>
+{{/if}}
+
+
 <div class="card">
 	<h3>Oxford University Security<span class="strapline">Delivering safety and security through effective prevention, reassurance and response</span></h3>
 	<div class="padded-contents">
