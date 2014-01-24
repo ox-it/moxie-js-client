@@ -51,8 +51,10 @@ require(['jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'ga', 'push',
                 //
                 var push;
                 if ((window.device) && (window.device.platform==='Android')) {
-                    push = new Push();
-                    push.registerAndroid();
+                    if (conf.pushNotifications && conf.pushNotifications.android && conf.pushNotifications.android.enabled) {
+                        push = new Push();
+                        push.registerAndroid();
+                    }
                     $('body').on('click', "a[href][target='_blank']", function(ev) {
                         ev.preventDefault();
                         navigator.app.loadUrl(this.href, { openExternal:true });
@@ -60,8 +62,10 @@ require(['jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'ga', 'push',
                     });
                 }
                 else if ((window.device) && (window.device.platform==='iOS')) {
-                    push = new Push();
-                    push.registeriOS();
+                    if (conf.pushNotifications && conf.pushNotifications.ios && conf.pushNotifications.ios.enabled) {
+                        push = new Push();
+                        push.registeriOS();
+                    }
                     $('body').on('click', "a[href][target='_blank']", function(ev) {
                         ev.preventDefault();
                         window.open(this.href, '_system');
