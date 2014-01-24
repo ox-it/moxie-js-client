@@ -87,7 +87,11 @@ define([], function() {
         },
         ga: {trackingID: "UA-40281467-3", period: 10, debug: true},
         pushNotifications: {
+            ios: {
+                enabled: false
+            },
             android: {
+                enabled: false,
                 senderID: ""
             }
         }
