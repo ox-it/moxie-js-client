@@ -1,9 +1,9 @@
-define(["app", "underscore", "backbone", "places/models/POIModel", "places/views/CategoriesView", "places/views/SearchView", "places/views/DetailView", "places/collections/POICollection", "places/collections/CategoryCollection", "core/views/MapView", "backbone.subroute"], function(app, _, Backbone, POI, CategoriesView, SearchView, DetailView, POIs, Categories, MapView){
+define(["app", "underscore", "backbone", "places/models/POIModel", "places/views/CategoriesView", "places/views/SearchView", "places/views/DetailView", "places/collections/POICollection", "places/collections/CategoryCollection", "core/views/MapView"], function(app, _, Backbone, POI, CategoriesView, SearchView, DetailView, POIs, Categories, MapView){
 
     var pois = new POIs();
     var categories = new Categories();
     categories.fetch();
-    var PlacesRouter = Backbone.SubRoute.extend({
+    var PlacesRouter = {
 
         // All of your Backbone Routes (add more)
         routes: {
@@ -102,10 +102,7 @@ define(["app", "underscore", "backbone", "places/models/POIModel", "places/views
             }
             this.showDetail(poi);
         }
+    };
 
-    });
-
-    // Returns the Router class
     return PlacesRouter;
-
 });
