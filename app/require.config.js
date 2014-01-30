@@ -19,7 +19,6 @@ var require = {
         "backbone.queryparams": "libs/backbone.queryparams",
         "backbone.subroute": "libs/backbone.subroute",
         "backbone.layoutmanager": "libs/backbone.layoutmanager",
-        "backbone.hal": "libs/backbone.hal",
         "localstorage": "libs/backbone.localStorage",
         "raphael": "libs/raphael",
         "justgage": "libs/justgage",
