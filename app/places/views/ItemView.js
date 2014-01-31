@@ -1,6 +1,7 @@
 define(["backbone", "underscore", "hbs!places/templates/item"], function(Backbone, _, itemTemplate){
     var ItemView = Backbone.View.extend({
         initialize: function() {
+            this.urlPrefix = this.options.urlPrefix;
             this.model.on('change:highlighted', _.bind(this.highlight, this));
         },
         highlight: function(poi) {
@@ -25,7 +26,11 @@ define(["backbone", "underscore", "hbs!places/templates/item"], function(Backbon
         },
         manage: true,
         tagName: "li",
-        serialize: function() { return this.model.toJSON(); },
+        serialize: function() {
+            var context = this.model.toJSON();
+            context.urlPrefix = urlPrefix;
+            return context;
+        },
         template: itemTemplate
     });
     return ItemView;
