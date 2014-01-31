@@ -6,6 +6,7 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'places/views/ItemView
         // View constructor
         initialize: function() {
             _.bindAll(this);
+            this.urlPrefix = this.options.urlPrefix;
             this.collection.followUser();
             this.collection.on("reset", this.render, this);
             this.collection.on("add", this.addResult, this);
@@ -28,14 +29,14 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'places/views/ItemView
             e.preventDefault();
             this.collection.query.type = $(e.target).data('category');
             this.collection.geoFetch();
-            Backbone.history.navigate('/places/search?'+$.param(this.collection.query).replace(/\+/g, "%20"), {trigger: false});
+            Backbone.history.navigate(this.urlPrefix + 'search?'+$.param(this.collection.query).replace(/\+/g, "%20"), {trigger: false});
         },
 
         searchEvent: function(ev) {
             if (ev.which === 13) {
                 this.collection.query.q = ev.target.value;
                 this.collection.geoFetch();
-                Backbone.history.navigate('/places/search?'+$.param(this.collection.query).replace(/\+/g, "%20"), {trigger: false});
+                Backbone.history.navigate(this.urlPrefix + 'search?'+$.param(this.collection.query).replace(/\+/g, "%20"), {trigger: false});
             }
         },
 
@@ -48,6 +49,7 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'places/views/ItemView
         template: searchTemplate,
         serialize: function() {
             var context = {
+                urlPrefix: this.urlPrefix,
                 query: this.collection.query,
                 facets: [],
                 hasResults: Boolean(this.collection.length),
@@ -62,8 +64,11 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'places/views/ItemView
         beforeRender: function() {
             Backbone.trigger('domchange:title', "Search for Places of Interest");
             if (this.collection.length) {
+                var urlPrefix = this.urlPrefix;
                 var views = [];
-                this.collection.each(function(model) { views.push(new ItemView({model: model})); });
+                this.collection.each(function(model) {
+                    views.push(new ItemView({model: model, urlPrefix: urlPrefix}));
+                });
                 this.insertViews({"ul.results-list": views});
             }
         },
