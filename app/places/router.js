@@ -50,9 +50,10 @@ define(["app", "underscore", "backbone", "places/models/POIModel", "places/views
             mapView.setCollection(pois);
             // Remove any other mapClick listeners (if the view is being reused)
             mapView.off('mapClick');
+            var urlPrefix = this.urlPrefix;
             mapView.on('mapClick', function() {
                 var qstring = Backbone.history.fragment.replace(Backbone.history.getFragment(null, null, true), '');
-                Backbone.history.navigate('#places/search/map'+qstring, {trigger: true, replace: false});
+                Backbone.history.navigate(urlPrefix + 'search/map'+qstring, {trigger: true, replace: false});
             });
             searchView.render();
         },
@@ -93,7 +94,10 @@ define(["app", "underscore", "backbone", "places/models/POIModel", "places/views
             mapView.setCollection(new POIs([poi]));
             // Remove any other mapClick listeners (if the view is being reused)
             mapView.off('mapClick');
-            mapView.on('mapClick', function() { Backbone.history.navigate('#/places/'+poi.id+'/map', {trigger: true, replace: false}); });
+            var urlPrefix = this.urlPrefix;
+            mapView.on('mapClick', function() {
+                Backbone.history.navigate(urlPrefix + poi.id + '/map', {trigger: true, replace: false});
+            });
             detailView.render();
         },
 
