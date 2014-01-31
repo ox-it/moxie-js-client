@@ -44,7 +44,7 @@ define(['jquery', 'underscore', 'backbone', 'app', 'moxie.conf', 'moxie.position
             if (ev.which === 13) {
                 var query = ev.target.value;
                 var qstring = $.param({q: query}).replace(/\+/g, "%20");
-                var path = conf.pathFor('places_search') + '?' + qstring;
+                var path = this.urlPrefix + '/search' + '?' + qstring;
                 app.navigate(path, {trigger: true, replace: false});
             }
         },
