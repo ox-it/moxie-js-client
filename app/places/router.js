@@ -5,6 +5,11 @@ define(["app", "underscore", "backbone", "places/models/POIModel", "places/views
     categories.fetch();
     var PlacesRouter = {
 
+        initialize: function(options) {
+            options = options || {};
+            this.urlPrefix = options.urlPrefix || '#places/';
+        },
+
         // All of your Backbone Routes (add more)
         routes: {
 
@@ -20,7 +25,11 @@ define(["app", "underscore", "backbone", "places/models/POIModel", "places/views
 
         categories: function(category_name) {
             // Navigate to the list of categories (root view of places)
-            var categoriesView = new CategoriesView({collection: categories, category_name: category_name});
+            var categoriesView = new CategoriesView({
+                collection: categories,
+                category_name: category_name,
+                urlPrefix: this.urlPrefix
+            });
             var options = category_name ? {} : {menu: true};
             app.renderView(categoriesView, options);
         },
