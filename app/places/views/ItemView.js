@@ -28,7 +28,7 @@ define(["backbone", "underscore", "hbs!places/templates/item"], function(Backbon
         tagName: "li",
         serialize: function() {
             var context = this.model.toJSON();
-            context.urlPrefix = urlPrefix;
+            context.urlPrefix = this.urlPrefix;
             return context;
         },
         template: itemTemplate
