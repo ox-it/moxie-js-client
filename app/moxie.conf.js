@@ -65,7 +65,7 @@ define([], function() {
                     {"title": "Pembroke College", "url": "http://www.pmb.ox.ac.uk/news/rss.xml", "slug": "pmb"},
                     {"title": "Lady Margaret Hall news", "url": "http://www.lmh.ox.ac.uk/CMSPages/NewsRss.aspx", "slug": "lmh"},
                     {"title": "Oriel College", "url": "http://www.oriel.ox.ac.uk/news/rss", "slug": "oriel-news"},
-                    {"title": "St. Antony's College Events", "url": "http://www.google.com/calendar/feeds/it-support%40sant.ox.ac.uk/public/basic?orderby=starttime&sortorder=ascending&futureevents=true&singleevents=true", "slug": "st-antonys-events"},
+                    {"title": "Somerville College", "url": "http://www.some.ox.ac.uk/191/News.rss", "slug": "some-news"},
                     {"title": "Department of Biochemistry", "url": "http://rss.oucs.ox.ac.uk/bioch/news/rss20.xml", "slug": "biochemistry-department"},
                     {"title": "Department of Computer Science", "url": "http://www.cs.ox.ac.uk/feeds/News-All.xml", "slug": "cs-news"},
                     {"title": "Department of International Development", "url": "http://www3.qeh.ox.ac.uk/rss/news_rss.php", "slug": "odid-news"},
