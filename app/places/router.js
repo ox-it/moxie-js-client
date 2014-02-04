@@ -44,6 +44,7 @@ define(["app", "underscore", "backbone", "places/models/POIModel", "places/views
                 pois.geoFetch();
             }
             var layout = app.getLayout('MapBrowseLayout');
+            layout.removeDetail();
             var searchView = new SearchView({collection: pois, urlPrefix: this.urlPrefix});
             layout.setView('.content-browse', searchView);
             var mapView = layout.getView('.content-map');
@@ -86,6 +87,7 @@ define(["app", "underscore", "backbone", "places/models/POIModel", "places/views
 
         showDetail: function(poi) {
             var layout = app.getLayout('MapBrowseLayout');
+            layout.withDetail();
             var detailView = new DetailView({
                 model: poi
             });
