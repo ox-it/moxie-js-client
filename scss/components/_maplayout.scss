@@ -1,0 +1,102 @@
+@import "globals/variables";
+
+/* Content is a container for two child divs
+    .content-browse which typically contains a scrolling list container
+    .content-map which holds map (#map)
+*/
+#content {
+    top: $navbarHeight;
+    bottom: 0;
+    background: #fff;
+    // border-left: $grayBorder;
+    // border-right: $grayBorder;
+
+    .content-browse {
+        padding: 0px 0px;
+        overflow: auto;
+        background: $body-background;
+        -webkit-overflow-scrolling: touch;
+        right: auto;
+        height: auto;
+        @media #{$small} {
+            @include grid-column(4);
+            position: relative;
+            padding: 0px 0px;
+            // Makes the map scroll with the list
+            height: 100%;
+            overflow-y: scroll;
+        }
+    }
+
+    .map-browse-layout {
+        height: 100%;
+    }
+
+    .content-map {
+        height: $mapHeight;
+        @media #{$small} {
+            @include grid-column(8, $float: right);
+            height: 100%;
+            padding: 0px 0px;
+            border-top: $grayBorder;
+            border-bottom: $grayBorder;
+            border-left: $grayBorder;
+        }
+    }
+    #map {
+        height: $mapHeight;
+        &.full-screen {
+            height: 100%;
+        }
+        .leaflet-control-zoom {
+            display: none;
+        }
+        width: 100% !important;
+        @media #{$small} {
+            .leaflet-control-zoom {
+                display: block;
+            }
+            height: 100%;
+        }
+    }
+    .search-input {
+        position: relative;
+        padding-top: 10px;
+        margin-left: 5px;
+        margin-right: 5px;
+
+        span.deleteicon {
+            display: block;
+            line-height: 9px;
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            padding: 4px 4px 2px 4px;
+            @include border-radius(30px);
+            font-size: 9px;
+            color: #fff;
+            background: #ccc;
+            cursor: pointer;
+        }
+    }
+}
+
+.list-map, .detail-map, .generic {
+    height: 100%;
+    -webkit-overflow-scrolling: touch;
+    ul.facet-list {
+        padding-left: 5px;
+    }
+    > h3 {
+        padding-left: 5px;
+    }
+}
+
+div.embedded_map {
+    height: $mapHeight;
+    width: auto;
+    .leaflet-control-zoom {
+        display: none;
+    }
+}
+
