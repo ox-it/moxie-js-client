@@ -89,7 +89,7 @@ define(["app", "underscore", "backbone", "places/models/POIModel", "places/views
             var detailView = new DetailView({
                 model: poi
             });
-            layout.setView('.content-browse', detailView);
+            layout.setView('.content-detail', detailView);
             var mapView = layout.getView('.content-map');
             mapView.setCollection(new POIs([poi]));
             // Remove any other mapClick listeners (if the view is being reused)
