@@ -14,7 +14,13 @@ define(['backbone', 'core/views/MapView', 'hbs!core/templates/map-browse'], func
         // See commit #6511cae
         beforeRender: function() {
             this.setView(".content-map", new MapView());
-        }
+        },
+        removeDetail: function() {
+            this.$el.removeClass('with-detail');
+        },
+        withDetail: function() {
+            this.$el.addClass('with-detail');
+        },
     });
 
     return MapBrowseLayout;
