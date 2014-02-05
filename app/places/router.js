@@ -29,9 +29,7 @@ define(["app", "underscore", "backbone", "places/models/POIModel", "places/views
                 category_name: category_name,
                 urlPrefix: this.urlPrefix
             });
-            var options = category_name ? {} : {menu: true};
             var layout = app.getLayout('MapBrowseLayout');
-            layout.removeDetail();
             layout.withBrowse();
             layout.setView('.content-browse', categoriesView);
             categoriesView.render();
@@ -72,6 +70,14 @@ define(["app", "underscore", "backbone", "places/models/POIModel", "places/views
             var layout = app.getLayout('MapBrowseLayout');
             if (media.isPhone() || !showBrowse) {
                 layout.removeBrowse();
+                if (!showBrowse) {
+                    var categoriesView = new CategoriesView({
+                        collection: categories,
+                        urlPrefix: this.urlPrefix
+                    });
+                    layout.setView('.content-browse', categoriesView);
+                    categoriesView.render();
+                }
             }
             layout.withDetail();
             var detailView = new DetailView({
