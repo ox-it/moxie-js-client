@@ -1,4 +1,4 @@
-define(["app", "underscore", "backbone", "places/models/POIModel", "places/views/CategoriesView", "places/views/SearchView", "places/views/DetailView", "places/collections/POICollection", "places/collections/CategoryCollection", "core/views/MapView"], function(app, _, Backbone, POI, CategoriesView, SearchView, DetailView, POIs, Categories, MapView){
+define(["app", "underscore", "backbone", "places/models/POIModel", "places/views/CategoriesView", "places/views/SearchView", "places/views/DetailView", "places/collections/POICollection", "places/collections/CategoryCollection", "core/views/MapView", "core/media"], function(app, _, Backbone, POI, CategoriesView, SearchView, DetailView, POIs, Categories, MapView, media){
 
     var pois = new POIs();
     var categories = new Categories();
@@ -70,7 +70,7 @@ define(["app", "underscore", "backbone", "places/models/POIModel", "places/views
 
         showDetail: function(poi, showBrowse) {
             var layout = app.getLayout('MapBrowseLayout');
-            if (!showBrowse) {
+            if (media.isPhone() || !showBrowse) {
                 layout.removeBrowse();
             }
             layout.withDetail();
