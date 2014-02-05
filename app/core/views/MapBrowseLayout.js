@@ -28,6 +28,12 @@ define(['backbone', 'core/views/MapView', 'hbs!core/templates/map-browse'], func
         withDetail: function() {
             this.$el.addClass('with-detail');
         },
+        removeBrowse: function() {
+            this.$el.removeClass('with-browse');
+        },
+        withBrowse: function() {
+            this.$el.addClass('with-browse');
+        },
     });
 
     return MapBrowseLayout;
