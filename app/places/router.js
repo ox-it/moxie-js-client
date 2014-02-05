@@ -17,7 +17,6 @@ define(["app", "underscore", "backbone", "places/models/POIModel", "places/views
             "categories": "categories",
             "categories*category_name": "categories",
             "search": "search",
-            "search/map": "searchMap",
             ":id": "detail",
             ":id/map": "detailMap"
 
@@ -31,7 +30,11 @@ define(["app", "underscore", "backbone", "places/models/POIModel", "places/views
                 urlPrefix: this.urlPrefix
             });
             var options = category_name ? {} : {menu: true};
-            app.renderView(categoriesView, options);
+            var layout = app.getLayout('MapBrowseLayout');
+            layout.removeDetail();
+            layout.withBrowse();
+            layout.setView('.content-browse', categoriesView);
+            categoriesView.render();
         },
 
         search: function(params) {
@@ -45,32 +48,12 @@ define(["app", "underscore", "backbone", "places/models/POIModel", "places/views
             }
             var layout = app.getLayout('MapBrowseLayout');
             layout.removeDetail();
+            layout.withBrowse();
             var searchView = new SearchView({collection: pois, urlPrefix: this.urlPrefix});
             layout.setView('.content-browse', searchView);
             var mapView = layout.getView('.content-map');
             mapView.setCollection(pois);
-            // Remove any other mapClick listeners (if the view is being reused)
-            mapView.off('mapClick');
-            var urlPrefix = this.urlPrefix;
-            mapView.on('mapClick', function() {
-                var qstring = Backbone.history.fragment.replace(Backbone.history.getFragment(null, null, true), '');
-                Backbone.history.navigate(urlPrefix + 'search/map'+qstring, {trigger: true, replace: false});
-            });
             searchView.render();
-        },
-
-        searchMap: function(params) {
-            var query = params || {};
-            if (!_.isEqual(query, pois.query) || (pois.length <= 1)) {
-                // If the Collection has the correct query and we have items don't bother fetching new results now
-                pois.query = query;
-                // Calling reset here prevents us from rendering any old results
-                pois.reset();
-                pois.geoFetch();
-            }
-            var mapView = new MapView({interactiveMap: true, fullScreen: true});
-            app.renderView(mapView);
-            mapView.setCollection(pois);
         },
 
         detailMap: function(id) {
@@ -85,8 +68,11 @@ define(["app", "underscore", "backbone", "places/models/POIModel", "places/views
             }
         },
 
-        showDetail: function(poi) {
+        showDetail: function(poi, showBrowse) {
             var layout = app.getLayout('MapBrowseLayout');
+            if (!showBrowse) {
+                layout.removeBrowse();
+            }
             layout.withDetail();
             var detailView = new DetailView({
                 model: poi
@@ -107,15 +93,17 @@ define(["app", "underscore", "backbone", "places/models/POIModel", "places/views
             var query = params || {};
             var showRTI = 'rti' in query ? params.rti : null;
             var poi = pois.get(id);
+            var showBrowse = false;
             if (poi) {
                 poi.set('showRTI', showRTI);
+                showBrowse = true;
             } else {
                 poi = new POI({id: id, showRTI: showRTI});
                 poi.fetch({success: _.bind(function(model, response, options) {
                     pois.add(model);
                 }, this) });
             }
-            this.showDetail(poi);
+            this.showDetail(poi, showBrowse);
         }
     };
 
