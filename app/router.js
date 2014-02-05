@@ -1,4 +1,4 @@
-define(["app", "backbone", "places/router", "today/views/IndexView", "today/collections/TodayItems", "courses/router", "library/router", "contacts/router", "news/router", "events/router", "feedback/router", "notifications/router", "favourites/views/FavouritesEditButtonView", "favourites/views/FavouritesView", "today/views/EditTodayButton", "today/views/SaveTodayButton", "today/views/EditTodayView", "security/router"],
+define(["app", "backbone", "places/router", "today/views/IndexView", "today/collections/TodayItems", "courses/router", "library/router", "contacts/router", "news/router", "events/router", "feedback/router", "notifications/router", "favourites/views/FavouritesEditButtonView", "favourites/views/FavouritesView", "today/views/EditTodayButton", "today/views/SaveTodayButton", "today/views/EditTodayView", "security/router", "backbone.subroute"],
     function(app, Backbone, PlacesRouter, IndexView, TodayItems, CoursesRouter, LibraryRouter, ContactsRouter, NewsRouter, EventsRouter, FeedbackRouter, NotificationsRouter, FavouritesEditButtonView, FavouritesView, EditTodayButton, SaveTodayButton, EditTodayView, SecurityRouter){
     var MoxieRouter = Backbone.Router.extend({
         subrouters: {},
@@ -77,7 +77,8 @@ define(["app", "backbone", "places/router", "today/views/IndexView", "today/coll
         },
         placesModule: function(subroute) {
             if (!this.subrouters.Places) {
-                this.subrouters.Places = new PlacesRouter('places', {createTrailingSlashRoutes: true});
+                var PlacesSubRouter = Backbone.SubRoute.extend(PlacesRouter);
+                this.subrouters.Places = new PlacesSubRouter('places', {createTrailingSlashRoutes: true});
             }
         },
         coursesModule: function(subroute) {
