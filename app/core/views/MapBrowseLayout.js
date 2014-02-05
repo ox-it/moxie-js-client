@@ -5,6 +5,13 @@ define(['backbone', 'core/views/MapView', 'hbs!core/templates/map-browse'], func
         template: mapBrowseTemplate,
         className: 'map-browse-layout',
         name: 'MapBrowseLayout',
+        events: {
+            'click .btn-toggle-browse': 'toggleBrowse',
+        },
+
+        toggleBrowse: function() {
+            this.$el.toggleClass('with-browse');
+        },
 
         // Previously we set this view in 'views' this is WRONG
         //
