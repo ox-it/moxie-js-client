@@ -60,10 +60,9 @@ define(["app", "underscore", "backbone", "places/models/POIModel", "places/views
             app.renderView(mapView);
             if (!poi) {
                 poi = new POI({id: id});
-                poi.fetch({success: function(model) { mapView.setCollection(new POIs([model])); }});
-            } else {
-                mapView.setCollection(new POIs([poi]));
+                poi.fetch();
             }
+            mapView.setCollection(new POIs([poi]));
         },
 
         showDetail: function(poi, showBrowse) {
@@ -105,9 +104,7 @@ define(["app", "underscore", "backbone", "places/models/POIModel", "places/views
                 showBrowse = true;
             } else {
                 poi = new POI({id: id, showRTI: showRTI});
-                poi.fetch({success: _.bind(function(model, response, options) {
-                    pois.add(model);
-                }, this) });
+                poi.fetch();
             }
             this.showDetail(poi, showBrowse);
         }
