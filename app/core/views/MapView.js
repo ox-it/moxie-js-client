@@ -11,6 +11,10 @@ define(['backbone', 'leaflet', 'underscore', 'moxie.conf', 'places/utils', 'moxi
         manage: true,
         id: "map",
 
+        // Used to stop us resetting the map location once the user
+        // moves the map. Carefully reset when the collection is reset.
+        mapMoved: false,
+
         beforeRender: function() {
             var mapOptions = {};
             if (!this.interactiveMap) {
@@ -40,14 +44,20 @@ define(['backbone', 'leaflet', 'underscore', 'moxie.conf', 'places/utils', 'moxi
                 this.$el.addClass('full-screen');
             }
             this.invalidateMapSize();
+            this.map.on('dragstart', function() {
+                this.mapMoved = true;
+            }, this);
         },
 
         setCollection: function(collection) {
+            this.mapMoved = false;
             this.unsetCollection();
             this.collection = collection;
-            this.collection.on("reset", this.resetMapContents, this);
-            this.collection.on("add", this.placePOI, this);
+            // Listening only to "sync" seems to capture all necessary map changes
+            //
+            // Add is used as we load additional results.
             this.collection.on("sync", this.resetMapContents, this);
+            this.collection.on("add", this.placePOI, this);
             if (this.collection.length) {
                 this.resetMapContents();
             }
@@ -61,6 +71,12 @@ define(['backbone', 'leaflet', 'underscore', 'moxie.conf', 'places/utils', 'moxi
         },
 
         handle_geolocation_query: function(position) {
+            var firstPosition = false;
+            if (!this.user_position) {
+                firstPosition = true;
+            } else if (this.user_position[0] === position.coords.latitude && this.user_position[1] === position.coords.longitude)  {
+                return;
+            }
             this.user_position = [position.coords.latitude, position.coords.longitude];
             var you = new L.LatLng(position.coords.latitude, position.coords.longitude);
             if (this.user_marker) {
@@ -68,7 +84,7 @@ define(['backbone', 'leaflet', 'underscore', 'moxie.conf', 'places/utils', 'moxi
             }
             this.user_marker = L.circle(you, 10, {color: 'red', fillColor: 'red', fillOpacity: 1.0});
             this.map.addLayer(this.user_marker);
-            this.setMapBounds();
+            this.setMapBounds({firstPosition: firstPosition});
         },
 
         placePOI: function(poi) {
@@ -103,7 +119,12 @@ define(['backbone', 'leaflet', 'underscore', 'moxie.conf', 'places/utils', 'moxi
             return this;
         },
 
-        setMapBounds: function() {
+        setMapBounds: function(options) {
+            options = options || {};
+            var firstPosition = options.firstPosition;
+            if (!firstPosition && this.mapMoved) {
+                return;
+            }
             var latlngs = [];
             // Only set map bounds if we have some points
             //
@@ -138,7 +159,7 @@ define(['backbone', 'leaflet', 'underscore', 'moxie.conf', 'places/utils', 'moxi
             }
         },
 
-        resetMapContents: function(){
+        resetMapContents: function(ev){
             // Remove the existing map markers
             _.each(this.markers, function(marker) {
                 this.map.removeLayer(marker);
