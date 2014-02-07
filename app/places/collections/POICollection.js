@@ -28,6 +28,16 @@ define(["core/collections/MoxieCollection", "underscore", "places/models/POIMode
         },
 
         handle_geolocation_query: function(position) {
+            if (this.latestUserPosition &&
+                this.latestUserPosition.coords.latitude === position.coords.latitude &&
+                this.latestUserPosition.coords.longitude === position.coords.longitude)
+            {
+                // User position hasn't changed, no need to fetch new results
+                //
+                // Especially useful for people browsing from Desktops
+                return;
+            }
+
             this.latestUserPosition = position;
             this.geoFetch();
         },
