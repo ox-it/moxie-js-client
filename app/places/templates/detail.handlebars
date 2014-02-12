@@ -59,6 +59,15 @@
         {{/libraries}}
 	</div>
 
+    <div class="metadata-buttons">
+        {{#if poi.social_twitter }}
+            <a class="action-button ss-umbrella" href="{{ poi.social_twitter }}">Twitter</a>
+        {{/if}}
+        {{#if poi.social_facebook }}
+            <a class="action-button ss-umbrella" href="{{ poi.social_facebook }}">Facebook</a>
+        {{/if}}
+	</div>
+
     {{#if poi.library_opening_hours_termtime }}
         <h3>Opening hours</h3>
         <p class="metadata"><strong>Term time</strong>: {{ poi.library_opening_hours_termtime }}</p>
