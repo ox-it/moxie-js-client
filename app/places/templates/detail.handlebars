@@ -54,6 +54,9 @@
 	<div class="metadata-buttons">
 		{{#if poi.phone}}<a class="action-button tel" href="tel:{{ poi.phone }}">{{ poi.phone }}</a>{{/if}}
 		{{#if poi.website}}<a class="action-button web" href="{{ poi.website }}" target="_blank">Website</a>{{/if}}
+        {{#libraries}}
+            <a class="action-button ss-book" href="#{{ href }}" title="{{ title }}">{{ title }}</a>
+        {{/libraries}}
 	</div>
 
     {{#if poi.library_opening_hours_termtime }}
@@ -99,11 +102,11 @@
 			<a href="#{{ poi._links.parent.href }}">{{ poi._links.parent.title }} {{#if poi._links.parent.type_name}}({{ poi._links.parent.type_name }}){{/if}}</a>
 		</dd>
 	{{/if}}
-	{{#if poi._links.child}}
-		<dt>Contains</dt>
-		{{#poi._links.child}}
+    {{#if alsoOccupies}}
+		<dt>Also occupies</dt>
+		{{#alsoOccupies}}
 		<dd><a href="#{{ href }}" title="{{ title }}">{{ title }}</a></dd>
-		{{/poi._links.child}}
-	{{/if}}
+		{{/alsoOccupies}}
+    {{/if}}
 	</dl>
 </div>

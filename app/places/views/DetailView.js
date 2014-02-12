@@ -42,13 +42,42 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'core/views/ErrorView'
                     currentlyOpen = null;
                 }
             }
+            var libraries = [];
+            var organisations = [];
+            var alsoOccupies = []
+            var occupiedBy = [];
+
+            if (poi._links) {
+                for (var i in poi._links.child) {
+                    var child = poi._links.child[i];
+                    if (child.type) {
+                        switch (child.type[0]) {
+                            case '/university/library':
+                                libraries.push(child);
+                                break;
+                            case '/university/building':
+                                alsoOccupies.push(child);
+                                break;
+                            case '/university/department':
+                                organisations.push(child);
+                                break;
+                        }
+                    }
+                }
+            } else {
+                console.log(poi);
+            }
+
             return {
                 poi: poi,
                 multiRTI: poi.RTI.length > 1,
                 alternateRTI: this.model.getAlternateRTI(),
                 currentRTI: this.model.getCurrentRTI(),
                 currentlyOpen: currentlyOpen,
-                parsedOpeningHours: parsedOpeningHours
+                parsedOpeningHours: parsedOpeningHours,
+                libraries: libraries,
+                organisations: organisations,
+                alsoOccupies: alsoOccupies,
             };
         },
         template: detailTemplate,
