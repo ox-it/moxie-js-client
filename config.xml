@@ -11,6 +11,18 @@
     <preference name="android-targetSdkVersion" value="14" /> 
     <preference name="SplashScreen" value="mobile_oxford_splash" />
 
+    <feature name="Calendar">
+        <param name="ios-package" value="Calendar" />
+        <param name="android-package" value="nl.xservices.plugins.Calendar" />
+    </feature>
+    <feature name="PushPlugin">
+        <param name="ios-package" value="PushPlugin" />
+        <param name="android-package" value="com.phonegap.plugins.PushPlugin" />
+    </feature>
+    <feature name="Contacts">
+        <param name="ios-package" value="CDVContacts" />
+        <param name="android-package" value="org.apache.cordova.contacts.ContactManager" />
+    </feature>
 
     <access origin="http://opendata-staging.oucs.ox.ac.uk:8005" />
     <access origin="http://new.m.ox.ac.uk" />
