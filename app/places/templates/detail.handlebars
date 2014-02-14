@@ -117,6 +117,12 @@
 		<dd><a href="#{{ href }}" title="{{ title }}">{{ title }}</a></dd>
 		{{/alsoOccupies}}
     {{/if}}
+    {{#if organisations}}
+		<dt>Sub organisations</dt>
+		{{#organisations}}
+		<dd><a href="#{{ href }}" title="{{ title }}">{{ title }}</a></dd>
+		{{/organisations}}
+    {{/if}}
     {{#if contains}}
 		<dt>Contains</dt>
 		{{#contains}}
