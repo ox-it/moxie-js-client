@@ -42,9 +42,6 @@ require(['jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'ga', 'push',
         if (app) {
             // Native application - Cordova
             $(document).on("deviceready", function() {
-                // Now the GAPlugin will have loaded we can start sending analytics
-                startGA();
-
                 // Listen for events on each click on both Android and iOS
                 // This seems to be the most reliable way to open target=_blank
                 // url's in the native phone browsers.
@@ -62,6 +59,9 @@ require(['jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'ga', 'push',
                     });
                 }
                 else if ((window.device) && (window.device.platform==='iOS')) {
+                    if (window.device.platform === 'iOS' && parseFloat(window.device.version) === 7.0 && 'StatusBar' in window) {
+                        window.StatusBar.overlaysWebView(false);
+                    }
                     if (conf.pushNotifications && conf.pushNotifications.ios && conf.pushNotifications.ios.enabled) {
                         push = new Push();
                         push.registeriOS();
@@ -72,6 +72,10 @@ require(['jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'ga', 'push',
                         return false;
                     });
                 }
+                //
+                // Now the GAPlugin will have loaded we can start sending analytics
+                startGA();
+
             });
         } else {
             // Load the GA plugin and start sending analytics
