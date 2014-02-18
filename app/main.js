@@ -61,7 +61,7 @@ require(['jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'ga', 'push',
                 else if ((window.device) && (window.device.platform==='iOS')) {
                     if (window.device.platform === 'iOS' && parseFloat(window.device.version) === 7.0 && 'StatusBar' in window) {
                         window.StatusBar.overlaysWebView(false);
-                        window.StatusBar.backgroundColorByHexString('#1b4474');
+                        window.StatusBar.backgroundColorByHexString('#002147'); // Oxford Blue!
                     }
                     if (conf.pushNotifications && conf.pushNotifications.ios && conf.pushNotifications.ios.enabled) {
                         push = new Push();
