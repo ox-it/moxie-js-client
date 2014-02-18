@@ -70,8 +70,8 @@
                 color: #fff;
                 // Set line-height to navbarHeight to give vertical alignment
                 line-height: $navbarHeight;
-                font-size: 1em;
-                font-weight: 600;
+                font-size: 1.2em;
+                font-weight: 400;
                 @include text-shadow(0 -1px 0 #000);
                 // Left spacing equivalent to font-size.
                 margin: auto 0 auto 1em;
