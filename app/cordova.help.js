@@ -1,4 +1,6 @@
 define(['underscore'], function(_) {
+    // All our Cordova helper functions in one place.
+    //
     var cordova = {
         _isCordova: null,
         isCordova: function() {
@@ -11,9 +13,23 @@ define(['underscore'], function(_) {
             return this._isCordova;
         },
 
+        _appReady: false,
+        _listeningForAppReady: false,
         _appReadyCallbacks: [],
 
+        appReady: function() {
+            // Public API to test if the "deviceready" callback has fired.
+            if (!this._appReady && !this._listeningForAppReady) {
+                this._listenForAppReady();
+                this._listeningForAppReady = true;
+            }
+            return this._appReady;
+        },
+
         onAppReady: function(cb) {
+            // Public API to have a callback exec when the "deviceready" event
+            // is triggered. If deviceready has already triggered then we exec
+            // the callback synchronously.
             if (this.appReady()) {
                 cb();
             } else {
@@ -22,21 +38,12 @@ define(['underscore'], function(_) {
         },
 
         _listenForAppReady: function() {
+            // Private API which sets a single callback listening for "deviceready"
             $(document).on("deviceready", _.bind(function() {
                 this._appReady = true;
                 _.invoke(this._appReadyCallbacks, 'call', this) ;
                 this._appReadyCallbacks = [];
             }, this));
-        },
-
-        _listeningForAppReady: false,
-        _appReady: false,
-        appReady: function() {
-            if (!this._listeningForAppReady) {
-                this._listenForAppReady();
-                this._listeningForAppReady = true;
-            }
-            return this._appReady;
         },
 
         isOnline: function() {

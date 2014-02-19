@@ -13,6 +13,13 @@ define(["underscore", "backbone", "moxie.conf", "cordova.help"], function(_, Bac
         },
         this.getLocation = function(cb, options) {
             if (cordova.isCordova() && !cordova.appReady()) {
+                // Only call navigator.geolocation when "deviceready"
+                //
+                // This prevents us using the WebView geolocation features and
+                // ensures we use the cordova geolocation plugin.
+                //
+                // For iOS this has the added benefit of only prompting once
+                // for the user to allow geolocation.
                 cordova.onAppReady(_.bind(this.getLocation, this, cb, options));
                 return;
             }
