@@ -1,4 +1,4 @@
-define(['jquery', 'backbone', 'underscore', 'core/views/MapBrowseLayout', 'favourites/collections/Favourites', 'favourites/views/FavouriteButtonView', 'today/collections/TodaySettings', 'core/collections/HelpMessages'], function($, Backbone, _, MapBrowseLayout, Favourites, FavouriteButtonView, TodaySettings, HelpMessages) {
+define(['jquery', 'backbone', 'underscore', 'core/views/MapBrowseLayout', 'favourites/collections/Favourites', 'favourites/views/FavouriteButtonView', 'today/collections/TodaySettings', 'core/collections/HelpMessages', 'cordova.help'], function($, Backbone, _, MapBrowseLayout, Favourites, FavouriteButtonView, TodaySettings, HelpMessages, cordova) {
     var app = {
 
         navigate: _.wrap(Backbone.history.navigate, function(nav, path, options) {
@@ -18,17 +18,7 @@ define(['jquery', 'backbone', 'underscore', 'core/views/MapBrowseLayout', 'favou
             return this.renderView(view);
         },
 
-        _isCordova: null,
-        isCordova: function() {
-            // Cordova will report document.URL with file:// as the scheme
-            //
-            // Memoize the result since one session cannot (typically) move URL scheme
-            if (this._isCordova===null) {
-                this._isCordova = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
-            }
-            return this._isCordova;
-        },
-
+        isCordova: cordova.isCordova,
         isOnline: function() {
             var connectionAvailable = true;
             if (this.isCordova()) {
