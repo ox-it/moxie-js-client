@@ -1,5 +1,5 @@
-define(["backbone", "app", "moxie.conf", "hbs!events/templates/event"],
-    function(Backbone, app, conf, eventTemplate) {
+define(["backbone", "underscore", "cordova.help", "moxie.conf", "hbs!events/templates/event"],
+    function(Backbone, _, cordova, conf, eventTemplate) {
         var DEFAULT_HOUR_TO_ADD = 1;        // how many hours to add
 
         var EventDetailView = Backbone.View.extend({
@@ -21,7 +21,7 @@ define(["backbone", "app", "moxie.conf", "hbs!events/templates/event"],
             },
             addToCalendar: function(ev) {
                 // Follow the link if we're not a native app
-                if (!app.isCordova()) {
+                if (!cordova.isCordova()) {
                     return true;
                 }
                 ev.preventDefault();

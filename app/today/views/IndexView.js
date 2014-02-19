@@ -1,4 +1,4 @@
-define(['backbone', 'underscore', 'app', 'hbs!today/templates/index'], function(Backbone, _, app, indexTemplate){
+define(['backbone', 'underscore', 'app', 'cordova.help', 'hbs!today/templates/index'], function(Backbone, _, app, cordova, indexTemplate){
     var TODAY_WELCOME_KEY = 'today-welcome';
     var IndexView = Backbone.View.extend({
         // This view handles the "cards" on the home screen
@@ -26,9 +26,9 @@ define(['backbone', 'underscore', 'app', 'hbs!today/templates/index'], function(
             return view;
         },
         beforeRender: function() {
-            if (!app.isOnline()) {
-                app.whenOnline(_.bind(this.render, this));
-                app.whenOnline(_.bind(this.collection.fetch, this.collection));
+            if (!cordova.isOnline()) {
+                cordova.whenOnline(_.bind(this.render, this));
+                cordova.whenOnline(_.bind(this.collection.fetch, this.collection));
             }
             // Used for rendering the cards we have already loaded
             // If the model has some attributes then insert the view.
@@ -56,7 +56,7 @@ define(['backbone', 'underscore', 'app', 'hbs!today/templates/index'], function(
         serialize: function() {
             return {
                 seenHelp: app.helpMessages.getSeen(TODAY_WELCOME_KEY),
-                connectionAvailable: app.isOnline(),
+                connectionAvailable: cordova.isOnline(),
             };
         },
         cleanup: function() {
