@@ -4,6 +4,9 @@
     <description>Your university and city on the move</description>
     <author href="https://m.ox.ac.uk" email="mobileoxford@it.ox.ac.uk">Mobile Oxford team, IT Services, University of Oxford</author>
 
+    <!-- ios & android -->
+    <preference name="DisallowOverscroll" value="true"/>
+
     <!-- ios -->
     <preference name="ShowSplashScreenSpinner" value="false" />
 
