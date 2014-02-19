@@ -14,6 +14,7 @@ define(["underscore", "backbone", "moxie.conf", "cordova.help"], function(_, Bac
         this.getLocation = function(cb, options) {
             if (cordova.isCordova() && !cordova.appReady()) {
                 cordova.onAppReady(_.bind(this.getLocation, this, cb, options));
+                return;
             }
             options = options || {};
             // If we don't get a location within the errorMargin before the Timeout
