@@ -1,4 +1,4 @@
-define(["backbone", "underscore", "jquery", "app", "hbs!contacts/templates/result-item"], function(Backbone, _, $, app, resultTemplate){
+define(["backbone", "underscore", "jquery", "cordova.help", "hbs!contacts/templates/result-item"], function(Backbone, _, $, cordova, resultTemplate){
     var ResultItemView = Backbone.View.extend({
         manage: true,
         tagName: "li",
@@ -133,7 +133,7 @@ define(["backbone", "underscore", "jquery", "app", "hbs!contacts/templates/resul
         },
         serialize: function() {
             var vcardData = "";
-            if (!app.isCordova()) {
+            if (!cordova.isCordova()) {
                 // Only create a vCard if we're in a browser (not Cordova)
                 var vcard = this.getVcard();
                 vcardData = "data:text/vcard;base64," + btoa(vcard.replace(/\n/g, '\r\n'));
