@@ -41,14 +41,16 @@ define(['backbone', 'underscore', 'app', 'cordova.help', 'hbs!today/templates/in
             Backbone.trigger('domchange:title', "Today");
         },
         afterRender: function() {
-            $(document).on("deviceready", _.bind(function() {
-                // Cordova is initialized
-                if ('splashscreen' in navigator) {
-                    // Remove the splashscreen
-                    // Note: this is safe to call even if the splashscreen has already been removed
-                    setTimeout(navigator.splashscreen.hide, 400);
-                }
-            }, this));
+            if (cordova.isCordova()) {
+                cordova.onAppReady(function() {
+                    // Cordova is initialized
+                    if ('splashscreen' in navigator) {
+                        // Remove the splashscreen
+                        // Note: this is safe to call even if the splashscreen has already been removed
+                        setTimeout(navigator.splashscreen.hide, 400);
+                    }
+                });
+            }
             app.helpMessages.setSeen(TODAY_WELCOME_KEY);
         },
         manage: true,
