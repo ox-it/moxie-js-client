@@ -1,4 +1,4 @@
-require(['jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'ga', 'push', 'backbone.queryparams', 'backbone.layoutmanager', 'foundation'], function($, Backbone, MoxieRouter, FastClick, conf, GA, Push) {
+require(['jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'ga', 'push', 'cordova.help', 'backbone.queryparams', 'backbone.layoutmanager', 'foundation'], function($, Backbone, MoxieRouter, FastClick, conf, GA, Push, cordova) {
     function startGA() {
         // Init GA & start listening on hashchange
         if (conf.ga) {
@@ -38,10 +38,9 @@ require(['jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'ga', 'push',
         // Include FastClick, this removes a 300ms touch event delay
         new FastClick(document.body);
 
-        var app = (document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1);
-        if (app) {
+        if (cordova.isCordova()) {
             // Native application - Cordova
-            $(document).on("deviceready", function() {
+            cordova.onAppReady(function() {
                 // Listen for events on each click on both Android and iOS
                 // This seems to be the most reliable way to open target=_blank
                 // url's in the native phone browsers.
