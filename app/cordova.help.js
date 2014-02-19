@@ -11,36 +11,32 @@ define(['underscore'], function(_) {
             return this._isCordova;
         },
 
-        _appReady: false,
-        appReady: function() {
-            return this._appReady;
-        },
-
         _appReadyCallbacks: [],
+
+        onAppReady: function(cb) {
+            if (this.appReady()) {
+                cb();
+            } else {
+                this._appReadyCallbacks.push(cb);
+            }
+        },
 
         _listenForAppReady: function() {
             $(document).on("deviceready", _.bind(function() {
-                console.log("device ready!");
-                console.log("calling callbacks");
-                console.log(this._appReadyCallbacks);
-                console.log(this._appReadyCallbacks.length);
+                this._appReady = true;
                 _.invoke(this._appReadyCallbacks, 'call', this) ;
                 this._appReadyCallbacks = [];
             }, this));
         },
 
         _listeningForAppReady: false,
-        onAppReady: function(cb) {
-            if (this.appReady()) {
-                cb();
+        _appReady: false,
+        appReady: function() {
+            if (!this._listeningForAppReady) {
+                this._listenForAppReady();
+                this._listeningForAppReady = true;
             }
-            else {
-                this._appReadyCallbacks.push(cb);
-                if (!this._listeningForAppReady) {
-                    this._listenForAppReady();
-                    this._listeningForAppReady = true;
-                }
-            }
+            return this._appReady;
         },
 
         isOnline: function() {
