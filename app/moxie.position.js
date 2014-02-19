@@ -1,4 +1,4 @@
-define(["underscore", "backbone", "moxie.conf"], function(_, Backbone, conf){
+define(["underscore", "backbone", "moxie.conf", "cordova.help"], function(_, Backbone, conf, cordova){
     var EVENT_POSITION_UPDATED = 'position:updated';
     function UserPosition() {
         _.extend(this, Backbone.Events);
@@ -12,6 +12,9 @@ define(["underscore", "backbone", "moxie.conf"], function(_, Backbone, conf){
             return latestPosition || conf.defaultLocation;
         },
         this.getLocation = function(cb, options) {
+            if (cordova.isCordova() && !cordova.appReady()) {
+                cordova.onAppReady(_.bind(this.getLocation, this, cb, options));
+            }
             options = options || {};
             // If we don't get a location within the errorMargin before the Timeout
             // we return the most recent position reported by watchPosition
