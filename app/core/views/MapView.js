@@ -72,10 +72,13 @@ define(['backbone', 'jquery', 'leaflet', 'underscore', 'moxie.conf', 'places/uti
         },
 
         handle_geolocation_query: function(position) {
+            // is this the first position being reported?
             var firstPosition = false;
             if (!this.user_position) {
                 firstPosition = true;
-            } else if (this.user_position[0] === position.coords.latitude && this.user_position[1] === position.coords.longitude)  {
+            }
+            // Only update the markers if the user position changes (useful for desktops)
+            if (this.user_position && this.user_position[0] === position.coords.latitude && this.user_position[1] === position.coords.longitude)  {
                 return;
             }
             this.user_position = [position.coords.latitude, position.coords.longitude];
@@ -85,7 +88,15 @@ define(['backbone', 'jquery', 'leaflet', 'underscore', 'moxie.conf', 'places/uti
             }
             this.user_marker = L.circle(you, 10, {color: 'red', fillColor: 'red', fillOpacity: 1.0});
             this.map.addLayer(this.user_marker);
-            this.setMapBounds({firstPosition: firstPosition});
+
+            // Generally we reset the MapBounds after each new location is
+            // reported unless the user has interacted with the map in someway.
+            //
+            // The only exception being when it's the first user position to be
+            // reported in which case we always reset the map to new bounds.
+            if (firstPosition || !this.mapMoved) {
+                this.setMapBounds();
+            }
         },
 
         placePOI: function(poi) {
@@ -120,12 +131,7 @@ define(['backbone', 'jquery', 'leaflet', 'underscore', 'moxie.conf', 'places/uti
             return this;
         },
 
-        setMapBounds: function(options) {
-            options = options || {};
-            var firstPosition = options.firstPosition;
-            if (!firstPosition && this.mapMoved) {
-                return;
-            }
+        setMapBounds: function() {
             var latlngs = [];
             // Only set map bounds if we have some points
             //
