@@ -30,13 +30,7 @@
     line-height: $navbarHeight - 1px;
     color: #fff;
     list-style: none;
-    background: $navbarLight; // Basic background for old devices
-    @include background(
-    // Highlighting radial gradient.
-    // Light top, dark bottom
-    radial-gradient(center, ellipse cover, rgba(0,0,0,0), rgba(0,0,0,0.1)),
-    linear-gradient(top, $navbarDark, $navbarLight)
-    );
+    background: $pantone282; // Basic background for old devices
     body.is-sidebar-active & {
         left: $sidebar-width;
         @media #{$smartphone} {
@@ -53,33 +47,19 @@
         width: $navbarItemWidth;
         text-align: center;
 
-        // 3d effect by having a dark and light border on each item
-        border-left: $navbarBorderDark;
-
         a {
-            border-left: $navbarBorderLight;
             display: block;
             color: #fff;
             // Only style for the active pseudoclass on mobiles
             // Doesn't make sense to style hover since it isn't possible
             &:active {
-                @include box-shadow(0 0 $navbarItemWidth/2 #000 inset);
                 background: rgba(0,0,0,0.4);
             }
-            @media #{$small} {
-                // Style both hover and clicked pseudoclasses for larger devices
-                &:active, &:hover {@include box-shadow(0 0 $navbarItemWidth/2 #000 inset);}
-            }
         }
-
-        // Left hand button should not have the brighter border
-        &:first-child a { border-left: 0;}
 
         &#home, &#back {
             float: left;
             border: 0;
-            border-right: $navbarBorderLight;
-            a { border-right: $navbarBorderDark; }
         }
         &#title {
             float: left;
@@ -90,8 +70,8 @@
                 color: #fff;
                 // Set line-height to navbarHeight to give vertical alignment
                 line-height: $navbarHeight;
-                font-size: 1em;
-                font-weight: 600;
+                font-size: 1.2em;
+                font-weight: 400;
                 @include text-shadow(0 -1px 0 #000);
                 // Left spacing equivalent to font-size.
                 margin: auto 0 auto 1em;

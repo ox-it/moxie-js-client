@@ -4,58 +4,15 @@
     <description>Your university and city on the move</description>
     <author href="https://m.ox.ac.uk" email="mobileoxford@it.ox.ac.uk">Mobile Oxford team, IT Services, University of Oxford</author>
 
-    <!-- Restricting the build to iOS and Android only for now (hope to speed-up the build process) -->
-    <gap:platform name="ios" />
-    <gap:platform name="android" />
+    <!-- ios & android -->
+    <preference name="DisallowOverscroll" value="true"/>
 
-    <feature name="http://api.phonegap.com/1.0/geolocation"/>
-    <feature name="http://api.phonegap.com/1.0/network"/>
-    <feature name="http://api.phonegap.com/1.0/contacts"/>
-    <feature name="http://api.phonegap.com/1.0/notification"/>
+    <!-- ios -->
+    <preference name="ShowSplashScreenSpinner" value="false" />
 
-    <!-- Default icon -->
-    <icon src="mobile-oxford-logo.png" />
-
-    <icon src="images/icons/Icon.png" gap:platform="ios" width="57" height="57" />
-    <icon src="images/icons/Icon@2x.png" gap:platform="ios" width="114" height="114" />
-    <icon src="images/icons/Icon-60@2x.png" gap:platform="ios" width="120" height="120" />
-    <icon src="images/icons/Icon-60.png" gap:platform="ios" width="60" height="60" />
-    <icon src="images/icons/Icon-72@2x.png" gap:platform="ios" width="144" height="144" />
-    <icon src="images/icons/Icon-72.png" gap:platform="ios" width="72" height="72" />
-    <icon src="images/icons/Icon-76@2x.png" gap:platform="ios" width="152" height="152" />
-    <icon src="images/icons/Icon-76.png" gap:platform="ios" width="76" height="76" />
-
-    <preference name="phonegap-version" value="2.9.0" />
-    <preference name="prerendered-icon" value="true" />
-    <preference name="show-splash-screen-spinner" value="false" />
-
-    <!-- Google Analytics plugin -->
-    <gap:plugin name="com.adobe.plugins.gaplugin" version="2.1.5" />
-
-    <!-- Calendar plugin -->
-    <gap:plugin name="nl.x-services.plugins.calendar" version="1.0" />
-
-    <!-- Push notification plugin -->
-    <gap:plugin name="com.phonegap.plugins.pushplugin" version="1.3.7" />
-
-    <gap:splash src="mobile-oxford-splash.png" />
-
-    <gap:splash src="images/ios/mobile-oxford-splashscreen-320_480.png" gap:platform="ios" width="320" height="480" />
-    <gap:splash src="images/ios/mobile-oxford-splashscreen-640_960.png" gap:platform="ios" width="640" height="960" />
-    <gap:splash src="images/ios/mobile-oxford-splashscreen-640_1136.png" gap:platform="ios" width="640" height="1136" />
-    <gap:splash src="images/ios/mobile-oxford-splashscreen-1024_768.png" gap:platform="ios" width="1024" height="768" />
-    <gap:splash src="images/ios/mobile-oxford-splashscreen-768_1024.png" gap:platform="ios" width="768" height="1024" />
-    <gap:splash src="images/ios/mobile-oxford-splashscreen-1536_2048" gap:platform="ios" width="1536" height="2048" />
-    <gap:splash src="images/ios/mobile-oxford-splashscreen-2048_1536" gap:platform="ios" width="2048" height="1536" />
-<!--
-    <gap:splash src="images/android/drawable-mdpi/mobile_oxford_splash.9.png" gap:platform="android" gap:density="mdpi" />
-    <gap:splash src="images/android/drawable-hdpi/mobile_oxford_splash.9.png" gap:platform="android" gap:density="hdpi" />
-    <gap:splash src="images/android/drawable-xhdpi/mobile_oxford_splash.9.png" gap:platform="android" gap:density="xhdpi" />
--->
-    <gap:splash src="images/android/mdpi.png" gap:platform="android" gap:density="mdpi" />
-    <gap:splash src="images/android/hdpi.png" gap:platform="android" gap:density="hdpi" />
-    <gap:splash src="images/android/xhdpi.png" gap:platform="android" gap:density="xhdpi" />
-    <gap:splash src="images/android/ldpi.png" gap:platform="android" gap:density="ldpi" />
+    <!-- android -->
+    <preference name="android-targetSdkVersion" value="14" /> 
+    <preference name="SplashScreen" value="mobile_oxford_splash" />
 
     <access origin="http://new.m.ox.ac.uk" />
     <access origin="http://api.m.ox.ac.uk" />
