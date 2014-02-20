@@ -60,6 +60,9 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'core/views/ErrorView'
                             case '/university/building':
                                 alsoOccupies.push(child);
                                 break;
+                            case '/university/site':
+                                alsoOccupies.push(child);
+                                break;
                             case '/university/room':
                                 alsoOccupies.push(child);
                                 break;
