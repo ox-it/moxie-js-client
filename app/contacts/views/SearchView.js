@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'underscore', 'app', 'contacts/views/ResultItemView', 'hbs!contacts/templates/search'],
-    function($, Backbone, _, app, ResultItemView, searchTemplate){
+define(['jquery', 'backbone', 'underscore', 'app', 'cordova.help', 'contacts/views/ResultItemView', 'hbs!contacts/templates/search'],
+    function($, Backbone, _, app, cordova, ResultItemView, searchTemplate){
         var CONTACTS_SAVE_HELP = 'contacts-save-help';
         var SearchView = Backbone.View.extend({
 
@@ -46,12 +46,12 @@ define(['jquery', 'backbone', 'underscore', 'app', 'contacts/views/ResultItemVie
                 }
                 var showHelpNative = false;
                 var showHelpDataUri = false;
-                if (has_results && app.isCordova()) {
+                if (has_results && cordova.isCordova()) {
                     showHelpNative = !app.helpMessages.getSeen(CONTACTS_SAVE_HELP);
                     if (showHelpNative) {
                         app.helpMessages.setSeen(CONTACTS_SAVE_HELP);
                     }
-                } else if (has_results && !app.isCordova()) {
+                } else if (has_results && !cordova.isCordova()) {
                     showHelpDataUri = !app.helpMessages.getSeen(CONTACTS_SAVE_HELP);
                     if (showHelpDataUri) {
                         app.helpMessages.setSeen(CONTACTS_SAVE_HELP);

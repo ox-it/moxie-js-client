@@ -5,6 +5,12 @@
 // This relates to how the sidebar operates
 // This requires #navbar to be position: relative;, but a bug causes this to fail
 // when animations are included.
+
+// NOTE: we set a min-height so the sidebar background is visible even when
+//       scrolling on devices with a small resolution.
+// NOTE: Adding new elements to the sidebar means this min-height should be increased
+$sidebar-min-height: 515px;
+
 #main, #sidebar {
     position: relative;
     @if $animations-enabled == true {
@@ -18,7 +24,7 @@
     margin-left: 0;
     float: right;
     z-index: 1;
-    body.is-sidebar-active & {
+    html.is-sidebar-active > body & {
         position: fixed;
         left: $sidebar-width;
         @media #{$smartphone} {
@@ -40,8 +46,9 @@
     float: left;
     z-index: 3;
     border-right: 1px solid #444;
+    min-height: $sidebar-min-height;
     @include box-shadow(0 0 5px #000);
-    body.is-sidebar-active & {
+    html.is-sidebar-active > body & {
         display: inline;
         margin-left: 0;
     }
@@ -58,7 +65,7 @@
         width: 100%;
         @include transition($sidebar-animation-time all ease-out);
     }
-    body.is-sidebar-active & {
+    html.is-sidebar-active > body & {
         display: inline;
         position: fixed;
         top: 0px;
