@@ -39,10 +39,15 @@
 // Colours for each application
 $todayColor: $pantone7412;
 
-html, body { height: 100%; }
+// When either sidebar (menu) or main map is visible we are a fullscreen app
+html.is-sidebar-active, html.is-sidebar-active > body { height: 100%; }
+html.map, html.map > body { height: 100%; }
+
 body {
     overflow-x: hidden;
     background: $body-background;
+    top: 0;
+    bottom: 0;
     width: 100%;
 }
 
