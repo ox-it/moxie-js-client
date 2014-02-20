@@ -1,4 +1,4 @@
-define(['backbone', 'leaflet', 'underscore', 'moxie.conf', 'places/utils', 'moxie.position', 'core/media'], function(Backbone, L, _, MoxieConf, utils, userPosition, media) {
+define(['backbone', 'jquery', 'leaflet', 'underscore', 'moxie.conf', 'places/utils', 'moxie.position', 'core/media'], function(Backbone, $, L, _, MoxieConf, utils, userPosition, media) {
     var MapView = Backbone.View.extend({
         initialize: function(options) {
             this.options = options || {};
@@ -12,6 +12,7 @@ define(['backbone', 'leaflet', 'underscore', 'moxie.conf', 'places/utils', 'moxi
         id: "map",
 
         beforeRender: function() {
+            $('html').addClass('map');
             var mapOptions = {};
             if (!this.interactiveMap) {
                  mapOptions.dragging = false;
@@ -150,6 +151,7 @@ define(['backbone', 'leaflet', 'underscore', 'moxie.conf', 'places/utils', 'moxi
         },
 
         cleanup: function() {
+            $('html').removeClass('map');
             this.unsetCollection();
             userPosition.unfollow(this.handle_geolocation_query, this);
         }
