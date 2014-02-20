@@ -24,7 +24,7 @@ require(['jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'ga', 'push',
         // Some simple events called on the default index page -- mostly for the sidebar menu
         $('#home a').click(function(ev) {
             ev.preventDefault();
-            $('body').toggleClass('is-sidebar-active');
+            $('html').toggleClass('is-sidebar-active');
             return false;
         });
         $('#back a').click(function(ev) {
@@ -33,7 +33,7 @@ require(['jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'ga', 'push',
             return false;
         });
         $('.overlay, #sidebar a').click(function(ev) {
-            $('body').toggleClass('is-sidebar-active');
+            $('html').toggleClass('is-sidebar-active');
         });
         // Include FastClick, this removes a 300ms touch event delay
         new FastClick(document.body);
