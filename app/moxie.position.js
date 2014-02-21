@@ -67,7 +67,7 @@ define(["underscore", "backbone", "moxie.conf", "cordova.help"], function(_, Bac
                 locationError.apply(this);
             }
         }
-        var count = 0;
+        var followerCount = 0;
         this.follow = function(cb, context) {
             context = context || this;
             if (!positionInterval) {
@@ -75,7 +75,7 @@ define(["underscore", "backbone", "moxie.conf", "cordova.help"], function(_, Bac
                 startWatching.apply(this);
             }
             this.on(EVENT_POSITION_UPDATED, cb, context);
-            this.count++;
+            followerCount++;
             // Send user latest userPosition (not default)
             if (latestPosition) {
                 cb.apply(context, [latestPosition]);
@@ -87,8 +87,8 @@ define(["underscore", "backbone", "moxie.conf", "cordova.help"], function(_, Bac
             } else {
                 this.off(EVENT_POSITION_UPDATED, cb);
             }
-            this.count--;
-            if (this.count === 0) {
+            followerCount--;
+            if (followerCount === 0) {
                 window.clearInterval(positionInterval);
             }
         };
