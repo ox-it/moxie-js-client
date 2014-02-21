@@ -1,10 +1,9 @@
-define(['backbone', 'jquery', 'leaflet', 'underscore', 'moxie.conf', 'places/utils', 'moxie.position', 'core/media'], function(Backbone, $, L, _, MoxieConf, utils, userPosition, media) {
+define(['backbone', 'jquery', 'leaflet', 'underscore', 'moxie.conf', 'places/utils', 'core/media'], function(Backbone, $, L, _, MoxieConf, utils, media) {
     var MapView = Backbone.View.extend({
         initialize: function(options) {
             this.options = options || {};
             this.interactiveMap = this.options.interactiveMap || media.isTablet();
             this.markers = [];
-            this.userPosition = null;
         },
 
         attributes: {},
@@ -38,7 +37,6 @@ define(['backbone', 'jquery', 'leaflet', 'underscore', 'moxie.conf', 'places/uti
                     this.trigger('mapClick');
                 }, this);
             }
-            userPosition.follow(this.handle_geolocation_query, this);
             return this;
         },
 
@@ -182,7 +180,6 @@ define(['backbone', 'jquery', 'leaflet', 'underscore', 'moxie.conf', 'places/uti
         cleanup: function() {
             $('html').removeClass('map');
             this.unsetCollection();
-            userPosition.unfollow(this.handle_geolocation_query, this);
         }
     });
     MapView.extend(Backbone.Events);

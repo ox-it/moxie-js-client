@@ -1,17 +1,28 @@
-define(['backbone', 'core/views/MapView', 'hbs!core/templates/map-browse'], function(Backbone, MapView, mapBrowseTemplate) {
+define(['backbone', 'moxie.position', 'core/views/MapView', 'hbs!core/templates/map-browse'], function(Backbone, userPosition, MapView, mapBrowseTemplate) {
 
     var MapBrowseLayout = Backbone.View.extend({
         manage: true,
         template: mapBrowseTemplate,
         className: 'map-browse-layout',
         name: 'MapBrowseLayout',
+        followByDefault: false,
         events: {
             'click .btn-toggle-browse': 'toggleBrowse',
+            'click .btn-toggle-location': 'toggleLocation',
         },
 
         toggleBrowse: function() {
             this.$el.toggleClass('with-browse');
             this.mapView.invalidateMapSize();
+        },
+        toggleLocation: function() {
+            if (this.followingUser) {
+                userPosition.unfollow(this.mapView.handle_geolocation_query, this.mapView);
+                this.followingUser = false;
+            } else {
+                userPosition.follow(this.mapView.handle_geolocation_query, this.mapView);
+                this.followingUser = true;
+            }
         },
 
         // Previously we set this view in 'views' this is WRONG
@@ -23,6 +34,12 @@ define(['backbone', 'core/views/MapView', 'hbs!core/templates/map-browse'], func
         beforeRender: function() {
             this.mapView = new MapView();
             this.setView(".content-map", this.mapView);
+        },
+        afterRender: function() {
+            if (this.followByDefault) {
+                userPosition.follow(this.mapView.handle_geolocation_query, this.mapView);
+                this.followingUser = true;
+            }
         },
         removeDetail: function() {
             this.$el.removeClass('with-detail');
