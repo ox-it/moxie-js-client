@@ -17,7 +17,9 @@ define(['backbone', 'jquery', 'leaflet', 'underscore', 'moxie.conf', 'places/uti
 
         beforeRender: function() {
             $('html').addClass('map');
-            var mapOptions = {};
+            var mapOptions = {
+                zoomControl: false
+            };
             if (!this.interactiveMap) {
                  mapOptions.dragging = false;
                  mapOptions.touchZoom = false;
