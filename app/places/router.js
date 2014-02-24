@@ -7,6 +7,7 @@ define(["app", "underscore", "backbone", "places/models/POIModel", "places/views
 
         initialize: function(options) {
             options = options || {};
+            this.followUser = options.followUser;
             this.urlPrefix = options.urlPrefix || '#places/';
         },
 
@@ -47,7 +48,11 @@ define(["app", "underscore", "backbone", "places/models/POIModel", "places/views
             var layout = app.getLayout('MapBrowseLayout');
             layout.removeDetail();
             layout.withBrowse();
-            var searchView = new SearchView({collection: pois, urlPrefix: this.urlPrefix});
+            var searchView = new SearchView({
+                collection: pois,
+                urlPrefix: this.urlPrefix,
+                followUser: this.followUser
+            });
             layout.setView('.content-browse', searchView);
             var mapView = layout.getView('.content-map');
             mapView.setCollection(pois);

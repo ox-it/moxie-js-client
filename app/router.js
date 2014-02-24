@@ -78,7 +78,7 @@ define(["app", "cordova.help", "backbone", "places/router", "today/views/IndexVi
         placesModule: function(subroute) {
             if (!this.subrouters.Places) {
                 var PlacesSubRouter = Backbone.SubRoute.extend(PlacesRouter);
-                this.subrouters.Places = new PlacesSubRouter('places', {createTrailingSlashRoutes: true});
+                this.subrouters.Places = new PlacesSubRouter('places', {createTrailingSlashRoutes: true, followUser: true});
             }
         },
         coursesModule: function(subroute) {
