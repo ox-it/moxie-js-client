@@ -1,9 +1,12 @@
 define(["underscore", "backbone", "moxie.conf", "cordova.help"], function(_, Backbone, conf, cordova){
     var EVENT_POSITION_UPDATED = 'position:updated';
+    var EVENT_POSITION_PAUSED = 'position:paused';
+    var EVENT_POSITION_UNPAUSED = 'position:unpaused';
     function UserPosition() {
         _.extend(this, Backbone.Events);
         var supportsGeoLocation = Boolean(navigator.geolocation),
             latestPosition = null,
+            positionPaused = false,
             positionInterval;
         this.getCurrentLocation = function() {
             // This is used in lieu of conf.defaultLocation as it
@@ -52,7 +55,11 @@ define(["underscore", "backbone", "moxie.conf", "cordova.help"], function(_, Bac
 
         };
         function locationSuccess(position) {
-            this.trigger(EVENT_POSITION_UPDATED, position);
+            if (positionPaused) {
+                console.log("Position captured whilst paused. Callback not fired.");
+            } else {
+                this.trigger(EVENT_POSITION_UPDATED, position);
+            }
         }
         function locationError(err) {
             if ('console' in window) {
@@ -62,7 +69,7 @@ define(["underscore", "backbone", "moxie.conf", "cordova.help"], function(_, Bac
         function startWatching() {
             if (supportsGeoLocation) {
                 this.getLocation(_.bind(locationSuccess, this));
-                positionInterval = window.setInterval(this.getLocation, conf.position.updateInterval, _.bind(locationSuccess, this));
+                this.positionInterval = window.setInterval(this.getLocation, conf.position.updateInterval, _.bind(locationSuccess, this));
             } else {
                 locationError.apply(this);
             }
@@ -70,7 +77,7 @@ define(["underscore", "backbone", "moxie.conf", "cordova.help"], function(_, Bac
         var followerCount = 0;
         this.follow = function(cb, context) {
             context = context || this;
-            if (!positionInterval) {
+            if (!positionPaused && !this.positionInterval) {
                 // Call the "private" function with the correct context
                 startWatching.apply(this);
             }
@@ -89,8 +96,23 @@ define(["underscore", "backbone", "moxie.conf", "cordova.help"], function(_, Bac
             }
             followerCount--;
             if (followerCount === 0) {
-                window.clearInterval(positionInterval);
+                window.clearInterval(this.positionInterval);
             }
+        };
+        this.toggleWatching = function() {
+            // Pauses all listening on position changes
+            if (this.positionInterval) {
+                window.clearInterval(this.positionInterval);
+                this.positionInterval = null;
+                positionPaused = true;
+                this.trigger(EVENT_POSITION_PAUSED);
+            } else if (followerCount !==0) {
+                // Set positionPaused first so we actually start following
+                positionPaused = false;
+                startWatching.apply(this);
+                this.trigger(EVENT_POSITION_UNPAUSED);
+            }
+            return positionPaused;
         };
     }
     return new UserPosition();
