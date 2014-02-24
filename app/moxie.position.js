@@ -67,6 +67,7 @@ define(["underscore", "backbone", "moxie.conf", "cordova.help"], function(_, Bac
             }
         }
         function startWatching() {
+            this.trigger(EVENT_POSITION_UNPAUSED);
             if (supportsGeoLocation) {
                 this.getLocation(_.bind(locationSuccess, this));
                 this.positionInterval = window.setInterval(this.getLocation, conf.position.updateInterval, _.bind(locationSuccess, this));
