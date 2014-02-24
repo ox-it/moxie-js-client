@@ -54,6 +54,18 @@
 	<div class="metadata-buttons">
 		{{#if poi.phone}}<a class="action-button tel" href="tel:{{ poi.phone }}">{{ poi.phone }}</a>{{/if}}
 		{{#if poi.website}}<a class="action-button web" href="{{ poi.website }}" target="_blank">Website</a>{{/if}}
+        {{#libraries}}
+            <a class="action-button ss-book" href="#{{ href }}" title="{{ title }}">{{ title }}</a>
+        {{/libraries}}
+	</div>
+
+    <div class="metadata-buttons">
+        {{#if poi.social_twitter }}
+            <a class="action-button ss-umbrella" href="{{ poi.social_twitter }}">Twitter</a>
+        {{/if}}
+        {{#if poi.social_facebook }}
+            <a class="action-button ss-umbrella" href="{{ poi.social_facebook }}">Facebook</a>
+        {{/if}}
 	</div>
 
     {{#if poi.library_opening_hours_termtime }}
@@ -93,17 +105,29 @@
 
 	{{! Links to parents and children }}
 	<dl>
-	{{#if poi._links.parent}}
-		<dt>Contained by</dt>
+	{{#if parent}}
+		<dt>{{ parent_name }}</dt>
 		<dd>
-			<a href="#{{ poi._links.parent.href }}">{{ poi._links.parent.title }} {{#if poi._links.parent.type_name}}({{ poi._links.parent.type_name }}){{/if}}</a>
+			<a href="#{{ parent.href }}">{{ parent.title }}</a>
 		</dd>
 	{{/if}}
-	{{#if poi._links.child}}
-		<dt>Contains</dt>
-		{{#poi._links.child}}
+    {{#if alsoOccupies}}
+		<dt>Also occupies</dt>
+		{{#alsoOccupies}}
 		<dd><a href="#{{ href }}" title="{{ title }}">{{ title }}</a></dd>
-		{{/poi._links.child}}
-	{{/if}}
+		{{/alsoOccupies}}
+    {{/if}}
+    {{#if organisations}}
+		<dt>Sub organisations</dt>
+		{{#organisations}}
+		<dd><a href="#{{ href }}" title="{{ title }}">{{ title }}</a></dd>
+		{{/organisations}}
+    {{/if}}
+    {{#if contains}}
+		<dt>Contains</dt>
+		{{#contains}}
+		<dd><a href="#{{ href }}" title="{{ title }}">{{ title }}</a></dd>
+		{{/contains}}
+    {{/if}}
 	</dl>
 </div>
