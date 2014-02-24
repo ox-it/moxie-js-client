@@ -16,12 +16,11 @@ define(['backbone', 'moxie.position', 'core/views/MapView', 'hbs!core/templates/
             this.mapView.invalidateMapSize();
         },
         toggleLocation: function() {
-            if (this.followingUser) {
-                userPosition.unfollow(this.mapView.handle_geolocation_query, this.mapView);
-                this.followingUser = false;
-            } else {
+            if (!this.followingUser) {
                 userPosition.follow(this.mapView.handle_geolocation_query, this.mapView);
                 this.followingUser = true;
+            } else {
+                userPosition.toggleWatching();
             }
         },
 
