@@ -59,13 +59,13 @@ define(['jquery', 'backbone', 'underscore', 'core/views/MapBrowseLayout', 'favou
             this.currentLayout.render();
         },
 
-        getLayout: function(name) {
+        getLayout: function(name, options) {
             if (this.currentLayout && this.currentLayout.name === name) {
                 return this.currentLayout;
             } else {
                 if (this.layouts[name]) {
                     var RequestedLayout = this.layouts[name];
-                    var layout = new RequestedLayout();
+                    var layout = new RequestedLayout(options);
                     this.renderView(layout);
                     return layout;
                 } else {

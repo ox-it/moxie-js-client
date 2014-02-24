@@ -30,7 +30,7 @@ define(["app", "underscore", "backbone", "places/models/POIModel", "places/views
                 category_name: category_name,
                 urlPrefix: this.urlPrefix
             });
-            var layout = app.getLayout('MapBrowseLayout');
+            var layout = app.getLayout('MapBrowseLayout', {followUser: this.followUser});
             layout.withBrowse();
             layout.setView('.content-browse', categoriesView);
             categoriesView.render();
@@ -45,7 +45,7 @@ define(["app", "underscore", "backbone", "places/models/POIModel", "places/views
                 pois.reset();
                 pois.geoFetch();
             }
-            var layout = app.getLayout('MapBrowseLayout');
+            var layout = app.getLayout('MapBrowseLayout', {followUser: this.followUser});
             layout.removeDetail();
             layout.withBrowse();
             var searchView = new SearchView({
@@ -71,7 +71,7 @@ define(["app", "underscore", "backbone", "places/models/POIModel", "places/views
         },
 
         showDetail: function(poi, showBrowse) {
-            var layout = app.getLayout('MapBrowseLayout');
+            var layout = app.getLayout('MapBrowseLayout', {followUser: this.followUser});
             if (media.isPhone() || !showBrowse) {
                 layout.removeBrowse();
                 if (!showBrowse) {
