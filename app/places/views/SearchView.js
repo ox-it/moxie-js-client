@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'places/views/ItemView', 'hbs!places/templates/search', 'core/views/InfiniteScrollView'],
-    function($, Backbone, _, MoxieConf, ItemView, searchTemplate, InfiniteScrollView){
+define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'places/views/ItemView', 'hbs!places/templates/search', 'core/views/InfiniteScrollView', 'moxie.position'],
+    function($, Backbone, _, MoxieConf, ItemView, searchTemplate, InfiniteScrollView, userPosition){
 
     var SearchView = InfiniteScrollView.extend({
 
@@ -7,7 +7,11 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'places/views/ItemView
         initialize: function() {
             _.bindAll(this);
             this.urlPrefix = this.options.urlPrefix;
-            this.collection.followUser();
+            if (this.options.followUser) {
+                this.collection.followUser();
+            } else {
+                userPosition.once('position:unpaused', this.collection.followUser, this.collection);
+            }
             this.collection.on("reset", this.render, this);
             this.collection.on("add", this.addResult, this);
         },
