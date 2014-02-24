@@ -1,4 +1,4 @@
-define(['backbone', 'jquery', 'leaflet', 'underscore', 'moxie.conf', 'places/utils', 'core/media'], function(Backbone, $, L, _, MoxieConf, utils, media) {
+define(['backbone', 'jquery', 'leaflet', 'underscore', 'moxie.conf', 'places/utils', 'core/media', 'moxie.position'], function(Backbone, $, L, _, MoxieConf, utils, media, userPosition) {
     var MapView = Backbone.View.extend({
         initialize: function(options) {
             this.options = options || {};
@@ -47,6 +47,13 @@ define(['backbone', 'jquery', 'leaflet', 'underscore', 'moxie.conf', 'places/uti
             this.invalidateMapSize();
             this.map.on('dragstart', function() {
                 this.mapMoved = true;
+            }, this);
+            userPosition.on('position:paused', function() {
+                this.user_position = null;
+                if (this.user_marker) {
+                    this.map.removeLayer(this.user_marker);
+                    this.setMapBounds();
+                }
             }, this);
         },
 
