@@ -1,4 +1,5 @@
 @import "globals/variables";
+@import "globals/oxford-palette";
 
 /* Content is a container for two child divs
     .content-browse which typically contains a scrolling list container
@@ -21,6 +22,7 @@
         height: 100%;
         background: $body-background;
         -webkit-overflow-scrolling: touch;
+        border-right: 1px solid #bbb;
     }
 
     .map-browse-layout {
@@ -31,31 +33,35 @@
     }
 
     .btn-toggle-browse {
-        background: $body-background;
+        &:before{content:'▻'}
+        background: $pantone282;
+        color: $body-background;
         display: inline-block;
-        z-index: 10000;
+        z-index: 10001;
         position: absolute;
         left: 0px;
-        top: 200px;
+        top: $mapHeight - 40px;
         width: 30px;
-        height: 30px;
-        @media #{$smartphone} {
-            top: $mapHeight - 30px;
-        }
+        height: 40px;
+        line-height: 45px;
+        text-align: center;
+        font-size: 1.6em;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        box-shadow: 1px 0px 4px #444;
+    }
+
+    .btn-toggle-location {
+        display: none;
     }
 
     .map-browse-layout {
         &.with-browse {
-            .btn-toggle-browse {
+            .btn-toggle-browse:before{content:'◅'}
+            .content-browse, .btn-toggle-location, .btn-toggle-browse {
                 left: 30%;
                 @media #{$smartphone} {
                     left: 85%;
-                }
-            }
-            .content-browse {
-                width: 30%;
-                @media #{$smartphone} {
-                    width: 85%;
                 }
             }
             .content-main {
@@ -66,6 +72,13 @@
             }
         }
         &.with-detail {
+            .btn-toggle-location {
+                bottom: 40%;
+                @media #{$smartphone} {
+                    top: $mapHeight - 30px;
+                    bottom: auto;
+                }
+            }
             .content-map {
                 height: 60%;
                 @media #{$smartphone} {
