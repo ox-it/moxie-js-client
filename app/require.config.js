@@ -57,6 +57,9 @@ var require = {
         "leaflet": {
             "exports": "L"
         },
+        "wellknown": {
+            "exports": "parse"
+        },
         "time_domain": {
             "exports": "TimeDomain"
         },
