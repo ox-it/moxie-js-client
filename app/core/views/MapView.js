@@ -3,7 +3,7 @@ define(['backbone', 'jquery', 'leaflet', 'underscore', 'moxie.conf', 'places/uti
         initialize: function(options) {
             this.options = options || {};
             this.interactiveMap = this.options.interactiveMap || media.isTablet();
-            this.markers = [];
+            this.features = [];
         },
 
         attributes: {},
@@ -84,7 +84,7 @@ define(['backbone', 'jquery', 'leaflet', 'underscore', 'moxie.conf', 'places/uti
             if (!this.user_position) {
                 firstPosition = true;
             }
-            // Only update the markers if the user position changes (useful for desktops)
+            // Only update the features if the user position changes (useful for desktops)
             if (this.user_position && this.user_position[0] === position.coords.latitude && this.user_position[1] === position.coords.longitude)  {
                 return;
             }
@@ -107,29 +107,23 @@ define(['backbone', 'jquery', 'leaflet', 'underscore', 'moxie.conf', 'places/uti
         },
 
         placePOI: function(poi) {
-            if (poi.hasLocation()) {
-                var latlng = new L.LatLng(poi.get('lat'), poi.get('lon'));
-                var marker;
-                if ('getIcon' in poi) {
-                    marker = new L.marker(latlng, {title: poi.get('name'), icon: poi.getIcon()});
-                } else {
-                    marker = new L.marker(latlng, {title: poi.get('name')});
-                }
+            var feature = poi.getMapFeature();
+            if (feature) {
                 if (this.options.fullScreen && this.interactiveMap) {
                     // Phone View
-                    marker.on('click', function(ev) {
+                    feature.on('click', function(ev) {
                         Backbone.history.navigate('#/places/'+poi.id, {trigger: true, replace: false});
                     });
                 } else {
                     // Tablet View
-                    marker.on('click', _.bind(function(ev) {
+                    feature.on('click', _.bind(function(ev) {
                         var highlighted = this.collection.findWhere({'highlighted': true});
                         if (highlighted) { highlighted.set('highlighted', false); }
                         poi.set('highlighted', true);
                     }, this));
                 }
-                this.map.addLayer(marker);
-                this.markers.push(marker);
+                this.map.addLayer(feature);
+                this.features.push(feature);
             }
         },
 
@@ -174,12 +168,12 @@ define(['backbone', 'jquery', 'leaflet', 'underscore', 'moxie.conf', 'places/uti
         },
 
         resetMapContents: function(ev){
-            // Remove the existing map markers
-            _.each(this.markers, function(marker) {
+            // Remove the existing map features
+            _.each(this.features, function(marker) {
                 this.map.removeLayer(marker);
             }, this);
-            // Create new list of markers from search results
-            this.markers = [];
+            // Create new list of features from search results
+            this.features = [];
             this.collection.each(this.placePOI, this);
             this.setMapBounds();
         },
