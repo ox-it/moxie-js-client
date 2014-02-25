@@ -26,6 +26,7 @@ var require = {
         "modernizr": "libs/modernizr",
         "foundation": "libs/foundation/foundation",
         "foundation.tooltips": "libs/foundation/foundation.tooltips",
+        "wellknown": "libs/wellknown",
 
         // Testing libs
         "jasmine": "tests/libs/jasmine-1.3.1/jasmine",
@@ -55,6 +56,9 @@ var require = {
         },
         "leaflet": {
             "exports": "L"
+        },
+        "wellknown": {
+            "exports": "parse"
         },
         "time_domain": {
             "exports": "TimeDomain"
