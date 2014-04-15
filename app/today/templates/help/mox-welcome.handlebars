@@ -1,0 +1,14 @@
+    <div class="today help">
+        <p>Welcome to Mobile Oxford</p>
+        <p>Find places around town, search the libraries and get live transport information.</p>
+        <p>Press <i class="ss-standard ss-rows"></i> to get started.</p>
+        {{#unless cordova}}
+        {{#unless iOS}}
+        <hr/>
+        <a href="https://play.google.com/store/apps/details?id=uk.ac.ox.it.mobileoxford" target="_blank"><img alt="Get it on Google Play" class="app-badge" src="badges/android.png"></a>
+        {{#unless android}}
+        <a href="https://itunes.apple.com/gb/app/mobile-oxford/id734443291?mt=8" target="_blank"><img alt="Download on the App Store" class="app-badge" src="badges/ios.png"></a>
+        {{/unless}}
+        {{/unless}}
+        {{/unless}}
+    </div>
