@@ -8,9 +8,18 @@
 }
 .today.help {
     @include border-radius(5px);
-    padding: 20px;
-    padding-bottom: 0px;
+    padding: 15px;
     background-color: $pantone549;
     color: #fff;
     font-size: 1.3em;
+    .app-badge {
+        margin-right: 12px;
+    }
+    .app-badge:last-child {
+        margin-right: 0;
+    }
+    p {
+        line-height: 1.5em;
+        margin-bottom: 0.5em;
+    }
 }
