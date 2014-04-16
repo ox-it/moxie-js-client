@@ -47,7 +47,7 @@ define(['backbone', 'underscore', 'app', 'cordova.help', 'hbs!today/templates/in
         getHelpMessage: function() {
             var helpContext = {
                 cordova: cordova.isCordova(),
-                iOS: ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i))),
+                iOS: ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPad/i)) || (navigator.userAgent.match(/iPod/i))),
                 android: navigator.userAgent.match(/Android/i),
             };
             var helpMessage = _.find(this.helpMessages, function(helpMessage) {
