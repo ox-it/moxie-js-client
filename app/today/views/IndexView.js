@@ -1,5 +1,4 @@
-define(['backbone', 'underscore', 'app', 'cordova.help', 'hbs!today/templates/index'], function(Backbone, _, app, cordova, indexTemplate){
-    var TODAY_WELCOME_KEY = 'today-welcome';
+define(['backbone', 'underscore', 'app', 'cordova.help', 'hbs!today/templates/index', 'hbs!today/templates/help/mox-welcome', 'hbs!today/templates/help/today-welcome'], function(Backbone, _, app, cordova, indexTemplate, helpMox, helpToday){
     var IndexView = Backbone.View.extend({
         // This view handles the "cards" on the home screen
         // Cards are views with models in this.collection
@@ -37,9 +36,29 @@ define(['backbone', 'underscore', 'app', 'cordova.help', 'hbs!today/templates/in
                     this.insertView('.card-container', new model.View({model: model}));
                 }
             }, this);
-
             Backbone.trigger('domchange:title', "Today");
         },
+
+        // Messages are listed in the order we want them to appear
+        helpMessages: [
+            {key: "mox-welcome", template: helpMox},
+            {key: "today-welcome", template: helpToday},
+        ],
+        getHelpMessage: function() {
+            var helpContext = {
+                cordova: cordova.isCordova(),
+                iOS: ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPad/i)) || (navigator.userAgent.match(/iPod/i))),
+                android: navigator.userAgent.match(/Android/i),
+            };
+            var helpMessage = _.find(this.helpMessages, function(helpMessage) {
+                return !app.helpMessages.getSeen(helpMessage.key);
+            });
+            if (helpMessage) {
+                helpMessage.context = helpContext;
+                return helpMessage;
+            }
+        },
+
         afterRender: function() {
             if (cordova.isCordova()) {
                 cordova.onAppReady(function() {
@@ -51,15 +70,19 @@ define(['backbone', 'underscore', 'app', 'cordova.help', 'hbs!today/templates/in
                     }
                 });
             }
-            app.helpMessages.setSeen(TODAY_WELCOME_KEY);
+            var helpMessage = this.getHelpMessage();
+            if (helpMessage) {
+                this.$('.help-container').html(helpMessage.template(helpMessage.context));
+                app.helpMessages.setSeen(helpMessage.key);
+            }
         },
         manage: true,
         template: indexTemplate,
         serialize: function() {
-            return {
-                seenHelp: app.helpMessages.getSeen(TODAY_WELCOME_KEY),
+            var context = {
                 connectionAvailable: cordova.isOnline(),
             };
+            return context;
         },
         cleanup: function() {
             this.collection.off('sync');
