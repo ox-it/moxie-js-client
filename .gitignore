@@ -8,9 +8,6 @@ css/app.css
 css/components/*
 css/globals/*
 
-# Fonts
-webfonts/*
-
 # Minified JS
 app/main-built.js
 
