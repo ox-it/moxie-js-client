@@ -1,8 +1,8 @@
 define(['jquery', 'backbone', 'underscore', 'moxie.conf'],
     function($, Backbone, _, conf) {
-        var standardClass = 'ss-standard',
-            favouriteClass = 'ss-star',
-            favouritedClass = 'favourited';
+        var standardClass = 'fa',
+            favouriteClass = 'fa-star-o',
+            favouritedClass = 'fa-star favourited';
         var FavouriteButtonView = Backbone.View.extend({
             initialize: function() {
                 this.collection.on("reset remove add", this.updateButton, this);
@@ -42,7 +42,9 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf'],
                 this.collection.remove(favourite);
             },
             updateButton: function() {
-                this.$el.toggleClass(favouritedClass, this.collection.currentPageFavourited());
+                var favourited = this.collection.currentPageFavourited();
+                this.$el.toggleClass(favouriteClass, !favourited);
+                this.$el.toggleClass(favouritedClass, favourited);
             },
             cleanup: function() {
                 $(window).off("hashchange.FavouriteButton");

@@ -24,7 +24,7 @@
             padding: 0px 0px;
             // Makes the map scroll with the list
             height: 100%;
-            overflow-y: scroll;
+            overflow-y: auto;
         }
     }
 
@@ -67,15 +67,11 @@
 
         span.deleteicon {
             display: block;
-            line-height: 9px;
             position: absolute;
             right: 15px;
             top: 15px;
-            padding: 4px 4px 2px 4px;
-            @include border-radius(30px);
-            font-size: 9px;
-            color: #fff;
-            background: #ccc;
+            font-size: 1.25em;
+            color: #ccc;
             cursor: pointer;
         }
     }

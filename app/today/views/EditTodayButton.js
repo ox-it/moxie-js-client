@@ -2,7 +2,7 @@ define(['backbone'], function(Backbone) {
     var EditTodayButton = Backbone.View.extend({
         manage: true,
         attributes: {
-            'class': 'ss-standard ss-settings',
+            'class': 'fa fa-cog',
             'href': '#/today/edit',
         },
         tagName: 'a',
