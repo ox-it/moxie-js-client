@@ -27,7 +27,7 @@ The Build
 
    ``bundle install --path .bundle`` and run the SASS compiler with ``bundle exec compass compile`` or watch for changes: ``bundle exec compass watch``
 
-**Webfonts:** Whilst not a requirement, this project uses [Symbolset's](https://symbolset.com/) 'standard' vector icons which provide smooth scaling and semantic markup. If you wish to use these, please buy a copy and place the `webfonts` folder in the root of the repository. If not, the site will still display, but you will have text displayed instead of icons. 
+**Webfonts:** We use [font-awesome](http://fortawesome.github.io/Font-Awesome/) for our icons. See the submodule in webfonts/font-awesome for details and license information.
 
 **JavaScript:** Minification is handled by UglifyJS by way of r.js. This correctly walks our dependency graph and will only minify files which are used. So install r.js `npm install -g requirejs` and optimise:
 

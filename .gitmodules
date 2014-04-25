@@ -1,0 +1,6 @@
+[submodule "webfonts/font-awesome"]
+	path = webfonts/font-awesome
+	url = https://github.com/FortAwesome/Font-Awesome.git
+[submodule "webfonts/weather-icons"]
+	path = webfonts/weather-icons
+	url = https://github.com/erikflowers/weather-icons.git

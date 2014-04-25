@@ -23,13 +23,3 @@
 @mixin free-text {
 	padding: $standard-page-padding;
 }
-
-@mixin symbolset {
-	font-family: "SSStandard";
-}
-
-@mixin symbolset-icon-before {
-	@include symbolset();
-	font-size: 11px;
-	padding-right: 8px;
-}

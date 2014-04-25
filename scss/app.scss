@@ -139,7 +139,8 @@ img.preloader {
                 @include border-radius(0 0 2px 2px);
                 border-bottom: 0;
             }
-            a.ss-standard:before {
+            a>.fa:before {
+                font-family: FontAwesome;
                 position: absolute;
                 right: 7px;
                 line-height: 42px;

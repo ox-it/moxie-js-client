@@ -1,9 +1,9 @@
 define(['jquery', 'backbone', 'underscore', 'moxie.conf'],
     function($, Backbone, _, conf) {
-        var standardClass = 'ss-standard',
-            disabledClass = 'ss-writingdisabled',
-            editClass = 'ss-write',
-            saveClass = 'ss-check';
+        var standardClass = 'fa',
+            disabledClass = 'writingdisabled',
+            editClass = 'fa-pencil',
+            saveClass = 'fa-check';
         var FavouritesEditButtonView = Backbone.View.extend({
             initialize: function(options) {
                 options = options || {};

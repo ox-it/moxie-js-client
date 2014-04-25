@@ -1,37 +1,37 @@
 define(['MoxieModel', 'underscore', 'moxie.conf', 'today/views/WeatherCard', 'moment'], function(MoxieModel, _, conf, WeatherCard, moment) {
     var ssCSSClasses = {
-        'NA': 'ss-clouds',
-        'ukn': 'ss-clouds',
-        'cs': 'ss-cloudynight',
-        's': 'ss-sun',
-        'pc': 'ss-partlycloudy',
-        'si': 'ss-partlycloudy',
-        'm': 'ss-haze',
-        'f': 'ss-fog',
-        'gc': 'ss-clouds',
-        'lr': 'ss-rain',
-        'lrs': 'ss-rain',
-        'd': 'ss-rain',
-        'hr': 'ss-heavyrain',
-        'h': 'ss-hail',
-        'lsn': 'ss-rainsnow',
-        'hsn': 'ss-snow',
-        'tst': 'ss-thunderstorm',
-        'tsh': 'ss-thunderstorm',
+        'NA': 'wi-cloudy',
+        'ukn': 'wi-cloudy',
+        'cs': 'wi-night-clear',
+        's': 'wi-day-sunny',
+        'pc': 'wi-night-cloudy',
+        'si': 'wi-day-cloudy',
+        'm': 'wi-fog',
+        'f': 'wi-fog',
+        'gc': 'wi-cloudy',
+        'lr': 'wi-rain-mix',
+        'lrs': 'wi-rain-mix',
+        'd': 'wi-rain-mix',
+        'hr': 'wi-rain-mix',
+        'h': 'wi-hail',
+        'lsn': 'wi-snow',
+        'hsn': 'wi-snow',
+        'tst': 'wi-thunderstorm',
+        'tsh': 'wi-storm-showers',
     };
     var Weather = MoxieModel.extend({
         url: conf.urlFor('weather'),
         View: WeatherCard,
         setSSClass: function(observation) {
             // TODO: Will anyone notice that we hard-code to cloudy?
-            var classes = ['ss-forecast'];
+            var classes = ['weather-icon'];
             if (ssCSSClasses[observation.outlook_icon]) {
                 classes.push(ssCSSClasses[observation.outlook_icon]);
             } else {
                 if ('console' in window) {
                     console.log("No icon for forecast: '"+ observation.outlook_description +"' Icon: "+ observation.outlook_icon);
                 }
-                classes.push('ss-clouds');
+                classes.push('wi-cloudy');
             }
             observation.ss_class = classes.join(' ');
             return observation;

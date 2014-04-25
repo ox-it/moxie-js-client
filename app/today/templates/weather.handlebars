@@ -1,6 +1,6 @@
 <div class="day">
-    <span class="{{ observation.ss_class}}"></span>
-    <span class="ss-forecast">{{ observation.temperature}}&deg;C</span>
+    <span class="weather-icon {{ observation.ss_class}}"></span>
+    <span>{{ observation.temperature}}&deg;C</span>
 </div>
 <div class="five-day-forecast">
     {{#forecasts}}

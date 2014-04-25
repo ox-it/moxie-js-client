@@ -16,7 +16,7 @@
 #navbar>li a.favourited, .favourited {
     color: $pantone129;
 }
-#navbar>li a.ss-check {
+#navbar>li a.fa-check {
     color: $pantone583;
 }
 
@@ -55,6 +55,11 @@
             &:active {
                 background: rgba(0,0,0,0.4);
             }
+        }
+
+        .fa {
+            line-height: inherit;
+            font-size: 1.3em;
         }
 
         &#home, &#back {
