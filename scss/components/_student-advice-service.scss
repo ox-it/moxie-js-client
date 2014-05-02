@@ -1,0 +1,8 @@
+#cover.student-advice {
+    @include background(
+        url('../images/apps/student-advice-service/sas.jpg')
+    );
+    background-repeat: no-repeat;
+    background-position: center left;
+    @include background-size(cover);
+}
