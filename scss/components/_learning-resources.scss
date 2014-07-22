@@ -1,0 +1,8 @@
+#cover.learning-resources {
+    @include background(
+        url('../images/apps/learning-resources/cover.jpg')
+    );
+    background-repeat: no-repeat;
+    background-position: center left;
+    @include background-size(cover);
+}
