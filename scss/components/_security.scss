@@ -1,23 +1,9 @@
-#cover {
-	width: 100%;
-	min-height: 150px;
-	max-height: 270px;
-	display: block;
-	position: relative;
-	@include background(
-		linear-gradient(bottom, color-stops(rgba(0,0,0,0.6), rgba(0,0,0,0) 30%)),
-		url('../images/apps/security/rad_cam_2.jpg')
-		);
-	background-repeat: no-repeat;
-	background-position: center left;
-	@include background-size(cover);
-
-	h2 {
-		position: absolute;
-		bottom: 0;
-		color: #fafafa;
-		@include text-shadow(0 -1px 2px #000);
-		padding: 0 0 3px 7px;
-	}
+#cover.security {
+    @include background(
+    linear-gradient(bottom, color-stops(rgba(0,0,0,0.6), rgba(0,0,0,0) 30%)),
+        url('../images/apps/security/rad_cam_2.jpg')
+    );
+    background-repeat: no-repeat;
+    background-position: center left;
+    @include background-size(cover);
 }
-

@@ -25,6 +25,7 @@
 @import "components/rti";
 @import "components/help";
 @import "components/tooltips";
+@import "components/cover";
 
 // Moxie Apps
 @import "components/today";
@@ -36,6 +37,8 @@
 @import "components/events";
 @import "components/notifications";
 @import "components/news";
+@import "components/student-advice-service";
+@import "components/learning-resources";
 
 // Colours for each application
 $todayColor: $pantone7412;
