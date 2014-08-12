@@ -36,7 +36,7 @@ The Build
 PhoneGap build
 --------------
 
-Alternatively, you can build a package that contains all required files by typing `make` at the root of the repository. This is mainly targeted for PhoneGap (there is a configuration file `config.xml` used by PhoneGap) but the content can be reused.
+See [moxie-phonegap](https://github.com/ox-it/moxie-phonegap) for more information about building the application for Phonegap.
 
 Development
 -----------
