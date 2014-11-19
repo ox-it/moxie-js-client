@@ -11,11 +11,12 @@
     <preference name="ShowSplashScreenSpinner" value="false" />
 
     <!-- android -->
-    <preference name="android-targetSdkVersion" value="14" /> 
+    <preference name="android-targetSdkVersion" value="14" />
     <preference name="SplashScreen" value="mobile_oxford_splash" />
 
     <access origin="http://m.ox.ac.uk" />
     <access origin="http://api.m.ox.ac.uk" />
+    <access origin="http://api-mox-staging.oucs.ox.ac.uk" />
     <access origin="http://www.google.com" />
     <access origin="http://a.tiles.mapbox.com"  />
 </widget>
