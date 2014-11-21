@@ -42,13 +42,28 @@ define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'core/views/ErrorView'
                     currentlyOpen = null;
                 }
             }
+
+            //create array of parents
+            var containedBy = [];
+            if(poi._links && poi._links.parent) {
+                //if it's a single value, add to the empty, otherwise, just use the array.
+                if(!$.isArray(poi._links.parent)) {
+                    containedBy.push(poi._links.parent);
+                }
+                else {
+                    containedBy = poi._links.parent;
+                }
+
+            }
+
             return {
                 poi: poi,
                 multiRTI: poi.RTI.length > 1,
                 alternateRTI: this.model.getAlternateRTI(),
                 currentRTI: this.model.getCurrentRTI(),
                 currentlyOpen: currentlyOpen,
-                parsedOpeningHours: parsedOpeningHours
+                parsedOpeningHours: parsedOpeningHours,
+                containedBy: containedBy
             };
         },
         template: detailTemplate,
