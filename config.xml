@@ -1,8 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="uk.ac.ox.it.mobileoxford" versionCode="201" version="0.2.1">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="uk.ac.ox.it.mobileoxford" versionCode="300" version="0.3.0">
     <name>Mobile Oxford</name>
     <description>Your university and city on the move</description>
     <author href="https://m.ox.ac.uk" email="mobileoxford@it.ox.ac.uk">Mobile Oxford team, IT Services, University of Oxford</author>
+
+    <preference name="phonegap-version" value="3.6.3" />
+
+    <gap:platform name="ios" />
+    <gap:platform name="android" />
+
+    <gap:plugin name="com.phonegap.plugins.pushplugin" version="2.4.0" />
+    <gap:plugin name="com.adobe.plugins.gaplugin" version="2.3.1" />
+    <gap:plugin name="nl.x-services.plugins.calendar" version="4.2.4" />
+    <gap:plugin name="org.apache.cordova.contacts" version="0.2.13" />
+    <gap:plugin name="org.apache.cordova.device" version="0.2.12" />
+    <gap:plugin name="org.apache.cordova.dialogs" version="0.2.10" />
+    <gap:plugin name="org.apache.cordova.geolocation" version="0.3.10" />
+    <gap:plugin name="org.apache.cordova.splashscreen" version="0.3.4" />
+    <gap:plugin name="com.phonegap.plugin.statusbar" version="1.1.0" />
+    <gap:plugin name="org.apache.cordova.inappbrowser" version="0.5.2" />
 
     <!-- ios & android -->
     <preference name="DisallowOverscroll" value="true"/>
