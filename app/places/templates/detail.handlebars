@@ -93,11 +93,13 @@
 
 	{{! Links to parents and children }}
 	<dl>
-	{{#if poi._links.parent}}
+	{{#if containedBy}}
 		<dt>Contained by</dt>
+        {{#containedBy}}
 		<dd>
-			<a href="#{{ poi._links.parent.href }}">{{ poi._links.parent.title }} {{#if poi._links.parent.type_name}}({{ poi._links.parent.type_name }}){{/if}}</a>
+			<a href="#{{ href }}">{{ title }} {{#if type_name}}({{ type_name }}){{/if}}</a>
 		</dd>
+        {{/containedBy}}
 	{{/if}}
 	{{#if poi._links.child}}
 		<dt>Contains</dt>
