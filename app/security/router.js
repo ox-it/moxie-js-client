@@ -16,7 +16,7 @@ define(["app", "moxie.conf", "underscore", "backbone", "security/views/StaticVie
                 } else {
                     security_feed = null;
                 }
-                app.renderView(new StaticView({feed: security_feed, template: indexTemplate}));
+                app.renderView(new StaticView({feed: security_feed, template: indexTemplate}), {menu: true});
             },
         });
         return SecurityRouter;
