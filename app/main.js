@@ -76,6 +76,12 @@ require(['jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'ga', 'push',
                 // Now the GAPlugin will have loaded we can start sending analytics
                 startGA();
 
+                document.addEventListener("resume", function() {
+                    // if the current page was the today view (/), refresh it
+                    if (window.location.href.split('#')[1] === '' || window.location.href.split('#')[1] == undefined) {
+                        window.location.reload();
+                    }
+                }, false);
             });
         } else {
             // Load the GA plugin and start sending analytics
