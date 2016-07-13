@@ -22,11 +22,11 @@ $em-base: 16 !default;
 }
 
 // Converts "px" to "em" using the ($)em-base
-@function convert-to-em($value)  {
-  $value: strip-unit($value) / strip-unit($em-base) * 1em;
-  @if ($value == 0em) { $value: 0; } // Turn 0em into 0
-  @return $value;
-}
+// @function convert-to-em($value)  {
+//   $value: strip-unit($value) / strip-unit($em-base) * 1em;
+//   @if ($value == 0em) { $value: 0; } // Turn 0em into 0
+//   @return $value;
+// }
 
 // Working in ems is annoying. Think in pixels by using this handy function, emCalc(#)
 // Just enter the number, no need to mention "px"
