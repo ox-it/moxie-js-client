@@ -29,7 +29,7 @@ define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.posi
         renderMap: function(data) {
             this.map = new L.map(this.$('.embedded_map')[0], {dragging: false, scrollWheelZoom: false, touchZoom: false, doubleClickZoom: false, boxZoom: false})
                 .setView([data.lat, data.lon], 15, true);
-            L.tileLayer('http://a.tiles.mapbox.com/v3/'+MoxieConf.mapbox.key+'/{z}/{x}/{y}.png', {
+            L.tileLayer('http://map-tiles.oucs.ox.ac.uk'+'/{z}/{x}/{y}.png', {
                 minZoom: 0,
                 maxZoom: 18,
                 // Detect retina - if true 4* map tiles are downloaded
