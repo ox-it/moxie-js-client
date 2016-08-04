@@ -1,5 +1,5 @@
 define(['today/views/CardView', 'hbs!today/templates/park_and_rides'], function(CardView, prTemplate) {
-    var RiversCard = CardView.extend({
+    var ParkAndRidesCard = CardView.extend({
         weight: 70,
         manage: true,
         id: 'pr_status',
@@ -7,13 +7,19 @@ define(['today/views/CardView', 'hbs!today/templates/park_and_rides'], function(
         serialize: function() {
             return this.model.toJSON();
         },
+        initialize: function() {
+            this.model.on('request', this.showLoader, this);
+            this.model.on('sync', this.onSync, this);
+            this.intervalID = window.setInterval(_.bind(this.onSync, this), 10000);
+        },
+        gauges: Array(),
         template: prTemplate,
         afterRender: function() {
             var services = this.model.get('park_and_rides');
             for(var pr in services) {
                 var park = services[pr];
                 if (park.unavailable) {
-                    new JustGage({
+                    var g = new JustGage({
                         id: "pr-" + park.identifier,
                         value: 0,
                         min: 0,
@@ -26,8 +32,9 @@ define(['today/views/CardView', 'hbs!today/templates/park_and_rides'], function(
                         hideMinMax: true,
                         counter: false
                     });
+                    this.gauges.push(g);
                 } else {
-                    new JustGage({
+                    var g = new JustGage({
                         id: "pr-" + park.identifier,
                         value: park.percentage,
                         min: 0,
@@ -41,9 +48,33 @@ define(['today/views/CardView', 'hbs!today/templates/park_and_rides'], function(
                         titleFontColor: "#101010",
                         levelColors: ["#a9d70b", "#a9d70b", "#a9d70b", "#a9d70b", "#a9d70b", "#f9c802", "#ff0000"]
                     });
+                    this.gauges.push(g);
                 }
+            }
+        },
+        onSync: function() {
+            //this.model.fetch();
+            var services = this.model.get('park_and_rides');
+            for(var pr in services) {
+                var park = services[pr];
+                for (var g in this.gauges) {
+                    var gauge = this.gauges[g];
+                    if (gauge.config.id === "pr-"+ park.identifier) {
+                        gauge.refresh(park.percentage);
+                    }
+                }
+            }
+            this.$("#rti-load").css('visibility', 'hidden');
+        },
+        showLoader: function() {
+            this.$("#rti-load").css('visibility', 'visible');
+        },
+        cleanup: function() {
+            this.model.off();
+            if (this.intervalID) {
+                window.clearInterval(this.intervalID);
             }
         }
     });
-    return RiversCard;
+    return ParkAndRidesCard;
 });

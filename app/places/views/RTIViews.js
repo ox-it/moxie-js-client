@@ -33,21 +33,49 @@ define(['backbone', 'underscore', 'moment', 'hbs!places/templates/busrti', 'hbs!
         }
     });
     var ParkAndRideView = RTIView.extend({
-        afterRender: function() {
-            this.$("#rti-load").css('visibility', 'hidden');
+        /* This RTIView is a bit different as we do not want to re-render
+        the view every time we refresh the RTI in order to update the gauge. */
+
+        gauge: null,
+        initialize: function() {
+            this.model.on('request', this.showLoader, this);
+            this.model.on('sync', this.onSync, this);
+            this.intervalID = window.setInterval(_.bind(this.onSync, this), RTI_RENDER_REFRESH);
+            this.render();
+        },
+        onSync: function() {
             var services = this.model.get('services');
-            var g = new JustGage({
-                id: "gauge",
-                value: services.percentage,
+            if (services.unavailable) {
+                this.$("#pr_status").text("Real-Time information not available");
+            } else {
+                this.$("#pr_status").text(services.spaces + " available");
+            }
+            if (this.gauge) {
+                this.updateGauge(services.percentage);
+            } else {
+                this.setUpGauge(services.percentage);
+            }
+            this.$("#rti-load").css('visibility', 'hidden');
+        },
+        updateGauge: function(value) {
+            this.gauge.refresh(value);
+        },
+        setUpGauge: function(value) {
+            var gaugeValue = value || 0;
+            this.gauge = new JustGage({
+                id: 'gauge',
+                value: gaugeValue,
                 min: 0,
                 max: 100,
-                title: services.spaces + " available",
                 label: "",
                 hideValue: true,
                 hideMinMax: true,
                 counter: false,
                 levelColors: ["#a9d70b", "#a9d70b", "#a9d70b", "#a9d70b", "#a9d70b", "#f9c802", "#ff0000"]
             });
+        },
+        afterRender: function() {
+            this.setUpGauge();
         },
         template: prRTITemplate
     });
