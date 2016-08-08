@@ -23,3 +23,7 @@ phonegap_build/
 
 # Ruby bundle (recommended in README.md)
 .bundle
+
+node_modules/*
+www/*
+platforms/*
