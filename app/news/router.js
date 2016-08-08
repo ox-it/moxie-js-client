@@ -1,4 +1,4 @@
-define(["app", "moxie.conf", "underscore", "backbone", "news/collections/FeedCollection", "news/views/BrowseView", "news/views/ReadView", "news/views/EntryView"], function(app, conf, _, Backbone, Feeds, BrowseView, ReadView, EntryView){
+define(["app/app", "app/moxie.conf", "underscore", "backbone", "app/news/collections/FeedCollection", "app/news/views/BrowseView", "app/news/views/ReadView", "app/news/views/EntryView"], function(app, conf, _, Backbone, Feeds, BrowseView, ReadView, EntryView){
     var errorHandler = function(resource) {
         alert("Sorry the "+ resource +" you requested could not be found.");
         Backbone.history.navigate("#news/", {trigger: true});

@@ -1,4 +1,4 @@
-define(['backbone', 'underscore', 'moment', 'hbs!places/templates/busrti', 'hbs!places/templates/trainrti', 'hbs!places/templates/p-r_rti', 'justgage'],
+define(['backbone', 'underscore', 'moment', 'hbs!app/places/templates/busrti', 'hbs!app/places/templates/trainrti', 'hbs!app/places/templates/p-r_rti', 'justgage'],
     function(Backbone, _, moment, busRTITemplate, trainRTITemplate, prRTITemplate) {
 
     // Refresh every 10 seconds

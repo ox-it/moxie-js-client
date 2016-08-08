@@ -1,4 +1,4 @@
-define(['backbone', 'hbs!news/templates/read'], function(Backbone, readTemplate) {
+define(['backbone', 'hbs!app/news/templates/read'], function(Backbone, readTemplate) {
     var ReadView = Backbone.View.extend({
         initialize: function() {
             this.model.entries.on("reset", this.entriesUpdated, this);

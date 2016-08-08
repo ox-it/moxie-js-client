@@ -1,4 +1,4 @@
-define(["jquery", "backbone", "jasmine", "app"], function($, Backbone, jasmine, app) {
+define(["jquery", "backbone", "jasmine", "app/app"], function($, Backbone, jasmine, app) {
     jasmine.getFixtures().fixturesPath = 'app/tests/fixtures';
 
     describe("Moxie app changing views", function() {

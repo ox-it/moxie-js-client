@@ -1,4 +1,4 @@
-define(["jquery", "backbone", "jasmine", "places/collections/CategoryCollection"], function($, Backbone, jasmine, Categories) {
+define(["jquery", "backbone", "jasmine", "app/places/collections/CategoryCollection"], function($, Backbone, jasmine, Categories) {
     describe("Parsing categories JSON representation", function() {
         var categories = {type: 'foo', types: [{type: 'bar', types: [{type: 'baz'}]}]};
         it("Should be flattened", function() {

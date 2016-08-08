@@ -1,4 +1,4 @@
-define(['jquery', 'backbone', 'underscore', 'leaflet', 'places/utils', 'moxie.conf', 'moxie.position', 'hbs!library/templates/item-map-layout', 'hbs!library/templates/item'],
+define(['jquery', 'backbone', 'underscore', 'leaflet', 'app/places/utils', 'app/moxie.conf', 'app/moxie.position', 'hbs!app/library/templates/item-map-layout', 'hbs!app/library/templates/item'],
     function($, Backbone, _, L, placesUtils, MoxieConf, userPosition, baseTemplate, itemTemplate){
         var ItemView = Backbone.View.extend({
             initialize: function() {

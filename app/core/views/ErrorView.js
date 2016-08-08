@@ -1,4 +1,4 @@
-define(['backbone', 'hbs!core/templates/error'], function(Backbone, errorTemplate) {
+define(['backbone', 'hbs!app/core/templates/error'], function(Backbone, errorTemplate) {
     var ErrorView = Backbone.View.extend({
         // Simple view for displaying an error message to the user
         initialize: function(options) {

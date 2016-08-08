@@ -1,4 +1,4 @@
-define(['moxie.conf', 'matchMedia'], function(conf) {
+define(['app/moxie.conf', 'matchMedia'], function(conf) {
     // We include a matchMedia polyfill for older browsers
     var media = {
         matchMedia: function(mediaQuery) {

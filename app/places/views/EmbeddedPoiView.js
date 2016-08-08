@@ -1,4 +1,4 @@
-define(['jquery', 'backbone', 'underscore', 'leaflet', 'moxie.conf', 'moxie.position', 'hbs!places/templates/embedded_poi'],
+define(['jquery', 'backbone', 'underscore', 'leaflet', 'app/moxie.conf', 'app/moxie.position', 'hbs!app/places/templates/embedded_poi'],
     function($, Backbone, _, L, MoxieConf, userPosition, embeddedTemplate){
     var EmbeddedPoiView = Backbone.View.extend({
 

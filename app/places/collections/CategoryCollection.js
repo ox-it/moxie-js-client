@@ -1,4 +1,4 @@
-define(["core/collections/MoxieCollection", "underscore", "places/models/CategoryModel", "moxie.conf"], function(MoxieCollection, _, Category, conf) {
+define(["app/core/collections/MoxieCollection", "underscore", "app/places/models/CategoryModel", "app/moxie.conf"], function(MoxieCollection, _, Category, conf) {
 
     var DEPTH_LIMIT = 3;
     var CategoryCollection = MoxieCollection.extend({

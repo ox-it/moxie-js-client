@@ -1,4 +1,4 @@
-define(['underscore', 'moxie.conf', 'leaflet', 'moxie.position'], function(_, MoxieConf, L, userPosition){
+define(['underscore', 'app/moxie.conf', 'leaflet', 'app/moxie.position'], function(_, MoxieConf, L, userPosition){
     L.Icon.Default.imagePath = 'images/maps';
     var utils = {
         // This rather dense function takes the full set of categories

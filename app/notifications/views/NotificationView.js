@@ -1,4 +1,4 @@
-define(["backbone", "app", "moxie.conf", "hbs!notifications/templates/notification"],
+define(["backbone", "app/app", "app/moxie.conf", "hbs!app/notifications/templates/notification"],
     function(Backbone, app, conf, notificationTemplate) {
         var NotificationView = Backbone.View.extend({
             manage: true,

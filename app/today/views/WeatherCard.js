@@ -1,4 +1,4 @@
-define(['today/views/CardView', 'hbs!today/templates/weather'], function(CardView, weatherTemplate) {
+define(['app/today/views/CardView', 'hbs!app/today/templates/weather'], function(CardView, weatherTemplate) {
     var WeatherCard = CardView.extend({
         weight: 80,
         attributes: {'class': 'today weather'},

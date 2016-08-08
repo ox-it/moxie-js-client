@@ -1,5 +1,5 @@
-define(["app", "moxie.conf", "underscore", "backbone", "security/views/StaticView",
-    "hbs!security/templates/index", "news/collections/FeedCollection"],
+define(["app/app", "app/moxie.conf", "underscore", "backbone", "app/security/views/StaticView",
+    "hbs!app/security/templates/index", "app/news/collections/FeedCollection"],
     function(app, conf, _, Backbone, StaticView, indexTemplate, Feeds){
 
         var SecurityRouter = Backbone.SubRoute.extend({

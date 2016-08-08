@@ -1,4 +1,4 @@
-define(['MoxieModel', 'moxie.conf', 'moment', 'today/views/EventsCard'], function(MoxieModel, conf, moment, EventsCard) {
+define(['app/core/models/MoxieModel', 'app/moxie.conf', 'moment', 'app/today/views/EventsCard'], function(MoxieModel, conf, moment, EventsCard) {
     var today = moment(new Date());
     var DEFAULT_FORMAT = "h:mma";
     function dateFormat(date) {

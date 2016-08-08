@@ -1,4 +1,4 @@
-define(["backbone", "underscore", "places/models/POIModel", "today/views/RTICard", "moxie.conf", "moxie.position"], function(Backbone, _, POI, RTICard, conf, userPosition) {
+define(["backbone", "underscore", "app/places/models/POIModel", "app/today/views/RTICard", "app/moxie.conf", "app/moxie.position"], function(Backbone, _, POI, RTICard, conf, userPosition) {
 
     var NearbyRTI = POI.extend({
         initialize: function(options) {

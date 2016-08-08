@@ -1,4 +1,4 @@
-define(['underscore', 'today/views/CardView', 'moxie.conf', 'hbs!today/templates/webcam'], function(_, CardView, conf, webcamTemplate) {
+define(['underscore', 'app/today/views/CardView', 'app/moxie.conf', 'hbs!app/today/templates/webcam'], function(_, CardView, conf, webcamTemplate) {
     var WebcamCard = CardView.extend({
         weight: 60,
         manage: true,

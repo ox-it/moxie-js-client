@@ -1,4 +1,4 @@
-define(["backbone", "underscore", "cordova.help", "moxie.conf", "hbs!events/templates/event"],
+define(["backbone", "underscore", "app/cordova.help", "app/moxie.conf", "hbs!app/events/templates/event"],
     function(Backbone, _, cordova, conf, eventTemplate) {
         var DEFAULT_HOUR_TO_ADD = 1;        // how many hours to add
 

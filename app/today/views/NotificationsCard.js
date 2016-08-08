@@ -1,4 +1,4 @@
-define(['underscore', 'today/views/CardView', 'hbs!today/templates/notifications'],
+define(['underscore', 'app/today/views/CardView', 'hbs!app/today/templates/notifications'],
     function(_, CardView, notificationsTemplate) {
         var NotificationsCard = CardView.extend({
             weight: 1000,

@@ -1,4 +1,4 @@
-define(['today/views/CardView', 'hbs!today/templates/park_and_rides'], function(CardView, prTemplate) {
+define(['app/today/views/CardView', 'hbs!app/today/templates/park_and_rides'], function(CardView, prTemplate) {
     var RiversCard = CardView.extend({
         weight: 70,
         manage: true,

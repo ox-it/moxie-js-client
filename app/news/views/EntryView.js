@@ -1,4 +1,4 @@
-define(['backbone', 'cordova.help', 'hbs!news/templates/entry'], function(Backbone, cordova, entryTemplate) {
+define(['backbone', 'app/cordova.help', 'hbs!app/news/templates/entry'], function(Backbone, cordova, entryTemplate) {
     var EntryView = Backbone.View.extend({
         manage: true,
         serialize: function() {

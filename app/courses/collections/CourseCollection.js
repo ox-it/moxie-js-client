@@ -1,4 +1,4 @@
-define(["underscore", "core/collections/MoxieCollection", "courses/models/CourseModel", "moxie.conf"], function(_, MoxieCollection, Course, conf) {
+define(["underscore", "app/core/collections/MoxieCollection", "app/courses/models/CourseModel", "app/moxie.conf"], function(_, MoxieCollection, Course, conf) {
 
     var courses = MoxieCollection.extend({
         model: Course,

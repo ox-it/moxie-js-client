@@ -1,4 +1,4 @@
-define(['jquery', 'backbone', 'underscore', 'core/views/MapBrowseLayout', 'favourites/collections/Favourites', 'favourites/views/FavouriteButtonView', 'today/collections/TodaySettings', 'core/collections/HelpMessages', 'cordova.help'], function($, Backbone, _, MapBrowseLayout, Favourites, FavouriteButtonView, TodaySettings, HelpMessages, cordova) {
+define(['jquery', 'backbone', 'underscore', 'app/core/views/MapBrowseLayout', 'app/favourites/collections/Favourites', 'app/favourites/views/FavouriteButtonView', 'app/today/collections/TodaySettings', 'app/core/collections/HelpMessages', 'app/cordova.help'], function($, Backbone, _, MapBrowseLayout, Favourites, FavouriteButtonView, TodaySettings, HelpMessages, cordova) {
     var app = {
 
         navigate: _.wrap(Backbone.history.navigate, function(nav, path, options) {

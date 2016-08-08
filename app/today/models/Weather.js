@@ -1,4 +1,4 @@
-define(['MoxieModel', 'underscore', 'moxie.conf', 'today/views/WeatherCard', 'moment'], function(MoxieModel, _, conf, WeatherCard, moment) {
+define(['app/core/models/MoxieModel', 'underscore', 'app/moxie.conf', 'app/today/views/WeatherCard', 'moment'], function(MoxieModel, _, conf, WeatherCard, moment) {
     var ssCSSClasses = {
         'NA': 'wi-cloudy',
         'ukn': 'wi-cloudy',

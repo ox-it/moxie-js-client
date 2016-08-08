@@ -1,4 +1,4 @@
-define(["app", "underscore", "backbone", "moxie.conf", "notifications/models/NotificationModel", "notifications/collections/NotificationCollection", "notifications/views/NotificationView", "backbone.subroute"],
+define(["app/app", "underscore", "backbone", "app/moxie.conf", "app/notifications/models/NotificationModel", "app/notifications/collections/NotificationCollection", "app/notifications/views/NotificationView", "backbone.subroute"],
  function(app, _, Backbone, conf, Notification, NotificationCollection, NotificationView){
     var NotificationsRouter = Backbone.SubRoute.extend({
         notifications: new NotificationCollection(),

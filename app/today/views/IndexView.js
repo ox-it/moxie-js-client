@@ -1,4 +1,4 @@
-define(['backbone', 'underscore', 'app', 'cordova.help', 'hbs!today/templates/index', 'hbs!today/templates/help/mox-welcome', 'hbs!today/templates/help/today-welcome'], function(Backbone, _, app, cordova, indexTemplate, helpMox, helpToday){
+define(['backbone', 'underscore', 'app/app', 'app/cordova.help', 'hbs!app/today/templates/index', 'hbs!app/today/templates/help/mox-welcome', 'hbs!app/today/templates/help/today-welcome'], function(Backbone, _, app, cordova, indexTemplate, helpMox, helpToday){
     var IndexView = Backbone.View.extend({
         // This view handles the "cards" on the home screen
         // Cards are views with models in this.collection

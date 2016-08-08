@@ -1,4 +1,4 @@
-define(['moxie.conf', 'jquery', 'app'], function(conf, $, app) {
+define(['app/moxie.conf', 'jquery', 'app/app'], function(conf, $, app) {
     var consoleAvailable = 'console' in window;
 
     function PushNotifications() {

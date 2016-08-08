@@ -1,4 +1,4 @@
-define(['jquery', 'backbone', 'underscore', 'hbs!events/templates/events', 'events/views/EventListItemView'],
+define(['jquery', 'backbone', 'underscore', 'hbs!app/events/templates/events', 'app/events/views/EventListItemView'],
     function($, Backbone, _, eventsTemplate, EventListItemView){
     var EventsView = Backbone.View.extend({
 

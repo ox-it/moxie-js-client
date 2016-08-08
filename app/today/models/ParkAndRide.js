@@ -1,4 +1,4 @@
-define(['MoxieModel', 'moxie.conf', 'today/views/ParkAndRidesCard'], function(MoxieModel, conf, ParkAndRidesCard) {
+define(['app/core/models/MoxieModel', 'app/moxie.conf', 'app/today/views/ParkAndRidesCard'], function(MoxieModel, conf, ParkAndRidesCard) {
 
     var ParkAndRide = MoxieModel.extend({
         View: ParkAndRidesCard,

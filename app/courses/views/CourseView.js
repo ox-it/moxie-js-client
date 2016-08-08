@@ -1,4 +1,4 @@
-define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/course', 'hbs!courses/templates/auth_status', 'leaflet', 'moxie.conf', 'places/views/EmbeddedPoiView', 'hbs!places/templates/embedded_poi'],
+define(['jquery', 'backbone', 'underscore', 'hbs!app/courses/templates/course', 'hbs!app/courses/templates/auth_status', 'leaflet', 'app/moxie.conf', 'app/places/views/EmbeddedPoiView', 'hbs!app/places/templates/embedded_poi'],
     function($, Backbone, _, courseTemplate, authTemplate, L, MoxieConf, EmbeddedPoiView){
         var CourseView = Backbone.View.extend({
 

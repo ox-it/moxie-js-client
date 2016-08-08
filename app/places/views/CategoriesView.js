@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'backbone', 'app', 'moxie.conf', 'moxie.position', 'places/utils', 'places/collections/CategoryCollection', 'hbs!places/templates/categories'],
+define(['jquery', 'underscore', 'backbone', 'app/app', 'app/moxie.conf', 'app/moxie.position', 'app/places/utils', 'app/places/collections/CategoryCollection', 'hbs!app/places/templates/categories'],
     function($, _, Backbone, app, conf, userPosition, utils, Categories, categoriesTemplate){
 
     var CategoriesView = Backbone.View.extend({

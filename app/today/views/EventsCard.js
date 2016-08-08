@@ -1,4 +1,4 @@
-define(['today/views/CardView', 'hbs!today/templates/events'], function(CardView, eventsTemplate) {
+define(['app/today/views/CardView', 'hbs!app/today/templates/events'], function(CardView, eventsTemplate) {
     var EventsCard = CardView.extend({
         weight: 70,
         manage: true,

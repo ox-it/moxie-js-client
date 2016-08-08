@@ -1,4 +1,4 @@
-define(["core/collections/MoxieCollection", "notifications/models/NotificationModel", "moxie.conf"], function(MoxieCollection, Notification, conf) {
+define(["app/core/collections/MoxieCollection", "app/notifications/models/NotificationModel", "app/moxie.conf"], function(MoxieCollection, Notification, conf) {
 
     var Notifications = MoxieCollection.extend({
         model: Notification,

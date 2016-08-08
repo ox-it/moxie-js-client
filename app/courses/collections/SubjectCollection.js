@@ -1,4 +1,4 @@
-define(["underscore", "core/collections/MoxieCollection", "moxie.conf"], function(_, MoxieCollection, conf) {
+define(["underscore", "app/core/collections/MoxieCollection", "app/moxie.conf"], function(_, MoxieCollection, conf) {
 
     var Subjects = MoxieCollection.extend({
         url: conf.urlFor('courses_subjects'),

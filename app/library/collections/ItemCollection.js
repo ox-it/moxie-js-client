@@ -1,4 +1,4 @@
-define(["core/collections/MoxieCollection", "library/models/ItemModel", "places/collections/POICollection", "moxie.conf", "moxie.position"], function(MoxieCollection, Item, POIs, conf, userPosition) {
+define(["app/core/collections/MoxieCollection", "app/library/models/ItemModel", "app/places/collections/POICollection", "app/moxie.conf", "app/moxie.position"], function(MoxieCollection, Item, POIs, conf, userPosition) {
 
     var Items = MoxieCollection.extend({
 

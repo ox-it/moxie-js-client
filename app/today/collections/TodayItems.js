@@ -1,4 +1,4 @@
-define(['underscore', 'core/collections/MoxieCollection', 'today/models/OxfordDate', 'today/models/Weather', 'today/models/Webcam', 'today/models/RiverStatus', 'today/models/NearbyRTI', 'today/models/Events', 'today/models/FavouriteRTI', 'today/models/ParkAndRide', 'today/models/Notifications'], function(_, MoxieCollection, OxfordDate, Weather, Webcam, RiverStatus, NearbyRTI, Events, FavRTI, ParkAndRide, Notifications) {
+define(['underscore', 'app/core/collections/MoxieCollection', 'app/today/models/OxfordDate', 'app/today/models/Weather', 'app/today/models/Webcam', 'app/today/models/RiverStatus', 'app/today/models/NearbyRTI', 'app/today/models/Events', 'app/today/models/FavouriteRTI', 'app/today/models/ParkAndRide', 'app/today/models/Notifications'], function(_, MoxieCollection, OxfordDate, Weather, Webcam, RiverStatus, NearbyRTI, Events, FavRTI, ParkAndRide, Notifications) {
     var TodayItems = MoxieCollection.extend({
         initialize: function(models, options) {
             this.favourites = options.favourites;

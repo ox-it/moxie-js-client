@@ -1,4 +1,4 @@
-define(["core/collections/MoxieCollection", "events/models/EventModel", "moxie.conf"], function(MoxieCollection, Event, conf) {
+define(["app/core/collections/MoxieCollection", "app/events/models/EventModel", "app/moxie.conf"], function(MoxieCollection, Event, conf) {
 
     var Events = MoxieCollection.extend({
         model: Event,

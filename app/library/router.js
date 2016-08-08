@@ -1,4 +1,4 @@
-define(["app", "underscore", "backbone", "library/models/ItemModel", "library/collections/ItemCollection", "places/collections/POICollection", "library/views/SearchView", "library/views/ItemView", "backbone.subroute"],
+define(["app/app", "underscore", "backbone", "app/library/models/ItemModel", "app/library/collections/ItemCollection", "app/places/collections/POICollection", "app/library/views/SearchView", "app/library/views/ItemView", "backbone.subroute"],
     function(app, _, Backbone, Item, Items, POIs, SearchView, ItemView){
 
 

@@ -1,4 +1,4 @@
-define(['jquery', 'today/views/CardView', 'hbs!today/templates/rivers', 'foundation.tooltips'], function($, CardView, riversTemplate) {
+define(['jquery', 'app/today/views/CardView', 'hbs!app/today/templates/rivers', 'foundation.tooltips'], function($, CardView, riversTemplate) {
     var RiversCard = CardView.extend({
         weight: 70,
         manage: true,

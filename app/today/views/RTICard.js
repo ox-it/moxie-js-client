@@ -1,4 +1,4 @@
-define(['moxie.conf', 'underscore', 'today/views/CardView', 'hbs!today/templates/rti'], function(conf, _, CardView, rtiTemplate) {
+define(['app/moxie.conf', 'underscore', 'app/today/views/CardView', 'hbs!app/today/templates/rti'], function(conf, _, CardView, rtiTemplate) {
 
     var RTI_REFRESH = 60000;    // 1 minute
     var RTICard = CardView.extend({

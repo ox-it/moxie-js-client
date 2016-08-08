@@ -1,4 +1,4 @@
-define(["backbone", "underscore", "core/collections/LocalStorageCollection", "favourites/models/Favourite", "localstorage"],
+define(["backbone", "underscore", "app/core/collections/LocalStorageCollection", "app/favourites/models/Favourite", "localstorage"],
     function(Backbone, _, LocalStorageCollection, Favourite) {
         var Favourites = LocalStorageCollection.extend({
             name: "favourites",

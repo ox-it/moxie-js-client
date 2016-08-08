@@ -1,4 +1,4 @@
-define(['MoxieModel', 'underscore', 'moment', 'moxie.conf', 'today/views/RiversCard'], function(MoxieModel, _, moment, conf, RiversCard) {
+define(['app/core/models/MoxieModel', 'underscore', 'moment', 'app/moxie.conf', 'app/today/views/RiversCard'], function(MoxieModel, _, moment, conf, RiversCard) {
     var RiverStatus = MoxieModel.extend({
         url: conf.urlFor('rivers'),
         View: RiversCard,

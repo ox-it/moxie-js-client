@@ -1,4 +1,4 @@
-define(["backbone", "underscore", "jquery", "cordova.help", "hbs!contacts/templates/result-item"], function(Backbone, _, $, cordova, resultTemplate){
+define(["backbone", "underscore", "jquery", "app/cordova.help", "hbs!app/contacts/templates/result-item"], function(Backbone, _, $, cordova, resultTemplate){
     var ResultItemView = Backbone.View.extend({
         manage: true,
         tagName: "li",

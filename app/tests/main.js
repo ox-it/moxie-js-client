@@ -8,7 +8,7 @@ require(["jquery", "backbone", "jasmine-html", "jasmine-jquery"],
     // Core app
     specs.push('tests/specs/app');
     // Today
-    specs.push('today/specs/cards');
+    specs.push('app/today/specs/cards');
     // Places
     specs.push('places/specs/categories');
     // Favourites
