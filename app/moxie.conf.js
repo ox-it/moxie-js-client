@@ -69,8 +69,7 @@ define([], function() {
                     {"title": "Department of Biochemistry", "url": "http://rss.oucs.ox.ac.uk/bioch/news/rss20.xml", "slug": "biochemistry-department"},
                     {"title": "Department of Computer Science", "url": "http://www.cs.ox.ac.uk/feeds/News-All.xml", "slug": "cs-news"},
                     {"title": "Department of International Development", "url": "http://www3.qeh.ox.ac.uk/rss/news_rss.php", "slug": "odid-news"},
-                    {"title": "News from the RSL", "url": "http://www.bodleian.ox.ac.uk/science/news/rss", "slug": "ulib-science"},
-                    {"title": "Mobile Oxford Team Blog", "url": "http://blog.m.ox.ac.uk/feeds/all.atom.xml", "slug": "mox-blog"},
+                    {"title": "News from the RSL", "url": "http://www.bodleian.ox.ac.uk/science/news/rss", "slug": "ulib-science"}
                 ],
             numberOfEntries: 10,
         },
