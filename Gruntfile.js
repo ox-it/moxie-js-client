@@ -148,7 +148,7 @@
                   {
                     expand: true,
                     src: [
-                      "moxie-js-client/app/built.js",
+                      "app/built.js",
                       // "mobileoxford/moxie-js-client/app/libs/pouchdb/dist/pouchdb.js",                                 
                       // "app/libs/pouchdb-quick-search/dist/pouchdb.quick-search.js",
                       // "app/libs/auth0-lock/build/auth0-lock.js",

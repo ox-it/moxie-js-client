@@ -21,4 +21,16 @@
     <access origin="http://api.m.ox.ac.uk" />
     <access origin="http://www.google.com" />
     <access origin="http://map-tiles.oucs.ox.ac.uk"  />
+    
+    
+    
+    
+    <platform name="android">
+        <splash src="res/android/mobile_oxford_splash.9.png" />
+        <icon src="res/android/icon.png" />
+    </platform>
+
+
+
+
 </widget>

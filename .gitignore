@@ -27,3 +27,4 @@ phonegap_build/
 node_modules/*
 www/*
 platforms/*
+app/built.js
