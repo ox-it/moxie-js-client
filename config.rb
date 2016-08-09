@@ -1,4 +1,5 @@
-require 'compass/import-once/activate'
+# require 'compass/import-once/activate'
+require 'zurb-foundation'
 # Require any additional compass plugins here.
 
 

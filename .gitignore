@@ -7,6 +7,7 @@
 css/app.css
 css/components/*
 css/globals/*
+css/foundation/*
 
 # Minified JS
 app/main-built.js
@@ -27,4 +28,5 @@ phonegap_build/
 node_modules/*
 www/*
 platforms/*
+plugins/*
 app/built.js
