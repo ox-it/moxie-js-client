@@ -81,7 +81,7 @@ define([], function() {
         security: {
             feed: null,
         },
-        ga: {trackingID: "UA-40281467-3", period: 10, debug: true},
+        ga: {trackingID: "UA-82197555-1", period: 10, debug: true},
         pushNotifications: {
             ios: {
                 enabled: true
