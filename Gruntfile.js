@@ -102,23 +102,23 @@
                 }
             
             },
-            // shell: {
-            //     iossimstart: {
-            //         command: 'ios-sim launch platforms/ios/build/yoco.app --exit' + (device.family !== 'default' ? ' --family ' + device.family : ''),
-            //         options: {
-            //             stdout: true
-            //         }
-            //     },
-            //     iossimend: {
-            //         command: 'killall -9 "iPhone Simulator"'
-            //     },
-            //     serveend: {
-            //         command: 'killall -9 "cordova serve"'
-            //     },
-            //     rippleend: {
-            //         command: 'killall -9 "cordova ripple"'
-            //     }
-            // },
+            shell: {
+                iossimstart: {
+                    command: 'ios-sim launch platforms/ios/build/yoco.app --exit' + (device.family !== 'default' ? ' --family ' + device.family : ''),
+                    options: {
+                        stdout: true
+                    }
+                },
+                iossimend: {
+                    command: 'killall -9 "iPhone Simulator"'
+                },
+                serveend: {
+                    command: 'killall -9 "cordova serve"'
+                },
+                rippleend: {
+                    command: 'killall -9 "cordova ripple"'
+                }
+            },
             
             requirejs: {
               compile: {
@@ -149,37 +149,24 @@
                     expand: true,
                     src: [
                       "app/built.js",
-                      // "mobileoxford/moxie-js-client/app/libs/pouchdb/dist/pouchdb.js",                                 
-                      // "app/libs/pouchdb-quick-search/dist/pouchdb.quick-search.js",
-                      // "app/libs/auth0-lock/build/auth0-lock.js",
-                      // "app/data/**",
-                      // "app/libs/jquery-mobile-bower/css/jquery.mobile-*.css",
-                      // "app/libs/owl.carousel/dist/assets/owl.carousel.min.css",
-                      // "app/libs/jquery-mobile-bower/css/images/**",
                       "images/**",
                       "css/**",
-                      "fonts/*"
+                      // "fonts/*",
+                      "webfonts/weather-icons/css/weather-icons.min.css",
+                      "webfonts/weather-icons/font/weathericons-regular-webfont.woff",
+                      "webfonts/weather-icons/font/weathericons-regular-webfont.ttf",
+                      "webfonts/font-awesome/css/font-awesome.min.css",
+                      "webfonts/font-awesome/fonts/fontawesome-webfont.woff",
+                      "webfonts/font-awesome/fonts/fontawesome-webfont.ttf",
+                      "config.xml",
                     ],
                     dest:"www" },
                     {
-                      src: ["moxie-js-client/index-phonegap.html"],
+                      src: ["index-phonegap.html"],
                       dest: "www/index.html"
                     },
-                    // {
-                    //   src: ["app/config/appConfigDevice.json"],
-                    //   dest: "www/app/config/appConfig.json"
-                    // },
                   ]
                 },
-                // schema: {
-                //   files: [
-                //     {
-                //         expand: true,
-                //         src: ["../schema/**"],
-                //         dest: "app/schema"
-                //     }
-                //   ]
-                // }
               },
               // jasmine: {
               //   testTask: {
@@ -265,13 +252,6 @@
                         platforms: ['ios']
                     }
                 },
-                // add_plugins: {
-                //     options: {
-                //         command: 'plugin',
-                //         action: 'add',  
-                //         plugins: plugins,
-                //     }
-                // },
                 add_platforms: {
                     options: {
                         command: 'platform',
@@ -313,9 +293,7 @@
         
         grunt.registerTask('ci_build', 'build on CI server', ['package'])
 
-        // grunt.registerTask('plugins', 'cordovacli:add_plugins');
         grunt.registerTask('platforms', 'cordovacli:add_platforms');
-        // grunt.registerTask('setup', ['cordovacli:add_platforms', 'cordovacli:add_plugins', 'copy:schema'] );
 
     };
 }());
