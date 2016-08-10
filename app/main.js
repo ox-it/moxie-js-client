@@ -1,4 +1,4 @@
-require(['jquery','backbone', 'router', 'fastclick', 'moxie.conf', 'ga', 'push', 'cordova.help', 'backbone.queryparams', 'backbone.layoutmanager', 'foundation'], function($, Backbone, MoxieRouter, FastClick, conf, GA, Push, cordova) {
+require(['jquery','backbone', 'app/router', 'fastclick', 'app/moxie.conf', 'app/ga', 'app/push', 'app/cordova.help', 'backbone.queryparams', 'backbone.layoutmanager', 'foundation'], function($, Backbone, MoxieRouter, FastClick, conf, GA, Push, cordova) {
     function startGA() {
         // Init GA & start listening on hashchange
         if (conf.ga) {

@@ -1,4 +1,4 @@
-define(["backbone", "jquery", "underscore", "jasmine", "today/views/CardView"], function(Backbone, $, _, jasmine, CardView) {
+define(["backbone", "jquery", "underscore", "jasmine", "app/today/views/CardView"], function(Backbone, $, _, jasmine, CardView) {
     describe("Ordering cards on the today view", function() {
         it("should place views with higher weights over others", function() {
             var testView = new Backbone.View({manage: true});

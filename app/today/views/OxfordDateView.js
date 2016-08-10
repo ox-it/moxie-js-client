@@ -1,4 +1,4 @@
-define(['today/views/CardView', 'hbs!today/templates/oxford_date'], function(CardView, oxfordDateTemplate) {
+define(['app/today/views/CardView', 'hbs!app/today/templates/oxford_date'], function(CardView, oxfordDateTemplate) {
     var OxfordDateView = CardView.extend({
         weight: 90,
         manage: true,

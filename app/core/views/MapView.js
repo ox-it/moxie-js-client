@@ -1,4 +1,4 @@
-define(['backbone', 'jquery', 'leaflet', 'underscore', 'moxie.conf', 'places/utils', 'moxie.position', 'core/media'], function(Backbone, $, L, _, MoxieConf, utils, userPosition, media) {
+define(['backbone', 'jquery', 'leaflet', 'underscore', 'app/moxie.conf', 'app/places/utils', 'app/moxie.position', 'app/core/media'], function(Backbone, $, L, _, MoxieConf, utils, userPosition, media) {
     var MapView = Backbone.View.extend({
         initialize: function(options) {
             this.options = options || {};

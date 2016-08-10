@@ -1,4 +1,4 @@
-define(["MoxieModel", "moxie.conf", "moment"], function(MoxieModel, conf, moment) {
+define(["app/core/models/MoxieModel", "app/moxie.conf", "moment"], function(MoxieModel, conf, moment) {
     var DEFAULT_FORMAT = "D MMM YYYY, HH:mm";
     var today = moment(new Date());
     function dateFormat(date) {

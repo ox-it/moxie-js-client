@@ -1,4 +1,4 @@
-define(["app", "underscore", "backbone", "places/models/POIModel", "places/views/CategoriesView", "places/views/SearchView", "places/views/DetailView", "places/collections/POICollection", "places/collections/CategoryCollection", "core/views/MapView", "backbone.subroute"], function(app, _, Backbone, POI, CategoriesView, SearchView, DetailView, POIs, Categories, MapView){
+define(["app/app", "underscore", "backbone", "app/places/models/POIModel", "app/places/views/CategoriesView", "app/places/views/SearchView", "app/places/views/DetailView", "app/places/collections/POICollection", "app/places/collections/CategoryCollection", "app/core/views/MapView", "backbone.subroute"], function(app, _, Backbone, POI, CategoriesView, SearchView, DetailView, POIs, Categories, MapView){
 
     var pois = new POIs();
     var categories = new Categories();

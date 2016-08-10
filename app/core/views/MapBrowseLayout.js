@@ -1,4 +1,4 @@
-define(['backbone', 'core/views/MapView', 'hbs!core/templates/map-browse'], function(Backbone, MapView, mapBrowseTemplate) {
+define(['backbone', 'app/core/views/MapView', 'hbs!app/core/templates/map-browse'], function(Backbone, MapView, mapBrowseTemplate) {
 
     var MapBrowseLayout = Backbone.View.extend({
         manage: true,

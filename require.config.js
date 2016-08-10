@@ -1,31 +1,31 @@
 // Sets the require.js configuration for your application.
 var require = {
     // 3rd party script alias names (Easier to type "jquery" than "libs/jquery-1.7.2.min")
-    baseUrl: './app',
+    // baseUrl: 'app',
     paths: {
 
         // Core Libraries
-        "jquery": "libs/jquery",
-        "underscore": "libs/underscore",
-        "backbone": "libs/backbone",
-        "handlebars": "libs/Handlebars",
-        "hbs": "libs/hbs",
-        "json2": "libs/json2",
-        "i18nprecompile": "libs/i18nprecompile",
-        "leaflet": "libs/leaflet",
-        "time_domain": "libs/time_domain",
-        "fastclick": "libs/fastclick",
-        "moment": "libs/moment",
-        "backbone.queryparams": "libs/backbone.queryparams",
-        "backbone.subroute": "libs/backbone.subroute",
-        "backbone.layoutmanager": "libs/backbone.layoutmanager",
-        "localstorage": "libs/backbone.localStorage",
-        "raphael": "libs/raphael",
-        "justgage": "libs/justgage",
-        "matchMedia": "libs/matchMedia",
-        "modernizr": "libs/modernizr",
-        "foundation": "libs/foundation/foundation",
-        "foundation.tooltips": "libs/foundation/foundation.tooltips",
+        "jquery": "app/libs/jquery",
+        "underscore": "app/libs/underscore",
+        "backbone": "app/libs/backbone",
+        "handlebars": "app/libs/Handlebars",
+        "hbs": "app/libs/hbs",
+        "json2": "app/libs/json2",
+        "i18nprecompile": "app/libs/i18nprecompile",
+        "leaflet": "app/libs/leaflet",
+        "time_domain": "app/libs/time_domain",
+        "fastclick": "app/libs/fastclick",
+        "moment": "app/libs/moment",
+        "backbone.queryparams": "app/libs/backbone.queryparams",
+        "backbone.subroute": "app/libs/backbone.subroute",
+        "backbone.layoutmanager": "app/libs/backbone.layoutmanager",
+        "localstorage": "app/libs/backbone.localStorage",
+        "raphael": "app/libs/raphael",
+        "justgage": "app/libs/justgage",
+        "matchMedia": "app/libs/matchMedia",
+        "modernizr": "app/libs/modernizr",
+        "foundation": "app/libs/foundation/foundation",
+        "foundation.tooltips": "app/libs/foundation/foundation.tooltips",
 
         // Testing libs
         "jasmine": "tests/libs/jasmine-1.3.1/jasmine",
@@ -33,8 +33,8 @@ var require = {
         "jasmine-jquery": "tests/libs/jasmine-jquery",
 
         // Moxie Core modules
-        "MoxieModel": "core/models/MoxieModel",
-        "MoxieCollection": "core/collections/MoxieCollection"
+        // "app/core/models/MoxieModel": "app/core/models/MoxieModel",
+        // "MoxieCollection": "app/core/collections/MoxieCollection"
     },
 
     // Sets the configuration for your third party scripts that are not AMD compatible
@@ -92,6 +92,6 @@ var require = {
     hbs: {
         templateExtension: 'handlebars',
         disableI18n: true,
-        helperPathCallback: function(name) {return 'templates/helpers/' + name;}
+        helperPathCallback: function(name) {return 'app/templates/helpers/' + name;}
     }
 };

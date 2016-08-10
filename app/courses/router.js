@@ -1,4 +1,4 @@
-define(["app", "underscore", "backbone", "moxie.conf", "core/models/UserModel", "courses/views/SubjectsView", "courses/views/BookingsView", "courses/views/CoursesView", "courses/views/CourseView", "courses/collections/CourseCollection", "courses/collections/SubjectCollection", "backbone.subroute"],
+define(["app/app", "underscore", "backbone", "app/moxie.conf", "app/core/models/UserModel", "app/courses/views/SubjectsView", "app/courses/views/BookingsView", "app/courses/views/CoursesView", "app/courses/views/CourseView", "app/courses/collections/CourseCollection", "app/courses/collections/SubjectCollection", "backbone.subroute"],
  function(app, _, Backbone, conf, User, SubjectsView, BookingsView, CoursesView, CourseView, Courses, Subjects){
     var CoursesRouter = Backbone.SubRoute.extend({
         courses: new Courses(),

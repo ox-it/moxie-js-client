@@ -1,4 +1,5 @@
-define(["backbone", "underscore", "hbs!places/templates/item"], function(Backbone, _, itemTemplate){
+define(["backbone", "underscore", "hbs!app/places/templates/item"],
+function(Backbone, _, itemTemplate){
     var ItemView = Backbone.View.extend({
         initialize: function() {
             this.model.on('change:highlighted', _.bind(this.highlight, this));
@@ -6,7 +7,7 @@ define(["backbone", "underscore", "hbs!places/templates/item"], function(Backbon
         highlight: function(poi) {
             if (poi.get('highlighted')) {
                 this.$el.addClass('highlighted');
-
+            
                 // Scroll to the POI Selected from the Map
                 //
                 // Only scroll to the element which is being highlighted, not the one being unhighlighted.

@@ -1,4 +1,4 @@
-define(["MoxieModel", "underscore", "moxie.conf"], function(MoxieModel, _, conf) {
+define(["app/core/models/MoxieModel", "underscore", "app/moxie.conf"], function(MoxieModel, _, conf) {
 
     var Course = MoxieModel.extend({
         url: function() {

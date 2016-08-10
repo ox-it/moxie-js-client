@@ -1,4 +1,4 @@
-define(['underscore', 'MoxieModel', 'jquery'], function(_, MoxieModel, $) {
+define(['underscore', 'app/core/models/MoxieModel', 'jquery'], function(_, MoxieModel, $) {
     var User = MoxieModel.extend({
         checkAuthorization: function(options) {
             options = options || {};

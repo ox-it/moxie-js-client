@@ -1,4 +1,4 @@
-define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'feedback/models/FeedbackModel', 'hbs!feedback/templates/feedback'],
+define(['jquery', 'backbone', 'underscore', 'app/moxie.conf', 'app/feedback/models/FeedbackModel', 'hbs!app/feedback/templates/feedback'],
     function($, Backbone, _, MoxieConf, FeedbackModel, feedbackTemplate){
 
     var FeedbackView = Backbone.View.extend({

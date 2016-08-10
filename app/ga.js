@@ -3,8 +3,8 @@ define(['backbone', 'jquery'], function(Backbone, $) {
     // Common Google Analytics API for the Cordova GAPlugin and Google's async ga.js
     //
     // API is currently:
-    // - init(trackingID [, period])
-    // - trackPage()
+    // - startTrackerWithId(trackingID )
+    // - trackView(path)
     //
     // Both of which have 2 concrete implementations for Cordova and "web"
     function GA(options) {
@@ -21,9 +21,7 @@ define(['backbone', 'jquery'], function(Backbone, $) {
 
         // Access the plugin directly from window
         var gaPluginAvailable = false;
-        var gaPlugin;
-        if ('plugins' in window && 'gaPlugin' in window.plugins) {
-            gaPlugin = window.plugins.gaPlugin;
+        if ('ga' in window) {
             gaPluginAvailable = true;
         }
 
@@ -44,7 +42,7 @@ define(['backbone', 'jquery'], function(Backbone, $) {
         }
 
         function trackPageCordova(path) {
-            gaPlugin.trackPage(successCB("trackPage"), errorCB("trackPage"), path);
+            window.ga.trackView(path);
         }
 
         function trackPageWeb(path) {
@@ -77,8 +75,8 @@ define(['backbone', 'jquery'], function(Backbone, $) {
             }
         }
 
-        function initGACordova(trackingID, period) {
-            gaPlugin.init(successCB("init GA"), errorCB("init GA"), trackingID, period);
+        function initGACordova(trackingID) {
+            window.ga.startTrackerWithId(trackingID);
         }
 
         function initGAWeb(trackingID) {
@@ -95,13 +93,11 @@ define(['backbone', 'jquery'], function(Backbone, $) {
             })();
         }
 
-        this.init = function(trackingID, period) {
+        this.init = function(trackingID) {
             // trackingID - should be the unique app identifier from Google Analytics
-            // period - required for Cordova GAPlugin,
-            //          number of seconds between each upload of analytics
             try {
                 if (gaPluginAvailable) {
-                    initGACordova(trackingID, period);
+                    initGACordova(trackingID);
                 } else {
                     initGAWeb(trackingID);
                 }

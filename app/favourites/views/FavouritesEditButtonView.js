@@ -1,4 +1,4 @@
-define(['jquery', 'backbone', 'underscore', 'moxie.conf'],
+define(['jquery', 'backbone', 'underscore', 'app/moxie.conf'],
     function($, Backbone, _, conf) {
         var standardClass = 'fa',
             disabledClass = 'writingdisabled',

@@ -1,4 +1,4 @@
-define(['jquery', 'backbone', 'underscore', 'hbs!courses/templates/subjects', 'leaflet', 'moxie.conf'], function($, Backbone, _, subjectsTemplate, L, MoxieConf){
+define(['jquery', 'backbone', 'underscore', 'hbs!app/courses/templates/subjects', 'leaflet', 'app/moxie.conf'], function($, Backbone, _, subjectsTemplate, L, MoxieConf){
     var SubjectsView = Backbone.View.extend({
 
         initialize: function() {

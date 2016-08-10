@@ -7,6 +7,7 @@
 css/app.css
 css/components/*
 css/globals/*
+css/foundation/*
 
 # Minified JS
 app/main-built.js
@@ -23,3 +24,10 @@ phonegap_build/
 
 # Ruby bundle (recommended in README.md)
 .bundle
+
+app/built.js
+
+node_modules/*
+www/*
+platforms/*
+plugins/*

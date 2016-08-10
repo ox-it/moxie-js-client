@@ -1,4 +1,4 @@
-define(['underscore', 'MoxieModel', 'moxie.conf', 'today/views/NotificationsCard'],
+define(['underscore', 'app/core/models/MoxieModel', 'app/moxie.conf', 'app/today/views/NotificationsCard'],
     function(_, MoxieModel, conf, NotificationsCard) {
         var Notifications = MoxieModel.extend({
             url: conf.urlFor('notifications_list'),

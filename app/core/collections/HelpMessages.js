@@ -1,4 +1,4 @@
-define(['backbone', 'core/collections/LocalStorageCollection'], function(Backbone, LocalStorageCollection) {
+define(['backbone', 'app/core/collections/LocalStorageCollection'], function(Backbone, LocalStorageCollection) {
     var HelpMessages = LocalStorageCollection.extend({
         name: "help-messages",
         model: Backbone.Model.extend({idAttribute: 'name'}),

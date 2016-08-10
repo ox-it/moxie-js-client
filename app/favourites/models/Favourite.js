@@ -1,4 +1,4 @@
-define(["MoxieModel"],
+define(["app/core/models/MoxieModel"],
 
     function(MoxieModel) {
         var Favourite = MoxieModel.extend({

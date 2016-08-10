@@ -1,4 +1,4 @@
-define(["jquery", "backbone", "jasmine", "core/collections/MoxieCollection"], function($, Backbone, jasmine, MoxieCollection) {
+define(["jquery", "backbone", "jasmine", "app/core/collections/MoxieCollection"], function($, Backbone, jasmine, MoxieCollection) {
     describe("Accessing data asynchronously using the MoxieCollection", function() {
         it("Should call success if the model is already in that collection", function() {
             var collection  = new MoxieCollection([{id: 1, name: 'dave'}]);

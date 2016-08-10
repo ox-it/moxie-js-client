@@ -1,4 +1,4 @@
-define(['jquery', 'backbone', 'underscore', 'app', 'cordova.help', 'contacts/views/ResultItemView', 'hbs!contacts/templates/search'],
+define(['jquery', 'backbone', 'underscore', 'app/app', 'app/cordova.help', 'app/contacts/views/ResultItemView', 'hbs!app/contacts/templates/search'],
     function($, Backbone, _, app, cordova, ResultItemView, searchTemplate){
         var CONTACTS_SAVE_HELP = 'contacts-save-help';
         var SearchView = Backbone.View.extend({

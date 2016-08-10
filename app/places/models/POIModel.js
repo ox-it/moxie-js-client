@@ -1,4 +1,4 @@
-define(["MoxieModel", "underscore", "moxie.conf", "places/models/RTIModels", "places/views/RTIViews"], function(MoxieModel, _, conf, RTIModels, RTIViews) {
+define(["app/core/models/MoxieModel", "underscore", "app/moxie.conf", "app/places/models/RTIModels", "app/places/views/RTIViews"], function(MoxieModel, _, conf, RTIModels, RTIViews) {
 
     var DEFAULT_RTI_TYPES = ['bus', 'rail-departures', 'p-r'];
     var POI = MoxieModel.extend({

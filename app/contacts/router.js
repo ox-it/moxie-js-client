@@ -1,4 +1,4 @@
-define(["app", "underscore", "backbone", "contacts/collections/ContactCollection", "contacts/views/SearchView"], function(app, _, Backbone, Contacts, ContactsView){
+define(["app/app", "underscore", "backbone", "app/contacts/collections/ContactCollection", "app/contacts/views/SearchView"], function(app, _, Backbone, Contacts, ContactsView){
     var ContactsRouter = Backbone.SubRoute.extend({
         contactsCollection: new Contacts(),
         routes: {'search*': 'search'},

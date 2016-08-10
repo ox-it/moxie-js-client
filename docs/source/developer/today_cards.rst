@@ -13,7 +13,7 @@ Creating a card
 The best way to see how to implement a card is to look at an example::
 
     // From today/models/RiverStatus.js
-    define(['backbone', 'underscore', 'moxie.conf', 'today/views/RiversCard'], function(Backbone, _, conf, RiversCard) {
+    define(['backbone', 'underscore', 'app/moxie.conf', 'app/today/views/RiversCard'], function(Backbone, _, conf, RiversCard) {
         var RiverStatus = Backbone.Model.extend({
             url: conf.urlFor('rivers'),
             View: RiversCard
@@ -22,7 +22,7 @@ The best way to see how to implement a card is to look at an example::
     });
 
     // From today/views/RiversCard.js
-    define(['today/views/CardView', 'hbs!today/templates/rivers'], function(CardView, riversTemplate) {
+    define(['app/today/views/CardView', 'hbs!app/today/templates/rivers'], function(CardView, riversTemplate) {
         var RiversCard = CardView.extend({
             weight: 70,
             manage: true,

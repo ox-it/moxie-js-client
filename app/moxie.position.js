@@ -1,4 +1,4 @@
-define(["underscore", "backbone", "moxie.conf", "cordova.help"], function(_, Backbone, conf, cordova){
+define(["underscore", "backbone", "app/moxie.conf", "app/cordova.help"], function(_, Backbone, conf, cordova){
     var EVENT_POSITION_UPDATED = 'position:updated';
     function UserPosition() {
         _.extend(this, Backbone.Events);

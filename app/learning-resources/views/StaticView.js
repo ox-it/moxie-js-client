@@ -1,4 +1,4 @@
-define(['backbone', 'hbs!learning-resources/templates/index'], function(Backbone, indexTemplate) {
+define(['backbone', 'hbs!app/learning-resources/templates/index'], function(Backbone, indexTemplate) {
     var StaticView = Backbone.View.extend({
 
         template: indexTemplate,

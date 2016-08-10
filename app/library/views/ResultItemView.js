@@ -1,4 +1,4 @@
-define(["backbone", "hbs!library/templates/result-item"], function(Backbone, resultTemplate){
+define(["backbone", "hbs!app/library/templates/result-item"], function(Backbone, resultTemplate){
     var ResultItemView = Backbone.View.extend({
         manage: true,
         tagName: "li",

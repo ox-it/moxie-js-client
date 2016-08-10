@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'underscore', 'moxie.conf', 'core/views/ErrorView',
-        'hbs!places/templates/detail'],
+define(['jquery', 'backbone', 'underscore', 'app/moxie.conf', 'app/core/views/ErrorView',
+        'hbs!app/places/templates/detail'],
     function($, Backbone, _, conf, ErrorView, detailTemplate){
     var RTI_REFRESH = 15000;    // 15 seconds
     var DetailView = Backbone.View.extend({

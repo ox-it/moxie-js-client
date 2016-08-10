@@ -1,4 +1,4 @@
-define(['underscore', 'moxie.conf', 'leaflet', 'moxie.position'], function(_, MoxieConf, L, userPosition){
+define(['underscore', 'app/moxie.conf', 'leaflet', 'app/moxie.position'], function(_, MoxieConf, L, userPosition){
     L.Icon.Default.imagePath = 'images/maps';
     var utils = {
         // This rather dense function takes the full set of categories
@@ -21,7 +21,7 @@ define(['underscore', 'moxie.conf', 'leaflet', 'moxie.position'], function(_, Mo
             var map = new L.map(el, mapOptions).setView([position.coords.latitude, position.coords.longitude], MoxieConf.map.defaultZoom, true);
 
             // Add the tile layer
-            L.tileLayer('http://a.tiles.mapbox.com/v3/'+MoxieConf.mapbox.key+'/{z}/{x}/{y}.png', MoxieConf.map.defaultTileLayerOptions).addTo(map);
+            L.tileLayer('http://map-tiles.oucs.ox.ac.uk'+'/{z}/{x}/{y}.png', MoxieConf.map.defaultTileLayerOptions).addTo(map);
             map.attributionControl.setPrefix('');
             return map;
         }

@@ -1,4 +1,4 @@
-define(["MoxieModel"], function(MoxieModel) {
+define(["app/core/models/MoxieModel"], function(MoxieModel) {
 
     var Contact = MoxieModel.extend({
     });

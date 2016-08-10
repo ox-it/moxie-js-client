@@ -1,4 +1,4 @@
-define(['backbone', 'hbs!today/templates/editToday'], function(Backbone, editTodayTemplate) {
+define(['backbone', 'hbs!app/today/templates/editToday'], function(Backbone, editTodayTemplate) {
     var EditTodayView = Backbone.View.extend({
         manage: true,
         template: editTodayTemplate,

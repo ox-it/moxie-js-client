@@ -1,4 +1,4 @@
-define(["app", "underscore", "backbone", "moxie.conf", "events/models/EventModel", "events/collections/EventCollection", "events/views/EventsView", "events/views/EventDetailView", "backbone.subroute"],
+define(["app/app", "underscore", "backbone", "app/moxie.conf", "app/events/models/EventModel", "app/events/collections/EventCollection", "app/events/views/EventsView", "app/events/views/EventDetailView", "backbone.subroute"],
  function(app, _, Backbone, conf, Event, EventCollection, EventsView, EventView){
     var EventsRouter = Backbone.SubRoute.extend({
         events: new EventCollection(),

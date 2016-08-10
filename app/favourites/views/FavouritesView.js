@@ -1,4 +1,4 @@
-define(['jquery', 'backbone', 'underscore', 'favourites/collections/Favourites', 'hbs!favourites/templates/favourites'],
+define(['jquery', 'backbone', 'underscore', 'app/favourites/collections/Favourites', 'hbs!app/favourites/templates/favourites'],
     function($, Backbone, _, Favourites, favouritesTemplate) {
         var FavouritesView = Backbone.View.extend({
             initialize: function(options) {

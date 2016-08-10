@@ -1,4 +1,4 @@
-define(["core/collections/MoxieCollection", "underscore", "places/models/POIModel", "moxie.conf", 'moxie.position'], function(MoxieCollection, _, POI, conf, userPosition) {
+define(["app/core/collections/MoxieCollection", "underscore", "app/places/models/POIModel", "app/moxie.conf", 'app/moxie.position'], function(MoxieCollection, _, POI, conf, userPosition) {
 
     var POIs = MoxieCollection.extend({
         model: POI,

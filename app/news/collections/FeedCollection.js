@@ -1,4 +1,4 @@
-define(["underscore", "core/collections/MoxieCollection", "news/models/FeedModel"], function(_, MoxieCollection, Feed) {
+define(["underscore", "app/core/collections/MoxieCollection", "app/news/models/FeedModel"], function(_, MoxieCollection, Feed) {
 
     var Feeds = MoxieCollection.extend({
         initialize: function() {

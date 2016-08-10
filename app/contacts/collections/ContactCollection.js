@@ -1,4 +1,4 @@
-define(["core/collections/MoxieCollection", "contacts/models/ContactModel", "moxie.conf"], function(MoxieCollection, Contact, conf) {
+define(["app/core/collections/MoxieCollection", "app/contacts/models/ContactModel", "app/moxie.conf"], function(MoxieCollection, Contact, conf) {
 
     var Contacts = MoxieCollection.extend({
 

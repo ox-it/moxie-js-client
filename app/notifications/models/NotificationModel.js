@@ -1,4 +1,4 @@
-define(["underscore", "MoxieModel", "moxie.conf", "moment"], function(_, MoxieModel, conf, moment) {
+define(["underscore", "app/core/models/MoxieModel", "app/moxie.conf", "moment"], function(_, MoxieModel, conf, moment) {
     var DEFAULT_FORMAT = "D MMM YYYY, HH:mm";
     var today = moment(new Date());
     function dateFormat(date) {

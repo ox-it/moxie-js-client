@@ -1,4 +1,4 @@
-define(['jquery', 'backbone', 'underscore', 'core/views/InfiniteScrollView', 'library/views/ResultItemView', 'core/views/ErrorView', 'hbs!library/templates/search', 'moxie.conf'],
+define(['jquery', 'backbone', 'underscore', 'app/core/views/InfiniteScrollView', 'app/library/views/ResultItemView', 'app/core/views/ErrorView', 'hbs!app/library/templates/search', 'app/moxie.conf'],
     function($, Backbone, _, InfiniteScrollView, ResultItemView, ErrorView, searchTemplate, MoxieConf){
         var SearchView = InfiniteScrollView.extend({
 

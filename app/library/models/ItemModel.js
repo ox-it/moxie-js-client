@@ -1,4 +1,4 @@
-define(["MoxieModel", "underscore", "leaflet", "moxie.conf", "places/collections/POICollection", "places/models/POIModel"], function(MoxieModel, _, L, conf, POIs, POI) {
+define(["app/core/models/MoxieModel", "underscore", "leaflet", "app/moxie.conf", "app/places/collections/POICollection", "app/places/models/POIModel"], function(MoxieModel, _, L, conf, POIs, POI) {
 
     var ICON_PATH_PREFIX = 'images/maps/';
     var MARKER_SHADOW = 'marker-shadow.png';

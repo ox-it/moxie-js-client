@@ -1,4 +1,4 @@
-define(['MoxieModel'], function(MoxieModel) {
+define(['app/core/models/MoxieModel'], function(MoxieModel) {
     function slugify(text) {
         text = text.replace(/[^\-a-zA-Z0-9,&\s]+/ig, '');
         text = text.replace(/-/gi, "_");
