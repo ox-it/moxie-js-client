@@ -2,28 +2,6 @@
     'use strict';
     var cordova = require('cordova');
     
-    // var plugins = [
-    //     "cordova-plugin-dialogs",
-    //     "cordova-plugin-contacts",
-    //     "cordova-plugin-device",
-    //     "cordova-plugin-splashscreen",
-    //     "cordova-plugin-geolocation",
-    //     "cordova-plugin-inappbrowser",
-    //     "cordova-plugin-statusbar",
-    //     "cordova-plugin-calendar",
-    //     "com.adobe.plugins.GAPlugin",
-    //     "cordova-plugin-whitelist",
-    //     "cordova-plugin-pushplugin"
-    //     // 'cordova-plugin-device',
-    //     // 'cordova-plugin-inappbrowser',
-    //     // 'cordova-plugin-dialogs',
-    //     // 'cordova-plugin-x-socialsharing',
-    //     // 'cordova-plugin-statusbar',
-    //     // 'cordova-plugin-whitelist',
-    //     // 'cordova-plugin-crosswalk-webview'
-    //     //add further plugins here
-    // ]
-    
     var platforms = [
         'ios',
         'android@3.7.1'
@@ -52,18 +30,6 @@
         };
 
         grunt.initConfig({
-            // yeoman: yeomanConfig,
-            // jshint: {
-            //     gruntfile: ['Gruntfile.js'],
-            //     files: ['www/**/*.js', 'test/**/*.js'],
-            //     options: {
-            //         // options here to override JSHint defaults
-            //         globals: {
-            //             console: true,
-            //             module: true
-            //         }
-            //     }
-            // },
             watchfiles: {
                 all: [
                     'www/{,*/}*.html',
@@ -168,47 +134,6 @@
                   ]
                 },
               },
-              // jasmine: {
-              //   testTask: {
-              //     src: [
-              //       'app/**/*.js',
-              //       '!app/built.js',
-              //       '!app/libs/**',
-              //     ],
-              //     options: {
-              //       specs: [
-              //         'spec/removeCustomSkill.js',
-              //         'spec/index.js',
-              //         'spec/skills.js',
-              //         'spec/goals.js',
-              //         'spec/activities.js',
-              //         'spec/createGoal.js',
-              //         'spec/validateSkill.js',
-              //         'spec/validateGoal.js',
-              //         'spec/validateActivity.js',
-              //         'spec/cascadingChanges.js',
-              //       ],
-              //       vendor: [
-              //         'app/libs/es5-shim/es5-shim.js',
-              //         'app/libs/es6-promise/promise.js',
-              //         'app/libs/underscore/underscore.js',
-              //         'app/libs/pouchdb/dist/pouchdb.js',
-              //         'app/libs/auth0-lock/build/auth0-lock.js',
-              //         'app/libs/pouchdb-quick-search/dist/pouchdb.quick-search.js'
-              //       ],
-              //       helpers: 'spec/helper.js',
-              //       template: require('grunt-template-jasmine-requirejs'),
-              //       templateOptions: {
-              //         requireConfigFile: './require.config.js'
-              //       },
-              //       keepRunner: true,
-              //       junit: {
-              //         path: '.',
-              //         consolidate: false
-              //       }
-              //     }
-              //   }
-              // },
               cordovacli: {
                 options: {
                     path: '.',
