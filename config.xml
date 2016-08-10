@@ -33,27 +33,27 @@
     <plugin name="cordova-plugin-pushplugin" spec="~2.6.1" />
     
     <platform name="android">
-        <!-- you can use any density that exists in the Android project -->
+        <!--you can use any density that exists in the Android project -->
 
-        <!-- <splash src="packaging/splash/splash-land-ldpi.png" density="land-ldpi"/> -->
-        <!-- <splash src="packaging/splash/splash-land-hdpi.png" density="land-hdpi"/> -->
-        <!-- <splash src="packaging/splash/splash-land-mdpi.png" density="land-mdpi"/> -->
-        <!-- <splash src="packaging/splash/splash-land-xhdpi.png" density="land-xhdpi"/> -->
-        <!-- <splash src="packaging/splash/splash-land-xxhdpi.png" density="land-xxhdpi"/> -->
-        <!-- <splash src="packaging/splash/splash-land-xxxhdpi.png" density="land-xxxhdpi"/> -->
-        <!-- <splash src="packaging/splash/splash-port-ldpi.png" density="port-ldpi"/> -->
-        <!-- <splash src="packaging/splash/splash-port-hdpi.png" density="port-hdpi"/> -->
+        <splash src="packaging/splash/splash-land-ldpi.png" density="land-ldpi"/>
+        <splash src="packaging/splash/splash-land-hdpi.png" density="land-hdpi"/>
+        <splash src="packaging/splash/splash-land-mdpi.png" density="land-mdpi"/>
+        <splash src="packaging/splash/splash-land-xhdpi.png" density="land-xhdpi"/>
+        <splash src="packaging/splash/splash-land-xxhdpi.png" density="land-xxhdpi"/>
+        <splash src="packaging/splash/splash-land-xxxhdpi.png" density="land-xxxhdpi"/>
+        <splash src="packaging/splash/splash-port-ldpi.png" density="port-ldpi"/>
+        <splash src="packaging/splash/splash-port-hdpi.png" density="port-hdpi"/>
         <splash src="packaging/splash/splash-port-mdpi.png" density="port-mdpi"/>
-        <!-- <splash src="packaging/splash/splash-port-xhdpi.png" density="port-xhdpi"/> -->
-        <!-- <splash src="packaging/splash/splash-port-xxhdpi.png" density="port-xxhdpi"/> -->
-        <!-- <splash src="packaging/splash/splash-port-xxxhdpi.png" density="port-xxxhdpi"/> -->
+        <splash src="packaging/splash/splash-port-xhdpi.png" density="port-xhdpi"/>
+        <splash src="packaging/splash/splash-port-xxhdpi.png" density="port-xxhdpi"/>
+        <splash src="packaging/splash/splash-port-xxxhdpi.png" density="port-xxxhdpi"/>
         
-        <!-- <icon src="packaging/icons/ldpi.png" density="ldpi" /> -->
-        <!-- <icon src="packaging/icons/mdpi.png" density="mdpi" /> -->
+        <icon src="packaging/icons/ldpi.png" density="ldpi" />
+        <icon src="packaging/icons/mdpi.png" density="mdpi" />
         <icon src="packaging/icons/hdpi.png" density="hdpi" />
-        <!-- <icon src="packaging/icons/xhdpi.png" density="xhdpi" /> -->
+        <icon src="packaging/icons/xhdpi.png" density="xhdpi" />
         <icon src="packaging/icons/xxhdpi.png" density="xxhdpi" />
-        <!-- <icon src="packaging/icons/xxxhdpi.png" density="xxxhdpi" /> -->
+        <icon src="packaging/icons/xxxhdpi.png" density="xxxhdpi" />
     </platform>
 
     <platform name="ios">
@@ -62,19 +62,19 @@
         <splash src="packaging/splash/Default-Portrait@2x~ipad.png" width="1536" height="2048"/>
         <splash src="packaging/splash/Default-Landscape~ipad.png" width="1024" height="768"/>
         <splash src="packaging/splash/Default-Landscape@2x~ipad.png" width="2048" height="1536"/>
-        <!-- <splash src="packaging/splash/Default-736h.png" width="1242" height="2208"/> -->
-        <!-- <splash src="packaging/splash/Default-Landscape-736h.png" width="2208" height="1242"/> -->
+        <splash src="packaging/splash/Default-736h.png" width="1242" height="2208"/> -->
+        <splash src="packaging/splash/Default-Landscape-736h.png" width="2208" height="1242"/>
          <!-- before iphone 5 ios only supported portrait splash screens. We can fake it 
         by rotating the imagery 90% within the portrait dimenstions-->
         <splash src="packaging/splash/Default~iphone.png" width="320" height="480"/>
         <splash src="packaging/splash/Default@2x~iphone.png" width="640" height="960"/>
         <splash src="packaging/splash/Default-568h@2x~iphone.png" width="640" height="1136"/>
         <!-- the following screens do not have "landscape" variants recognised by cordova, but we get around this by making the image file landscape but not changing the portrait dimensions specified here -->
-        <!-- <splash src="packaging/splash/Default-667h.png" width="750" height="1334"/> -->
+        <splash src="packaging/splash/Default-667h.png" width="750" height="1334"/>
 
          <!-- iOS 8.0+ -->
         <!-- iPhone 6 Plus  -->
-        <!-- <icon src="packaging/icons/icon-60@3x.png" width="180" height="180" /> -->
+        <icon src="packaging/icons/icon-60@3x.png" width="180" height="180" />
         
         <!-- iOS 7.0+ -->
         <!-- iPhone / iPod Touch  -->
