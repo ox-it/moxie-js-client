@@ -33,10 +33,16 @@ The Build
 
     r.js -o js/moxie.build.js
 
-PhoneGap build
+Cordova build
 --------------
-
-See [moxie-phonegap](https://github.com/ox-it/moxie-phonegap) for more information about building the application for Phonegap.
+Assuming that `npm` is installed:
+```
+npm install
+```
+```
+grunt ios
+grunt android
+```
 
 Development
 -----------
