@@ -1,7 +1,7 @@
 // Sets the require.js configuration for your application.
-var requireConfig = {
+require.config({
     // 3rd party script alias names (Easier to type "jquery" than "libs/jquery-1.7.2.min")
-    // baseUrl: 'app',
+    baseUrl: '',
     paths: {
 
         // Core Libraries
@@ -94,8 +94,4 @@ var requireConfig = {
         disableI18n: true,
         helperPathCallback: function(name) {return 'app/templates/helpers/' + name;}
     }
-};
-
-require.config(requireConfig);
-
-require(['app/main']);
+});
