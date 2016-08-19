@@ -1,5 +1,5 @@
-define(["app/app", "app/cordova.help", "backbone", "app/places/router", "app/today/views/IndexView", "app/today/collections/TodayItems", "app/courses/router", "app/library/router", "app/contacts/router", "app/news/router", "app/events/router", "app/feedback/router", "app/notifications/router", "app/favourites/views/FavouritesEditButtonView", "app/favourites/views/FavouritesView", "app/today/views/EditTodayButton", "app/today/views/SaveTodayButton", "app/today/views/EditTodayView", "app/security/router", "app/student-advice-service/views/StaticView", "app/learning-resources/views/StaticView"],
-    function(app, cordova, Backbone, PlacesRouter, IndexView, TodayItems, CoursesRouter, LibraryRouter, ContactsRouter, NewsRouter, EventsRouter, FeedbackRouter, NotificationsRouter, FavouritesEditButtonView, FavouritesView, EditTodayButton, SaveTodayButton, EditTodayView, SecurityRouter, StudentAdviceView, LearningResourcesView){
+define(["app/app", "app/cordova.help", "backbone", "app/places/router", "app/today/views/IndexView", "app/today/collections/TodayItems", "app/courses/router", "app/library/router", "app/contacts/router", "app/news/router", "app/events/router", "app/feedback/router", "app/notifications/router", "app/favourites/views/FavouritesEditButtonView", "app/favourites/views/FavouritesView", "app/today/views/EditTodayButton", "app/today/views/SaveTodayButton", "app/today/views/EditTodayView", "app/security/router", "app/student-advice-service/views/StaticView", "app/learning-resources/views/StaticView", "app/privacy/views/PrivacyView"],
+    function(app, cordova, Backbone, PlacesRouter, IndexView, TodayItems, CoursesRouter, LibraryRouter, ContactsRouter, NewsRouter, EventsRouter, FeedbackRouter, NotificationsRouter, FavouritesEditButtonView, FavouritesView, EditTodayButton, SaveTodayButton, EditTodayView, SecurityRouter, StudentAdviceView, LearningResourcesView, PrivacyView){
     var MoxieRouter = Backbone.Router.extend({
         subrouters: {},
 
@@ -24,7 +24,8 @@ define(["app/app", "app/cordova.help", "backbone", "app/places/router", "app/tod
             "feedback/*subroute": "feedback",
             "notifications/*subroute": "notifications",
             "student-advice-service/": "studentAdvice",
-            "learning-resources/": "learningResources"
+            "learning-resources/": "learningResources",
+            "privacy/": "privacy"
         },
 
         index: function() {
@@ -97,6 +98,9 @@ define(["app/app", "app/cordova.help", "backbone", "app/places/router", "app/tod
         },
         learningResources: function(params) {
             app.renderView(new LearningResourcesView(), {menu: true});
+        },
+        privacy: function(params) {
+            app.renderView(new PrivacyView(), {menu: false});
         }
 
 
