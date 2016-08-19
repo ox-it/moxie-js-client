@@ -1,5 +1,5 @@
 // Sets the require.js configuration for your application.
-var require = {
+var requireConfig = {
     // 3rd party script alias names (Easier to type "jquery" than "libs/jquery-1.7.2.min")
     // baseUrl: 'app',
     paths: {
@@ -95,3 +95,7 @@ var require = {
         helperPathCallback: function(name) {return 'app/templates/helpers/' + name;}
     }
 };
+
+require.config(requireConfig);
+
+require(['app/main']);
