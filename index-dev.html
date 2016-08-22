@@ -42,8 +42,8 @@
     <!-- Included CSS Files -->
     <link rel="stylesheet" href="css/app.css">
 
-    <script src="app/require.config.js"></script>
-    <script data-main="main" src="app/libs/require.js"></script>
+    <script data-main="require.config.js" type="text/javascript" src="app/libs/require.js"></script>
+
 
     <!-- IE Fix for HTML5 Tags -->
     <!--[if lt IE 9]>
@@ -85,4 +85,8 @@
             <img src="images/preloader.gif" class="preloader">
         </div>
     </div>
+    
+    <script>
+        require(['app/main']);
+    </script>
 </body>
