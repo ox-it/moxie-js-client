@@ -25,7 +25,7 @@ define(['jquery', 'backbone', 'underscore', 'app/moxie.conf', 'app/feedback/mode
         template: feedbackTemplate,
 
         beforeRender: function() {
-            Backbone.trigger('domchange:title', "Feedback");
+            Backbone.trigger('domchange:title', "Feedback and Support");
         },
 
         submitFeedback: function(ev) {
