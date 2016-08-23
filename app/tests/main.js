@@ -6,16 +6,16 @@ require(["jquery", "backbone", "jasmine-html", "jasmine-jquery"],
     var baseRequirements = ['backbone.layoutmanager'];
     var specs = [];
     // Core app
-    specs.push('tests/specs/app');
+    specs.push('app/tests/specs/app');
     // Today
     specs.push('app/today/specs/cards');
     // Places
-    specs.push('places/specs/categories');
+    specs.push('app/places/specs/categories');
     // Favourites
-    specs.push('favourites/specs/button');
+    specs.push('app/favourites/specs/button');
     // Core
-    specs.push('core/specs/infinite');
-    specs.push('core/specs/collections');
+    specs.push('app/core/specs/infinite');
+    specs.push('app/core/specs/collections');
     var requirements = baseRequirements.concat(specs);
     $(function() {
       require(requirements, function() {

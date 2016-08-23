@@ -1,4 +1,4 @@
-define(["jquery", "backbone", "jasmine", "favourites/views/FavouriteButtonView", "favourites/collections/Favourites", "app/moxie.conf", 'backbone.queryparams'], function($, Backbone, jasmine, FavouriteButtonView, Favourites, conf) {
+define(["jquery", "backbone", "jasmine", "app/favourites/views/FavouriteButtonView", "app/favourites/collections/Favourites", "app/moxie.conf", 'backbone.queryparams'], function($, Backbone, jasmine, FavouriteButtonView, Favourites, conf) {
     Backbone.history.start();
 
     describe("Behaviour of clicking the favourites button", function() {

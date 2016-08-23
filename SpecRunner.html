@@ -4,9 +4,11 @@
         <meta charset="utf-8" />
         <title>Jasmine Spec Runner</title>
         <link rel="stylesheet" type="text/css" href="app/tests/libs/jasmine-1.3.1/jasmine.css">
-        <script src="app/require.config.js"></script>
-        <script data-main="tests/main" src="app/libs/require.js"></script>
+        <script data-main="require.config.js" src="app/libs/require.js"></script>
     </head>
     <body>
+        <script>
+            require(['app/tests/main']);
+        </script>
     </body>
 </html>

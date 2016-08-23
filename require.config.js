@@ -28,9 +28,9 @@ require.config({
         "foundation.tooltips": "app/libs/foundation/foundation.tooltips",
 
         // Testing libs
-        "jasmine": "tests/libs/jasmine-1.3.1/jasmine",
-        "jasmine-html": "tests/libs/jasmine-1.3.1/jasmine-html",
-        "jasmine-jquery": "tests/libs/jasmine-jquery",
+        "jasmine": "app/tests/libs/jasmine-1.3.1/jasmine",
+        "jasmine-html": "app/tests/libs/jasmine-1.3.1/jasmine-html",
+        "jasmine-jquery": "app/tests/libs/jasmine-jquery",
 
         // Moxie Core modules
         // "app/core/models/MoxieModel": "app/core/models/MoxieModel",

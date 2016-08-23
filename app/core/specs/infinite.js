@@ -1,4 +1,4 @@
-define(["jquery", "backbone", "jasmine", "app/coreviews/InfiniteScrollView"], function($, Backbone, jasmine, InfiniteScrollView) {
+define(["jquery", "backbone", "jasmine", "app/core/views/InfiniteScrollView"], function($, Backbone, jasmine, InfiniteScrollView) {
     describe("Scrolling within an overflowing div", function() {
         var scrollCallbackCalled;
         var TestInfiniteScroll = InfiniteScrollView.extend({

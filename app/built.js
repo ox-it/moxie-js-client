@@ -21560,8 +21560,7 @@ define('app/moxie.conf',[], function() {
                     {"title": "Department of Biochemistry", "url": "http://rss.oucs.ox.ac.uk/bioch/news/rss20.xml", "slug": "biochemistry-department"},
                     {"title": "Department of Computer Science", "url": "http://www.cs.ox.ac.uk/feeds/News-All.xml", "slug": "cs-news"},
                     {"title": "Department of International Development", "url": "http://www3.qeh.ox.ac.uk/rss/news_rss.php", "slug": "odid-news"},
-                    {"title": "News from the RSL", "url": "http://www.bodleian.ox.ac.uk/science/news/rss", "slug": "ulib-science"},
-                    {"title": "Mobile Oxford Team Blog", "url": "http://blog.m.ox.ac.uk/feeds/all.atom.xml", "slug": "mox-blog"},
+                    {"title": "News from the RSL", "url": "http://www.bodleian.ox.ac.uk/science/news/rss", "slug": "ulib-science"}
                 ],
             numberOfEntries: 10,
         },
@@ -21573,7 +21572,7 @@ define('app/moxie.conf',[], function() {
         security: {
             feed: null,
         },
-        ga: {trackingID: "UA-40281467-3", period: 10, debug: true},
+        ga: {trackingID: "UA-82197555-1", period: 10, debug: true},
         pushNotifications: {
             ios: {
                 enabled: true
@@ -21771,18 +21770,11 @@ define('app/places/utils',['underscore', 'app/moxie.conf', 'leaflet', 'app/moxie
         getMap: function(el, options) {
             options = options || {};
             var position = options.position || userPosition.getCurrentLocation();
-            if (('device' in window) && (window.device.platform==='Android')) {
-                // Disable 3D acceleration for Android WebViews
-                if ('console' in window) {
-                    console.log("Android! Disabling 3D acceleration.");
-                }
-                L.Browser.any3d = false;
-            }
             var mapOptions = options.mapOptions || {};
             var map = new L.map(el, mapOptions).setView([position.coords.latitude, position.coords.longitude], MoxieConf.map.defaultZoom, true);
 
             // Add the tile layer
-            L.tileLayer('http://a.tiles.mapbox.com/v3/'+MoxieConf.mapbox.key+'/{z}/{x}/{y}.png', MoxieConf.map.defaultTileLayerOptions).addTo(map);
+            L.tileLayer('http://maps-tiles.oucs.ox.ac.uk'+'/{z}/{x}/{y}.png', MoxieConf.map.defaultTileLayerOptions).addTo(map);
             map.attributionControl.setPrefix('');
             return map;
         }
@@ -43229,7 +43221,7 @@ define('app/places/views/EmbeddedPoiView',['jquery', 'backbone', 'underscore', '
         renderMap: function(data) {
             this.map = new L.map(this.$('.embedded_map')[0], {dragging: false, scrollWheelZoom: false, touchZoom: false, doubleClickZoom: false, boxZoom: false})
                 .setView([data.lat, data.lon], 15, true);
-            L.tileLayer('http://a.tiles.mapbox.com/v3/'+MoxieConf.mapbox.key+'/{z}/{x}/{y}.png', {
+            L.tileLayer('http://maps-tiles.oucs.ox.ac.uk'+'/{z}/{x}/{y}.png', {
                 minZoom: 0,
                 maxZoom: 18,
                 // Detect retina - if true 4* map tiles are downloaded
@@ -45383,18 +45375,18 @@ var t = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
 function program1(depth0,data) {
   
   
-  return "\n        <p><strong>Thank you for your feedback!</strong></p>\n	";}
+  return "\n	        <p><strong>Thank you for your feedback!</strong></p>\n		";}
 
 function program3(depth0,data) {
   
   
-  return "\n		<p>We're a small team based at IT Services as part of Oxford University and we're always interested in hearing what you think and what you'd like to see in Mobile Oxford.</p>\n	";}
+  return "\n			<p>\n				Mobile Oxford is maintained and supported by IT Services at the University of Oxford.\n			</p>\n			<p>\n				If you need help or have any suggestions, please drop us a line through this form.\n			</p>\n		";}
 
-  buffer += "\n<div class=\"card\">\n	<h3>Feedback</h3>\n	";
+  buffer += "\n<div class=\"card\">\n	<h3>Feedback and Support</h3>\n		<div class=\"padded-contents\">\n		";
   stack1 = depth0.thanks;
   stack1 = helpers['if'].call(depth0, stack1, {hash:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data)});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n\n	<div id=\"feedback-form\">\n	    <div class=\"feedback-input\">\n	        <label for=\"input-email\">Your email (optional):</label>\n	        <input id=\"input-email\" type=\"email\" name=\"email\" placeholder=\"e.g. example@example.com\"/>\n\n	        <label for=\"input-message\">Your feedback:</label>\n	        <textarea id=\"input-message\" type=\"text\" name=\"message\" rows=\"8\" />\n\n	        <input class=\"action-button submit\" type=\"submit\" value=\"Send feedback!\" id=\"submit-feedback\" />\n	    </div>\n	</div>\n</div>";
+  buffer += "\n\n		<div id=\"feedback-form\">\n		    <div class=\"feedback-input\">\n		        <label for=\"input-email\">Your email (optional):</label>\n		        <input id=\"input-email\" type=\"email\" name=\"email\" placeholder=\"e.g. example@example.com\"/>\n\n		        <label for=\"input-message\">Your message:</label>\n		        <textarea id=\"input-message\" type=\"text\" name=\"message\" rows=\"8\" />\n\n		        <input class=\"action-button submit\" type=\"submit\" value=\"Send feedback!\" id=\"submit-feedback\" />\n		    </div>\n		</div>\n	</div>\n</div>\n";
   return buffer;});
 Handlebars.registerPartial('app_feedback_templates_feedback', t);
 return t;
@@ -45428,7 +45420,7 @@ define('app/feedback/views/FeedbackView',['jquery', 'backbone', 'underscore', 'a
         template: feedbackTemplate,
 
         beforeRender: function() {
-            Backbone.trigger('domchange:title', "Feedback");
+            Backbone.trigger('domchange:title', "Feedback and Support");
         },
 
         submitFeedback: function(ev) {
@@ -46103,7 +46095,7 @@ var t = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   
 
 
-  return "<div id=\"cover\" class=\"learning-resources\">\n	<h2>Learning Resources</h2>\n</div>\n\n<div class=\"card-container\">\n    <div class=\"card\">\n        <h3>University Resources</h3>\n        <ul class=\"results-list\">\n        <li><a href=\"https://weblearn.ox.ac.uk\" target=\"_blank\" title=\"WebLearn\">WebLearn <i class=\"fa fa-external-link\"></i><span class=\"subtext\">University of Oxford's VLE (requires login)</span></a></li>\n        <li><a href=\"https://old.m.ox.ac.uk/weblearn/\" target=\"_blank\" title=\"Mobile WebLearn\">Mobile WebLearn <i class=\"fa fa-external-link\"></i><span class=\"subtext\">Polls, Announcements and Sign-up (requires login)</span></a></li>\n        <li><a href=\"http://courses.it.ox.ac.uk\" target=\"_blank\" title=\"IT Learning Programme Courses\">IT Learning Programme Courses <i class=\"fa fa-external-link\"></i><span class=\"subtext\">IT training courses</span></a></li>\n        </ul>\n    </div>\n    <div class=\"card\">\n        <h3>Public Resources</h3>\n        <ul class=\"results-list\">\n        <li><a href=\"http://podcasts.ox.ac.uk/\" target=\"_blank\" title=\"Podcasts\">Podcasts <i class=\"fa fa-external-link\"></i><span class=\"subtext\">Lectures, teaching, and interviews</span></a></li>\n        <li><a href=\"http://portfolio.it.ox.ac.uk/\" target=\"_blank\" title=\"IT Learning Programme Portfolio\">IT Learning Programme Portfolio <i class=\"fa fa-external-link\"></i><span class=\"subtext\">Learning resources from the IT Learning Programme</span></a></li>\n        </ul>\n    </div>\n</div>\n";});
+  return "<div id=\"cover\" class=\"learning-resources\">\n	<h2>Learning Resources</h2>\n</div>\n\n<div class=\"card-container\">\n    <div class=\"card\">\n        <h3>University Resources</h3>\n        <ul class=\"results-list\">\n        <li><a href=\"https://weblearn.ox.ac.uk\" target=\"_blank\" title=\"WebLearn\">WebLearn <i class=\"fa fa-external-link\"></i><span class=\"subtext\">University of Oxford's VLE (requires login)</span></a></li>\n        <li><a href=\"http://courses.it.ox.ac.uk\" target=\"_blank\" title=\"IT Learning Programme Courses\">IT Learning Programme Courses <i class=\"fa fa-external-link\"></i><span class=\"subtext\">IT training courses</span></a></li>\n        </ul>\n    </div>\n    <div class=\"card\">\n        <h3>Public Resources</h3>\n        <ul class=\"results-list\">\n        <li><a href=\"http://podcasts.ox.ac.uk/\" target=\"_blank\" title=\"Podcasts\">Podcasts <i class=\"fa fa-external-link\"></i><span class=\"subtext\">Lectures, teaching, and interviews</span></a></li>\n        <li><a href=\"http://portfolio.it.ox.ac.uk/\" target=\"_blank\" title=\"IT Learning Programme Portfolio\">IT Learning Programme Portfolio <i class=\"fa fa-external-link\"></i><span class=\"subtext\">Learning resources from the IT Learning Programme</span></a></li>\n        </ul>\n    </div>\n</div>\n";});
 Handlebars.registerPartial('app_learning-resources_templates_index', t);
 return t;
 });
@@ -46123,8 +46115,36 @@ define('app/learning-resources/views/StaticView',['backbone', 'hbs!app/learning-
     return StaticView;
 });
 
-define('app/router',["app/app", "app/cordova.help", "backbone", "app/places/router", "app/today/views/IndexView", "app/today/collections/TodayItems", "app/courses/router", "app/library/router", "app/contacts/router", "app/news/router", "app/events/router", "app/feedback/router", "app/notifications/router", "app/favourites/views/FavouritesEditButtonView", "app/favourites/views/FavouritesView", "app/today/views/EditTodayButton", "app/today/views/SaveTodayButton", "app/today/views/EditTodayView", "app/security/router", "app/student-advice-service/views/StaticView", "app/learning-resources/views/StaticView"],
-    function(app, cordova, Backbone, PlacesRouter, IndexView, TodayItems, CoursesRouter, LibraryRouter, ContactsRouter, NewsRouter, EventsRouter, FeedbackRouter, NotificationsRouter, FavouritesEditButtonView, FavouritesView, EditTodayButton, SaveTodayButton, EditTodayView, SecurityRouter, StudentAdviceView, LearningResourcesView){
+
+/* START_TEMPLATE */
+define('hbs!app/privacy/templates/privacy',['hbs','handlebars'], function( hbs, Handlebars ){ 
+var t = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  helpers = helpers || Handlebars.helpers;
+  
+
+
+  return "<div class=\"card-container\">\n	<div class=\"card\">\n		<h3>Privacy Policy</h3>\n		<div class=\"padded-contents\">\n			<p>\n				The Mobile Oxford app does not collect personal information. We do use Google Analytics to collect general anonymous information about which screens are used most frequently so that we can improve user experience in the future.\n			</p>\n		</div>\n	</div>\n	<div class=\"card\">\n		<h3>Android Permissions</h3>\n		<div class=\"padded-content\">\n			<p>\n				Mobile Oxford requests permissions to read your address book and add/edit your contacts. This is for the Contact Search feature which allows users to write University contacts directly to their personal phonebook. We do not read from your contacts at any point and only use this to add new contacts.\n			</p>\n\n			<p>\n				Android also has a small quirk where requesting access to READ_CONTACTS automatically adds permissions for \"read call log\" and \"write call log\". Mobile Oxford does not access either of these functions.\n			</p>\n		</div>\n	</div>\n</div>\n";});
+Handlebars.registerPartial('app_privacy_templates_privacy', t);
+return t;
+});
+/* END_TEMPLATE */
+;
+define('app/privacy/views/PrivacyView',['backbone', 'hbs!app/privacy/templates/privacy'], function(Backbone, privacyTemplate) {
+    var PrivacyView = Backbone.View.extend({
+
+        template: privacyTemplate,
+
+        beforeRender: function() {
+            Backbone.trigger('domchange:title', "Mobile Oxford Privacy Prolicy");
+        },
+
+        manage: true
+    });
+    return PrivacyView;
+});
+
+define('app/router',["app/app", "app/cordova.help", "backbone", "app/places/router", "app/today/views/IndexView", "app/today/collections/TodayItems", "app/courses/router", "app/library/router", "app/contacts/router", "app/news/router", "app/events/router", "app/feedback/router", "app/notifications/router", "app/favourites/views/FavouritesEditButtonView", "app/favourites/views/FavouritesView", "app/today/views/EditTodayButton", "app/today/views/SaveTodayButton", "app/today/views/EditTodayView", "app/security/router", "app/student-advice-service/views/StaticView", "app/learning-resources/views/StaticView", "app/privacy/views/PrivacyView"],
+    function(app, cordova, Backbone, PlacesRouter, IndexView, TodayItems, CoursesRouter, LibraryRouter, ContactsRouter, NewsRouter, EventsRouter, FeedbackRouter, NotificationsRouter, FavouritesEditButtonView, FavouritesView, EditTodayButton, SaveTodayButton, EditTodayView, SecurityRouter, StudentAdviceView, LearningResourcesView, PrivacyView){
     var MoxieRouter = Backbone.Router.extend({
         subrouters: {},
 
@@ -46149,7 +46169,8 @@ define('app/router',["app/app", "app/cordova.help", "backbone", "app/places/rout
             "feedback/*subroute": "feedback",
             "notifications/*subroute": "notifications",
             "student-advice-service/": "studentAdvice",
-            "learning-resources/": "learningResources"
+            "learning-resources/": "learningResources",
+            "privacy/": "privacy"
         },
 
         index: function() {
@@ -46222,6 +46243,9 @@ define('app/router',["app/app", "app/cordova.help", "backbone", "app/places/rout
         },
         learningResources: function(params) {
             app.renderView(new LearningResourcesView(), {menu: true});
+        },
+        privacy: function(params) {
+            app.renderView(new PrivacyView(), {menu: false});
         }
 
 
@@ -46972,8 +46996,8 @@ define('app/ga',['backbone', 'jquery'], function(Backbone, $) {
     // Common Google Analytics API for the Cordova GAPlugin and Google's async ga.js
     //
     // API is currently:
-    // - init(trackingID [, period])
-    // - trackPage()
+    // - startTrackerWithId(trackingID )
+    // - trackView(path)
     //
     // Both of which have 2 concrete implementations for Cordova and "web"
     function GA(options) {
@@ -46990,9 +47014,7 @@ define('app/ga',['backbone', 'jquery'], function(Backbone, $) {
 
         // Access the plugin directly from window
         var gaPluginAvailable = false;
-        var gaPlugin;
-        if ('plugins' in window && 'gaPlugin' in window.plugins) {
-            gaPlugin = window.plugins.gaPlugin;
+        if ('ga' in window) {
             gaPluginAvailable = true;
         }
 
@@ -47013,7 +47035,7 @@ define('app/ga',['backbone', 'jquery'], function(Backbone, $) {
         }
 
         function trackPageCordova(path) {
-            gaPlugin.trackPage(successCB("trackPage"), errorCB("trackPage"), path);
+            window.ga.trackView(path);
         }
 
         function trackPageWeb(path) {
@@ -47046,8 +47068,8 @@ define('app/ga',['backbone', 'jquery'], function(Backbone, $) {
             }
         }
 
-        function initGACordova(trackingID, period) {
-            gaPlugin.init(successCB("init GA"), errorCB("init GA"), trackingID, period);
+        function initGACordova(trackingID) {
+            window.ga.startTrackerWithId(trackingID);
         }
 
         function initGAWeb(trackingID) {
@@ -47064,13 +47086,11 @@ define('app/ga',['backbone', 'jquery'], function(Backbone, $) {
             })();
         }
 
-        this.init = function(trackingID, period) {
+        this.init = function(trackingID) {
             // trackingID - should be the unique app identifier from Google Analytics
-            // period - required for Cordova GAPlugin,
-            //          number of seconds between each upload of analytics
             try {
                 if (gaPluginAvailable) {
-                    initGACordova(trackingID, period);
+                    initGACordova(trackingID);
                 } else {
                     initGAWeb(trackingID);
                 }
